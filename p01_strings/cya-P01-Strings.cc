@@ -20,7 +20,7 @@
 #include "simbolo.h"
 
 int main(){
-  Simbolo s("ab");
+  Simbolo s("a");
   std::cout << s.GetSimbolo() << std::endl;
   return 0;
 }
