@@ -1,12 +1,20 @@
 #include <iostream>
 #include "alfabeto.h"
 
-Alfabeto::Alfabeto(char* param) : s_(param) {}
+Alfabeto::Alfabeto(std::vector<Simbolo> param) : a_(param) {}
 
-char* Alfabeto::GetAlfabeto(){
-  return s_;
+Alfabeto::Alfabeto(Simbolo param) {
+  a_.push_back(param);
+}
+
+std::vector<Simbolo> Alfabeto::GetAlfabeto(){
+  return a_;
 }
     
-void Alfabeto::SetAlfabeto(char* param){
-  s_ = param;
+void Alfabeto::SetAlfabeto(std::vector<Simbolo> param){
+  a_ = param;
+}
+
+void Alfabeto::AddSimbolo(Simbolo param){
+  a_.push_back(param);
 }

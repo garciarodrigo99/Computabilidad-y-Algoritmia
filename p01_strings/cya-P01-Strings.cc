@@ -18,11 +18,22 @@
 
 #include <iostream>
 #include "simbolo.h"
+#include "alfabeto.h"
 
 int main(){
   Simbolo s("a");
   std::cout << s.GetSimbolo() << std::endl;
-  s.SetSimbolo("b");
+
+  s.SetSimbolo("c");
   std::cout << s.GetSimbolo() << std::endl;
+
+  Alfabeto alfa(s);
+
+  Simbolo sb("b");
+  s = sb;
+  //std::cout << (s==sb) << std::endl;
+  Alfabeto beta(Simbolo("t"));
+  char* ejemplo = CADENA_VACIA;
+
   return 0;
 }

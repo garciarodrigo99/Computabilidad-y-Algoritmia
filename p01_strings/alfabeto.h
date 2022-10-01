@@ -1,12 +1,19 @@
 #include <iostream>
 #include "simbolo.h"
+#include <vector>
+#pragma once
+
+//https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
 
 class Alfabeto {
   public:
-    Alfabeto(char*);
-    char* GetAlfabeto();
-    void SetAlfabeto(char*);
+    Alfabeto(Simbolo);
+    Alfabeto(std::vector<Simbolo>);
+    std::vector<Simbolo> GetAlfabeto();
+    void SetAlfabeto(std::vector<Simbolo>);
+    void AddSimbolo(Simbolo);
+    //operator <<
 
   private:
-    char* s_;
+    std::vector<Simbolo> a_;
 };
