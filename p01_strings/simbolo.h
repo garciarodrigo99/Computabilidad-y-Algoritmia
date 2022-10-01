@@ -3,7 +3,7 @@
 
 //https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
 
-static char* const CADENA_VACIA = "&";
+static char* const kCadenaVacia = "&"; //cambiar
 
 class Simbolo {
   public:
@@ -11,6 +11,7 @@ class Simbolo {
     char* GetSimbolo();
     void SetSimbolo(char*);
     //operator==
+    //operator()
 
   private:
     char* s_;

@@ -1,5 +1,7 @@
-#include <iostream>
 #include "alfabeto.h"
+
+#include <iostream>
+
 
 Alfabeto::Alfabeto(std::vector<Simbolo> param) : a_(param) {}
 

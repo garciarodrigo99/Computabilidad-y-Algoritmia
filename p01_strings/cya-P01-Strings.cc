@@ -33,7 +33,7 @@ int main(){
   s = sb;
   //std::cout << (s==sb) << std::endl;
   Alfabeto beta(Simbolo("t"));
-  char* ejemplo = CADENA_VACIA;
+  char* ejemplo = kCadenaVacia;
 
   return 0;
 }

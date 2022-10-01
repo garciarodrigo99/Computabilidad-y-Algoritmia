@@ -1,5 +1,5 @@
 MAIN_FILE = $(cliente)cya-P01-Strings.cc
-SRC_FILES = $(alfabeto)alfabeto.cc $(simbolo)simbolo.cc
+SRC_FILES = $(cadena)cadena.cc $(alfabeto)alfabeto.cc $(simbolo)simbolo.cc
 EXECUTABLE_FILE = $(exe)cya-P01-Strings
 
 default: 

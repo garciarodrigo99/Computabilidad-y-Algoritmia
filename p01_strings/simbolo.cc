@@ -1,5 +1,6 @@
-#include <iostream>
 #include "simbolo.h"
+
+#include <iostream>
 
 Simbolo::Simbolo(char* param) : s_(param) {}
 

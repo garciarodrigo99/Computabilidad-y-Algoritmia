@@ -1,6 +1,8 @@
-#include <iostream>
 #include "simbolo.h"
+
+#include <iostream>
 #include <vector>
+
 #pragma once
 
 //https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
