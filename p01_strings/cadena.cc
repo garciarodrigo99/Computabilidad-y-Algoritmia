@@ -33,7 +33,7 @@ void Cadena::AddSimbolo(Simbolo param){
 
 std::vector<Simbolo>& Cadena::GetCadena(){
   return c_;
-}
+}//Funciona
 
 int Cadena::Longitud(){
   

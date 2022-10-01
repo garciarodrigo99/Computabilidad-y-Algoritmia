@@ -31,6 +31,8 @@ int main(){
 
   std::cout << c.GetCadena().at(0).GetSimbolo() << std::endl;
   std::cout << v.GetCadena().at(0).GetSimbolo() << std::endl;
+  v.AddSimbolo(Simbolo("v"));
+  std::cout << v.GetCadena().at(0).GetSimbolo() << std::endl;
   std::cout << e.GetCadena().at(0).GetSimbolo() << e.GetCadena().at(1).GetSimbolo() << std::endl;
 
   return 0;
