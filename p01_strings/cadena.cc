@@ -2,6 +2,7 @@
 
 #include <assert.h>
 #include <string.h>
+#include <algorithm>
 
 //https://stackoverflow.com/questions/308276/can-i-call-a-constructor-from-another-constructor-do-constructor-chaining-in-c
 //https://www.tutorialspoint.com/strcmp-in-c-cplusplus#
@@ -36,16 +37,32 @@ std::vector<Simbolo>& Cadena::GetCadena(){
 }//Funciona
 
 int Cadena::Longitud(){
-  if ((c_.size() == 1) && (strcmp(c_.front().GetSimbolo(),kCadenaVacia) == 0)) {
+  if ((c_.size() == 1) && (strcmp(c_.front().GetSimbolo(),kCadenaVacia) == 0)) {    // Cadena vacia
     return 0;
   } else
     return c_.size();
 }//Funciona
+
+Cadena Cadena::Inversa(){
+  if ((c_.size() == 1) && (strcmp(c_.front().GetSimbolo(),kCadenaVacia) == 0))      // Cadena vacia
+    return *this;
+    
+  Cadena inversa;
+  int cont = 0;
+  for (size_t i = (c_.size() - 1); i < c_.size(); --i) {     // De esta forma no se sale de rango
+  //  for (size_t i = (c_.size() - 1); cont < c_.size(); --i) {     // De esta forma no se sale de rango
+    //std::cout << "Pos " << i << " Iter" << cont <<"\n";
+    cont++;
+    inversa.AddSimbolo(c_.at(i));
+  }//Funciona
+  //std::reverse(c_.begin(),c_.end()); Hacer con esto
+
+  return inversa;
+}
 
 void Cadena::Print(){
     for (size_t i = 0; i < c_.size(); i++) {
         std::cout << c_.at(i).GetSimbolo();
     }
     //std::endl(std::cout);
-    
 }

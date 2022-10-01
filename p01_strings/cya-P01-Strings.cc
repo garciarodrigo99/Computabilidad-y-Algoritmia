@@ -17,6 +17,7 @@
 // 04/10/2022 - Creaci´on (primera versi´on) del c´odigo
 
 #include <iostream>
+#include <algorithm>
 #include "simbolo.h"
 #include "alfabeto.h"
 #include "cadena.h"
@@ -31,8 +32,6 @@ int main(){
   c2.AddSimbolo(Simbolo("b"));
   c2.AddSimbolo(Simbolo("a"));
   c2.AddSimbolo(Simbolo("b"));
-
-
 
   Cadena c3(Simbolo("6"));
   c3.AddSimbolo(Simbolo("7"));
@@ -51,20 +50,28 @@ int main(){
 
   std::cout << "Cadena: ";
   c1.Print();
-  std::cout << ", longitud: " << c1.Longitud() << std::endl;
+  std::cout << ", longitud: " << c1.Longitud() << ", inversa: ";
+  c1.Inversa().Print();
 
-  std::cout << "Cadena: ";
+  std::cout << "\nCadena: ";
   c2.Print();
-  std::cout << ", longitud: " << c2.Longitud() << std::endl;
+  std::cout << ", longitud: " << c2.Longitud() << ", inversa: ";
+  c2.Inversa().Print();
 
-  std::cout << "Cadena: ";
+  std::cout << "\nCadena: ";
   c3.Print();
-  std::cout << ", longitud: " << c3.Longitud() << std::endl;
+  std::cout << ", longitud: " << c3.Longitud() << ", inversa: ";
+  c3.Inversa().Print();
 
-  std::cout << "Cadena: ";
+  std::cout << "\nCadena: ";
   c4.Print();
-  std::cout << ", longitud: " << c4.Longitud() << std::endl;
+  std::cout << ", longitud: " << c4.Longitud() << ", inversa: ";
+  c4.Inversa().Print();
 
+  // std::reverse(v4.begin(),v4.end());
+  // for (size_t i = 0; i < v4.size(); i++) {
+  //       std::cout << v4.at(i).GetSimbolo();
+  // }
 
   return 0;
 }
