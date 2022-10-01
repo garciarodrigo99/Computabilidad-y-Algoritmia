@@ -23,17 +23,48 @@
 
 int main(){
 
-  Simbolo aux("c");
-  Cadena c(aux);
-  Cadena v;
-  Cadena e(Simbolo("e"));
-  e.AddSimbolo(Simbolo("f"));
+  Cadena c1;
 
-  std::cout << c.GetCadena().at(0).GetSimbolo() << std::endl;
-  std::cout << v.GetCadena().at(0).GetSimbolo() << std::endl;
-  v.AddSimbolo(Simbolo("v"));
-  std::cout << v.GetCadena().at(0).GetSimbolo() << std::endl;
-  std::cout << e.GetCadena().at(0).GetSimbolo() << e.GetCadena().at(1).GetSimbolo() << std::endl;
+  Cadena c2;
+  c2.AddSimbolo(Simbolo("a"));
+  c2.AddSimbolo(Simbolo("b"));
+  c2.AddSimbolo(Simbolo("b"));
+  c2.AddSimbolo(Simbolo("a"));
+  c2.AddSimbolo(Simbolo("b"));
+
+
+
+  Cadena c3(Simbolo("6"));
+  c3.AddSimbolo(Simbolo("7"));
+  c3.AddSimbolo(Simbolo("9"));
+  c3.AddSimbolo(Simbolo("3"));
+  c3.AddSimbolo(Simbolo("8"));
+  c3.AddSimbolo(Simbolo("3"));
+  c3.AddSimbolo(Simbolo("6"));
+
+  std::vector<Simbolo> v4;
+  v4.push_back("h");
+  v4.push_back("o");
+  v4.push_back("l");
+  v4.push_back("a");
+  Cadena c4(v4);
+
+  std::cout << "Cadena: ";
+  c1.Print();
+  std::cout << ", longitud: " << c1.Longitud() << std::endl;
+
+  std::cout << "Cadena: ";
+  c2.Print();
+  std::cout << ", longitud: " << c2.Longitud() << std::endl;
+
+  std::cout << "Cadena: ";
+  c3.Print();
+  std::cout << ", longitud: " << c3.Longitud() << std::endl;
+
+  std::cout << "Cadena: ";
+  c4.Print();
+  std::cout << ", longitud: " << c4.Longitud() << std::endl;
+
 
   return 0;
 }

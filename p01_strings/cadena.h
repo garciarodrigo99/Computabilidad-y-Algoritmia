@@ -15,7 +15,7 @@ class Cadena{
     void SetCadena(std::vector<Simbolo>);
     void AddSimbolo(Simbolo);
     int Longitud();
-
+    void Print();//Cambiar por operador<<
 
   private:
     std::vector<Simbolo> c_;

@@ -29,12 +29,23 @@ void Cadena::AddSimbolo(Simbolo param){
   } else {
     c_.push_back(param);                        // Añadir simbolo
   }
-}
+}//Funciona
 
 std::vector<Simbolo>& Cadena::GetCadena(){
   return c_;
 }//Funciona
 
 int Cadena::Longitud(){
-  
+  if ((c_.size() == 1) && (strcmp(c_.front().GetSimbolo(),kCadenaVacia) == 0)) {
+    return 0;
+  } else
+    return c_.size();
+}//Funciona
+
+void Cadena::Print(){
+    for (size_t i = 0; i < c_.size(); i++) {
+        std::cout << c_.at(i).GetSimbolo();
+    }
+    //std::endl(std::cout);
+    
 }
