@@ -1,22 +1,40 @@
 #include "cadena.h"
 
 #include <assert.h>
+#include <string.h>
+
+//https://stackoverflow.com/questions/308276/can-i-call-a-constructor-from-another-constructor-do-constructor-chaining-in-c
+//https://www.tutorialspoint.com/strcmp-in-c-cplusplus#
+//https://en.cppreference.com/w/c/string/byte/strcmp 
 
 Cadena::Cadena(){
   c_.push_back(kCadenaVacia);
 }
 
-Cadena::Cadena(std::vector<Simbolo> param) : c_(param){}
+Cadena::Cadena(std::vector<Simbolo> param) : c_(param){
+  for (size_t i = 0; i < c_.size(); i++) {
+    assert(strcmp(c_.at(i).GetSimbolo(),kCadenaVacia) != 0);
+  }
+  
+}//Funciona
 
-Cadena::Cadena(Simbolo param){
-  assert(param.GetSimbolo() != kCadenaVacia);   // No se puede insertar cadena vacia
-  if (c_.at(0).GetSimbolo() == kCadenaVacia) {  // Si el primer elemento es la cadena vacia
+Cadena::Cadena(Simbolo param) : Cadena() {
+  assert(strcmp(param.GetSimbolo(),kCadenaVacia) != 0); // No se puede insertar cadena vacia
+  c_.at(0).SetSimbolo(param.GetSimbolo());
+}
+
+void Cadena::AddSimbolo(Simbolo param){
+  if (strcmp(c_.at(0).GetSimbolo(),kCadenaVacia) == 0) {  // Si el primer elemento es la cadena vacia
     c_.at(0).SetSimbolo(param.GetSimbolo());    // simbolo parametro es ahora primer elemento
   } else {
     c_.push_back(param);                        // Añadir simbolo
   }
 }
 
-int Cadena::Longitud(){
+std::vector<Simbolo>& Cadena::GetCadena(){
+  return c_;
+}
 
+int Cadena::Longitud(){
+  
 }

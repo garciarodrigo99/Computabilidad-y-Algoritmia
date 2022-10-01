@@ -19,21 +19,19 @@
 #include <iostream>
 #include "simbolo.h"
 #include "alfabeto.h"
+#include "cadena.h"
 
 int main(){
-  Simbolo s("a");
-  std::cout << s.GetSimbolo() << std::endl;
 
-  s.SetSimbolo("c");
-  std::cout << s.GetSimbolo() << std::endl;
+  Simbolo aux("c");
+  Cadena c(aux);
+  Cadena v;
+  Cadena e(Simbolo("e"));
+  e.AddSimbolo(Simbolo("f"));
 
-  Alfabeto alfa(s);
-
-  Simbolo sb("b");
-  s = sb;
-  //std::cout << (s==sb) << std::endl;
-  Alfabeto beta(Simbolo("t"));
-  char* ejemplo = kCadenaVacia;
+  std::cout << c.GetCadena().at(0).GetSimbolo() << std::endl;
+  std::cout << v.GetCadena().at(0).GetSimbolo() << std::endl;
+  std::cout << e.GetCadena().at(0).GetSimbolo() << e.GetCadena().at(1).GetSimbolo() << std::endl;
 
   return 0;
 }

@@ -11,7 +11,7 @@ class Alfabeto {
   public:
     Alfabeto(Simbolo);
     Alfabeto(std::vector<Simbolo>);
-    std::vector<Simbolo> GetAlfabeto();
+    std::vector<Simbolo>& GetAlfabeto();
     void SetAlfabeto(std::vector<Simbolo>);
     void AddSimbolo(Simbolo);
     //operator <<

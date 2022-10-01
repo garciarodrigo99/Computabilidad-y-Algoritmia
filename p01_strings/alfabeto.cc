@@ -9,7 +9,7 @@ Alfabeto::Alfabeto(Simbolo param) {
   a_.push_back(param);
 }
 
-std::vector<Simbolo> Alfabeto::GetAlfabeto(){
+std::vector<Simbolo>& Alfabeto::GetAlfabeto(){
   return a_;
 }
     

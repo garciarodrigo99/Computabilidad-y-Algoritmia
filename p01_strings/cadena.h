@@ -11,7 +11,7 @@ class Cadena{
     Cadena(std::vector<Simbolo>);
     Cadena(Simbolo);
 
-    std::vector<Simbolo> GetCadena();
+    std::vector<Simbolo>& GetCadena();
     void SetCadena(std::vector<Simbolo>);
     void AddSimbolo(Simbolo);
     int Longitud();
