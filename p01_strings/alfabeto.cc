@@ -4,10 +4,11 @@
 #include <assert.h>
 #include <string.h>
 
-Alfabeto::Alfabeto(std::vector<Simbolo> param) : a_(param) {}
+Alfabeto::Alfabeto(std::vector<Simbolo> param) : a_(param) {}               //|
 
 Alfabeto::Alfabeto(Simbolo param) {
-  assert(strcmp(param.GetSimbolo(),kCadenaVacia) != 0); // No se puede insertar cadena vacia
+  assert(!(Simbolo::contieneCadenaVacia(param))); // No se puede insertar 
+                                                  // cadena vacia
   a_.push_back(param);
 }
 
@@ -20,7 +21,8 @@ void Alfabeto::SetAlfabeto(std::vector<Simbolo> param){
 }
 
 void Alfabeto::AddSimbolo(Simbolo param){
-  assert(strcmp(param.GetSimbolo(),kCadenaVacia) != 0); // No se puede insertar cadena vacia
+  assert(!(Simbolo::contieneCadenaVacia(param))); // No se puede insertar 
+                                                  // cadena vacia
   a_.push_back(param);
 }
 

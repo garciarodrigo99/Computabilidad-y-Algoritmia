@@ -5,10 +5,10 @@
 
 #pragma once
 
-class Cadena{
+class Cadena{                                                               //|
   public:
     Cadena();
-    Cadena(std::vector<Simbolo>);
+    // Cadena(std::vector<Simbolo>);
     Cadena(Simbolo);
     Cadena(Cadena&);
 

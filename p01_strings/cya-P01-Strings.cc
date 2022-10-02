@@ -18,64 +18,52 @@
 
 #include <iostream>
 #include <algorithm>
+#include <string.h>
 #include "simbolo.h"
 #include "alfabeto.h"
 #include "cadena.h"
 
+
+
 int main(){
 
-  // Cadena c1;
+  Cadena c1;
+  std::cout << "Cadena: " << c1 << ", longitud: " << c1.Longitud() << ",\tinversa: ";
+  c1.Inversa().Print();
+  std::endl(std::cout);
 
-  // Cadena c2;
-  // c2.AddSimbolo(Simbolo("a"));
-  // c2.AddSimbolo(Simbolo("b"));
-  // c2.AddSimbolo(Simbolo("b"));
-  // c2.AddSimbolo(Simbolo("a"));
-  // c2.AddSimbolo(Simbolo("b"));
+  Cadena c2;
+  c2.AddSimbolo(Simbolo("a"));
+  c2.AddSimbolo(Simbolo("b"));
+  c2.AddSimbolo(Simbolo("b"));
+  c2.AddSimbolo(Simbolo("a"));
+  c2.AddSimbolo(Simbolo("b"));
 
-  // Cadena c3(Simbolo("6"));
-  // c3.AddSimbolo(Simbolo("7"));
-  // c3.AddSimbolo(Simbolo("9"));
-  // c3.AddSimbolo(Simbolo("3"));
-  // c3.AddSimbolo(Simbolo("8"));
-  // c3.AddSimbolo(Simbolo("3"));
-  // c3.AddSimbolo(Simbolo("6"));
+  std::cout << "Cadena: " << c2 << ", longitud: " << c2.Longitud() << ",\tinversa: ";
+  c2.Inversa().Print();
+  std::endl(std::cout);
 
-  // std::vector<Simbolo> v4;
-  // v4.push_back("h");
-  // v4.push_back("o");
-  // v4.push_back("l");
-  // v4.push_back("a");
-  // Cadena c4(v4);
+  Cadena c3(Simbolo("6"));
+  c3.AddSimbolo(Simbolo("7"));
+  c3.AddSimbolo(Simbolo("9"));
+  c3.AddSimbolo(Simbolo("3"));
+  c3.AddSimbolo(Simbolo("8"));
+  c3.AddSimbolo(Simbolo("3"));
+  c3.AddSimbolo(Simbolo("6"));
 
-  // std::cout << "Cadena: " << c1 << ", longitud: " << c1.Longitud() << ",\tinversa: ";
-  // c1.Inversa().Print();
-  // std::endl(std::cout);
+  std::cout << "Cadena: " << c3 << ", longitud: " << c3.Longitud() << ",\tinversa: ";
+  c3.Inversa().Print();
+  std::endl(std::cout);
 
-  // std::cout << "Cadena: " << c2 << ", longitud: " << c2.Longitud() << ",\tinversa: ";
-  // c2.Inversa().Print();
-  // std::endl(std::cout);
+  Cadena c4;
+  c4.AddSimbolo(Simbolo("h"));
+  c4.AddSimbolo(Simbolo("o"));
+  c4.AddSimbolo(Simbolo("l"));
+  c4.AddSimbolo(Simbolo("a"));
 
-  // std::cout << "Cadena: " << c3 << ", longitud: " << c3.Longitud() << ",\tinversa: ";
-  // c3.Inversa().Print();
-  // std::endl(std::cout);
-
-  // std::cout << "Cadena: " << c4 << ", longitud: " << c4.Longitud() << ",\tinversa: ";
-  // c4.Inversa().Print();
-  // std::endl(std::cout);
-
-  // Cadena c5;
-  // c5.AddSimbolo(Simbolo("&"));
-  // std::cout << c5 << std::endl;
-  // Cadena c6("&");
-
-  Alfabeto alfa(Simbolo("a"));
-  alfa.AddSimbolo(Simbolo("b"));
-  alfa.AddSimbolo(Simbolo("c"));
-  alfa.AddSimbolo(Simbolo("e"));
-  std::cout << alfa << std::endl;
-  Alfabeto beta(Simbolo(""));
-  std::cout << beta << std::endl;
+  std::cout << "Cadena: " << c4 << ", longitud: " << c4.Longitud() << ",\tinversa: ";
+  c4.Inversa().Print();
+  std::endl(std::cout);
 
   return 0;
 }

@@ -8,21 +8,22 @@
 //https://www.tutorialspoint.com/strcmp-in-c-cplusplus#
 //https://en.cppreference.com/w/c/string/byte/strcmp 
 
-Cadena::Cadena(){
-  std::cout << "Constructor 1\n";
-  c_.push_back(kCadenaVacia);
+Cadena::Cadena(){                   // Cadena vacia                         //|
+  //std::cout << "Constructor 1\n";
+  c_.push_back("&");
 }
 
-Cadena::Cadena(std::vector<Simbolo> param) : c_(param){
-  std::cout << "Constructor 2\n";
-  for (size_t i = 0; i < c_.size(); i++) {
-    assert(strcmp(c_.at(i).GetSimbolo(),kCadenaVacia) != 0);
-  }
-}//Funciona
+// Cadena::Cadena(std::vector<Simbolo> param) : c_(param){
+//   std::cout << "Constructor 2\n";
+//   for (size_t i = 0; i < c_.size(); i++) {
+//     //assert(strcmp(c_.at(i).GetSimbolo(),kCadenaVacia) != 0);
+//     assert(!(Simbolo::contieneCadenaVacia(c_.at(i).GetSimbolo()))); // No se puede insertar cadena vacia
+//   }
+// }//Funciona
 
-Cadena::Cadena(Simbolo param) : Cadena() {
-  std::cout << "Constructor 3\n";
-  assert(strcmp(param.GetSimbolo(),kCadenaVacia) != 0); // No se puede insertar cadena vacia
+Cadena::Cadena(Simbolo param) : Cadena() {  // Constructor con simbolo, todos menos cadena vacia
+  //std::cout << "Constructor 3\n";
+  assert(!(Simbolo::contieneCadenaVacia(param.GetSimbolo()))); // No se puede insertar cadena vacia
   c_.front().SetSimbolo(param.GetSimbolo());
 }
 
@@ -31,38 +32,39 @@ Cadena::Cadena(Simbolo param) : Cadena() {
   Se hace el if ese para poder 
 */
 Cadena::Cadena(Cadena& param) : c_(param.GetCadena()){
-  std::cout << "Constructor 4\n";
-  if (!((c_.size()==1) && (strcmp(c_.front().GetSimbolo(),kCadenaVacia) == 0))) { 
+  //std::cout << "Constructor 4\n";
+  if (!((c_.size()==1) && (Simbolo::contieneCadenaVacia(c_.front())))) {
     for (size_t i = 1; i < c_.size(); i++) {
-      assert(strcmp(c_.at(i).GetSimbolo(),kCadenaVacia) != 0);
+      assert(!(Simbolo::contieneCadenaVacia(c_.at(i))));
     }
   }
-}
+}//Comprobar
 
 void Cadena::AddSimbolo(Simbolo param){
-  assert(strcmp(param.GetSimbolo(),kCadenaVacia) != 0); // No se puede insertar cadena vacia
-  if (strcmp(c_.front().GetSimbolo(),kCadenaVacia) == 0) {  // Si el primer elemento es la cadena vacia
+  assert(!(Simbolo::contieneCadenaVacia(param))); // No se puede insertar cadena vacia
+  if (Simbolo::contieneCadenaVacia(c_.front())) {      // Si el primer elemento es la cadena vacia
     c_.front().SetSimbolo(param.GetSimbolo());    // simbolo parametro es ahora primer elemento
   } else {
-    c_.push_back(param);                        // Añadir simbolo
+    c_.push_back(param);                          // Añadir simbolo
   }
-}//Funciona
+}//Funciona2
 
 std::vector<Simbolo>& Cadena::GetCadena(){
   return c_;
 }//Funciona
 
 int Cadena::Longitud(){
-  if ((c_.size() == 1) && (strcmp(c_.front().GetSimbolo(),kCadenaVacia) == 0)) {    // Cadena vacia
+  if ((c_.size() == 1) && (Simbolo::contieneCadenaVacia(c_.front()))) {    // Cadena vacia
     return 0;
   } else
     return c_.size();
 }//Funciona
 
 Cadena Cadena::Inversa(){
-  if ((c_.size() == 1) && (strcmp(c_.front().GetSimbolo(),kCadenaVacia) == 0))      // Cadena vacia
+  if ((c_.size() == 1) && (Simbolo::contieneCadenaVacia(c_.front()))){     // Cadena vacia
     return *this;
-    
+  }
+
   // Cadena inversa;
   // int cont = 0;
   // for (size_t i = (c_.size() - 1); i < c_.size(); --i) {     // De esta forma no se sale de rango

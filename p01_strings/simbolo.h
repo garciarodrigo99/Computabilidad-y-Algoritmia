@@ -4,7 +4,7 @@
 //https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
 //https://stackoverflow.com/questions/3025997/defining-static-const-integer-members-in-class-definition
 
-static char* const kCadenaVacia = "&"; //cambiar
+static char const kCadenaVacia = '&'; //cambiar
 
 class Simbolo {
   public:
@@ -14,6 +14,7 @@ class Simbolo {
     //operator==
     //operator()
     friend std::ostream& operator<<(std::ostream&, Simbolo&);
+    static bool contieneCadenaVacia(Simbolo);
 
   private:
     char* s_;
