@@ -11,3 +11,8 @@ char* Simbolo::GetSimbolo(){
 void Simbolo::SetSimbolo(char* param){
   s_ = param;
 }
+
+std::ostream& operator<<(std::ostream& os, Simbolo& param_simbolo){
+  os << param_simbolo.GetSimbolo();
+  return os;
+}

@@ -4,3 +4,6 @@ EXECUTABLE_FILE = $(exe)cya-P01-Strings
 
 default: 
 	g++ -std=c++14 -g -Wall -o $(EXECUTABLE_FILE) $(MAIN_FILE) $(SRC_FILES)
+
+run:
+	./$(EXECUTABLE_FILE)

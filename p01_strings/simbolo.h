@@ -13,6 +13,7 @@ class Simbolo {
     void SetSimbolo(char*);
     //operator==
     //operator()
+    friend std::ostream& operator<<(std::ostream&, Simbolo&);
 
   private:
     char* s_;
