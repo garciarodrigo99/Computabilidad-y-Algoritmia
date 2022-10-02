@@ -18,12 +18,10 @@
 
 #include <iostream>
 #include <algorithm>
-#include <string.h>
+#include <list>
 #include "simbolo.h"
 #include "alfabeto.h"
 #include "cadena.h"
-
-
 
 int main(){
 
@@ -42,6 +40,15 @@ int main(){
   std::cout << "Cadena: " << c2 << ", longitud: " << c2.Longitud() << ",\tinversa: ";
   c2.Inversa().Print();
   std::endl(std::cout);
+  c2.Prefijo();
+
+  // std::cout << c2.GetCadena().at(0) << std::endl;
+  // Simbolo s(c2.GetCadena().at(0).GetSimbolo());
+  // std::cout << s << std::endl;
+
+  // Cadena c6(c2.GetCadena().at(0).GetSimbolo());
+  // c6.AddSimbolo(c2.GetCadena().at(0).GetSimbolo());
+  // std::cout << c6 << std::endl;
 
   Cadena c3(Simbolo("6"));
   c3.AddSimbolo(Simbolo("7"));
@@ -54,6 +61,7 @@ int main(){
   std::cout << "Cadena: " << c3 << ", longitud: " << c3.Longitud() << ",\tinversa: ";
   c3.Inversa().Print();
   std::endl(std::cout);
+  c3.Prefijo();
 
   Cadena c4;
   c4.AddSimbolo(Simbolo("h"));
@@ -64,6 +72,11 @@ int main(){
   std::cout << "Cadena: " << c4 << ", longitud: " << c4.Longitud() << ",\tinversa: ";
   c4.Inversa().Print();
   std::endl(std::cout);
+  c4.Prefijo();
+  c4.Sufijo();
+
+  // std::vector<Cadena> vect;
+  // vect.push_back(c2);
 
   return 0;
 }

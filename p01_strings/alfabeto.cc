@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <assert.h>
-#include <string.h>
 
 Alfabeto::Alfabeto(std::vector<Simbolo> param) : a_(param) {}               //|
 

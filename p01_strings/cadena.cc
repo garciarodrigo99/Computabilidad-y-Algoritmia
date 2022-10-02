@@ -1,7 +1,6 @@
 #include "cadena.h"
 
 #include <assert.h>
-#include <string.h>
 #include <algorithm>
 
 //https://stackoverflow.com/questions/308276/can-i-call-a-constructor-from-another-constructor-do-constructor-chaining-in-c
@@ -78,6 +77,35 @@ Cadena Cadena::Inversa(){
   std::reverse(inversa.GetCadena().begin(),inversa.GetCadena().end());
 
   return inversa;
+}
+
+std::vector<Cadena> Cadena::Prefijo(){
+  std::vector<Cadena> prefijos;
+  //std::cout << prefijos.size() << std::endl;
+  for (size_t i = 0; i < c_.size(); i++) {
+    Cadena cadena_aux;
+    for (size_t j = 0; j <= i; j++) {
+      cadena_aux.AddSimbolo(Simbolo(c_.at(j).GetSimbolo()));
+    }
+    std::cout << cadena_aux << " ";
+  }
+  std::endl(std::cout);
+  return prefijos;
+}
+
+std::vector<Cadena> Cadena::Sufijo(){
+  std::vector<Cadena> prefijos;
+  //std::cout << prefijos.size() << std::endl;
+  for (size_t i = 0; i < c_.size(); i++) {
+    Cadena cadena_aux;
+    for (size_t j = 0; j <= i; j++) {
+      cadena_aux.AddSimbolo(Simbolo(Inversa().GetCadena().at(j).GetSimbolo()));
+    }
+    std::cout << cadena_aux << " ";
+    //prefijos.push_back(cadena_aux);
+  }
+  std::endl(std::cout);
+  return prefijos;
 }
 
 void Cadena::Print(){

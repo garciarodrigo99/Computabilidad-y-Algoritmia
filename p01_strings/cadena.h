@@ -17,13 +17,16 @@ class Cadena{                                                               //|
     void AddSimbolo(Simbolo);
     int Longitud();
     Cadena Inversa();
-    void Print();//Cambiar por operador<<
+    std::vector<Cadena> Prefijo();
+    std::vector<Cadena> Sufijo();
+    void Print();
     friend std::ostream& operator<<(std::ostream&, Cadena&);
     //operator=
     bool isEqual(Cadena&);
     //operator std::vector<Simbolo>(void);
 
   private:
+    std::vector<Cadena> Fijos(Cadena&);
     std::vector<Simbolo> c_;
 };
 
