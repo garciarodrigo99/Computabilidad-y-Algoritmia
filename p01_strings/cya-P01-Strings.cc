@@ -64,13 +64,18 @@ int main(){
   // c4.Inversa().Print();
   // std::endl(std::cout);
 
-  Cadena c5("a");
-  c5.AddSimbolo("&b");
-  std::cout << c5 << std::endl;
-  Cadena c6("&");
+  // Cadena c5;
+  // c5.AddSimbolo(Simbolo("&"));
+  // std::cout << c5 << std::endl;
+  // Cadena c6("&");
 
-  //Cadena c7(Simbolo("&"));
-
+  Alfabeto alfa(Simbolo("a"));
+  alfa.AddSimbolo(Simbolo("b"));
+  alfa.AddSimbolo(Simbolo("c"));
+  alfa.AddSimbolo(Simbolo("e"));
+  std::cout << alfa << std::endl;
+  Alfabeto beta(Simbolo(""));
+  std::cout << beta << std::endl;
 
   return 0;
 }

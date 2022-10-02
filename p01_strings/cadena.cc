@@ -40,6 +40,7 @@ Cadena::Cadena(Cadena& param) : c_(param.GetCadena()){
 }
 
 void Cadena::AddSimbolo(Simbolo param){
+  assert(strcmp(param.GetSimbolo(),kCadenaVacia) != 0); // No se puede insertar cadena vacia
   if (strcmp(c_.front().GetSimbolo(),kCadenaVacia) == 0) {  // Si el primer elemento es la cadena vacia
     c_.front().SetSimbolo(param.GetSimbolo());    // simbolo parametro es ahora primer elemento
   } else {

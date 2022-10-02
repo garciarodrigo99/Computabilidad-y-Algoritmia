@@ -14,7 +14,7 @@ class Alfabeto {
     std::vector<Simbolo>& GetAlfabeto();
     void SetAlfabeto(std::vector<Simbolo>);
     void AddSimbolo(Simbolo);
-    //operator <<
+    friend std::ostream& operator<<(std::ostream&, Alfabeto&);
 
   private:
     std::vector<Simbolo> a_;
