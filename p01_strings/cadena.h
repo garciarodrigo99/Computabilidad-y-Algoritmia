@@ -8,11 +8,11 @@
 class Cadena{                                                               //|
   public:
     Cadena();
-    // Cadena(std::vector<Simbolo>);
     Cadena(Simbolo);
-    Cadena(Cadena&);
+    Cadena(const Cadena&);
+    // Cadena(Cadena&);
 
-    std::vector<Simbolo>& GetCadena();
+    const std::vector<Simbolo>& GetCadena()const;
     void SetCadena(std::vector<Simbolo>);
     void AddSimbolo(Simbolo);
     int Longitud();
@@ -26,7 +26,6 @@ class Cadena{                                                               //|
     //operator std::vector<Simbolo>(void);
 
   private:
-    std::vector<Cadena> Fijos(Cadena&);
     std::vector<Simbolo> c_;
 };
 

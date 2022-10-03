@@ -31,24 +31,20 @@ int main(){
   std::endl(std::cout);
 
   Cadena c2;
-  c2.AddSimbolo(Simbolo("a"));
-  c2.AddSimbolo(Simbolo("b"));
-  c2.AddSimbolo(Simbolo("b"));
-  c2.AddSimbolo(Simbolo("a"));
-  c2.AddSimbolo(Simbolo("b"));
+  std::string stra("a");
+  Simbolo a(stra);
+  std::string strb("b");
+  Simbolo b(strb);
+  c2.AddSimbolo(a);
+  c2.AddSimbolo(b);
+  c2.AddSimbolo(b);
+  c2.AddSimbolo(a);
+  c2.AddSimbolo(b);
 
   std::cout << "Cadena: " << c2 << ", longitud: " << c2.Longitud() << ",\tinversa: ";
   c2.Inversa().Print();
   std::endl(std::cout);
   c2.Prefijo();
-
-  // std::cout << c2.GetCadena().at(0) << std::endl;
-  // Simbolo s(c2.GetCadena().at(0).GetSimbolo());
-  // std::cout << s << std::endl;
-
-  // Cadena c6(c2.GetCadena().at(0).GetSimbolo());
-  // c6.AddSimbolo(c2.GetCadena().at(0).GetSimbolo());
-  // std::cout << c6 << std::endl;
 
   Cadena c3(Simbolo("6"));
   c3.AddSimbolo(Simbolo("7"));
@@ -63,20 +59,22 @@ int main(){
   std::endl(std::cout);
   c3.Prefijo();
 
-  Cadena c4;
-  c4.AddSimbolo(Simbolo("h"));
-  c4.AddSimbolo(Simbolo("o"));
-  c4.AddSimbolo(Simbolo("l"));
-  c4.AddSimbolo(Simbolo("a"));
+  // Cadena c4;
+  // c4.AddSimbolo(Simbolo("h"));
+  // c4.AddSimbolo(Simbolo("o"));
+  // c4.AddSimbolo(Simbolo("l"));
+  // c4.AddSimbolo(Simbolo("a"));
 
-  std::cout << "Cadena: " << c4 << ", longitud: " << c4.Longitud() << ",\tinversa: ";
-  c4.Inversa().Print();
-  std::endl(std::cout);
-  c4.Prefijo();
-  c4.Sufijo();
+  // std::cout << "Cadena: " << c4 << ", longitud: " << c4.Longitud() << ",\tinversa: ";
+  // c4.Inversa().Print();
+  // std::endl(std::cout);
+  // c4.Prefijo();
+  // c4.Sufijo();
 
-  // std::vector<Cadena> vect;
-  // vect.push_back(c2);
+  for (size_t i = 0; i < c2.Prefijo().size(); i++) {
+    std::cout << c2.Prefijo().at(i) << " ";
+  }
+  
 
   return 0;
 }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #pragma once
 
 //https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
@@ -8,14 +9,20 @@ static char const kCadenaVacia = '&'; //cambiar
 
 class Simbolo {
   public:
-    Simbolo(char*);
-    char* GetSimbolo();
-    void SetSimbolo(char*);
+    //Simbolo(std::string&);
+    Simbolo(const std::string);
+    ~Simbolo();
+    //const char* GetSimbolo();
+    //void SetSimbolo(char*);
     //operator==
     //operator()
-    friend std::ostream& operator<<(std::ostream&, Simbolo&);
-    static bool contieneCadenaVacia(Simbolo);
+    friend std::ostream& operator<<(std::ostream&, const Simbolo&);
+    bool CheckSimbols(Simbolo);
+
+    // Para encapsular más 
+    int Size();
+    const char position(int);
 
   private:
-    char* s_;
+    std::string s_;
 };
