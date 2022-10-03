@@ -15,6 +15,7 @@ class Alfabeto {
     void SetAlfabeto(std::vector<Simbolo>);
     void AddSimbolo(Simbolo);
     friend std::ostream& operator<<(std::ostream&, Alfabeto&);
+    //Metodo comprobar cadena pertenece a alfabeto
 
   private:
     std::vector<Simbolo> a_;
