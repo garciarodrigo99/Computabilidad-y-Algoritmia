@@ -67,19 +67,15 @@ std::vector<Cadena> Cadena::Prefijo(){
 }
 
 std::vector<Cadena> Cadena::Sufijo(){
-  std::vector<Cadena> prefijos;
-  //std::cout << prefijos.size() << std::endl;
+  std::vector<Cadena> sufijos;
   for (size_t i = 0; i < c_.size(); i++) {
     Cadena cadena_aux;
     for (size_t j = 0; j <= i; j++) {
-      //cadena_aux.AddSimbolo(Simbolo(Inversa().GetCadena().at(j).GetSimbolo()));
-      cadena_aux.AddSimbolo(Inversa().GetCadena().at(i));
+      cadena_aux.AddSimbolo(Inversa().GetCadena().at(j));
     }
-    std::cout << cadena_aux << " ";
-    //prefijos.push_back(cadena_aux);
+    sufijos.push_back(cadena_aux);
   }
-  std::endl(std::cout);
-  return prefijos;
+  return sufijos;
 }
 
 void Cadena::Print(){

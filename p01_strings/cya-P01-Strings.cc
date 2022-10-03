@@ -44,7 +44,11 @@ int main(){
   std::cout << "Cadena: " << c2 << ", longitud: " << c2.Longitud() << ",\tinversa: ";
   c2.Inversa().Print();
   std::endl(std::cout);
-  c2.Prefijo();
+  for (size_t i = 0; i < c2.Prefijo().size(); i++) {
+    std::cout << c2.Prefijo().at(i) << " ";
+  }
+  std::endl(std::cout);
+
 
   Cadena c3(Simbolo("6"));
   c3.AddSimbolo(Simbolo("7"));
@@ -57,24 +61,28 @@ int main(){
   std::cout << "Cadena: " << c3 << ", longitud: " << c3.Longitud() << ",\tinversa: ";
   c3.Inversa().Print();
   std::endl(std::cout);
-  c3.Prefijo();
-
-  // Cadena c4;
-  // c4.AddSimbolo(Simbolo("h"));
-  // c4.AddSimbolo(Simbolo("o"));
-  // c4.AddSimbolo(Simbolo("l"));
-  // c4.AddSimbolo(Simbolo("a"));
-
-  // std::cout << "Cadena: " << c4 << ", longitud: " << c4.Longitud() << ",\tinversa: ";
-  // c4.Inversa().Print();
-  // std::endl(std::cout);
-  // c4.Prefijo();
-  // c4.Sufijo();
-
-  for (size_t i = 0; i < c2.Prefijo().size(); i++) {
-    std::cout << c2.Prefijo().at(i) << " ";
+  for (size_t i = 0; i < c3.Prefijo().size(); i++) {
+    std::cout << c3.Prefijo().at(i) << " ";
   }
-  
+  std::endl(std::cout);
+
+  Cadena c4;
+  c4.AddSimbolo(Simbolo("h"));
+  c4.AddSimbolo(Simbolo("o"));
+  c4.AddSimbolo(Simbolo("l"));
+  c4.AddSimbolo(Simbolo("a"));
+
+  std::cout << "Cadena: " << c4 << ", longitud: " << c4.Longitud() << ",\tinversa: ";
+  c4.Inversa().Print();
+  std::endl(std::cout);
+  for (size_t i = 0; i < c4.Prefijo().size(); i++) {
+    std::cout << c4.Prefijo().at(i) << " ";
+  }
+  std::endl(std::cout);
+  for (size_t i = 0; i < c4.Prefijo().size(); i++) {
+    std::cout << c4.Sufijo().at(i) << " ";
+  }
+  std::endl(std::cout);
 
   return 0;
 }

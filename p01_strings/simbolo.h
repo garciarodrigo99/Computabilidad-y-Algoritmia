@@ -20,7 +20,7 @@ class Simbolo {
     bool CheckSimbols(Simbolo);
 
     // Para encapsular más 
-    int Size();
+    int Size()const;
     const char position(int);
 
   private:

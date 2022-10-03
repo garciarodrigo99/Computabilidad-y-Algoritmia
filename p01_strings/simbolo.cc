@@ -32,7 +32,7 @@ bool Simbolo::CheckSimbols(Simbolo simbolo_param){
   return true;
 }
 
-int Simbolo::Size(){
+int Simbolo::Size()const{
   return s_.size();
 }
 
