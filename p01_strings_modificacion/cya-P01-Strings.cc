@@ -46,11 +46,13 @@ void information(char* p_name){
 }
 
 int main(int argc, char* argv[]){
+  // Comprobar argumentos de ejecucion son correctos
   if (argc != kArgumentos) {
     std::cout << "¡Error de formato!\n\n";
     information(argv[0]);
     return 1;
   } else {
+    // Comprobar opcode esta entre los valores aceptados
     if ((atoi(argv[argc - 1]) < 1) || (atoi(argv[argc - 1]) > kOpcode)) {
       std::cout << "¡Opcode no válido!\n"
       "Las opciones son entre " << 1 << " y " << kOpcode << std::endl;
@@ -91,7 +93,7 @@ int main(int argc, char* argv[]){
         }
         
         //alfa.okCadena(vector_cadena.back());
-        
+
         // Menu
         switch (atoi(argv[argc - 1])){
           case 1:
