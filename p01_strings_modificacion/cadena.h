@@ -1,3 +1,20 @@
+// Universidad de La Laguna
+// Escuela Superior de Ingeniería y Tecnología
+// Grado en Ingeniería Informática
+// Asignatura: Computabilidad y Algoritmia
+// Curso: 2º
+// Práctica 1: Símbolos, alfabetos y cadenas
+// Autor: Rodrigo Garcia Jimenez
+// Correo: alu0101154473@ull.es
+// Fecha: 04/10/2022
+// Archivo cadena.h: Cabecera de la clase Cadena.
+// Contiene la función main del proyecto que usa las clases X e Y
+// para ... (indicar brevemente el objetivo)
+// Referencias:
+// Enlaces de interéss
+//
+// Historial de revisiones
+// 04/10/2022 - Creaci´on (primera versi´on) del c´odigo
 #include "simbolo.h"
 
 #include <iostream>
@@ -30,11 +47,3 @@ class Cadena{                                                               //|
   private:
     std::vector<Simbolo> c_;
 };
-
-//Lo declaro aquí porque si no tendría que crear un namespace
-// std::ostream& operator<<(std::ostream& os, Cadena& param_cadena){
-//   for (size_t i = 0; i < param_cadena.GetCadena().size(); i++){
-//     os << param_cadena.GetCadena().at(i);
-//   }
-//   return os;
-// }
