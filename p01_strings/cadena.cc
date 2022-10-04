@@ -39,18 +39,9 @@ Cadena Cadena::Inversa(){
   }
 
   Cadena inversa;
-  int cont = 0;
-  for (size_t i = (c_.size() - 1); i < c_.size(); --i) {     // De esta forma no se sale de rango
-    for (size_t i = (c_.size() - 1); cont < c_.size(); --i) {     // De esta forma no se sale de rango
-    //std::cout << "Pos " << i << " Iter" << cont <<"\n";
-    cont++;
+  for (int i = (c_.size() - 1); i >= 0; --i) {     // De esta forma no se sale de rango
     inversa.AddSimbolo(c_.at(i));
-    }
   }
-  // Cadena inversa(*this);
-  // std::reverse(inversa.GetCadena().begin(),inversa.GetCadena().end());
-  //std::cout << "Escribiendo Inversa: " << inversa;
-
   return inversa;
 }
 
@@ -66,12 +57,25 @@ std::vector<Cadena> Cadena::Prefijo(){
   return prefijos;
 }
 
+// std::vector<Cadena> Cadena::Sufijo(){
+//   std::vector<Cadena> sufijos;
+//   for (size_t i = 0; i < c_.size(); i++) {
+//     Cadena cadena_aux;
+//     for (size_t j = 0; j <= i; j++) {
+//       cadena_aux.AddSimbolo(Inversa().GetCadena().at(j));
+//     }
+//     sufijos.push_back(cadena_aux);
+//   }
+//   return sufijos;
+// }
+
 std::vector<Cadena> Cadena::Sufijo(){
   std::vector<Cadena> sufijos;
-  for (size_t i = 0; i < c_.size(); i++) {
+  for (int i = (c_.size()-1); i >= 0; i--) {
     Cadena cadena_aux;
-    for (size_t j = 0; j <= i; j++) {
-      cadena_aux.AddSimbolo(Inversa().GetCadena().at(j));
+    for (int j = (c_.size()-1); j >= i; j--) {
+      cadena_aux.AddSimbolo(c_.at(j));
+      //std::cout << "i: " << i << "j: " << j << std::endl;
     }
     sufijos.push_back(cadena_aux);
   }
@@ -83,8 +87,8 @@ void Cadena::Print(){
     std::cout << kCadenaVacia;
   } else {  
     for (size_t i = 0; i < c_.size(); i++) {
-          std::cout << c_.at(i);
-      }
+        std::cout << c_.at(i);
+    }
   }
 }
 
@@ -92,7 +96,7 @@ std::ostream& operator<<(std::ostream& os, Cadena& param_cadena){
   if (param_cadena.Longitud()==0) {
     return os << kCadenaVacia;
   } else {  
-    for (size_t i = 0; i < param_cadena.GetCadena().size(); i++){
+    for (int i = 0; i < param_cadena.Longitud(); i++){
       os << param_cadena.c_.at(i);
     }
     return os;
