@@ -59,6 +59,24 @@ std::vector<Cadena> Cadena::Prefijo(){
   return prefijos;
 }
 
+std::vector<Cadena> Cadena::Subcadena(){
+  std::vector<Cadena> subcadena;
+  Cadena v;
+  subcadena.push_back(v);
+  for (int len = 1; len <= c_.size(); len++) {
+    for (int i = 0; i <= (c_.size() - len); i++) {
+      Cadena cadena_aux;
+      int j = i + len - 1;
+      for (int k = i; k <= j; k++) {
+        cadena_aux.AddSimbolo(c_.at(k));
+      }
+      subcadena.push_back(cadena_aux);
+    }
+    //std::cout << "Subcadena: " << cadena_aux << std::endl;
+  }
+  return subcadena;
+}
+
 std::vector<Cadena> Cadena::Sufijo(){
   std::vector<Cadena> sufijos;
   Cadena v;

@@ -64,6 +64,10 @@ int main(int argc, char* argv[]){
       std::cout << vector_cadena.back().Sufijo().at(i) << " ";
     }
     std::endl(std::cout);
+    for (size_t i = 0; i < vector_cadena.back().Subcadena().size(); i++) {
+      std::cout << vector_cadena.back().Subcadena().at(i) << " ";
+    }
+    std::endl(std::cout);
   }
 
   return 0;

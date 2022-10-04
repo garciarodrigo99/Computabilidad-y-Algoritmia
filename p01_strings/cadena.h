@@ -19,6 +19,7 @@ class Cadena{                                                               //|
     Cadena Inversa();
     std::vector<Cadena> Prefijo();
     std::vector<Cadena> Sufijo();
+    std::vector<Cadena> Subcadena();
     void Print();
     friend std::ostream& operator<<(std::ostream&, Cadena&);
     //operator=
