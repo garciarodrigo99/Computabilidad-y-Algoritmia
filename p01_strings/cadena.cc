@@ -47,6 +47,8 @@ Cadena Cadena::Inversa(){
 
 std::vector<Cadena> Cadena::Prefijo(){
   std::vector<Cadena> prefijos;
+  Cadena v;
+  prefijos.push_back(v);
   for (size_t i = 0; i < c_.size(); i++) {
     Cadena cadena_aux;
     for (size_t j = 0; j <= i; j++) {
@@ -57,25 +59,14 @@ std::vector<Cadena> Cadena::Prefijo(){
   return prefijos;
 }
 
-// std::vector<Cadena> Cadena::Sufijo(){
-//   std::vector<Cadena> sufijos;
-//   for (size_t i = 0; i < c_.size(); i++) {
-//     Cadena cadena_aux;
-//     for (size_t j = 0; j <= i; j++) {
-//       cadena_aux.AddSimbolo(Inversa().GetCadena().at(j));
-//     }
-//     sufijos.push_back(cadena_aux);
-//   }
-//   return sufijos;
-// }
-
 std::vector<Cadena> Cadena::Sufijo(){
   std::vector<Cadena> sufijos;
+  Cadena v;
+  sufijos.push_back(v);
   for (int i = (c_.size()-1); i >= 0; i--) {
     Cadena cadena_aux;
-    for (int j = (c_.size()-1); j >= i; j--) {
+    for (int j = i; j < c_.size(); j++) {
       cadena_aux.AddSimbolo(c_.at(j));
-      //std::cout << "i: " << i << "j: " << j << std::endl;
     }
     sufijos.push_back(cadena_aux);
   }
