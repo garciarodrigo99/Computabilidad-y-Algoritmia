@@ -26,9 +26,10 @@
 #include "alfabeto.h"
 #include "cadena.h"
 #define kArgumentos 4
-#define kOpcode 5
+#define kOpcode 6
 #define kDelimeter ' '
 
+// Funcion para separar cada linea en cadenas según espacios
 std::vector<std::string> SplitChain(std::string str, char pattern) {
     
     int posInit = 0;
@@ -42,17 +43,19 @@ std::vector<std::string> SplitChain(std::string str, char pattern) {
         posInit = posFound + 1;
         results.push_back(splitted);
     }
-    
     return results;
 }
 
+// Funcion que imprime por pantalla un vector de cadenas
 void PrintChainVector(std::vector<Cadena> param_vector){
-  for (size_t i = 0; i < param_vector.back().Prefijo().size(); i++) {
-    std::cout << param_vector.back().Prefijo().at(i) << " ";
+  for (size_t i = 0; i < param_vector.size(); i++) {
+    std::cout << param_vector.at(i) << " ";
   }
   std::endl(std::cout);
 }
 
+// Funcion que indica la forma correcta de ejecutar y cada parametro a 
+// introducir en caso de error.
 void information(char* p_name){
     std::cout <<"La forma correcta de ejecutar el programa es:\n"
     << p_name << " ficheroentrada.txt ficherosalida.txt opcode\n\n"
@@ -64,7 +67,7 @@ void information(char* p_name){
 }
 
 int main(int argc, char* argv[]){
-  // Comprobar argumentos de ejecucion son correctos
+  // Comprobar numero de argumentos de ejecucion son correctos
   if (argc != kArgumentos) {
     std::cout << "¡Error de formato!\n\n";
     information(argv[0]);
@@ -80,50 +83,50 @@ int main(int argc, char* argv[]){
       std::string nombre_archivo = "ejemplo.txt"; //Parametro 1
       std::ifstream archivo(nombre_archivo.c_str());
       std::string linea;
-      //char delimitador = ' ';
-      while (getline(archivo, linea)) {
-        
-        //alfa.okCadena(vector_cadena.back());
 
-        std::vector<Simbolo> symbol_vector;
+      // Comienza lectura de fichero
+      while (getline(archivo, linea)) {   
+        // Se define el alfabeto
+        std::vector<Symbol> symbol_vector;
         if (SplitChain(linea,kDelimeter).size() == 1) {   //Cadena sin alfabeto
           
         } else {
-          for (size_t i = 0; i < SplitChain(linea,kDelimeter).size(); i++) {
+          for (size_t i = 0; i < (SplitChain(linea,kDelimeter).size() - 1); i++) {
             symbol_vector.push_back(SplitChain(linea,kDelimeter).at(i));
           } 
         }
         Alfabeto alfa(symbol_vector);
 
+        // Se crea y rellena la cadena
         Cadena chain;
         for (size_t i = 0; i < SplitChain(linea,kDelimeter).back().size(); i++){
           std::string string_aux;
           string_aux.push_back(SplitChain(linea,kDelimeter).back().at(i));
-          chain.AddSimbolo(Simbolo(string_aux));
+          chain.AddSymbol(Symbol(string_aux));
         }
         
         //Comprobar cadena pertenece al alfabeto
 
-        // // Menu
+        // Menu. Ejecutar opcion según opcode
         switch (atoi(argv[argc - 1])){
           case 1:
-            std::cout << chain.Longitud() << std::endl;
+            std::cout << chain.Size() << std::endl;
             break;
           case 2:
             chain.Inversa().Print();
             std::endl(std::cout);
             break;
           case 3:
-            PrintChainVector(chain.Prefijo());
+            PrintChainVector(chain.Prefix());
             break;
           case 4:
-            PrintChainVector(chain.Sufijo());
+            PrintChainVector(chain.Sufix());
             break;
           case 5:
-            PrintChainVector(chain.Subcadena());
+            PrintChainVector(chain.Substring());
             break;
           case 6:
-            std::cout << "Simbolos distintos: " << alfa.DistinctSimbol(chain) << "/" << alfa.GetAlfabeto().size() << std::endl;
+            std::cout << "Simbolos distintos: " << alfa.DistinctSimbol(chain) << "/" << alfa.Size() << std::endl; // Cambiar
             break;
           default:
             break;

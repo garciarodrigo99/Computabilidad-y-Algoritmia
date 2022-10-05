@@ -8,8 +8,7 @@
 // Correo: alu0101154473@ull.es
 // Fecha: 04/10/2022
 // Archivo cadena.h: Cabecera de la clase Cadena.
-// Contiene la función main del proyecto que usa las clases X e Y
-// para ... (indicar brevemente el objetivo)
+// Se define la clase Cadena con sus métodos y atributos
 // Referencias:
 // Enlaces de interéss
 //
@@ -25,25 +24,28 @@
 class Cadena{                                                               //|
   public:
     Cadena();
-    Cadena(Simbolo);
+    Cadena(Symbol);
     Cadena(const Cadena&);
     // Cadena(Cadena&);
 
-    const std::vector<Simbolo>& GetCadena()const;
-    void SetCadena(std::vector<Simbolo>);
-    void AddSimbolo(Simbolo);
-    int Longitud();
+    const std::vector<Symbol>& GetCadena()const;
+    void SetCadena(std::vector<Symbol>);
+    void AddSymbol(Symbol);
     Cadena Inversa();
-    std::vector<Cadena> Prefijo();
-    std::vector<Cadena> Sufijo();
-    std::vector<Cadena> Subcadena();
+    std::vector<Cadena> Prefix();
+    std::vector<Cadena> Sufix();
+    std::vector<Cadena> Substring();
     void Print();
     friend std::ostream& operator<<(std::ostream&, Cadena&);
     //operator=
     bool isEqual(Cadena&);
-    bool inSimbolo(Simbolo);
+    bool inSymbol(Symbol);
     //operator std::vector<Simbolo>(void);
+    int Size();
+    Symbol Position(int);
 
   private:
-    std::vector<Simbolo> c_;
+    std::vector<Symbol> chain_;
 };
+
+bool inVector(std::vector<Cadena> param_vector, Cadena param_cadena);

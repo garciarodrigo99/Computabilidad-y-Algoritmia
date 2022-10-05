@@ -8,10 +8,9 @@
 // Correo: alu0101154473@ull.es
 // Fecha: 04/10/2022
 // Archivo simbolo.h: Cabecera de la clase Simbolo.
-// Contiene la función main del proyecto que usa las clases X e Y
-// para ... (indicar brevemente el objetivo)
+// Se define la clase Symbol con sus métodos y atributos
 // Referencias:
-// Enlaces de interéss
+// Enlaces de interés
 // https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
 // https://stackoverflow.com/questions/3025997/defining-static-const-integer-members-in-class-definition
 // Historial de revisiones
@@ -20,22 +19,23 @@
 #include <string>
 #pragma once
 
-static char const kCadenaVacia = '&'; //cambiar
+static char const kEmptyChain = '&'; //cambiar
 
-class Simbolo {
+class Symbol {
   public:
-    Simbolo(const std::string);
-    ~Simbolo();
-    std::string GetSimbolo();
-    std::string GetSimbolo()const;
-    bool isEqual(Simbolo);
-    friend std::ostream& operator<<(std::ostream&, const Simbolo&);
-    bool CheckSimbols(Simbolo);
+    Symbol(const std::string);
+    ~Symbol();
+    std::string GetSymbol();
+    std::string GetSymbol()const;
+    bool isEqual(Symbol);
+    bool isEqual(Symbol)const;
+    friend std::ostream& operator<<(std::ostream&, const Symbol&);
+    bool CheckSimbols(Symbol);
 
     // Para encapsular más 
     int Size()const;
     const char position(int);
 
   private:
-    std::string s_;
+    std::string symbol_;
 };

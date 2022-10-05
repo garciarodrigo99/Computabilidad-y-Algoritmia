@@ -26,91 +26,101 @@
 
 Cadena::Cadena(){}
 
-Cadena::Cadena(Simbolo param) : Cadena() {  // Constructor con simbolo, todos menos cadena vacia
+Cadena::Cadena(Symbol param) : Cadena() {  // Constructor con simbolo, todos menos cadena vacia
   //std::cout << "Constructor 3\n";
   // assert(!(Simbolo::CheckSimbols(param))); // No se puede insertar cadena vacia
-  c_.push_back(param);
+  chain_.push_back(param);
 }
 
 /*
   Constructor de copia de la clase
   Se hace el if ese para poder 
 */
-Cadena::Cadena(const Cadena& param) : c_(param.GetCadena()) {}//Comprobar
+Cadena::Cadena(const Cadena& param) : chain_(param.GetCadena()) {}//Comprobar
 
-void Cadena::AddSimbolo(Simbolo param){
-  c_.push_back(param);
+void Cadena::AddSymbol(Symbol param){
+  chain_.push_back(param);
 }//Funciona2
 
-const std::vector<Simbolo>& Cadena::GetCadena()const{
-  return c_;
-}//Funciona
-
-int Cadena::Longitud(){
-    return c_.size();
+const std::vector<Symbol>& Cadena::GetCadena()const{
+  return chain_;
 }
 
 Cadena Cadena::Inversa(){
-  if (c_.size()==0){
+  if (chain_.size()==0){
     return *this;
   }
 
   Cadena inversa;
-  for (int i = (c_.size() - 1); i >= 0; --i) {     // De esta forma no se sale de rango
-    inversa.AddSimbolo(c_.at(i));
+  for (int i = (chain_.size() - 1); i >= 0; --i) {     // De esta forma no se sale de rango
+    inversa.AddSymbol(chain_.at(i));
   }
   return inversa;
 }
 
-bool Cadena::inSimbolo(Simbolo simbolo_param){
-  for (size_t i = 0; i < c_.size(); i++){
-    if (c_.at(i).isEqual(simbolo_param)) {
+bool Cadena::inSymbol(Symbol simbolo_param){
+  for (size_t i = 0; i < chain_.size(); i++){
+    if (chain_.at(i).isEqual(simbolo_param)) {
       return true;
     }
   }
   return false;
 }
 
-std::vector<Cadena> Cadena::Prefijo(){
+bool Cadena::isEqual(Cadena& cadena_param){
+  if (chain_.size() != cadena_param.Size()) {
+    return false;
+  } else {
+    for (size_t i = 0; i < chain_.size(); i++) {
+      if (!(chain_.at(i).isEqual(cadena_param.Position(i)))) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+std::vector<Cadena> Cadena::Prefix(){
   std::vector<Cadena> prefijos;
   Cadena v;
   prefijos.push_back(v);
-  for (size_t i = 0; i < c_.size(); i++) {
+  for (size_t i = 0; i < chain_.size(); i++) {
     Cadena cadena_aux;
     for (size_t j = 0; j <= i; j++) {
-      cadena_aux.AddSimbolo(c_.at(j));
+      cadena_aux.AddSymbol(chain_.at(j));
     }
     prefijos.push_back(cadena_aux);
   }
   return prefijos;
 }
 
-std::vector<Cadena> Cadena::Subcadena(){
+std::vector<Cadena> Cadena::Substring(){
   std::vector<Cadena> subcadena;
   Cadena v;
   subcadena.push_back(v);
-  for (int len = 1; len <= c_.size(); len++) {
-    for (int i = 0; i <= (c_.size() - len); i++) {
+  for (int len = 1; len <= chain_.size(); len++) {
+    for (int i = 0; i <= (chain_.size() - len); i++) {
       Cadena cadena_aux;
       int j = i + len - 1;
       for (int k = i; k <= j; k++) {
-        cadena_aux.AddSimbolo(c_.at(k));
+        cadena_aux.AddSymbol(chain_.at(k));
       }
-      subcadena.push_back(cadena_aux);
+      if (!(inVector(subcadena,cadena_aux))) {
+        subcadena.push_back(cadena_aux); 
+      }
     }
-    //std::cout << "Subcadena: " << cadena_aux << std::endl;
   }
   return subcadena;
 }
 
-std::vector<Cadena> Cadena::Sufijo(){
+std::vector<Cadena> Cadena::Sufix(){
   std::vector<Cadena> sufijos;
   Cadena v;
   sufijos.push_back(v);
-  for (int i = (c_.size()-1); i >= 0; i--) {
+  for (int i = (chain_.size()-1); i >= 0; i--) {
     Cadena cadena_aux;
-    for (int j = i; j < c_.size(); j++) {
-      cadena_aux.AddSimbolo(c_.at(j));
+    for (int j = i; j < chain_.size(); j++) {
+      cadena_aux.AddSymbol(chain_.at(j));
     }
     sufijos.push_back(cadena_aux);
   }
@@ -118,22 +128,40 @@ std::vector<Cadena> Cadena::Sufijo(){
 }
 
 void Cadena::Print(){
-  if (c_.size()==0) {
-    std::cout << kCadenaVacia;
+  if (chain_.size()==0) {
+    std::cout << kEmptyChain;
   } else {  
-    for (size_t i = 0; i < c_.size(); i++) {
-        std::cout << c_.at(i);
+    for (size_t i = 0; i < chain_.size(); i++) {
+        std::cout << chain_.at(i);
     }
   }
 }
 
+int Cadena::Size(){
+  return chain_.size();
+}
+
+Symbol Cadena::Position(int index){
+  return chain_.at(index);
+}
+
+// Sobrecarga operador<< para escritura del objeto
 std::ostream& operator<<(std::ostream& os, Cadena& param_cadena){
-  if (param_cadena.Longitud()==0) {
-    return os << kCadenaVacia;
+  if (param_cadena.Size()==0) {
+    return os << kEmptyChain;
   } else {  
-    for (int i = 0; i < param_cadena.Longitud(); i++){
-      os << param_cadena.c_.at(i);
+    for (int i = 0; i < param_cadena.Size(); i++){
+      os << param_cadena.chain_.at(i);
     }
     return os;
   }
+}
+
+bool inVector(std::vector<Cadena> param_vector, Cadena param_cadena) {
+  for (size_t i = 0; i < param_vector.size(); i++) {
+    if (param_cadena.isEqual(param_vector.at(i))) {
+      return true;
+    }
+  }
+  return false;
 }

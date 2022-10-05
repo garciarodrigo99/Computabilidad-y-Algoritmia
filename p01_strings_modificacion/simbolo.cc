@@ -2,28 +2,33 @@
 
 #include <assert.h>
 
-//https://stackoverflow.com/questions/22855860/initializing-const-char-in-constructor-will-there-be-a-memory-leak
-
-// Simbolo::Simbolo(std::string& param) : s_(param) {
-//   assert(CheckSimbols(*this));
-// }
-
-Simbolo::Simbolo(const std::string param) : s_(param) {
+Symbol::Symbol(const std::string param) : symbol_(param) {
   assert(CheckSimbols(*this));
 }
 
-Simbolo::~Simbolo(){}
+//Destructor
+Symbol::~Symbol(){}
 
-std::string Simbolo::GetSimbolo(){
-  return s_;
+std::string Symbol::GetSymbol(){
+  return symbol_;
 }
 
-std::string Simbolo::GetSimbolo()const{
-  return s_;
+std::string Symbol::GetSymbol()const{
+  return symbol_;
 }
-    
-bool Simbolo::isEqual(Simbolo simbolo_param) {
-  if ((s_.compare(simbolo_param.GetSimbolo())) == 0) {
+
+/* Comprueba, comparando con el simbolo por parametro, si un simbolo es igual 
+a otro*/
+bool Symbol::isEqual(Symbol simbolo_param) {
+  if ((symbol_.compare(simbolo_param.GetSymbol())) == 0) { //Cambiar
+    return true;
+  } else { 
+    return false;
+  }
+}
+
+bool Symbol::isEqual(Symbol simbolo_param)const{
+  if ((symbol_.compare(simbolo_param.GetSymbol())) == 0) { //Cambiar
     return true;
   } else { 
     return false;
@@ -31,24 +36,27 @@ bool Simbolo::isEqual(Simbolo simbolo_param) {
 }
 
 //Comprueba que no contiene el simbolo reservado para la cadena vacía
-bool Simbolo::CheckSimbols(Simbolo simbolo_param){
+bool Symbol::CheckSimbols(Symbol simbolo_param){
   for (int i = 0; i < simbolo_param.Size(); i++) {
-    if (simbolo_param.position(i) == kCadenaVacia) {
+    if (simbolo_param.position(i) == kEmptyChain) {
       return false;
     }
   }
   return true;
 }
 
-int Simbolo::Size()const{
-  return s_.size();
+// Devuelve el numero de caracteres del simbolo
+int Symbol::Size()const{
+  return symbol_.size();
 }
 
-const char Simbolo::position(int index){
-  return s_[index];
+// Devuelve el caracter que ocupa index posicion
+const char Symbol::position(int index){
+  return symbol_[index];
 }
 
-std::ostream& operator<<(std::ostream& os, const Simbolo& param_simbolo){
-  os << param_simbolo.s_;
+// Sobrecarga operador<< para escritura del objeto
+std::ostream& operator<<(std::ostream& os, const Symbol& param_simbolo){
+  os << param_simbolo.symbol_;
   return os;
 }

@@ -8,8 +8,7 @@
 // Correo: alu0101154473@ull.es
 // Fecha: 04/10/2022
 // Archivo alfabeto.h: Cabecera de la clase Alfabeto.
-// Contiene la función main del proyecto que usa las clases X e Y
-// para ... (indicar brevemente el objetivo)
+// Se define la clase Alfabeto con sus métodos y atributos
 // Referencias:
 // Enlaces de interéss
 // https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
@@ -25,17 +24,19 @@
 
 class Alfabeto {
   public:
-    Alfabeto(Simbolo);
-    Alfabeto(std::vector<Simbolo>);
-    std::vector<Simbolo>& GetAlfabeto();
-    void SetAlfabeto(std::vector<Simbolo>);
-    void AddSimbolo(Simbolo);
-    bool inSimbolo(Simbolo);
-    bool okCadena(Cadena);
+    Alfabeto(Symbol);
+    Alfabeto(std::vector<Symbol>);
+
+    void SetAlfabeto(std::vector<Symbol>);
+    void AddSymbol(Symbol);
+    bool inSymbol(Symbol);
+    bool okCadena(Cadena);//Metodo comprobar cadena pertenece a alfabeto
     int DistinctSimbol(Cadena);
     friend std::ostream& operator<<(std::ostream&, Alfabeto&);
-    //Metodo comprobar cadena pertenece a alfabeto
+
+    int Size();
+    Symbol Position(int);
 
   private:
-    std::vector<Simbolo> a_;
+    std::vector<Symbol> alfabeto_;
 };
