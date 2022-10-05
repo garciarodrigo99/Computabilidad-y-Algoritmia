@@ -27,8 +27,26 @@
 #include "cadena.h"
 #define kArgumentos 4
 #define kOpcode 5
+#define kDelimeter ' '
 
-void ImprimirVectorCadenas(std::vector<Cadena> param_vector){
+std::vector<std::string> SplitChain(std::string str, char pattern) {
+    
+    int posInit = 0;
+    int posFound = 0;
+    std::string splitted;
+    std::vector<std::string> results;
+    
+    while(posFound >= 0){
+        posFound = str.find(pattern, posInit);
+        splitted = str.substr(posInit, posFound - posInit);
+        posInit = posFound + 1;
+        results.push_back(splitted);
+    }
+    
+    return results;
+}
+
+void PrintChainVector(std::vector<Cadena> param_vector){
   for (size_t i = 0; i < param_vector.back().Prefijo().size(); i++) {
     std::cout << param_vector.back().Prefijo().at(i) << " ";
   }
@@ -64,56 +82,48 @@ int main(int argc, char* argv[]){
       std::string linea;
       //char delimitador = ' ';
       while (getline(archivo, linea)) {
-        std::vector<Cadena> vector_cadena;
-        int iterator1 = 0;
-        while (iterator1<linea.size()){
-          int iterator2 = iterator1;
-          std::vector<Simbolo> vector_simbolo;
-          while ((iterator2<linea.size()) && (linea.at(iterator2) != ' ')){
-            std::string string_aux;
-            string_aux = linea.at(iterator2);
-            Simbolo simbolo_aux(string_aux);
-            vector_simbolo.push_back(simbolo_aux);
-            iterator2++;
-          }
-          Cadena cadena_aux;
-          for (size_t i = 0; i < vector_simbolo.size(); i++){
-            cadena_aux.AddSimbolo(vector_simbolo.at(i));
-          }
-          vector_cadena.push_back(cadena_aux);
-          iterator1 = (iterator2+1);
-          //std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-        }
-
-        Simbolo simb(vector_cadena.back().GetCadena().back());
-        Alfabeto alfa(simb);
-        for (int i = 1; i < (vector_cadena.size() - 1); i++) {
-          Simbolo simb_aux(vector_cadena.at(i).GetCadena().back());
-          alfa.AddSimbolo(simb_aux);
-        }
         
         //alfa.okCadena(vector_cadena.back());
 
-        // Menu
+        std::vector<Simbolo> symbol_vector;
+        if (SplitChain(linea,kDelimeter).size() == 1) {   //Cadena sin alfabeto
+          
+        } else {
+          for (size_t i = 0; i < SplitChain(linea,kDelimeter).size(); i++) {
+            symbol_vector.push_back(SplitChain(linea,kDelimeter).at(i));
+          } 
+        }
+        Alfabeto alfa(symbol_vector);
+
+        Cadena chain;
+        for (size_t i = 0; i < SplitChain(linea,kDelimeter).back().size(); i++){
+          std::string string_aux;
+          string_aux.push_back(SplitChain(linea,kDelimeter).back().at(i));
+          chain.AddSimbolo(Simbolo(string_aux));
+        }
+        
+        //Comprobar cadena pertenece al alfabeto
+
+        // // Menu
         switch (atoi(argv[argc - 1])){
           case 1:
-            std::cout << vector_cadena.back().Longitud() << std::endl;
+            std::cout << chain.Longitud() << std::endl;
             break;
           case 2:
-            vector_cadena.back().Inversa().Print();
+            chain.Inversa().Print();
             std::endl(std::cout);
             break;
           case 3:
-            ImprimirVectorCadenas(vector_cadena.back().Prefijo());
+            PrintChainVector(chain.Prefijo());
             break;
           case 4:
-            ImprimirVectorCadenas(vector_cadena.back().Sufijo());
+            PrintChainVector(chain.Sufijo());
             break;
           case 5:
-            ImprimirVectorCadenas(vector_cadena.back().Subcadena());
+            PrintChainVector(chain.Subcadena());
             break;
           case 6:
-            std::cout << "Simbolos distintos: " << alfa.DistinctSimbol(vector_cadena.back()) << "/" << alfa.GetAlfabeto().size() << std::endl;
+            std::cout << "Simbolos distintos: " << alfa.DistinctSimbol(chain) << "/" << alfa.GetAlfabeto().size() << std::endl;
             break;
           default:
             break;
