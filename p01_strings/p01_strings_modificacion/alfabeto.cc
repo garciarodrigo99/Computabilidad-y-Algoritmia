@@ -25,7 +25,7 @@ bool Alfabeto::inSymbol(Symbol param_simbolo) {
 }
 
 bool Alfabeto::okCadena(Cadena param_cadena){
-  for (size_t i = 0; i < param_cadena.Size(); i++) {
+  for (int i = 0; i < param_cadena.Size(); i++) {
     for (size_t j = 0; j < alfabeto_.size(); j++){
       if (param_cadena.Position(i).isEqual(alfabeto_.at(j))) {
         return false;
@@ -56,7 +56,7 @@ std::ostream& operator<<(std::ostream& os, Alfabeto& param_alfabeto){
   os << "{";
   os << param_alfabeto.Position(0);
 
-  for (size_t i = 1; i < param_alfabeto.Size(); i++) {
+  for (int i = 1; i < param_alfabeto.Size(); i++) {
     os << ", " << param_alfabeto.Position(i);
   }
 

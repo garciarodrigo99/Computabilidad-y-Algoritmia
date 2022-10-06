@@ -68,7 +68,7 @@ bool Cadena::inSymbol(Symbol simbolo_param){
 }
 
 bool Cadena::isEqual(Cadena& cadena_param){
-  if (chain_.size() != cadena_param.Size()) {
+  if (((int)chain_.size()) != cadena_param.Size()) {
     return false;
   } else {
     for (size_t i = 0; i < chain_.size(); i++) {
