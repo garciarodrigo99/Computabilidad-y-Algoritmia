@@ -73,11 +73,18 @@ int main(int argc, char* argv[]){
   Symbol s2(str2);
   std::cout << (s1 < s2) << std::endl;
   std:: cout << (str1 < str2) << std::endl;
-  std:: cout << (str1 == str2) << std::endl;
-  std:: cout << (str1 > str2) << std::endl;
+  // std:: cout << (str1 == str2) << std::endl;
+  // std:: cout << (str1 > str2) << std::endl;
   Chain c1(s1);
   Chain c2(s2);
   std:: cout << (c1 < c2) << std::endl;
+  Alphabet a1(s1);
+  Alphabet a2(s1);
+  a2.AddSymbol(s2);
+  std:: cout << a1 << std::endl;
+  std:: cout << a2 << std::endl;
+  std:: cout << (a2 < a1) << std::endl;
+
   return 0;
   // Comprobar numero de argumentos de ejecucion son correctos
   if (argc != kArgumentos) {

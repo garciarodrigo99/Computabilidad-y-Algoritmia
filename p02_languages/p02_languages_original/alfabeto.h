@@ -29,17 +29,18 @@ class Alphabet {
     Alphabet(std::vector<Symbol>);
 
     // Getters y setters
-    void SetAlphabet(std::vector<Symbol>);
-    int Size();
     Symbol Position(int);
+    void SetAlphabet(std::vector<Symbol>);
+    int Size()const;
 
     // Operaciones
     void AddSymbol(Symbol);
+    int DistinctSimbol(Chain);
     bool inSymbol(Symbol);
     bool okChain(Chain);//Metodo comprobar cadena pertenece a alfabeto
-    int DistinctSimbol(Chain);
 
     // Sobrecarga de operadores
+    bool operator<(const Alphabet)const;
     friend std::ostream& operator<<(std::ostream&, Alphabet&);
 
   private:

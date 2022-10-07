@@ -20,16 +20,40 @@
 #include <iostream>
 #include <assert.h>
 
-Alphabet::Alphabet(std::vector<Symbol> param) : alphabet_(param) {}               //|
-
 Alphabet::Alphabet(Symbol param) {
   // assert(!(Simbolo::CheckSimbols(param))); // No se puede insertar 
   //                                                 // cadena vacia
   alphabet_.push_back(param);
 }
-    
+
+Alphabet::Alphabet(std::vector<Symbol> param) : alphabet_(param) {}               //|
+
+Symbol Alphabet::Position(int index){
+  return alphabet_.at(index);
+}
+
 void Alphabet::SetAlphabet(std::vector<Symbol> param){
   alphabet_ = param;
+}
+   
+int Alphabet::Size()const{
+  return alphabet_.size();
+}
+
+void Alphabet::AddSymbol(Symbol param_simbolo){
+  if (!(inSymbol(param_simbolo))) {
+     alphabet_.push_back(param_simbolo); 
+  }
+}
+
+int Alphabet::DistinctSimbol(Chain param_cadena){
+  int count = 0;
+  for (size_t i = 0; i < alphabet_.size(); i++) {
+    if (param_cadena.inSymbol(alphabet_.at(i))) {
+      count++;
+    }
+  }
+  return count;
 }
 
 bool Alphabet::inSymbol(Symbol param_simbolo) {
@@ -52,20 +76,8 @@ bool Alphabet::okChain(Chain param_cadena){
   return true;
 }
 
-int Alphabet::DistinctSimbol(Chain param_cadena){
-  int count = 0;
-  for (size_t i = 0; i < alphabet_.size(); i++) {
-    if (param_cadena.inSymbol(alphabet_.at(i))) {
-      count++;
-    }
-  }
-  return count;
-}
-
-void Alphabet::AddSymbol(Symbol param_simbolo){
-  if (!(inSymbol(param_simbolo))) {
-     alphabet_.push_back(param_simbolo); 
-  }
+bool Alphabet::operator<(const Alphabet param_alphabet)const{
+  return ((int)alphabet_.size() < param_alphabet.Size());
 }
 
 // Sobrecarga operador<< para escritura del objeto
@@ -80,12 +92,4 @@ std::ostream& operator<<(std::ostream& os, Alphabet& param_alfabeto){
   os << "}";
 
   return os;
-}
-
-int Alphabet::Size(){
-  return alphabet_.size();
-}
-
-Symbol Alphabet::Position(int index){
-  return alphabet_.at(index);
 }
