@@ -47,7 +47,7 @@ std::vector<std::string> SplitChain(std::string str, char pattern) {
 }
 
 // Funcion que imprime por pantalla un vector de cadenas
-void PrintChainVector(std::vector<Cadena> param_vector){
+void PrintChainVector(std::vector<Chain> param_vector){
   for (size_t i = 0; i < param_vector.size(); i++) {
     std::cout << param_vector.at(i) << " ";
   }
@@ -75,8 +75,9 @@ int main(int argc, char* argv[]){
   std:: cout << (str1 < str2) << std::endl;
   std:: cout << (str1 == str2) << std::endl;
   std:: cout << (str1 > str2) << std::endl;
-  Cadena c1(s1);
-  Cadena c2(c1);
+  Chain c1(s1);
+  Chain c2(s2);
+  std:: cout << (c1 < c2) << std::endl;
   return 0;
   // Comprobar numero de argumentos de ejecucion son correctos
   if (argc != kArgumentos) {
@@ -106,10 +107,10 @@ int main(int argc, char* argv[]){
             symbol_vector.push_back(SplitChain(linea,kDelimeter).at(i));
           } 
         }
-        Alfabeto alfa(symbol_vector);
+        Alphabet alfa(symbol_vector);
 
         // Se crea y rellena la cadena
-        Cadena chain;
+        Chain chain;
         for (size_t i = 0; i < SplitChain(linea,kDelimeter).back().size(); i++){
           std::string string_aux;
           string_aux.push_back(SplitChain(linea,kDelimeter).back().at(i));

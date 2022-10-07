@@ -20,31 +20,31 @@
 #include <iostream>
 #include <assert.h>
 
-Alfabeto::Alfabeto(std::vector<Symbol> param) : alfabeto_(param) {}               //|
+Alphabet::Alphabet(std::vector<Symbol> param) : alphabet_(param) {}               //|
 
-Alfabeto::Alfabeto(Symbol param) {
+Alphabet::Alphabet(Symbol param) {
   // assert(!(Simbolo::CheckSimbols(param))); // No se puede insertar 
   //                                                 // cadena vacia
-  alfabeto_.push_back(param);
+  alphabet_.push_back(param);
 }
     
-void Alfabeto::SetAlfabeto(std::vector<Symbol> param){
-  alfabeto_ = param;
+void Alphabet::SetAlphabet(std::vector<Symbol> param){
+  alphabet_ = param;
 }
 
-bool Alfabeto::inSymbol(Symbol param_simbolo) {
-  for (int i = 0; i < alfabeto_.size(); i++) {
-    if (alfabeto_.at(i).isEqual(param_simbolo)) {
+bool Alphabet::inSymbol(Symbol param_simbolo) {
+  for (int i = 0; i < alphabet_.size(); i++) {
+    if (alphabet_.at(i).isEqual(param_simbolo)) {
       return true;
     }
   }
   return false;
 }
 
-bool Alfabeto::okCadena(Cadena param_cadena){
+bool Alphabet::okChain(Chain param_cadena){
   for (int i = 0; i < param_cadena.Size(); i++) {
-    for (size_t j = 0; j < alfabeto_.size(); j++){
-      if (param_cadena.Position(i).isEqual(alfabeto_.at(j))) {
+    for (size_t j = 0; j < alphabet_.size(); j++){
+      if (param_cadena.Position(i).isEqual(alphabet_.at(j))) {
         return false;
       }
     }
@@ -52,24 +52,24 @@ bool Alfabeto::okCadena(Cadena param_cadena){
   return true;
 }
 
-int Alfabeto::DistinctSimbol(Cadena param_cadena){
+int Alphabet::DistinctSimbol(Chain param_cadena){
   int count = 0;
-  for (size_t i = 0; i < alfabeto_.size(); i++) {
-    if (param_cadena.inSymbol(alfabeto_.at(i))) {
+  for (size_t i = 0; i < alphabet_.size(); i++) {
+    if (param_cadena.inSymbol(alphabet_.at(i))) {
       count++;
     }
   }
   return count;
 }
 
-void Alfabeto::AddSymbol(Symbol param_simbolo){
+void Alphabet::AddSymbol(Symbol param_simbolo){
   if (!(inSymbol(param_simbolo))) {
-     alfabeto_.push_back(param_simbolo); 
+     alphabet_.push_back(param_simbolo); 
   }
 }
 
 // Sobrecarga operador<< para escritura del objeto
-std::ostream& operator<<(std::ostream& os, Alfabeto& param_alfabeto){
+std::ostream& operator<<(std::ostream& os, Alphabet& param_alfabeto){
   os << "{";
   os << param_alfabeto.Position(0);
 
@@ -82,10 +82,10 @@ std::ostream& operator<<(std::ostream& os, Alfabeto& param_alfabeto){
   return os;
 }
 
-int Alfabeto::Size(){
-  return alfabeto_.size();
+int Alphabet::Size(){
+  return alphabet_.size();
 }
 
-Symbol Alfabeto::Position(int index){
-  return alfabeto_.at(index);
+Symbol Alphabet::Position(int index){
+  return alphabet_.at(index);
 }

@@ -22,12 +22,12 @@
 
 #pragma once
 
-class Cadena{                                                               //|
+class Chain{                                                               //|
   public:
     // Constructores y destructores
-    Cadena();
-    Cadena(Symbol);
-    Cadena(const Cadena&); //Constructor de copia
+    Chain();
+    Chain(Symbol);
+    Chain(const Chain&); //Constructor de copia
 
     // Getters y setters
     Symbol Position(int)const;
@@ -36,20 +36,20 @@ class Cadena{                                                               //|
     // Operaciones 
     void AddSymbol(Symbol);
     bool inSymbol(Symbol);
-    bool isEqual(Cadena&);
-    std::vector<Cadena> Prefix();
+    bool isEqual(Chain&);
+    std::vector<Chain> Prefix();
     void Print();
-    Cadena Reverse();
-    std::vector<Cadena> Substring();
-    std::vector<Cadena> Sufix();
+    Chain Reverse();
+    std::vector<Chain> Substring();
+    std::vector<Chain> Sufix();
 
     // Sobrecarga operadores
-    bool operator<(const Cadena)const;
-    friend std::ostream& operator<<(std::ostream&, Cadena&);
+    bool operator<(const Chain)const;
+    friend std::ostream& operator<<(std::ostream&, Chain&);
     //operator=
 
   private:
     std::vector<Symbol> chain_;
 };
 
-bool inVector(std::vector<Cadena> param_vector, Cadena param_cadena);
+bool inVector(std::vector<Chain> param_vector, Chain param_cadena);

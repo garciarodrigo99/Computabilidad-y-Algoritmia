@@ -7,8 +7,8 @@
 // Autor: Rodrigo Garcia Jimenez
 // Correo: alu0101154473@ull.es
 // Fecha: 11/10/2022
-// Archivo alfabeto.h: Cabecera de la clase Alfabeto.
-// Se define la clase Alfabeto con sus métodos y atributos
+// Archivo Alphabet.h: Cabecera de la clase Alphabet.
+// Se define la clase Alphabet con sus métodos y atributos
 // Referencias:
 // Enlaces de interéss
 // https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
@@ -22,21 +22,26 @@
 
 #pragma once
 
-class Alfabeto {
+class Alphabet {
   public:
-    Alfabeto(Symbol);
-    Alfabeto(std::vector<Symbol>);
+    // Constructores y destructores
+    Alphabet(Symbol);
+    Alphabet(std::vector<Symbol>);
 
-    void SetAlfabeto(std::vector<Symbol>);
-    void AddSymbol(Symbol);
-    bool inSymbol(Symbol);
-    bool okCadena(Cadena);//Metodo comprobar cadena pertenece a alfabeto
-    int DistinctSimbol(Cadena);
-    friend std::ostream& operator<<(std::ostream&, Alfabeto&);
-
+    // Getters y setters
+    void SetAlphabet(std::vector<Symbol>);
     int Size();
     Symbol Position(int);
 
+    // Operaciones
+    void AddSymbol(Symbol);
+    bool inSymbol(Symbol);
+    bool okChain(Chain);//Metodo comprobar cadena pertenece a alfabeto
+    int DistinctSimbol(Chain);
+
+    // Sobrecarga de operadores
+    friend std::ostream& operator<<(std::ostream&, Alphabet&);
+
   private:
-    std::vector<Symbol> alfabeto_;
+    std::vector<Symbol> alphabet_;
 };

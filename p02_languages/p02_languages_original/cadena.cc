@@ -23,30 +23,30 @@
 //https://www.tutorialspoint.com/strcmp-in-c-cplusplus#
 //https://en.cppreference.com/w/c/string/byte/strcmp 
 
-Cadena::Cadena(){}
+Chain::Chain(){}
 
-Cadena::Cadena(Symbol param) : Cadena() {  // Constructor con simbolo, todos menos cadena vacia
+Chain::Chain(Symbol param) : Chain() {  // Constructor con simbolo, todos menos cadena vacia
   //std::cout << "Constructor 3\n";
   // assert(!(Simbolo::CheckSimbols(param))); // No se puede insertar cadena vacia
   chain_.push_back(param);
 }
 
 // Constructor de copia de la clase
-Cadena::Cadena(const Cadena& param) : chain_(param.chain_) {}//Comprobar
+Chain::Chain(const Chain& param) : chain_(param.chain_) {}//Comprobar
 
-Symbol Cadena::Position(int index)const{
+Symbol Chain::Position(int index)const{
   return chain_.at(index);
 }
 
-int Cadena::Size()const{
+int Chain::Size()const{
   return chain_.size();
 }
 
-void Cadena::AddSymbol(Symbol param){
+void Chain::AddSymbol(Symbol param){
   chain_.push_back(param);
 }
 
-bool Cadena::inSymbol(Symbol simbolo_param){
+bool Chain::inSymbol(Symbol simbolo_param){
   for (size_t i = 0; i < chain_.size(); i++){
     if (chain_.at(i).isEqual(simbolo_param)) {
       return true;
@@ -55,7 +55,7 @@ bool Cadena::inSymbol(Symbol simbolo_param){
   return false;
 }
 
-bool Cadena::isEqual(Cadena& cadena_param){
+bool Chain::isEqual(Chain& cadena_param){
   if (((int)chain_.size()) != cadena_param.Size()) {
     return false;
   } else {
@@ -68,12 +68,12 @@ bool Cadena::isEqual(Cadena& cadena_param){
   return true;
 }
 
-std::vector<Cadena> Cadena::Prefix(){
-  std::vector<Cadena> prefijos;
-  Cadena v;
+std::vector<Chain> Chain::Prefix(){
+  std::vector<Chain> prefijos;
+  Chain v;
   prefijos.push_back(v);
   for (size_t i = 0; i < chain_.size(); i++) {
-    Cadena cadena_aux;
+    Chain cadena_aux;
     for (size_t j = 0; j <= i; j++) {
       cadena_aux.AddSymbol(chain_.at(j));
     }
@@ -82,7 +82,7 @@ std::vector<Cadena> Cadena::Prefix(){
   return prefijos;
 }
 
-void Cadena::Print(){
+void Chain::Print(){
   if (chain_.size()==0) {
     std::cout << kEmptyChain;
   } else {  
@@ -92,25 +92,25 @@ void Cadena::Print(){
   }
 }
 
-Cadena Cadena::Reverse(){
+Chain Chain::Reverse(){
   if (chain_.size()==0){
     return *this;
   }
 
-  Cadena inversa;
+  Chain inversa;
   for (int i = (chain_.size() - 1); i >= 0; --i) {     // De esta forma no se sale de rango
     inversa.AddSymbol(chain_.at(i));
   }
   return inversa;
 }
 
-std::vector<Cadena> Cadena::Substring(){
-  std::vector<Cadena> subcadena;
-  Cadena v;
+std::vector<Chain> Chain::Substring(){
+  std::vector<Chain> subcadena;
+  Chain v;
   subcadena.push_back(v);
   for (int len = 1; len <= chain_.size(); len++) {
     for (int i = 0; i <= (chain_.size() - len); i++) {
-      Cadena cadena_aux;
+      Chain cadena_aux;
       int j = i + len - 1;
       for (int k = i; k <= j; k++) {
         cadena_aux.AddSymbol(chain_.at(k));
@@ -123,12 +123,12 @@ std::vector<Cadena> Cadena::Substring(){
   return subcadena;
 }
 
-std::vector<Cadena> Cadena::Sufix(){
-  std::vector<Cadena> sufijos;
-  Cadena v;
+std::vector<Chain> Chain::Sufix(){
+  std::vector<Chain> sufijos;
+  Chain v;
   sufijos.push_back(v);
   for (int i = (chain_.size()-1); i >= 0; i--) {
-    Cadena cadena_aux;
+    Chain cadena_aux;
     for (int j = i; j < chain_.size(); j++) {
       cadena_aux.AddSymbol(chain_.at(j));
     }
@@ -137,7 +137,7 @@ std::vector<Cadena> Cadena::Sufix(){
   return sufijos;
 }
 
-bool Cadena::operator<(const Cadena param_cadena)const{
+bool Chain::operator<(const Chain param_cadena)const{
   if ((int)chain_.size() != param_cadena.Size()) {
     return ((int)chain_.size() < param_cadena.Size());
   } else {
@@ -151,7 +151,7 @@ bool Cadena::operator<(const Cadena param_cadena)const{
 }
 
 // Sobrecarga operador<< para escritura del objeto
-std::ostream& operator<<(std::ostream& os, Cadena& param_cadena){
+std::ostream& operator<<(std::ostream& os, Chain& param_cadena){
   if (param_cadena.Size()==0) {
     return os << kEmptyChain;
   } else {  
@@ -162,7 +162,7 @@ std::ostream& operator<<(std::ostream& os, Cadena& param_cadena){
   }
 }
 
-bool inVector(std::vector<Cadena> param_vector, Cadena param_cadena) {
+bool inVector(std::vector<Chain> param_vector, Chain param_cadena) {
   for (size_t i = 0; i < param_vector.size(); i++) {
     if (param_cadena.isEqual(param_vector.at(i))) {
       return true;
