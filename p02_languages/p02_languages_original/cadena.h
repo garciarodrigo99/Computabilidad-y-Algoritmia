@@ -40,6 +40,7 @@ class Chain{                                                               //|
     std::vector<Chain> Prefix();
     void Print();
     Chain Reverse();
+    Chain Reverse() const;
     std::vector<Chain> Substring();
     std::vector<Chain> Sufix();
 

@@ -93,12 +93,23 @@ Chain Chain::Reverse() {
   return inversa;
 }
 
+Chain Chain::Reverse() const {
+  if (chain_.size() == 0)
+    return *this;
+
+  Chain inversa;
+  for (int i = (chain_.size() - 1); i >= 0; --i) {     // De esta forma no se sale de rango
+    inversa.AddSymbol(chain_.at(i));
+  }
+  return inversa;
+}
+
 std::vector<Chain> Chain::Substring() {
   std::vector<Chain> subcadena;
   Chain v;
   subcadena.push_back(v);
-  for (int len = 1; len <= chain_.size(); len++) {
-    for (int i = 0; i <= (chain_.size() - len); i++) {
+  for (int len = 1; len <= ((int)chain_.size()); len++) {
+    for (int i = 0; i <= ((int)(chain_.size() - len)); i++) {
       Chain cadena_aux;
       int j = i + len - 1;
       for (int k = i; k <= j; k++) {
@@ -118,7 +129,7 @@ std::vector<Chain> Chain::Sufix() {
   sufijos.push_back(v);
   for (int i = (chain_.size()-1); i >= 0; i--) {
     Chain cadena_aux;
-    for (int j = i; j < chain_.size(); j++) {
+    for (int j = i; j < ((int)chain_.size()); j++) {
       cadena_aux.AddSymbol(chain_.at(j));
     }
     sufijos.push_back(cadena_aux);

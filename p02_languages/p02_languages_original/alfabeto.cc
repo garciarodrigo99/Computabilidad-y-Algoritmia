@@ -18,8 +18,6 @@
 #include "alfabeto.h"
 
 #include <iostream>
-  // assert(!(Simbolo::CheckSimbols(param))); // No se puede insertar 
-  //   
 #include <assert.h>
 
 Alphabet::Alphabet(Symbol param) { alphabet_.insert(param); }

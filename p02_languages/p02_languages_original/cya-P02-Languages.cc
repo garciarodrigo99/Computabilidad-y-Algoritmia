@@ -48,11 +48,14 @@ std::vector<std::string> SplitChain(std::string str, char pattern) {
 }
 
 // Funcion que imprime por pantalla un vector de cadenas
-void PrintChainVector(std::vector<Chain> param_vector){
-  for (size_t i = 0; i < param_vector.size(); i++) {
-    std::cout << param_vector.at(i) << " ";
-  }
-  std::endl(std::cout);
+void PrintChainSet(std::set<Chain> param_set){
+  std::cout << "{ ";
+
+  for (std::set<Chain>::iterator it = param_set.begin();
+      it != param_set.end(); ++it)
+      std::cout << *it << " ";
+
+  std::cout << "}\n";
 }
 
 // Funcion que indica la forma correcta de ejecutar y cada parametro a 
@@ -68,25 +71,41 @@ void information(char* p_name){
 }
 
 int main(int argc, char* argv[]){
-  // std::string str1 = "a";
-  // std::string str2 = "ab";
-  // Symbol s1(str1);
-  // Symbol s2(str2);
-  // std::cout << (s1 < s2) << std::endl;
-  // std:: cout << (str1 < str2) << std::endl;
-  // // std:: cout << (str1 == str2) << std::endl;
-  // // std:: cout << (str1 > str2) << std::endl;
-  // Chain c1(s1);
-  // Chain c2(s2);
-  // std:: cout << (c1 < c2) << std::endl;
-  // Alphabet a1(s1);
-  // Alphabet a2(s1);
-  // a2.AddSymbol(s2);
-  // std:: cout << a1 << std::endl;
-  // std:: cout << a2 << std::endl;
-  // std:: cout << (a2 < a1) << std::endl;
+  std::string str1 = "a";
+  std::string str2 = "ab";
+  std::string str3 = "s";
+  std::string str4 = "l";
+  std::string str5 = "e";
+  std::string str6 = "v";
 
-  // return 0;
+  Symbol s1(str1);
+  Symbol s2(str2);
+  Symbol s3(str3);
+  Symbol s4(str4);
+  Symbol s5(str5);
+  Symbol s6(str6);
+
+  Chain c1(s3);
+  c1.AddSymbol(s1);
+  c1.AddSymbol(s4);
+  c1.AddSymbol(s1);
+  
+  Chain c2(s5);
+  c2.AddSymbol(s6);
+  c2.AddSymbol(s1);
+
+  Alphabet a1(s1);
+  Alphabet a2(s1);
+  a2.AddSymbol(s2);
+
+  Language l1(a2);
+  l1.AddChain(c1);
+  l1.AddChain(c2);
+
+  std::cout << l1 << std::endl;
+  PrintChainSet(l1.Reverse());
+
+  return 0;
   // Comprobar numero de argumentos de ejecucion son correctos
   if (argc != kArgumentos) {
     std::cout << "¡Error de formato!\n\n";
@@ -137,13 +156,13 @@ int main(int argc, char* argv[]){
             std::endl(std::cout);
             break;
           case 3:
-            PrintChainVector(chain.Prefix());
+            //PrintChainVector(chain.Prefix());
             break;
           case 4:
-            PrintChainVector(chain.Sufix());
+            //PrintChainVector(chain.Sufix());
             break;
           case 5:
-            PrintChainVector(chain.Substring());
+            //PrintChainVector(chain.Substring());
             break;
           case 6:
             std::cout << "Simbolos distintos: " << alfa.DistinctSimbol(chain) << "/" << alfa.Size() << std::endl; // Cambiar

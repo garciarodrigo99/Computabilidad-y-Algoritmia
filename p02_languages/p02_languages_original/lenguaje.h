@@ -33,11 +33,17 @@ class Language {
 
     // Operaciones
     void AddChain(Chain);
+    std::set<Chain> Concatenation();
+    std::set<Chain> Diference();
     bool inChain(Chain);
+    std::set<Chain> Intersection();
+    std::set<Chain> Power(int);//1
+    std::set<Chain> Reverse();
+    std::set<Chain> Union();//1
 
     // Sobrecarga de operadores
     //bool operator<(const Language)const;
-    friend std::ostream& operator<<(std::ostream&, Language&);                 
+    friend std::ostream& operator<<(std::ostream&, const Language&);                 
 
   private:
     Alphabet alphabet_;
