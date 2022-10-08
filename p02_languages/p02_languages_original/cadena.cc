@@ -26,28 +26,26 @@
 Chain::Chain(){}
 
 Chain::Chain(Symbol param) : Chain() {  // Constructor con simbolo, todos menos cadena vacia
-  //std::cout << "Constructor 3\n";
-  // assert(!(Simbolo::CheckSimbols(param))); // No se puede insertar cadena vacia
   chain_.push_back(param);
 }
 
 // Constructor de copia de la clase
 Chain::Chain(const Chain& param) : chain_(param.chain_) {}//Comprobar
 
-Symbol Chain::Position(int index)const{
+Symbol Chain::Position(int index)const {
   return chain_.at(index);
 }
 
-int Chain::Size()const{
+int Chain::Size()const {
   return chain_.size();
 }
 
-void Chain::AddSymbol(Symbol param){
+void Chain::AddSymbol(Symbol param) {
   chain_.push_back(param);
 }
 
-bool Chain::inSymbol(Symbol simbolo_param){
-  for (size_t i = 0; i < chain_.size(); i++){
+bool Chain::inSymbol(Symbol simbolo_param) {
+  for (size_t i = 0; i < chain_.size(); i++) {
     if (chain_.at(i).isEqual(simbolo_param)) {
       return true;
     }
@@ -55,7 +53,7 @@ bool Chain::inSymbol(Symbol simbolo_param){
   return false;
 }
 
-bool Chain::isEqual(Chain& cadena_param){
+bool Chain::isEqual(const Chain& cadena_param) {
   if (((int)chain_.size()) != cadena_param.Size()) {
     return false;
   } else {
@@ -68,7 +66,7 @@ bool Chain::isEqual(Chain& cadena_param){
   return true;
 }
 
-std::vector<Chain> Chain::Prefix(){
+std::vector<Chain> Chain::Prefix() {
   std::vector<Chain> prefijos;
   Chain v;
   prefijos.push_back(v);
@@ -82,8 +80,8 @@ std::vector<Chain> Chain::Prefix(){
   return prefijos;
 }
 
-void Chain::Print(){
-  if (chain_.size()==0) {
+void Chain::Print() {
+  if (chain_.size() == 0) {
     std::cout << kEmptyChain;
   } else {  
     for (size_t i = 0; i < chain_.size(); i++) {
@@ -92,8 +90,8 @@ void Chain::Print(){
   }
 }
 
-Chain Chain::Reverse(){
-  if (chain_.size()==0){
+Chain Chain::Reverse() {
+  if (chain_.size() == 0) {
     return *this;
   }
 
@@ -104,7 +102,7 @@ Chain Chain::Reverse(){
   return inversa;
 }
 
-std::vector<Chain> Chain::Substring(){
+std::vector<Chain> Chain::Substring() {
   std::vector<Chain> subcadena;
   Chain v;
   subcadena.push_back(v);
@@ -123,7 +121,7 @@ std::vector<Chain> Chain::Substring(){
   return subcadena;
 }
 
-std::vector<Chain> Chain::Sufix(){
+std::vector<Chain> Chain::Sufix() {
   std::vector<Chain> sufijos;
   Chain v;
   sufijos.push_back(v);
@@ -137,7 +135,7 @@ std::vector<Chain> Chain::Sufix(){
   return sufijos;
 }
 
-bool Chain::operator<(const Chain param_cadena)const{
+bool Chain::operator<(const Chain param_cadena)const {
   if ((int)chain_.size() != param_cadena.Size()) {
     return ((int)chain_.size() < param_cadena.Size());
   } else {
@@ -151,15 +149,19 @@ bool Chain::operator<(const Chain param_cadena)const{
 }
 
 // Sobrecarga operador<< para escritura del objeto
-std::ostream& operator<<(std::ostream& os, Chain& param_cadena){
+std::ostream& operator<<(std::ostream& os, Chain& param_cadena) {
   if (param_cadena.Size()==0) {
     return os << kEmptyChain;
   } else {  
-    for (int i = 0; i < param_cadena.Size(); i++){
+    for (int i = 0; i < param_cadena.Size(); i++) {
       os << param_cadena.chain_.at(i);
     }
     return os;
   }
+}
+
+inline bool Chain::operator==(const Chain& param_chain) {
+  return isEqual(param_chain);
 }
 
 bool inVector(std::vector<Chain> param_vector, Chain param_cadena) {

@@ -36,7 +36,7 @@ class Chain{                                                               //|
     // Operaciones 
     void AddSymbol(Symbol);
     bool inSymbol(Symbol);
-    bool isEqual(Chain&);
+    bool isEqual(const Chain&);
     std::vector<Chain> Prefix();
     void Print();
     Chain Reverse();
@@ -46,7 +46,7 @@ class Chain{                                                               //|
     // Sobrecarga operadores
     bool operator<(const Chain)const;
     friend std::ostream& operator<<(std::ostream&, Chain&);
-    //operator=
+    inline bool operator==(const Chain&);
 
   private:
     std::vector<Symbol> chain_;

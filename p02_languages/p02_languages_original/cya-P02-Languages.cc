@@ -28,6 +28,9 @@
 #define kArgumentos 4
 #define kOpcode 6
 #define kDelimeter ' '
+#define POS_FILE_IN 1
+#define POS_FILE_OUT 2
+#define POS_OPCODE 3
 
 // Funcion para separar cada linea en cadenas según espacios
 std::vector<std::string> SplitChain(std::string str, char pattern) {
@@ -67,25 +70,25 @@ void information(char* p_name){
 }
 
 int main(int argc, char* argv[]){
-  std::string str1 = "a";
-  std::string str2 = "ab";
-  Symbol s1(str1);
-  Symbol s2(str2);
-  std::cout << (s1 < s2) << std::endl;
-  std:: cout << (str1 < str2) << std::endl;
-  // std:: cout << (str1 == str2) << std::endl;
-  // std:: cout << (str1 > str2) << std::endl;
-  Chain c1(s1);
-  Chain c2(s2);
-  std:: cout << (c1 < c2) << std::endl;
-  Alphabet a1(s1);
-  Alphabet a2(s1);
-  a2.AddSymbol(s2);
-  std:: cout << a1 << std::endl;
-  std:: cout << a2 << std::endl;
-  std:: cout << (a2 < a1) << std::endl;
+  // std::string str1 = "a";
+  // std::string str2 = "ab";
+  // Symbol s1(str1);
+  // Symbol s2(str2);
+  // std::cout << (s1 < s2) << std::endl;
+  // std:: cout << (str1 < str2) << std::endl;
+  // // std:: cout << (str1 == str2) << std::endl;
+  // // std:: cout << (str1 > str2) << std::endl;
+  // Chain c1(s1);
+  // Chain c2(s2);
+  // std:: cout << (c1 < c2) << std::endl;
+  // Alphabet a1(s1);
+  // Alphabet a2(s1);
+  // a2.AddSymbol(s2);
+  // std:: cout << a1 << std::endl;
+  // std:: cout << a2 << std::endl;
+  // std:: cout << (a2 < a1) << std::endl;
 
-  return 0;
+  // return 0;
   // Comprobar numero de argumentos de ejecucion son correctos
   if (argc != kArgumentos) {
     std::cout << "¡Error de formato!\n\n";
@@ -99,19 +102,19 @@ int main(int argc, char* argv[]){
       return 2;
     } else {
       
-      std::string nombre_archivo = "ejemplo.txt"; //Parametro 1
+      std::string nombre_archivo = argv[POS_FILE_IN]; //Parametro 1
       std::ifstream archivo(nombre_archivo.c_str());
       std::string linea;
 
       // Comienza lectura de fichero
       while (getline(archivo, linea)) {   
         // Se define el alfabeto
-        std::vector<Symbol> symbol_vector;
+        std::set<Symbol> symbol_vector;
         if (SplitChain(linea,kDelimeter).size() == 1) {   //Cadena sin alfabeto
           
         } else {
           for (size_t i = 0; i < (SplitChain(linea,kDelimeter).size() - 1); i++) {
-            symbol_vector.push_back(SplitChain(linea,kDelimeter).at(i));
+            symbol_vector.insert(SplitChain(linea,kDelimeter).at(i));
           } 
         }
         Alphabet alfa(symbol_vector);

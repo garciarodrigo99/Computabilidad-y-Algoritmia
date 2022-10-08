@@ -18,6 +18,7 @@
 #include "cadena.h"
 
 #include <iostream>
+#include <set>
 #include <vector>
 
 #pragma once
@@ -26,11 +27,9 @@ class Alphabet {
   public:
     // Constructores y destructores
     Alphabet(Symbol);
-    Alphabet(std::vector<Symbol>);
+    Alphabet(std::set<Symbol>);
 
     // Getters y setters
-    Symbol Position(int);
-    void SetAlphabet(std::vector<Symbol>);
     int Size()const;
 
     // Operaciones
@@ -44,5 +43,5 @@ class Alphabet {
     friend std::ostream& operator<<(std::ostream&, Alphabet&);
 
   private:
-    std::vector<Symbol> alphabet_;
+    std::set<Symbol> alphabet_;
 };
