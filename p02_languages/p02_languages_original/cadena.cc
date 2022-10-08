@@ -37,6 +37,17 @@ int Chain::Size()const { return chain_.size(); }
 
 void Chain::AddSymbol(Symbol param) { chain_.push_back(param); }
 
+Chain Chain::Concatenate(const Chain& original, const Chain& adder) {
+  Chain concatenated;
+  for (int i = 0; i < original.Size(); i++) {
+    concatenated.AddSymbol(original.Position(i));
+  }
+  for (int i = 0; i < adder.Size(); i++) {
+    concatenated.AddSymbol(adder.Position(i));
+  }
+  return concatenated;
+}
+
 bool Chain::inSymbol(Symbol simbolo_param) {
   for (size_t i = 0; i < chain_.size(); i++) {
     if (chain_.at(i).isEqual(simbolo_param))

@@ -105,6 +105,20 @@ int main(int argc, char* argv[]){
   std::cout << l1 << std::endl;
   PrintChainSet(l1.Reverse());
 
+  Chain::Concatenate(c1,c2).Print();
+  std::cout << "\n";
+
+  Symbol s7("0");
+  Symbol s8("1");
+  Alphabet a3(s7);
+  a3.AddSymbol(s8);
+  Language l2(a3);
+  l2.AddChain(Chain(s7));
+  l2.AddChain(Chain(s8));
+  std::cout << "Alfabeto: " << l2 << "\nPotencia: ";
+  PrintChainSet(l2.Power(3));
+
+
   return 0;
   // Comprobar numero de argumentos de ejecucion son correctos
   if (argc != kArgumentos) {

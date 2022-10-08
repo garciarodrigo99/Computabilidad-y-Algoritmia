@@ -35,6 +35,7 @@ class Chain{                                                               //|
 
     // Operaciones 
     void AddSymbol(Symbol);
+    static Chain Concatenate(const Chain&, const Chain&);
     bool inSymbol(Symbol);
     bool isEqual(const Chain&);
     std::vector<Chain> Prefix();
