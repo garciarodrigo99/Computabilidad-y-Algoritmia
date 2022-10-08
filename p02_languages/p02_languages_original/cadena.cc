@@ -25,30 +25,22 @@
 
 Chain::Chain(){}
 
-Chain::Chain(Symbol param) : Chain() {  // Constructor con simbolo, todos menos cadena vacia
-  chain_.push_back(param);
-}
+// Constructor con simbolo, todos menos cadena vacia
+Chain::Chain(Symbol param) : Chain() { chain_.push_back(param); }
 
 // Constructor de copia de la clase
 Chain::Chain(const Chain& param) : chain_(param.chain_) {}//Comprobar
 
-Symbol Chain::Position(int index)const {
-  return chain_.at(index);
-}
+Symbol Chain::Position(int index)const { return chain_.at(index); }
 
-int Chain::Size()const {
-  return chain_.size();
-}
+int Chain::Size()const { return chain_.size(); }
 
-void Chain::AddSymbol(Symbol param) {
-  chain_.push_back(param);
-}
+void Chain::AddSymbol(Symbol param) { chain_.push_back(param); }
 
 bool Chain::inSymbol(Symbol simbolo_param) {
   for (size_t i = 0; i < chain_.size(); i++) {
-    if (chain_.at(i).isEqual(simbolo_param)) {
+    if (chain_.at(i).isEqual(simbolo_param))
       return true;
-    }
   }
   return false;
 }
@@ -91,9 +83,8 @@ void Chain::Print() {
 }
 
 Chain Chain::Reverse() {
-  if (chain_.size() == 0) {
+  if (chain_.size() == 0)
     return *this;
-  }
 
   Chain inversa;
   for (int i = (chain_.size() - 1); i >= 0; --i) {     // De esta forma no se sale de rango
@@ -149,7 +140,7 @@ bool Chain::operator<(const Chain param_cadena)const {
 }
 
 // Sobrecarga operador<< para escritura del objeto
-std::ostream& operator<<(std::ostream& os, Chain& param_cadena) {
+std::ostream& operator<<(std::ostream& os, const Chain& param_cadena) {
   if (param_cadena.Size()==0) {
     return os << kEmptyChain;
   } else {  

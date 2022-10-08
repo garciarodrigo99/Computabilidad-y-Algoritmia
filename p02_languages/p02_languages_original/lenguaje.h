@@ -25,23 +25,21 @@
 class Language {
   public:
     // Constructores y destructores
-    Language(Symbol);
-    Language(std::set<Symbol>);
+    Language(Alphabet);
+    Language(Alphabet, std::set<Chain>);
 
     // Getters y setters
     int Size()const;
 
     // Operaciones
     void AddChain(Chain);
-    //int DistinctSimbol(Chain);
     bool inChain(Chain);
-    //bool okChain(Chain);//Metodo comprobar cadena pertenece a alfabeto
 
     // Sobrecarga de operadores
-    bool operator<(const Alphabet)const;
-    friend std::ostream& operator<<(std::ostream&, Language&);
+    //bool operator<(const Language)const;
+    friend std::ostream& operator<<(std::ostream&, Language&);                 
 
   private:
-    std::set<Chain> language_;
     Alphabet alphabet_;
+    std::set<Chain> language_;
 };

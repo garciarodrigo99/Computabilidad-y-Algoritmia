@@ -18,19 +18,15 @@
 #include "alfabeto.h"
 
 #include <iostream>
+  // assert(!(Simbolo::CheckSimbols(param))); // No se puede insertar 
+  //   
 #include <assert.h>
 
-Alphabet::Alphabet(Symbol param) {
-  // assert(!(Simbolo::CheckSimbols(param))); // No se puede insertar 
-  //                                                 // cadena vacia
-  alphabet_.insert(param);
-}
+Alphabet::Alphabet(Symbol param) { alphabet_.insert(param); }
 
 Alphabet::Alphabet(std::set<Symbol> param) : alphabet_(param) {}
    
-int Alphabet::Size()const {
-  return alphabet_.size();
-}
+int Alphabet::Size()const { return alphabet_.size(); }
 
 void Alphabet::AddSymbol(Symbol param_simbolo) {
   alphabet_.insert(param_simbolo);
@@ -40,9 +36,8 @@ int Alphabet::DistinctSimbol(Chain param_cadena) {
   int count = 0;
   for (std::set<Symbol>::iterator it = alphabet_.begin();
       it != alphabet_.end(); ++it) {
-    if (param_cadena.inSymbol(*it)) {
+    if (param_cadena.inSymbol(*it))
       count++;
-    }
   }
   return count;
 }
@@ -57,9 +52,8 @@ bool Alphabet::inSymbol(Symbol param_simbolo) {
 // Metodo para saber si la cadena pertenece al alfabeto
 bool Alphabet::okChain(Chain param_cadena) {
   for (int i = 0; i < param_cadena.Size(); i++) {
-    if (!(inSymbol(param_cadena.Position(i)))) {
+    if (!(inSymbol(param_cadena.Position(i))))
       return false;
-    }
   }
   return true;
 }

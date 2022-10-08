@@ -22,9 +22,7 @@
 #include <chrono>
 #include <thread>
 #include <stdlib.h>
-#include "simbolo.h"
-#include "alfabeto.h"
-#include "cadena.h"
+#include "lenguaje.h"
 #define kArgumentos 4
 #define kOpcode 6
 #define kDelimeter ' '

@@ -36,7 +36,7 @@ class Alphabet {
     void AddSymbol(Symbol);
     int DistinctSimbol(Chain);
     bool inSymbol(Symbol);
-    bool okChain(Chain);//Metodo comprobar cadena pertenece a alfabeto
+    bool okChain(Chain);
 
     // Sobrecarga de operadores
     bool operator<(const Alphabet)const;
