@@ -45,7 +45,7 @@ class Chain{                                                               //|
 
     // Sobrecarga operadores
     bool operator<(const Chain)const;
-    friend std::ostream& operator<<(std::ostream&, Chain&);
+    friend std::ostream& operator<<(std::ostream&, const Chain&);
     inline bool operator==(const Chain&);
 
   private:
