@@ -16,13 +16,14 @@
 // Historial de revisiones
 // 11/10/2022 - Creaci´on (primera versi´on) del c´odigo
 
+#include "lenguaje.h"
+
 #include <iostream>
-#include <algorithm>
 #include <fstream>
 #include <chrono>
 #include <thread>
 #include <stdlib.h>
-#include "lenguaje.h"
+
 #define kArgumentos 4
 #define kOpcode 6
 #define kDelimeter ' '
@@ -31,7 +32,9 @@
 #define POS_OPCODE 3
 #define SET_CLOSER '}'
 
-std::pair<Alphabet, int> Lectura(void){}
+std::pair<Alphabet, int> Lectura(void){
+  std::pair<int, int> ejemplo(10,20);
+}
 
 // Funcion para separar cada linea en cadenas según espacios
 std::vector<std::string> SplitChain(std::string str, char pattern) {
