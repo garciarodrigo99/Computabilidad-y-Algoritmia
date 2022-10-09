@@ -14,48 +14,103 @@ int Language::Size()const { return language_.size(); }
 
 void Language::AddChain(Chain chain_param) { language_.insert(chain_param); }
 
-bool Language::inChain(Chain param_chain) {
-  return (language_.count(param_chain) == 0);
+std::set<Chain> Language::Concatenation(const Language& param_language) {
+    std::set<Chain> aux;
+
+    for (std::set<Chain>::iterator it1 = language_.begin();
+        it1 != language_.end(); it1++) {
+      for (std::set<Chain>::iterator it2 = param_language.language_.begin();
+          it2 != param_language.language_.end(); it2++) {
+        aux.insert(Chain::Concatenate(*it1,*it2));
+      }
+    }
+    //power.erase(empty_chain);
+    return aux;
+}
+
+std::set<Chain> Language::Diference(const Language& param_language) {
+  std::set<Chain> diference;
+
+  for (std::set<Chain>::iterator it1 = language_.begin();
+      it1 != language_.end(); it1++) {
+    if (!(param_language.inChain(*it1)))
+      diference.insert(*it1);
+  }
+  //power.erase(empty_chain);
+  return diference;
+}
+
+std::set<Chain> Language::Intersection(const Language& param_language) {
+  std::set<Chain> intersection;
+
+  for (std::set<Chain>::iterator it1 = language_.begin();
+      it1 != language_.end(); it1++) {
+    if (param_language.inChain(*it1))
+      intersection.insert(*it1);
+  }
+  //power.erase(empty_chain);
+  return intersection;
+}
+
+// Metodo par
+bool Language::inChain(Chain param_chain) const {
+  return (language_.count(param_chain) != 0);
 }
 
 std::set<Chain> Language::Power(int n) {
   assert(n >= 0);
   std::set<Chain> power;
   Chain empty_chain;
-  if (n == 0) {
+
+  switch (n) {
+  case 0:
     power.insert(empty_chain);
     return power;
-  } else {
-    if (n == 1) {
-      return language_;
-    } else {
-      power = language_;
-      
-      std::set<Chain> aux = Power(n-1);
+    break;
 
-      for (std::set<Chain>::iterator it1 = language_.begin();
-          it1 != language_.end(); it1++) {
-        for (std::set<Chain>::iterator it2 = aux.begin();
-            it2 != aux.end(); it2++) {
-          power.insert(Chain::Concatenate(*it1,*it2));
-        }
+  case 1:
+    return language_;
+    break;
+  
+  default:
+    power = language_;
+    
+    std::set<Chain> aux = Power(n-1);
+
+    for (std::set<Chain>::iterator it1 = language_.begin();
+        it1 != language_.end(); it1++) {
+      for (std::set<Chain>::iterator it2 = aux.begin();
+          it2 != aux.end(); it2++) {
+        power.insert(Chain::Concatenate(*it1,*it2));
       }
     }
     power.erase(empty_chain);
     return power;
+    break;
   }
 }
 //https://www.youtube.com/watch?v=G9gnSGKYIg4
 
 std::set<Chain> Language::Reverse() {
-  std::cout << "Entrando metodo reversa\n";
   std::set<Chain> reverse;
   for (std::set<Chain>::iterator it = language_.begin();
       it != language_.end(); ++it) {
-    std::cout << "reversa: " << it->Reverse() << std::endl;
     reverse.insert(it->Reverse());
   }
   return reverse;
+}
+
+std::set<Chain> Language::Union(const Language& param_language) {
+  std::set<Chain> aux; // "union" reservada para el lenguaje
+  for (std::set<Chain>::iterator it = language_.begin();
+      it != language_.end(); ++it) {
+    aux.insert(*it);
+  }
+  for (std::set<Chain>::iterator it = param_language.language_.begin();
+      it != param_language.language_.end(); ++it) {
+    aux.insert(*it);
+  }
+  return aux;
 }
 
 // Sobrecarga operador<< para escritura del objeto

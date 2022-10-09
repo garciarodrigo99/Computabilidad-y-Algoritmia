@@ -56,7 +56,7 @@ bool Chain::inSymbol(Symbol simbolo_param) {
   return false;
 }
 
-bool Chain::isEqual(const Chain& cadena_param) {
+bool Chain::isEqual(const Chain& cadena_param) const {
   if (((int)chain_.size()) != cadena_param.Size()) {
     return false;
   } else {
@@ -173,7 +173,7 @@ std::ostream& operator<<(std::ostream& os, const Chain& param_cadena) {
   }
 }
 
-inline bool Chain::operator==(const Chain& param_chain) {
+bool Chain::operator==(const Chain& param_chain) const {
   return isEqual(param_chain);
 }
 

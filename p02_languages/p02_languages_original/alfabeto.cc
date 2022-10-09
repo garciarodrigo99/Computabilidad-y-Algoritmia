@@ -41,7 +41,7 @@ int Alphabet::DistinctSimbol(Chain param_cadena) {
 }
 
 bool Alphabet::inSymbol(Symbol param_simbolo) {
-  if (alphabet_.count(param_simbolo) == 0)
+  if (alphabet_.count(param_simbolo) != 0)
     return true;
   else
     return false;

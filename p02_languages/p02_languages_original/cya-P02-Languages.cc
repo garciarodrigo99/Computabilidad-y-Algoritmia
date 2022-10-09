@@ -29,6 +29,7 @@
 #define POS_FILE_IN 1
 #define POS_FILE_OUT 2
 #define POS_OPCODE 3
+#define SET_CLOSER '}'
 
 // Funcion para separar cada linea en cadenas según espacios
 std::vector<std::string> SplitChain(std::string str, char pattern) {
@@ -71,55 +72,132 @@ void information(char* p_name){
 }
 
 int main(int argc, char* argv[]){
-  std::string str1 = "a";
-  std::string str2 = "ab";
-  std::string str3 = "s";
-  std::string str4 = "l";
-  std::string str5 = "e";
-  std::string str6 = "v";
 
-  Symbol s1(str1);
-  Symbol s2(str2);
-  Symbol s3(str3);
-  Symbol s4(str4);
-  Symbol s5(str5);
-  Symbol s6(str6);
+  // Symbol s1("a");
+  // Symbol s2("ab");
+  // Symbol s3("s");
+  // Symbol s4("l");
+  // Symbol s5("e");
+  // Symbol s6("v");
 
-  Chain c1(s3);
-  c1.AddSymbol(s1);
-  c1.AddSymbol(s4);
-  c1.AddSymbol(s1);
+  // Chain c1(s3);
+  // c1.AddSymbol(s1);
+  // c1.AddSymbol(s4);
+  // c1.AddSymbol(s1);
   
-  Chain c2(s5);
-  c2.AddSymbol(s6);
-  c2.AddSymbol(s1);
+  // Chain c2(s5);
+  // c2.AddSymbol(s6);
+  // c2.AddSymbol(s1);
 
-  Alphabet a1(s1);
-  Alphabet a2(s1);
-  a2.AddSymbol(s2);
+  // Alphabet a1(s1);
+  // Alphabet a2(s1);
+  // a2.AddSymbol(s2);
 
-  Language l1(a2);
-  l1.AddChain(c1);
-  l1.AddChain(c2);
+  // Language l1(a2);
+  // l1.AddChain(c1);
+  // l1.AddChain(c2);
 
-  std::cout << l1 << std::endl;
-  PrintChainSet(l1.Reverse());
+  // std::cout << l1 << std::endl;
+  // PrintChainSet(l1.Reverse());
 
-  Chain::Concatenate(c1,c2).Print();
-  std::cout << "\n";
+  // Symbol s7("1");
+  // Symbol s8("0");
+  // Alphabet a3(s7);
+  // a3.AddSymbol(s8);
+  
+  // Language l2(a3);
+  // l2.AddChain(Chain(s7));
+  // l2.AddChain(Chain(s8));
+  // // Chain empty_chain;
+  // // l2.AddChain(empty_chain);
+  // std::cout << "\nAlfabeto: " << a3 << "\nPotencia: ";
+  // PrintChainSet(l2.Power(0));
+  // PrintChainSet(l2.Power(1));
+  // PrintChainSet(l2.Power(2));
 
-  Symbol s7("0");
-  Symbol s8("1");
-  Alphabet a3(s7);
-  a3.AddSymbol(s8);
-  Language l2(a3);
-  l2.AddChain(Chain(s7));
-  l2.AddChain(Chain(s8));
-  std::cout << "Alfabeto: " << l2 << "\nPotencia: ";
-  PrintChainSet(l2.Power(3));
+  // Language l3(a3);
+  // Language l4(a3);
 
+  // Chain ojos;
+  // ojos.AddSymbol(Symbol("o"));
+  // ojos.AddSymbol(Symbol("j"));
+  // ojos.AddSymbol(Symbol("o"));
+  // ojos.AddSymbol(Symbol("s"));
+  // l3.AddChain(ojos);
 
-  return 0;
+  // Chain azules;
+  // azules.AddSymbol(Symbol("a"));
+  // azules.AddSymbol(Symbol("z"));
+  // azules.AddSymbol(Symbol("u"));
+  // azules.AddSymbol(Symbol("l"));
+  // azules.AddSymbol(Symbol("e"));
+  // azules.AddSymbol(Symbol("s"));
+  // l4.AddChain(azules);
+
+  // Chain negros;
+  // negros.AddSymbol(Symbol("n"));
+  // negros.AddSymbol(Symbol("e"));
+  // negros.AddSymbol(Symbol("g"));
+  // negros.AddSymbol(Symbol("r"));
+  // negros.AddSymbol(Symbol("o"));
+  // negros.AddSymbol(Symbol("s"));
+  // l4.AddChain(negros);
+
+  // std::cout << "\nL1:" << l3 << " L2:" << l4 << "\nCocatenacion: ";
+  // PrintChainSet(l3.Concatenation(l4));
+
+  // Language l5(a3);
+  // Language l6(a3);
+
+  // Chain empty_chain;
+
+  // Symbol one("1");
+  // Symbol zero("0");
+
+  // Chain l5_1(zero);
+  // Chain l5_2(one);
+  // Chain l5_3(one);
+  // l5_3.AddSymbol(zero);
+  // Chain l5_4(one);
+  // l5_4.AddSymbol(one);
+
+  // l5.AddChain(l5_1);
+  // l5.AddChain(l5_2);
+  // l5.AddChain(l5_3);
+  // l5.AddChain(l5_4);
+  // //l5.AddChain(empty_chain);
+
+  // Chain l6_1(one);
+  // Chain l6_2(zero);
+  // l6_2.AddSymbol(one);
+  // l6_2.AddSymbol(one);
+  // l6_2.AddSymbol(zero);
+  // Chain l6_3(one);
+  // l6_3.AddSymbol(one);
+  // l6_3.AddSymbol(zero);
+  // l6_3.AddSymbol(one);
+  // l6_3.AddSymbol(zero);
+
+  // //l6.AddChain(empty_chain);
+  // l6.AddChain(l6_1);
+  // l6.AddChain(l6_2);
+  // l6.AddChain(l6_3);
+
+  // std::cout << "\nL1:" << l5 << " L2:" << l6 << "\nUnion: ";
+  // PrintChainSet(l5.Union(l6));
+
+  // std::cout << "\nL1:" << l5 << " L2:" << l6 << "\nInterseccion: ";
+  // PrintChainSet(l5.Intersection(l6));
+
+  // std::cout << "\nL1:" << l5 << " L2:" << l6 << "\nDiferencia: ";
+  // PrintChainSet(l5.Diference(l6));
+
+  // std::string str = "{ a b c } { a abc cab bbcc }";
+  // for (size_t i = 0; i < SplitChain(str,kDelimeter).size(); i++){
+  //   std::cout << SplitChain(str,kDelimeter).at(i) << std::endl;
+  // }
+  
+  // return 0;
   // Comprobar numero de argumentos de ejecucion son correctos
   if (argc != kArgumentos) {
     std::cout << "¡Error de formato!\n\n";
@@ -140,15 +218,15 @@ int main(int argc, char* argv[]){
       // Comienza lectura de fichero
       while (getline(archivo, linea)) {   
         // Se define el alfabeto
-        std::set<Symbol> symbol_vector;
-        if (SplitChain(linea,kDelimeter).size() == 1) {   //Cadena sin alfabeto
-          
-        } else {
-          for (size_t i = 0; i < (SplitChain(linea,kDelimeter).size() - 1); i++) {
-            symbol_vector.insert(SplitChain(linea,kDelimeter).at(i));
-          } 
+        std::set<Symbol> symbol_set;
+        int iterator = 1;
+        while (SplitChain(linea,kDelimeter).at(iterator).at(0) != SET_CLOSER) {
+          symbol_set.insert(SplitChain(linea,kDelimeter).at(iterator));
         }
-        Alphabet alfa(symbol_vector);
+        for (size_t i = 1; i < (SplitChain(linea,kDelimeter).size() - 1); i++) {
+          symbol_set.insert(SplitChain(linea,kDelimeter).at(i));
+        }
+        Alphabet alfa(symbol_set);
 
         // Se crea y rellena la cadena
         Chain chain;
@@ -161,7 +239,7 @@ int main(int argc, char* argv[]){
         //Comprobar cadena pertenece al alfabeto
 
         // Menu. Ejecutar opcion según opcode
-        switch (atoi(argv[argc - 1])){
+        switch (atoi(argv[argc - 1])) {
           case 1:
             std::cout << chain.Size() << std::endl;
             break;
@@ -176,11 +254,15 @@ int main(int argc, char* argv[]){
             //PrintChainVector(chain.Sufix());
             break;
           case 5:
-            //PrintChainVector(chain.Substring());
+            //PrintChainSet(language.Reverse());
             break;
-          case 6:
-            std::cout << "Simbolos distintos: " << alfa.DistinctSimbol(chain) << "/" << alfa.Size() << std::endl; // Cambiar
+          case 6: {
+            int pow = 2;
+            std::cout << "Introduzca el valor de la potencia: "; 
+            std::cin >> pow;
+            // PrintChainSet(language.Power(pow));
             break;
+            }
           default:
             break;
         }

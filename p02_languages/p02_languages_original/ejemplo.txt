@@ -1,6 +1,5 @@
-a b abbab
-0 1 2 3 4 5 6 7 8 9 6793836
-hola
-
-a b c ab
-a b c efg
+{ a b c } { a abc cab bbcc }
+{ a } { a aa aaa }
+{ a b } { }
+{ 0 1 } { & }
+{ 0 1 } { 0 1 00 01 10 11 }
