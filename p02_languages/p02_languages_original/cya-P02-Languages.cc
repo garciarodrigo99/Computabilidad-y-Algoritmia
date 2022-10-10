@@ -159,7 +159,7 @@ int main(int argc, char* argv[]){
       "Introducir valores entre " << 1 << " y " << kOpcode << std::endl;
       return 2;
     } else {
-      
+      // Repetir esto para fichero 2
       std::string nombre_archivo = argv[POS_FILE_IN]; //Parametro 1
       std::ifstream archivo(nombre_archivo.c_str());
       std::string linea;
@@ -177,7 +177,6 @@ int main(int argc, char* argv[]){
 
         vector_string.push_back(linea);
       }
-      std::cout << vector_string.size();
     }
   }
 
