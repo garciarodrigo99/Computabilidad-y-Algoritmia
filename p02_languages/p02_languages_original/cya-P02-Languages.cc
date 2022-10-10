@@ -49,7 +49,7 @@ std::vector<std::string> SplitChain(std::string str, char pattern) {
     return results;
 }
 
-std::pair<Alphabet, int> LecturaAlfabeto(std::string string){
+std::pair<Alphabet, int> ReadAlphabet(std::string string){
   std::set<Symbol> symbol_set;
   int iterator = 1;
   //int last_symbol_pos = iterator;
@@ -61,6 +61,27 @@ std::pair<Alphabet, int> LecturaAlfabeto(std::string string){
   }
   Alphabet alfa(symbol_set);
   return std::pair<Alphabet, int>(alfa,iterator);
+}
+
+Language ReadLanguage(std::string string, int start_position, Language& lang) {
+  while (SplitChain(string,kDelimeter).at(start_position).at(0) != SET_CLOSER) {
+    Chain chain;
+    // Opcion para insertar cadena vacia sin que haya problema
+    // El if es negando lo de dentro por eficiencia. El incremento de
+    // iterator y añadir cadena era común a las 2 condiciones
+    if (!((SplitChain(string,kDelimeter).at(start_position).size() == 1) && 
+        (SplitChain(string,kDelimeter).at(start_position).at(0) == kEmptyChain))) {
+      for (size_t i = 0; 
+          i < SplitChain(string,kDelimeter).at(start_position).size(); i++){
+        std::string string_aux;
+        string_aux.push_back(SplitChain(string,kDelimeter).at(start_position).at(i));
+        chain.AddSymbol(Symbol(string_aux));
+      }
+    }
+    start_position++;
+    lang.AddChain(chain);
+  }
+  return lang;
 }
 
 // Funcion que imprime por pantalla un conjunto de cadenas
@@ -145,42 +166,15 @@ int main(int argc, char* argv[]){
 
       // Comienza lectura de fichero
       while (getline(archivo, linea)) {
-        // Se define el alfabeto
-        // std::set<Symbol> symbol_set;
-        // int iterator = 1;
-        // int last_symbol_pos = iterator;
-        // // While para recorrer los primeros corchetes(alfabeto)
-        // while (SplitChain(linea,kDelimeter).at(iterator).at(0) != SET_CLOSER) {
-        //   symbol_set.insert(SplitChain(linea,kDelimeter).at(iterator));
-        //   iterator++;
-        //   last_symbol_pos++;
-        // }
-        // Alphabet alfa(symbol_set);
-        LecturaAlfabeto(linea);
-        Language lang(LecturaAlfabeto(linea).first);
-        int iterator = LecturaAlfabeto(linea).second + 2;
-        // While para recorrer los segundos corchetes(lenguaje)
-        //Language lang(alfa);
-        //iterator = last_symbol_pos + 2;
-        while (SplitChain(linea,kDelimeter).at(iterator).at(0) != SET_CLOSER) {
-          Chain chain;
-          // Opcion para insertar cadena vacia sin que haya problema
-          // El if es negando lo de dentro por eficiencia. El incremento de
-          // iterator y añadir cadena era común a las 2 condiciones
-          if (!((SplitChain(linea,kDelimeter).at(iterator).size() == 1) && 
-              (SplitChain(linea,kDelimeter).at(iterator).at(0) == kEmptyChain))) {
-            for (size_t i = 0; 
-                i < SplitChain(linea,kDelimeter).at(iterator).size(); i++){
-              std::string string_aux;
-              string_aux.push_back(SplitChain(linea,kDelimeter).at(iterator).at(i));
-              chain.AddSymbol(Symbol(string_aux));
-            }
-          }
-          iterator++;
-          lang.AddChain(chain);
-        }
+
+        ReadAlphabet(linea);
+        Language lang(ReadAlphabet(linea).first);
+        int iterator = ReadAlphabet(linea).second + 2;
+
+        Language lang2(ReadLanguage(linea,iterator,lang));
+        //std::cout << ReadLanguage(linea,iterator,lang) << std::endl;
         std::endl(std::cout);
-        Menu(lang, atoi(argv[argc - 1]));
+        Menu(lang2, atoi(argv[argc - 1]));
 
       }
     }
