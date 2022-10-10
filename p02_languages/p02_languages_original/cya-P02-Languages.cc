@@ -97,7 +97,7 @@ void PrintChainSet(std::set<Chain> param_set){
 
 
 // Funcion para externalizar la funcionalidad menú
-void Menu(Language& param_language, int opcode){
+void Menu(int opcode, Language& param_language, Language& param_language2) {
   switch (opcode) {
     case 1:
       PrintChainSet(param_language.Concatenation(param_language));
@@ -164,19 +164,20 @@ int main(int argc, char* argv[]){
       std::ifstream archivo(nombre_archivo.c_str());
       std::string linea;
 
+      std::vector<std::string> vector_string;
       // Comienza lectura de fichero
       while (getline(archivo, linea)) {
 
-        ReadAlphabet(linea);
-        Language lang(ReadAlphabet(linea).first);
-        int iterator = ReadAlphabet(linea).second + 2;
+        // ReadAlphabet(linea);
+        // Language lang(ReadAlphabet(linea).first);
+        // int iterator = ReadAlphabet(linea).second + 2;
 
-        Language lang2(ReadLanguage(linea,iterator,lang));
-        //std::cout << ReadLanguage(linea,iterator,lang) << std::endl;
-        std::endl(std::cout);
-        Menu(lang2, atoi(argv[argc - 1]));
+        // Language lang2(ReadLanguage(linea,iterator,lang));
+        // Menu(atoi(argv[argc - 1]), lang2, lang2);
 
+        vector_string.push_back(linea);
       }
+      std::cout << vector_string.size();
     }
   }
 
