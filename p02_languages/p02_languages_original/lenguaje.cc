@@ -16,12 +16,19 @@ void Language::AddChain(Chain chain_param) { language_.insert(chain_param); }
 
 std::set<Chain> Language::Concatenation(const Language& param_language) {
     std::set<Chain> aux;
-
     for (std::set<Chain>::iterator it1 = language_.begin();
         it1 != language_.end(); it1++) {
       for (std::set<Chain>::iterator it2 = param_language.language_.begin();
           it2 != param_language.language_.end(); it2++) {
-        aux.insert(Chain::Concatenate(*it1,*it2));
+        // Manejar concatenacion con cadena vacia
+        // Chain empty_chain;
+        // if (*it1 == empty_chain) {
+        //   aux.insert(*it2);
+        // } else if (*it2 == empty_chain) {
+        //   aux.insert(*it1);
+        // } else {
+          aux.insert(Chain::Concatenate(*it1,*it2));
+        // }
       }
     }
     //power.erase(empty_chain);
@@ -59,34 +66,35 @@ bool Language::inChain(Chain param_chain) const {
 
 std::set<Chain> Language::Power(int n) {
   assert(n >= 0);
-  std::set<Chain> power;
+
   Chain empty_chain;
-
+  std::set<Chain> power;
+  power.insert(empty_chain);
   switch (n) {
-  case 0:
-    power.insert(empty_chain);
-    return power;
-    break;
+    case 0:
+      power.insert(empty_chain);
+      return power;
+      break;
 
-  case 1:
-    return language_;
-    break;
-  
-  default:
-    power = language_;
+    case 1:
+      return language_;
+      break;
     
-    std::set<Chain> aux = Power(n-1);
+    default: {
+      power = language_;
 
-    for (std::set<Chain>::iterator it1 = language_.begin();
-        it1 != language_.end(); it1++) {
-      for (std::set<Chain>::iterator it2 = aux.begin();
-          it2 != aux.end(); it2++) {
-        power.insert(Chain::Concatenate(*it1,*it2));
+      std::set<Chain> aux = Power(n-1);
+
+      for (std::set<Chain>::iterator it1 = language_.begin();
+          it1 != language_.end(); it1++) {
+        for (std::set<Chain>::iterator it2 = aux.begin();
+            it2 != aux.end(); it2++) {
+          power.insert(Chain::Concatenate(*it1,*it2));
+        }
       }
+      return power;
+      break;
     }
-    power.erase(empty_chain);
-    return power;
-    break;
   }
 }
 //https://www.youtube.com/watch?v=G9gnSGKYIg4

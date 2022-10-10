@@ -39,11 +39,16 @@ void Chain::AddSymbol(Symbol param) { chain_.push_back(param); }
 
 Chain Chain::Concatenate(const Chain& original, const Chain& adder) {
   Chain concatenated;
-  for (int i = 0; i < original.Size(); i++) {
-    concatenated.AddSymbol(original.Position(i));
+  Chain empty_chain;
+  if (!(original == empty_chain)) {
+    for (int i = 0; i < original.Size(); i++) {
+      concatenated.AddSymbol(original.Position(i));
+    }
   }
-  for (int i = 0; i < adder.Size(); i++) {
-    concatenated.AddSymbol(adder.Position(i));
+  if (!(adder == empty_chain)) {
+    for (int i = 0; i < adder.Size(); i++) {
+      concatenated.AddSymbol(adder.Position(i));
+    }
   }
   return concatenated;
 }
@@ -148,17 +153,26 @@ std::vector<Chain> Chain::Sufix() {
   return sufijos;
 }
 
+// Sobrecarga del operador< necesario para la clase std::set
+// Compara si una cadena es mayor a otra
 bool Chain::operator<(const Chain param_cadena)const {
-  if ((int)chain_.size() != param_cadena.Size()) {
+  // Cadenas distinto tamaño
+  if (((int)chain_.size() != param_cadena.Size()))
     return ((int)chain_.size() < param_cadena.Size());
-  } else {
-    for (size_t i = 0; i < (chain_.size() - 1); i++) {
-      if (!(chain_.at(i).isEqual(param_cadena.Position(i)))) {
-        return (chain_.at(i) < param_cadena.Position(i));
-      }
+  
+  // Caso comparar cadena vacia
+  if (chain_.size() == 0) 
+    return ((int)chain_.size() < param_cadena.Size());
+  // terminate called after throwing an instance of 'std::out_of_range'
+  // what():  vector::_M_range_check: __n (which is 0) >= this->size() (which is 0)
+  
+  // Cadenas mismo tamaño y distinto de 0
+  for (size_t i = 0; i < (chain_.size() - 1); i++) {
+    if (!(chain_.at(i).isEqual(param_cadena.Position(i)))) {
+      return (chain_.at(i) < param_cadena.Position(i));
     }
-    return (chain_.back() < param_cadena.Position(param_cadena.Size() - 1));
   }
+  return (chain_.back() < param_cadena.Position(param_cadena.Size() - 1));
 }
 
 // Sobrecarga operador<< para escritura del objeto

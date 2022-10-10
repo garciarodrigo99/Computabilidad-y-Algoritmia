@@ -87,10 +87,11 @@ void Menu(Language& param_language, int opcode){
       param_language.Reverse();
       break;
     case 6: {
-      int pow = 2;
-      std::cout << "Introduzca el valor de la potencia: "; 
-      std::cin >> pow;
+      int pow = 3;
+      // std::cout << "Introduzca el valor de la potencia: "; 
+      // std::cin >> pow;
       PrintChainSet(param_language.Power(pow));
+
       break;
       }
     default:
@@ -164,7 +165,6 @@ int main(int argc, char* argv[]){
           lang.AddChain(chain);
         }
         std::endl(std::cout);
-
         Menu(lang, atoi(argv[argc - 1]));
 
       }
