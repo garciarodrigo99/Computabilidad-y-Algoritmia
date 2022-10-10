@@ -24,17 +24,13 @@
 #include <thread>
 #include <stdlib.h>
 
-#define kArgumentos 4
+#define kArgumentos 5
 #define kOpcode 6
 #define kDelimeter ' '
 #define POS_FILE_IN 1
 #define POS_FILE_OUT 2
 #define POS_OPCODE 3
 #define SET_CLOSER '}'
-
-std::pair<Alphabet, int> Lectura(void){
-  std::pair<int, int> ejemplo(10,20);
-}
 
 // Funcion para separar cada linea en cadenas según espacios
 std::vector<std::string> SplitChain(std::string str, char pattern) {
@@ -51,6 +47,20 @@ std::vector<std::string> SplitChain(std::string str, char pattern) {
         results.push_back(splitted);
     }
     return results;
+}
+
+std::pair<Alphabet, int> LecturaAlfabeto(std::string string){
+  std::set<Symbol> symbol_set;
+  int iterator = 1;
+  //int last_symbol_pos = iterator;
+  // While para recorrer los primeros corchetes(alfabeto)
+  while (SplitChain(string,kDelimeter).at(iterator).at(0) != SET_CLOSER) {
+    symbol_set.insert(SplitChain(string,kDelimeter).at(iterator));
+    iterator++;
+    //last_symbol_pos++;
+  }
+  Alphabet alfa(symbol_set);
+  return std::pair<Alphabet, int>(alfa,iterator);
 }
 
 // Funcion que imprime por pantalla un conjunto de cadenas
@@ -103,8 +113,11 @@ void Menu(Language& param_language, int opcode){
 // introducir en caso de error.
 void information(char* p_name){
     std::cout <<"La forma correcta de ejecutar el programa es:\n"
-    << p_name << " ficheroentrada.txt ficherosalida.txt opcode\n\n"
+    << p_name << " ficheroentrada.txt ficheroentrada2.txt ficherosalida.txt"
+    " opcode\n\n"
     "ficheroentrada.txt\tFichero de texto que contiene los simbolos de un "
+    "alfabeto y un lenguaje\n"
+    "ficheroentrada2.txt\tFichero de texto que contiene los simbolos de un "
     "alfabeto y un lenguaje\n"
     "ficherosalida.txt\tFichero de texto que muestra para cada alfabeto y "
     "lenguaje la opcion de salida indicada en el opcode\n"
@@ -133,20 +146,22 @@ int main(int argc, char* argv[]){
       // Comienza lectura de fichero
       while (getline(archivo, linea)) {
         // Se define el alfabeto
-        std::set<Symbol> symbol_set;
-        int iterator = 1;
-        int last_symbol_pos = iterator;
-        // While para recorrer los primeros corchetes(alfabeto)
-        while (SplitChain(linea,kDelimeter).at(iterator).at(0) != SET_CLOSER) {
-          symbol_set.insert(SplitChain(linea,kDelimeter).at(iterator));
-          iterator++;
-          last_symbol_pos++;
-        }
-        Alphabet alfa(symbol_set);
-
+        // std::set<Symbol> symbol_set;
+        // int iterator = 1;
+        // int last_symbol_pos = iterator;
+        // // While para recorrer los primeros corchetes(alfabeto)
+        // while (SplitChain(linea,kDelimeter).at(iterator).at(0) != SET_CLOSER) {
+        //   symbol_set.insert(SplitChain(linea,kDelimeter).at(iterator));
+        //   iterator++;
+        //   last_symbol_pos++;
+        // }
+        // Alphabet alfa(symbol_set);
+        LecturaAlfabeto(linea);
+        Language lang(LecturaAlfabeto(linea).first);
+        int iterator = LecturaAlfabeto(linea).second + 2;
         // While para recorrer los segundos corchetes(lenguaje)
-        Language lang(alfa);
-        iterator = last_symbol_pos + 2;
+        //Language lang(alfa);
+        //iterator = last_symbol_pos + 2;
         while (SplitChain(linea,kDelimeter).at(iterator).at(0) != SET_CLOSER) {
           Chain chain;
           // Opcion para insertar cadena vacia sin que haya problema

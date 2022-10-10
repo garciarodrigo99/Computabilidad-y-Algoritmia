@@ -10,6 +10,9 @@ Language::Language(Alphabet param_alphabet) : alphabet_(param_alphabet) {}
 Language::Language(Alphabet param_alphabet, std::set<Chain> param_chain) : 
                   alphabet_(param_alphabet), language_(param_chain) {}
 
+Language::Language(const Language& param_language) : 
+                  Language(param_language.alphabet_, param_language.language_) {} 
+
 int Language::Size()const { return language_.size(); }
 
 void Language::AddChain(Chain chain_param) { language_.insert(chain_param); }

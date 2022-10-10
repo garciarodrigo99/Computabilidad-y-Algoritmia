@@ -23,6 +23,12 @@
 Alphabet::Alphabet(Symbol param) { alphabet_.insert(param); }
 
 Alphabet::Alphabet(std::set<Symbol> param) : alphabet_(param) {}
+
+Alphabet::Alphabet(const Alphabet& param_alphabet) {
+  for (std::set<Symbol>::iterator it = param_alphabet.alphabet_.begin();
+    it != param_alphabet.alphabet_.end(); ++it)
+    alphabet_.insert(*it);
+}
    
 int Alphabet::Size()const { return alphabet_.size(); }
 

@@ -28,6 +28,7 @@ class Alphabet {
     // Constructores y destructores
     Alphabet(Symbol);
     Alphabet(std::set<Symbol>);
+    Alphabet(const Alphabet&); // Copia
 
     // Getters y setters
     int Size()const;

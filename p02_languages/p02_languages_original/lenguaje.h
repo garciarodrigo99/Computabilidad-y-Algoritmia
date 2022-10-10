@@ -18,6 +18,7 @@
 
 #include <iostream>
 #include <set>
+#include <unordered_set>
 #include <vector>
 
 #pragma once
@@ -27,6 +28,7 @@ class Language {
     // Constructores y destructores
     Language(Alphabet);
     Language(Alphabet, std::set<Chain>);
+    Language(const Language&);
 
     // Getters y setters
     int Size()const;

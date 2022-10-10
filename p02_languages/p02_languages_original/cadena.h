@@ -49,6 +49,7 @@ class Chain{                                                               //|
     bool operator<(const Chain)const;
     friend std::ostream& operator<<(std::ostream&, const Chain&);
     bool operator==(const Chain&) const;
+    
 
   private:
     std::vector<Symbol> chain_;
