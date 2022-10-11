@@ -106,7 +106,7 @@ void Menu(int opcode, Language& param_language, Language& param_language2) {
       std::endl(std::cout);
       break;
     case 3:
-      PrintChainSet(param_language.Intersection(param_language2));
+      std::cout << param_language.Intersection(param_language2) << std::endl;
       break;
     case 4:
       std::cout << param_language.Diference(param_language2) << std::endl;

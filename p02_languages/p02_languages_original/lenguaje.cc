@@ -54,21 +54,26 @@ Language Language::Diference(const Language& param_language) {
   return diference;
 }
 
-std::set<Chain> Language::Intersection(const Language& param_language) {
-  std::set<Chain> intersection;
+// Metodo para saber si una cadena dada esta en el lenguaje
+bool Language::inChain(Chain param_chain) const {
+  return (language_.count(param_chain) != 0);
+}
 
+Language Language::Intersection(const Language& param_language) {
+  Language intersection(alphabet_);
   for (std::set<Chain>::iterator it1 = language_.begin();
       it1 != language_.end(); it1++) {
     if (param_language.inChain(*it1))
-      intersection.insert(*it1);
+      intersection.AddChain(*it1);
   }
-  //power.erase(empty_chain);
   return intersection;
 }
 
-// Metodo par
-bool Language::inChain(Chain param_chain) const {
-  return (language_.count(param_chain) != 0);
+Language Language::Power(int power) {
+  // Aprovechando el constructor y el metodo recursivo, 
+  // el método quedaría simplificado de la siguiente manera
+  Language aux(alphabet_, PowerSetChain(power));
+  return aux;
 }
 
 // Metodo recursivo para obtener la potencia de un set de cadenas
@@ -104,13 +109,6 @@ std::set<Chain> Language::PowerSetChain(int n) {
       break;
     }
   }
-}
-
-Language Language::Power(int power) {
-  // Aprovechando el constructor y el metodo recursivo, 
-  // el método quedaría simplificado de la siguiente manera
-  Language aux(alphabet_, PowerSetChain(power));
-  return aux;
 }
 
 Language Language::Reverse() {

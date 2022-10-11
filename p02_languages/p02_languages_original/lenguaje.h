@@ -39,10 +39,9 @@ class Language {
     std::set<Chain> Concatenation(const Language&);//Union alfabeto
     Language Diference(const Language&);
     bool inChain(Chain) const;
-    std::set<Chain> Intersection(const Language&);
-    Language Intersection_L(const Language&);
-    std::set<Chain> PowerSetChain(int);
+    Language Intersection(const Language&);
     Language Power(int);//1
+    std::set<Chain> PowerSetChain(int);
     Language Reverse();//1
     std::set<Chain> Union(const Language&);//Union alfabeto
 
