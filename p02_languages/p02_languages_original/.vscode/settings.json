@@ -54,6 +54,7 @@
         "stop_token": "cpp",
         "thread": "cpp",
         "optional": "cpp",
-        "set": "cpp"
+        "set": "cpp",
+        "unordered_set": "cpp"
     }
 }

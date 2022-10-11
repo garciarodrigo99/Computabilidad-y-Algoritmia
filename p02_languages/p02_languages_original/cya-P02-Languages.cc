@@ -28,8 +28,9 @@
 #define kOpcode 6
 #define kDelimeter ' '
 #define POS_FILE_IN 1
-#define POS_FILE_OUT 2
-#define POS_OPCODE 3
+#define POS_FILE_IN_2 2
+#define POS_FILE_OUT 3
+#define POS_OPCODE 4
 #define SET_CLOSER '}'
 
 // Funcion para separar cada linea en cadenas según espacios
@@ -52,12 +53,10 @@ std::vector<std::string> SplitChain(std::string str, char pattern) {
 std::pair<Alphabet, int> ReadAlphabet(std::string string){
   std::set<Symbol> symbol_set;
   int iterator = 1;
-  //int last_symbol_pos = iterator;
   // While para recorrer los primeros corchetes(alfabeto)
   while (SplitChain(string,kDelimeter).at(iterator).at(0) != SET_CLOSER) {
     symbol_set.insert(SplitChain(string,kDelimeter).at(iterator));
     iterator++;
-    //last_symbol_pos++;
   }
   Alphabet alfa(symbol_set);
   return std::pair<Alphabet, int>(alfa,iterator);
@@ -100,25 +99,25 @@ void PrintChainSet(std::set<Chain> param_set){
 void Menu(int opcode, Language& param_language, Language& param_language2) {
   switch (opcode) {
     case 1:
-      PrintChainSet(param_language.Concatenation(param_language));
+      PrintChainSet(param_language.Concatenation(param_language2));
       break;
     case 2:
-      PrintChainSet(param_language.Union(param_language));
+      PrintChainSet(param_language.Union(param_language2));
       std::endl(std::cout);
       break;
     case 3:
-      PrintChainSet(param_language.Intersection(param_language));
+      PrintChainSet(param_language.Intersection(param_language2));
       break;
     case 4:
-      PrintChainSet(param_language.Diference(param_language));
-      param_language.Diference(param_language);
+      PrintChainSet(param_language.Diference(param_language2));
+      param_language.Diference(param_language2);
       break;
     case 5:
       PrintChainSet(param_language.Reverse());
       param_language.Reverse();
       break;
     case 6: {
-      int pow = 3;
+      int pow = 0;
       // std::cout << "Introduzca el valor de la potencia: "; 
       // std::cin >> pow;
       PrintChainSet(param_language.Power(pow));
@@ -152,32 +151,65 @@ int main(int argc, char* argv[]){
     std::cout << "¡Error de formato!\n\n";
     information(argv[0]);
     return 1;
-  } else {
-    // Comprobar opcode esta entre los valores aceptados
-    if ((atoi(argv[argc - 1]) < 1) || (atoi(argv[argc - 1]) > kOpcode)) {
-      std::cout << "¡Opcode no válido!\n\n"
-      "Introducir valores entre " << 1 << " y " << kOpcode << std::endl;
-      return 2;
-    } else {
-      // Repetir esto para fichero 2
-      std::string nombre_archivo = argv[POS_FILE_IN]; //Parametro 1
-      std::ifstream archivo(nombre_archivo.c_str());
-      std::string linea;
+  }
 
-      std::vector<std::string> vector_string;
-      // Comienza lectura de fichero
-      while (getline(archivo, linea)) {
+  // Comprobar opcode esta entre los valores aceptados
+  if ((atoi(argv[argc - 1]) < 1) || (atoi(argv[argc - 1]) > kOpcode)) {
+    std::cout << "¡Opcode no válido!\n\n"
+    "Introducir valores entre " << 1 << " y " << kOpcode << std::endl;
+    return 2;
+  }
 
-        // ReadAlphabet(linea);
-        // Language lang(ReadAlphabet(linea).first);
-        // int iterator = ReadAlphabet(linea).second + 2;
+  std::string nombre_archivo = argv[POS_FILE_IN]; //Parametro 1
+  std::ifstream archivo(nombre_archivo.c_str());
+  std::string linea;
+  std::vector<Language> vector_language_file1;
+  bool operacion_unaria = ((atoi(argv[argc - 1]) == 5) || 
+                          (atoi(argv[argc - 1]) == 6));
+  // Comienza lectura de fichero 1, se almacenará en un vector de Language
+  // para más tarde trabajar con el
+  while (getline(archivo, linea)) {
+    // Lo hago de esta manera para evitar llamar dos veces a la misma funcion
+    // en las igualaciones
+    std::pair<Alphabet, int> pair_value(ReadAlphabet(linea));
+    Language aux(pair_value.first);
+    int iterator = pair_value.second + 2;
+    Language lang(ReadLanguage(linea,iterator,aux));
+    vector_language_file1.push_back(lang);
+  }
 
-        // Language lang2(ReadLanguage(linea,iterator,lang));
-        // Menu(atoi(argv[argc - 1]), lang2, lang2);
-
-        vector_string.push_back(linea);
-      }
+  // Si es operacion unaria, se evita lectura fichero2
+  if (operacion_unaria) {
+    for (size_t i = 0; i < vector_language_file1.size(); i++) {
+      Menu(atoi(argv[argc - 1]), vector_language_file1.at(i), 
+          vector_language_file1.at(i));
     }
+    return 0;
+  }
+
+  std::string nombre_archivo2 = argv[POS_FILE_IN_2]; //Parametro 2
+  std::ifstream archivo2(nombre_archivo2.c_str());
+  std::string linea2;
+  std::vector<Language> vector_language_file2;
+
+  while (getline(archivo2, linea2)) {
+    std::pair<Alphabet, int> pair_value(ReadAlphabet(linea2));
+    Language aux(pair_value.first);
+    int iterator = pair_value.second + 2;
+    Language lang(ReadLanguage(linea2,iterator,aux));
+    vector_language_file2.push_back(lang);
+  }
+
+  if (vector_language_file1.size() > vector_language_file2.size()) {
+    std::cout << "El numero de lenguajes de " << nombre_archivo;
+    std::cout << " es mayor que el numero de lenguajes de " << nombre_archivo;
+    std::endl(std::cout);
+    return 3;
+  }
+
+  for (size_t i = 0; i < vector_language_file1.size(); i++) {
+    Menu(atoi(argv[argc - 1]), vector_language_file1.at(i), 
+        vector_language_file2.at(i));
   }
 
   return 0;
