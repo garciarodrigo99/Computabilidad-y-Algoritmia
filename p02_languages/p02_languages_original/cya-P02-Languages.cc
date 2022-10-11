@@ -113,15 +113,14 @@ void Menu(int opcode, Language& param_language, Language& param_language2) {
       param_language.Diference(param_language2);
       break;
     case 5:
-      PrintChainSet(param_language.Reverse());
-      param_language.Reverse();
+      //PrintChainSet(param_language.Reverse());
+      std::cout << param_language.Reverse_L() << std::endl;
       break;
     case 6: {
-      int pow = 0;
+      int pow = 2;
       // std::cout << "Introduzca el valor de la potencia: "; 
       // std::cin >> pow;
-      PrintChainSet(param_language.Power(pow));
-
+      std::cout << param_language.Power_L(pow) << std::endl;
       break;
       }
     default:

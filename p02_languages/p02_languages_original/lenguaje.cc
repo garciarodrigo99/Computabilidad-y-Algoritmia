@@ -17,6 +17,12 @@ int Language::Size()const { return language_.size(); }
 
 void Language::AddChain(Chain chain_param) { language_.insert(chain_param); }
 
+void Language::AddSetChain(std::set<Chain> param_set) {
+  for (std::set<Chain>::iterator it = param_set.begin();
+    it != param_set.end(); ++it)
+    AddChain(*it);
+}
+
 std::set<Chain> Language::Concatenation(const Language& param_language) {
     std::set<Chain> aux;
     for (std::set<Chain>::iterator it1 = language_.begin();
@@ -102,13 +108,18 @@ std::set<Chain> Language::Power(int n) {
 }
 //https://www.youtube.com/watch?v=G9gnSGKYIg4
 
-std::set<Chain> Language::Reverse() {
-  std::set<Chain> reverse;
+Language Language::Power_L(int power) {
+  Language aux(alphabet_, Power(power));
+  return aux;
+}
+
+Language Language::Reverse_L() {
+  Language aux(alphabet_);
   for (std::set<Chain>::iterator it = language_.begin();
       it != language_.end(); ++it) {
-    reverse.insert(it->Reverse());
+    aux.AddChain(it->Reverse());
   }
-  return reverse;
+  return aux;
 }
 
 std::set<Chain> Language::Union(const Language& param_language) {
