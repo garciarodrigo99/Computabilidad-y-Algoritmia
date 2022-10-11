@@ -36,14 +36,15 @@ class Language {
     // Operaciones
     void AddChain(Chain);
     void AddSetChain(std::set<Chain>);
-    std::set<Chain> Concatenation(const Language&);
-    std::set<Chain> Diference(const Language&);
+    std::set<Chain> Concatenation(const Language&);//Union alfabeto
+    Language Diference(const Language&);
     bool inChain(Chain) const;
     std::set<Chain> Intersection(const Language&);
-    std::set<Chain> Power(int);//1
-    Language Power_L(int);//1
-    Language Reverse_L();//1
-    std::set<Chain> Union(const Language&);
+    Language Intersection_L(const Language&);
+    std::set<Chain> PowerSetChain(int);
+    Language Power(int);//1
+    Language Reverse();//1
+    std::set<Chain> Union(const Language&);//Union alfabeto
 
     // Sobrecarga de operadores
     //bool operator<(const Language)const;

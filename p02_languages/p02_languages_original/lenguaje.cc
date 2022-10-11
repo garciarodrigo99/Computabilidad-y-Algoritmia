@@ -44,15 +44,13 @@ std::set<Chain> Language::Concatenation(const Language& param_language) {
     return aux;
 }
 
-std::set<Chain> Language::Diference(const Language& param_language) {
-  std::set<Chain> diference;
-
+Language Language::Diference(const Language& param_language) {
+  Language diference(alphabet_);
   for (std::set<Chain>::iterator it1 = language_.begin();
       it1 != language_.end(); it1++) {
     if (!(param_language.inChain(*it1)))
-      diference.insert(*it1);
+      diference.AddChain(*it1);
   }
-  //power.erase(empty_chain);
   return diference;
 }
 
@@ -73,7 +71,8 @@ bool Language::inChain(Chain param_chain) const {
   return (language_.count(param_chain) != 0);
 }
 
-std::set<Chain> Language::Power(int n) {
+// Metodo recursivo para obtener la potencia de un set de cadenas
+std::set<Chain> Language::PowerSetChain(int n) {
   assert(n >= 0);
 
   Chain empty_chain;
@@ -92,7 +91,7 @@ std::set<Chain> Language::Power(int n) {
     default: {
       power = language_;
 
-      std::set<Chain> aux = Power(n-1);
+      std::set<Chain> aux = PowerSetChain(n-1);
 
       for (std::set<Chain>::iterator it1 = language_.begin();
           it1 != language_.end(); it1++) {
@@ -106,14 +105,15 @@ std::set<Chain> Language::Power(int n) {
     }
   }
 }
-//https://www.youtube.com/watch?v=G9gnSGKYIg4
 
-Language Language::Power_L(int power) {
-  Language aux(alphabet_, Power(power));
+Language Language::Power(int power) {
+  // Aprovechando el constructor y el metodo recursivo, 
+  // el método quedaría simplificado de la siguiente manera
+  Language aux(alphabet_, PowerSetChain(power));
   return aux;
 }
 
-Language Language::Reverse_L() {
+Language Language::Reverse() {
   Language aux(alphabet_);
   for (std::set<Chain>::iterator it = language_.begin();
       it != language_.end(); ++it) {
