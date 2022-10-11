@@ -102,8 +102,7 @@ void Menu(int opcode, Language& param_language, Language& param_language2) {
       PrintChainSet(param_language.Concatenation(param_language2));
       break;
     case 2:
-      PrintChainSet(param_language.Union(param_language2));
-      std::endl(std::cout);
+      std::cout << param_language.Union_L(param_language2) << std::endl;
       break;
     case 3:
       std::cout << param_language.Intersection(param_language2) << std::endl;

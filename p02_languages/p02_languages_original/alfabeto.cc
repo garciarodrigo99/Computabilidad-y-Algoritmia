@@ -30,6 +30,12 @@ Alphabet::Alphabet(const Alphabet& param_alphabet) {
     alphabet_.insert(*it);
 }
    
+void Alphabet::AlphabetUnion(const Alphabet& param_alphabet) {
+  for (std::set<Symbol>::iterator it = param_alphabet.alphabet_.begin();
+    it != param_alphabet.alphabet_.end(); ++it)
+    alphabet_.insert(*it);
+}
+
 int Alphabet::Size()const { return alphabet_.size(); }
 
 void Alphabet::AddSymbol(Symbol param_simbolo) {

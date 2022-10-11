@@ -44,6 +44,7 @@ class Language {
     std::set<Chain> PowerSetChain(int);
     Language Reverse();//1
     std::set<Chain> Union(const Language&);//Union alfabeto
+    Language Union_L(const Language&);//Union alfabeto
 
     // Sobrecarga de operadores
     //bool operator<(const Language)const;

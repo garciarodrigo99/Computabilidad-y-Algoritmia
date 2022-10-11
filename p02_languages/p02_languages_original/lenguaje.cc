@@ -112,12 +112,12 @@ std::set<Chain> Language::PowerSetChain(int n) {
 }
 
 Language Language::Reverse() {
-  Language aux(alphabet_);
+  Language reverse(alphabet_);
   for (std::set<Chain>::iterator it = language_.begin();
       it != language_.end(); ++it) {
-    aux.AddChain(it->Reverse());
+    reverse.AddChain(it->Reverse());
   }
-  return aux;
+  return reverse;
 }
 
 std::set<Chain> Language::Union(const Language& param_language) {
@@ -131,6 +131,22 @@ std::set<Chain> Language::Union(const Language& param_language) {
     aux.insert(*it);
   }
   return aux;
+}
+
+Language Language::Union_L(const Language& param_language) {
+  Alphabet aux_alphabet(alphabet_);
+  aux_alphabet.AlphabetUnion(param_language.alphabet_);
+  Language union_language(aux_alphabet);
+
+  for (std::set<Chain>::iterator it = language_.begin();
+      it != language_.end(); ++it) {
+    union_language.AddChain(*it);
+  }
+  for (std::set<Chain>::iterator it = param_language.language_.begin();
+      it != param_language.language_.end(); ++it) {
+    union_language.AddChain(*it);
+  }
+  return union_language;
 }
 
 // Sobrecarga operador<< para escritura del objeto

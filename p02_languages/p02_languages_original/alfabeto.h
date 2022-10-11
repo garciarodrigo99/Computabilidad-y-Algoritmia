@@ -31,6 +31,7 @@ class Alphabet {
     Alphabet(const Alphabet&); // Copia
 
     // Getters y setters
+    void AlphabetUnion(const Alphabet&);
     int Size()const;
 
     // Operaciones
