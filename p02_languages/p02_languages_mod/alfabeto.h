@@ -4,7 +4,7 @@
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
 // Práctica 2: Operaciones con lenguajes
-// Autor: Rodrigo Garcia Jimenez
+// Autor:  
 // Correo: alu0101154473@ull.es
 // Fecha: 11/10/2022
 // Archivo Alphabet.h: Cabecera de la clase Alphabet.

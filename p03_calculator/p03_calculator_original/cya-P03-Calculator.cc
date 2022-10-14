@@ -4,7 +4,7 @@
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
 // Práctica 2: Operaciones con lenguajes
-// Autor:  
+// Autor: Rodrigo Garcia Jimenez
 // Correo: alu0101154473@ull.es
 // Fecha: 11/10/2022
 // Archivo cya-P02-Languages.cc: programa cliente.
@@ -83,23 +83,20 @@ Language ReadLanguage(std::string string, int start_position, Language& lang) {
   return lang;
 }
 
-// // Funcion que imprime por pantalla un conjunto de cadenas
-// void PrintChainSet(std::set<Chain> param_set){
-//   std::cout << "{ ";
+// Funcion que imprime por pantalla un conjunto de cadenas
+void PrintChainSet(std::set<Chain> param_set){
+  std::cout << "{ ";
 
-//   for (std::set<Chain>::iterator it = param_set.begin();
-//       it != param_set.end(); ++it)
-//       std::cout << *it << " ";
+  for (std::set<Chain>::iterator it = param_set.begin();
+      it != param_set.end(); ++it)
+      std::cout << *it << " ";
 
-//   std::cout << "}\n";
-// }
+  std::cout << "}\n";
+}
 
 
 // Funcion para externalizar la funcionalidad menú
-void Menu(int opcode, Language& param_language, Language& param_language2,
-          std::string file_out) {
-  std::ofstream file;
-  file.open(file_out.c_str(), std::fstream::out);
+void Menu(int opcode, Language& param_language, Language& param_language2) {
   switch (opcode) {
     case 1:
       std::cout << param_language.Concatenation_L(param_language2) << std::endl;
@@ -125,15 +122,11 @@ void Menu(int opcode, Language& param_language, Language& param_language2,
       }
     case 7:
       if (param_language.Subset(param_language2)) {
-        std::cout << param_language << " es sublenguaje (o igual) de ";
-        std::cout << param_language2 << std::endl;
-        file << param_language << " es sublenguaje (o igual) de ";
+        std::cout << param_language << " es sublenguaje de ";
         std::cout << param_language2 << std::endl;
       }
       else {
         std::cout << param_language << " NO es sublenguaje de ";
-        std::cout << param_language2 << std::endl;
-        file << param_language << " NO es sublenguaje de ";
         std::cout << param_language2 << std::endl;
       }
       std::endl(std::cout);
@@ -174,8 +167,6 @@ int main(int argc, char* argv[]){
     return 2;
   }
 
-  std::string file_out = argv[POS_FILE_OUT];
-
   std::string nombre_archivo = argv[POS_FILE_IN]; //Parametro 1
   std::ifstream archivo(nombre_archivo.c_str());
   std::string linea;
@@ -198,7 +189,7 @@ int main(int argc, char* argv[]){
   if (operacion_unaria) {
     for (size_t i = 0; i < vector_language_file1.size(); i++) {
       Menu(atoi(argv[argc - 1]), vector_language_file1.at(i), 
-          vector_language_file1.at(i), file_out);
+          vector_language_file1.at(i));
     }
     return 0;
   }
@@ -225,7 +216,7 @@ int main(int argc, char* argv[]){
 
   for (size_t i = 0; i < vector_language_file1.size(); i++) {
     Menu(atoi(argv[argc - 1]), vector_language_file1.at(i), 
-        vector_language_file2.at(i), file_out);
+        vector_language_file2.at(i));
   }
 
   return 0;

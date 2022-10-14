@@ -4,7 +4,7 @@
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
 // Práctica 2: Operaciones con lenguajes
-// Autor:  
+// Autor: Rodrigo Garcia Jimenez
 // Correo: alu0101154473@ull.es
 // Fecha: 11/10/2022
 // Archivo cadena.cc: Fichero de implementación de la clase Chain.
@@ -15,7 +15,7 @@
 // Historial de revisiones
 // 11/10/2022 - Creaci´on (primera versi´on) del c´odigo
 #include "cadena.h"
-
+#include "alfabeto.h"
 #include <assert.h>
 #include <algorithm>
 

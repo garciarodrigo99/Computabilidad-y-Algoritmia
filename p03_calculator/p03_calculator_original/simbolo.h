@@ -4,7 +4,7 @@
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
 // Práctica 2: Operaciones con lenguajes
-// Autor:  
+// Autor: Rodrigo Garcia Jimenez
 // Correo: alu0101154473@ull.es
 // Fecha: 11/10/2022
 // Archivo simbolo.h: Cabecera de la clase Symbol.
