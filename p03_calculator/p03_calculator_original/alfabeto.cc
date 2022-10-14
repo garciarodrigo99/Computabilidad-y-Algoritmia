@@ -22,7 +22,9 @@
 
 Alphabet::Alphabet(Symbol param) { alphabet_.insert(param); }
 
-Alphabet::Alphabet(std::set<Symbol> param) : alphabet_(param) {}
+Alphabet::Alphabet(std::set<Symbol> param) : alphabet_(param) {
+  assert(alphabet_.size()>0);
+}
 
 Alphabet::Alphabet(const Alphabet& param_alphabet) {
   for (std::set<Symbol>::iterator it = param_alphabet.alphabet_.begin();

@@ -28,6 +28,12 @@ Chain::Chain(){}
 // Constructor con simbolo, todos menos cadena vacia
 Chain::Chain(Symbol param) : Chain() { chain_.push_back(param); }
 
+Chain::Chain(std::vector<Symbol> symbol_vector) {
+  for (size_t i = 0; i < symbol_vector.size(); i++){
+    chain_.push_back(Symbol(symbol_vector.at(i)));
+  }
+}
+
 // Constructor de copia de la clase
 Chain::Chain(const Chain& param) : chain_(param.chain_) {}//Comprobar
 
@@ -51,6 +57,15 @@ Chain Chain::Concatenate(const Chain& original, const Chain& adder) {
     }
   }
   return concatenated;
+}
+
+Alphabet Chain::GenerateAlphabet(void) {
+  std::set<Symbol> symbol_set;
+  for (size_t i = 0; i < chain_.size(); i++) {
+    symbol_set.insert(chain_.at(i));
+  }
+  Alphabet aux(symbol_set);
+  return aux;
 }
 
 bool Chain::inSymbol(Symbol simbolo_param) {

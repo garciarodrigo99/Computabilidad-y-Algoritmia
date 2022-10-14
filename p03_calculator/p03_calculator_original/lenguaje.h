@@ -21,17 +21,20 @@
 //#include <unordered_set>
 #include <vector>
 
+#define DEFAULT_NAME "default_id"
+
 #pragma once
 
 class Language {
   public:
     // Constructores y destructores
-    Language(Alphabet);
-    Language(Alphabet, std::set<Chain>);
-    Language(const Language&);
+    Language(Alphabet, std::string s = DEFAULT_NAME);
+    Language(Alphabet, std::set<Chain>, std::string s = DEFAULT_NAME);
+    Language(const Language&, std::string s = DEFAULT_NAME);
 
     // Getters y setters
     int Size()const;
+    void SetName(std::string);
 
     // Operaciones
     void AddChain(Chain);
@@ -53,4 +56,5 @@ class Language {
   private:
     Alphabet alphabet_;
     std::set<Chain> language_;
+    std::string language_id;
 };

@@ -22,15 +22,26 @@
 // https://stackoverflow.com/questions/3065438/switch-statement-with-returns-code-correctness
 
 
-Language::Language(Alphabet param_alphabet) : alphabet_(param_alphabet) {}
+Language::Language(Alphabet param_alphabet, std::string s) 
+                  : alphabet_(param_alphabet) {
+  language_id = s;
+}
 
-Language::Language(Alphabet param_alphabet, std::set<Chain> param_chain) : 
-                  alphabet_(param_alphabet), language_(param_chain) {}
+Language::Language(Alphabet param_alphabet, std::set<Chain> param_chain, 
+                  std::string s) : alphabet_(param_alphabet), 
+                  language_(param_chain) { 
+  language_id = s;
+}
 
-Language::Language(const Language& param_language) : 
-                  Language(param_language.alphabet_, param_language.language_) {} 
+Language::Language(const Language& param_language, 
+                  std::string s) : 
+                  Language(param_language.alphabet_, param_language.language_) {
+  language_id = s;
+} 
 
 int Language::Size()const { return language_.size(); }
+
+void Language::SetName(std::string id) { language_id = id; }
 
 void Language::AddChain(Chain chain_param) { language_.insert(chain_param); }
 
@@ -160,11 +171,18 @@ Language Language::Union(const Language& param_language) {
 
 // Sobrecarga operador<< para escritura del objeto
 std::ostream& operator<<(std::ostream& os, const Language& param_language) {
-  os << "{ ";
+  os << param_language.language_id << " = {";
 
   for (std::set<Chain>::iterator it = param_language.language_.begin();
-      it != param_language.language_.end(); ++it)
-      std::cout << *it << " ";
+      it != param_language.language_.end(); ++it) {
+    std::cout << *it;
+    // Arreglo para que salga en el formato requerido
+    std::set<Chain>::iterator it2 = it;
+    ++it2;
+    if (it2 != param_language.language_.end()) {
+      std::cout << ", ";
+    }
+  }
 
   os << "}";
   return os;

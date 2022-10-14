@@ -22,30 +22,32 @@
 
 #pragma once
 
-class Alfabeto;
+class Alphabet;
 
 class Chain{                                                               
   public:
     // Constructores y destructores
     Chain();
     Chain(Symbol);
+    Chain(std::vector<Symbol>);
     Chain(const Chain&); //Constructor de copia
 
     // Getters y setters
     Symbol Position(int)const;
-    int Size()const;
+    int Size(void)const;
 
     // Operaciones 
     void AddSymbol(Symbol);
     static Chain Concatenate(const Chain&, const Chain&);
+    Alphabet GenerateAlphabet(void);
     bool inSymbol(Symbol);
     bool isEqual(const Chain&) const;
     std::vector<Chain> Prefix();
-    void Print();
-    Chain Reverse();
-    Chain Reverse() const;
-    std::vector<Chain> Substring();
-    std::vector<Chain> Sufix();
+    void Print(void);
+    Chain Reverse(void);
+    Chain Reverse(void) const;
+    std::vector<Chain> Substring(void);
+    std::vector<Chain> Sufix(void);
 
     // Sobrecarga operadores
     bool operator<(const Chain)const;
