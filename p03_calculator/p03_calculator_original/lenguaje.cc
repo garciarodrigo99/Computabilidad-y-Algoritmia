@@ -22,13 +22,13 @@
 // https://stackoverflow.com/questions/3065438/switch-statement-with-returns-code-correctness
 
 
-Language::Language(Alphabet param_alphabet, std::string s) 
+Language::Language(Alphabet param_alphabet, std::string s = DEFAULT_NAME) 
                   : alphabet_(param_alphabet) {
   language_id = s;
 }
 
 Language::Language(Alphabet param_alphabet, std::set<Chain> param_chain, 
-                  std::string s) : alphabet_(param_alphabet), 
+                  std::string s = DEFAULT_NAME) : alphabet_(param_alphabet), 
                   language_(param_chain) { 
   language_id = s;
 }
@@ -167,6 +167,26 @@ Language Language::Union(const Language& param_language) {
     union_language.AddChain(*it);
   }
   return union_language;
+}
+
+bool Language::operator<(const Language param_language)const {
+  if (language_.size() != param_language.Size()) {
+    return (language_.size() < param_language.Size());
+  }
+  // Ya sabemos tienen mismo tamaño
+  if (language_.size() == 0) {
+    return (language_.size() < param_language.Size());
+  }
+  for (std::set<Chain>::iterator it = language_.begin();
+      it != language_.end(); ++it) {
+    std::cout << "¿" << *it << " in " << param_language << "?" << std::endl;
+    if (!(param_language.inChain(*it))) {
+      std::cout << "FALSO\n";
+      return true;
+    }
+  }
+  std::cout << "TRUE\n";
+  return false;
 }
 
 // Sobrecarga operador<< para escritura del objeto

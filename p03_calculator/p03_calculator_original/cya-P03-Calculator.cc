@@ -137,7 +137,34 @@ int main(int argc, char* argv[]){
     information(argv[0]);
     return 1;
   }
-
+  std::set<Language> language_set;
+  Symbol a("a");
+  Symbol b("b");
+  Symbol c("c");
+  Alphabet alfa(a);
+  alfa.AddSymbol(b);
+  alfa.AddSymbol(c);
+  Chain a_chain(a);
+  Chain ab(a);
+  ab.AddSymbol(b);
+  Chain abc(a);
+  abc.AddSymbol(b);
+  abc.AddSymbol(c);
+  std::string str_l1 = "L1";
+  Language l1(alfa,str_l1);
+  Chain empty_chain;
+  l1.AddChain(empty_chain);
+  std::string str_l2 = "L2";
+  Language l2(alfa,str_l2);
+  l2.AddChain(empty_chain);
+  language_set.insert(l1);
+  language_set.insert(l2);
+  std::cout << l1 << " " << l2 << std::endl;
+  for (std::set<Language>::iterator it = language_set.begin();
+      it != language_set.end(); ++it) {
+    std::cout << *it << std::endl;
+  }
+  return 0;
   std::string nombre_archivo = argv[POS_FILE_IN]; //Parametro 1
   std::ifstream archivo(nombre_archivo.c_str());
   std::string linea;
@@ -146,21 +173,13 @@ int main(int argc, char* argv[]){
   // Comienza lectura de fichero 1, se almacenará en un vector de Language
   // para más tarde trabajar con el
   while (getline(archivo, linea)) {
-    // Lo hago de esta manera para evitar llamar dos veces a la misma funcion
-    // en las igualaciones
-    //std::pair<Alphabet, int> pair_value(ReadAlphabet(linea));
-    //SplitChain(linea);
     if (SplitChain(linea).at(1).at(0) == LANG_ASSIGN ) {
       languages_vector.push_back(ReadLanguage(SplitChain(linea)));
+    } else {
+      operations_vector.push_back(linea);
     }
-    
-    // Language aux(pair_value.first);
-    // int iterator = pair_value.second + 2;
-    // Language lang(ReadLanguage(linea,iterator,aux));
-    // languages_vector.push_back(lang);
   }
 
-  // Si es operacion unaria, se evita lectura fichero2
   for (size_t i = 0; i < languages_vector.size(); i++) {
     //Menu(atoi(argv[argc - 1]), vector_language_file1.at(i), 
         //vector_language_file1.at(i));

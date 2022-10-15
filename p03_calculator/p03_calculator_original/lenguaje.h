@@ -28,9 +28,9 @@
 class Language {
   public:
     // Constructores y destructores
-    Language(Alphabet, std::string s = DEFAULT_NAME);
-    Language(Alphabet, std::set<Chain>, std::string s = DEFAULT_NAME);
-    Language(const Language&, std::string s = DEFAULT_NAME);
+    Language(Alphabet, std::string);
+    Language(Alphabet, std::set<Chain>, std::string);
+    Language(const Language&, std::string);
 
     // Getters y setters
     int Size()const;
@@ -50,7 +50,7 @@ class Language {
     Language Union(const Language&);//Union alfabeto
 
     // Sobrecarga de operadores
-    //bool operator<(const Language)const;
+    bool operator<(const Language)const;
     friend std::ostream& operator<<(std::ostream&, const Language&);                 
 
   private:

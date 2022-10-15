@@ -19,6 +19,8 @@
 #include <assert.h>
 #include <algorithm>
 
+#define DEFAULT_ALPHABET_SYMBOL "0"
+
 //https://stackoverflow.com/questions/308276/can-i-call-a-constructor-from-another-constructor-do-constructor-chaining-in-c
 //https://www.tutorialspoint.com/strcmp-in-c-cplusplus#
 //https://en.cppreference.com/w/c/string/byte/strcmp 
@@ -63,6 +65,10 @@ Alphabet Chain::GenerateAlphabet(void) {
   std::set<Symbol> symbol_set;
   for (size_t i = 0; i < chain_.size(); i++) {
     symbol_set.insert(chain_.at(i));
+  }
+  // Cadena vacia
+  if (symbol_set.size() == 0) {
+    symbol_set.insert(Symbol(DEFAULT_ALPHABET_SYMBOL));
   }
   Alphabet aux(symbol_set);
   return aux;
@@ -175,7 +181,7 @@ bool Chain::operator<(const Chain param_cadena)const {
   if (((int)chain_.size() != param_cadena.Size()))
     return ((int)chain_.size() < param_cadena.Size());
   
-  // Caso comparar cadena vacia
+  // Caso comparar cadena vacia (ya tienen mismo tamaño)
   if (chain_.size() == 0) 
     return ((int)chain_.size() < param_cadena.Size());
   // terminate called after throwing an instance of 'std::out_of_range'
