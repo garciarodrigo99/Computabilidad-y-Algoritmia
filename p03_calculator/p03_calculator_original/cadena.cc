@@ -3,17 +3,17 @@
 // Grado en Ingeniería Informática
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
-// Práctica 2: Operaciones con lenguajes
+// Práctica 3: Calculadora de lenguajes formales
 // Autor: Rodrigo Garcia Jimenez
-// Correo: alu0101154473@ull.es
-// Fecha: 11/10/2022
+// Correo: alu0101154473@ull.edu.es
+// Fecha: 18/10/2022
 // Archivo cadena.cc: Fichero de implementación de la clase Chain.
 // Se define la clase Chain con sus métodos y atributos
 // Referencias:
 // Enlaces de interéss
 //
 // Historial de revisiones
-// 11/10/2022 - Creaci´on (primera versi´on) del c´odigo
+// 13/10/2022 - Creaci´on (primera versi´on) del c´odigo
 #include "cadena.h"
 #include "alfabeto.h"
 #include <algorithm>
@@ -25,6 +25,7 @@
 // https://www.tutorialspoint.com/strcmp-in-c-cplusplus#
 // https://en.cppreference.com/w/c/string/byte/strcmp
 
+// Constructor por defecto(cadena vacia)
 Chain::Chain() {}
 
 // Constructor con simbolo, todos menos cadena vacia
@@ -39,20 +40,29 @@ Chain::Chain(std::vector<Symbol> symbol_vector) {
 // Constructor de copia de la clase
 Chain::Chain(const Chain &param) : chain_(param.chain_) {} // Comprobar
 
-Symbol Chain::Position(int index) const { return chain_.at(index); }
+// Getter de la posicion index de la cadena
+Symbol Chain::Position(int index) const {
+  assert((index >= 0) && (index < (int)chain_.size()));
+  return chain_.at(index);
+}
 
+// Getter tamaño cadena
 int Chain::Size() const { return chain_.size(); }
 
+// Añadir simbolo a la cadena
 void Chain::AddSymbol(Symbol param) { chain_.push_back(param); }
 
+// Operacion concatenar
 Chain Chain::Concatenate(const Chain &original, const Chain &adder) {
   Chain concatenated;
   Chain empty_chain;
+  // Primera cadena no es cadena vacia
   if (!(original == empty_chain)) {
     for (int i = 0; i < original.Size(); i++) {
       concatenated.AddSymbol(original.Position(i));
     }
   }
+  // Segunda cadena no es cadena vacia
   if (!(adder == empty_chain)) {
     for (int i = 0; i < adder.Size(); i++) {
       concatenated.AddSymbol(adder.Position(i));
@@ -61,6 +71,7 @@ Chain Chain::Concatenate(const Chain &original, const Chain &adder) {
   return concatenated;
 }
 
+// Metodo para generar un alfabeto a partir de una cadena
 Alphabet Chain::GenerateAlphabet(void) {
   std::set<Symbol> symbol_set;
   for (size_t i = 0; i < chain_.size(); i++) {
@@ -74,6 +85,7 @@ Alphabet Chain::GenerateAlphabet(void) {
   return aux;
 }
 
+// Metodo para saber si una cadena contiene un simbolo pasado por parametro
 bool Chain::inSymbol(Symbol simbolo_param) {
   for (size_t i = 0; i < chain_.size(); i++) {
     if (chain_.at(i).isEqual(simbolo_param))
@@ -82,6 +94,7 @@ bool Chain::inSymbol(Symbol simbolo_param) {
   return false;
 }
 
+// Metodo para saber si una cadena es igual a otra
 bool Chain::isEqual(const Chain &cadena_param) const {
   if (((int)chain_.size()) != cadena_param.Size()) {
     return false;
@@ -95,6 +108,7 @@ bool Chain::isEqual(const Chain &cadena_param) const {
   return true;
 }
 
+// Operacion prefijos
 std::vector<Chain> Chain::Prefix() {
   std::vector<Chain> prefijos;
   Chain v;
@@ -109,6 +123,7 @@ std::vector<Chain> Chain::Prefix() {
   return prefijos;
 }
 
+// Salida por pantalla
 void Chain::Print() {
   if (chain_.size() == 0) {
     std::cout << kEmptyChain;
@@ -119,6 +134,7 @@ void Chain::Print() {
   }
 }
 
+// Operacion inversa
 Chain Chain::Reverse() {
   if (chain_.size() == 0)
     return *this;
@@ -131,6 +147,7 @@ Chain Chain::Reverse() {
   return inversa;
 }
 
+// Operacion inversa objeto constante
 Chain Chain::Reverse() const {
   if (chain_.size() == 0)
     return *this;
@@ -143,6 +160,7 @@ Chain Chain::Reverse() const {
   return inversa;
 }
 
+// Operacion subcadenas
 std::vector<Chain> Chain::Substring() {
   std::vector<Chain> subcadena;
   Chain v;
@@ -162,6 +180,7 @@ std::vector<Chain> Chain::Substring() {
   return subcadena;
 }
 
+// Operacion sufijos
 std::vector<Chain> Chain::Sufix() {
   std::vector<Chain> sufijos;
   Chain v;
@@ -176,7 +195,7 @@ std::vector<Chain> Chain::Sufix() {
   return sufijos;
 }
 
-// Sobrecarga del operador< necesario para la clase std::set
+// Sobrecarga del operador '<' necesario para la clase std::set
 // Compara si una cadena es mayor a otra
 bool Chain::operator<(const Chain param_cadena) const {
   // Cadenas distinto tamaño
@@ -199,7 +218,7 @@ bool Chain::operator<(const Chain param_cadena) const {
   return (chain_.back() < param_cadena.Position(param_cadena.Size() - 1));
 }
 
-// Sobrecarga operador<< para escritura del objeto
+// Sobrecarga operador '<<' para escritura del objeto
 std::ostream &operator<<(std::ostream &os, const Chain &param_cadena) {
   if (param_cadena.Size() == 0) {
     return os << kEmptyChain;
@@ -211,10 +230,13 @@ std::ostream &operator<<(std::ostream &os, const Chain &param_cadena) {
   }
 }
 
+// Sobrecarga operador '==' para comparación del objeto
 bool Chain::operator==(const Chain &param_chain) const {
   return isEqual(param_chain);
 }
 
+// Funcion externa para saber si en un vector de cadenas, la cadena por
+// parametro se encuentra dentro del vector
 bool inVector(std::vector<Chain> param_vector, Chain param_cadena) {
   for (size_t i = 0; i < param_vector.size(); i++) {
     if (param_cadena.isEqual(param_vector.at(i))) {

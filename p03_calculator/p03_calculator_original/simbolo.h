@@ -3,10 +3,10 @@
 // Grado en Ingeniería Informática
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
-// Práctica 2: Operaciones con lenguajes
+// Práctica 3: Calculadora de lenguajes formales
 // Autor: Rodrigo Garcia Jimenez
-// Correo: alu0101154473@ull.es
-// Fecha: 11/10/2022
+// Correo: alu0101154473@ull.edu.es
+// Fecha: 18/10/2022
 // Archivo simbolo.h: Cabecera de la clase Symbol.
 // Se define la clase Symbol con sus métodos y atributos
 // Referencias:
@@ -14,7 +14,7 @@
 // https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
 // https://stackoverflow.com/questions/3025997/defining-static-const-integer-members-in-class-definition
 // Historial de revisiones
-// 11/10/2022 - Creaci´on (primera versi´on) del c´odigo
+// 13/10/2022 - Creaci´on (primera versi´on) del c´odigo
 #include <iostream>
 #include <string>
 #pragma once
@@ -28,8 +28,6 @@ public:
   ~Symbol();
 
   // Getters
-  std::string GetSymbol();
-  std::string GetSymbol() const;
   const char position(int);
   int Size() const;
 

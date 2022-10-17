@@ -3,10 +3,10 @@
 // Grado en Ingeniería Informática
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
-// Práctica 2: Operaciones con lenguajes
+// Práctica 3: Calculadora de lenguajes formales
 // Autor: Rodrigo Garcia Jimenez
-// Correo: alu0101154473@ull.es
-// Fecha: 11/10/2022
+// Correo: alu0101154473@ull.edu.es
+// Fecha: 18/10/2022
 // Archivo cya-P02-Languages.cc: programa cliente.
 // Contiene la función main del proyecto que usa las clases X e Y
 // para ... (indicar brevemente el objetivo)
@@ -14,11 +14,12 @@
 // Enlaces de interéss
 //
 // Historial de revisiones
-// 11/10/2022 - Creaci´on (primera versi´on) del c´odigo
+// 13/10/2022 - Creaci´on (primera versi´on) del c´odigo
 
 #include "calculator.h"
 #include "lenguaje.h"
 
+#include <algorithm>
 #include <chrono>
 #include <fstream>
 #include <iostream>
@@ -33,36 +34,6 @@
 #define LANG_ASSIGN '='
 #define CHAIN_SEPARATOR ','
 #define DEFAULT_ALPHABET_SYMBOL "0"
-
-// Funcion para separar cada linea en cadenas según espacios
-std::vector<std::string> SplitChain(std::string str,
-                                    char pattern = kDelimeter) {
-
-  int posInit = 0;
-  int posFound = 0;
-  std::string splitted;
-  std::vector<std::string> results;
-
-  while (posFound >= 0) {
-    posFound = str.find(pattern, posInit);
-    splitted = str.substr(posInit, posFound - posInit);
-    posInit = posFound + 1;
-    results.push_back(splitted);
-  }
-  return results;
-}
-
-// std::pair<Alphabet, int> ReadAlphabet(std::string string){
-//   std::set<Symbol> symbol_set;
-//   int iterator = 1;
-//   // While para recorrer los primeros corchetes(alfabeto)
-//   while (SplitChain(string,kDelimeter).at(iterator).at(0) != SET_CLOSER) {
-//     symbol_set.insert(SplitChain(string,kDelimeter).at(iterator));
-//     iterator++;
-//   }
-//   Alphabet alfa(symbol_set);
-//   return std::pair<Alphabet, int>(alfa,iterator);
-// }
 
 Language ReadLanguage(std::vector<std::string> string_vector) {
   std::string alphabet_id(string_vector.at(0));
@@ -110,17 +81,6 @@ Language ReadLanguage(std::vector<std::string> string_vector) {
   return lang;
 }
 
-// // Funcion que imprime por pantalla un conjunto de cadenas
-// void PrintChainSet(std::set<Chain> param_set){
-//   std::cout << "{ ";
-
-//   for (std::set<Chain>::iterator it = param_set.begin();
-//       it != param_set.end(); ++it)
-//       std::cout << *it << " ";
-
-//   std::cout << "}\n";
-// }
-
 // Funcion que indica la forma correcta de ejecutar y cada parametro a
 // introducir en caso de error.
 void information(char *p_name) {
@@ -128,8 +88,8 @@ void information(char *p_name) {
             << p_name
             << " ficheroentrada.txt\n\n"
                "ficheroentrada.txt\tFichero de texto que contiene las cadenas "
-               "que forman "
-               "un lenguaje\n";
+               "que forman un lenguaje y operaciones con los lenguajes "
+               "previamente definidos en las líneas anteriores.\n";
 }
 
 int main(int argc, char *argv[]) {
@@ -144,22 +104,26 @@ int main(int argc, char *argv[]) {
   std::string nombre_archivo = argv[POS_FILE_IN]; // Parametro 1
   std::ifstream archivo(nombre_archivo.c_str());
   std::string linea;
+  // Guadar la definicion del conjunto de lenguajes
   std::set<Language> languages_set;
+  // Guadar las n operaciones del fichero
   std::vector<std::string> operations_vector;
-  // Comienza lectura de fichero 1, se almacenará en un vector de Language
-  // para más tarde trabajar con el
+  // Lectura fichero
   while (getline(archivo, linea)) {
-    if (SplitChain(linea).at(1).at(0) == LANG_ASSIGN) {
-      languages_set.insert(ReadLanguage(SplitChain(linea)));
+    if (SplitChain(linea, kDelimeter).at(1).at(0) == LANG_ASSIGN) {
+      // Caso definición lenguaje
+      languages_set.insert(ReadLanguage(SplitChain(linea, kDelimeter)));
     } else {
+      // Caso operacion
       operations_vector.push_back(linea);
     }
   }
 
   for (size_t i = 0; i < operations_vector.size(); i++) {
     std::cout << operations_vector.at(i) << std::endl;
-    Calculator calc(languages_set, SplitChain(operations_vector.at(i)));
-    std::cout << calc.GetResult() << std::endl;
+    Calculator calc(languages_set);
+    std::cout << calc.GetResult(operations_vector.at(i), kDelimeter)
+              << std::endl;
     std::endl(std::cout);
   }
 

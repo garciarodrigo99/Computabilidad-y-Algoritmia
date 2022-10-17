@@ -3,55 +3,68 @@
 // Grado en Ingeniería Informática
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
-// Práctica 2: Operaciones con lenguajes
+// Práctica 3: Calculadora de lenguajes formales
 // Autor: Rodrigo Garcia Jimenez
-// Correo: alu0101154473@ull.es
-// Fecha: 11/10/2022
+// Correo: alu0101154473@ull.edu.es
+// Fecha: 18/10/2022
 // Archivo lenguaje.cc: Fichero de implementación de la clase Language.
 // Se define la clase Language con sus métodos y atributos
 // Referencias:
 // Enlaces de interéss
 // https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
+// https://stackoverflow.com/questions/3065438/switch-statement-with-returns-code-correctness
 // Historial de revisiones
-// 11/10/2022 - Creaci´on (primera versi´on) del c´odigo
+// 13/10/2022 - Creaci´on (primera versi´on) del c´odigo
 
 #include "lenguaje.h"
 
 #include <assert.h>
 
-// https://stackoverflow.com/questions/3065438/switch-statement-with-returns-code-correctness
-
+// Constructor con los parametros Alfabeto que define el lenguaje y el nombre
+// del lenguaje, que en caso de no pasar string se asignará uno por defecto
 Language::Language(Alphabet param_alphabet, std::string s = DEFAULT_NAME)
     : alphabet_(param_alphabet) {
   language_id_ = s;
 }
 
+// Constructor con los parametros Alfabeto que define el lenguaje, un conjunto
+// de cadenas y el nombre del lenguaje, que en caso de no pasar string se
+// asignará uno por defecto
 Language::Language(Alphabet param_alphabet, std::set<Chain> param_chain,
                    std::string s = DEFAULT_NAME)
     : alphabet_(param_alphabet), language_(param_chain) {
   language_id_ = s;
 }
 
-Language::Language(const Language &param_language, std::string s)
+// Constructor de copia que recibe como parametros el lenguaje al que va a ser
+// igual y el nombre del lenguaje. En caso de que no se especifique este
+// parametro se le asignará un nombre por defecto
+Language::Language(const Language &param_language, std::string s = DEFAULT_NAME)
     : Language(param_language.alphabet_, param_language.language_) {
   language_id_ = s;
 }
 
+// Retorna el nombre del lenguaje
 std::string Language::GetNameID() const { return language_id_; }
 
+// Retorna el numero de cadenas del lenguaje
 int Language::Size() const { return language_.size(); }
 
+// Setter del nombre del lenguaje
 void Language::SetName(std::string id) { language_id_ = id; }
 
+// Añadir cadena al lenguaje
 void Language::AddChain(Chain chain_param) { language_.insert(chain_param); }
 
+// Añadir un conjunto de cadenas al lenguaje
 void Language::AddSetChain(std::set<Chain> param_set) {
   for (std::set<Chain>::iterator it = param_set.begin(); it != param_set.end();
        ++it)
     AddChain(*it);
 }
 
-Language Language::Concatenation_L(const Language &param_language) {
+// Operacion para concatenar dos lenguajes
+Language Language::Concatenation(const Language &param_language) {
   Alphabet aux_alphabet(alphabet_);
   aux_alphabet.AlphabetUnion(param_language.alphabet_);
   Language union_language(aux_alphabet);
@@ -66,6 +79,7 @@ Language Language::Concatenation_L(const Language &param_language) {
   return union_language;
 }
 
+// Operacion diferencia de lenguajes
 Language Language::Diference(const Language &param_language) {
   Language diference(alphabet_);
   for (std::set<Chain>::iterator it1 = language_.begin();
@@ -81,6 +95,7 @@ bool Language::inChain(Chain param_chain) const {
   return (language_.count(param_chain) != 0);
 }
 
+// Operacion intersección de dos lenguajes
 Language Language::Intersection(const Language &param_language) {
   Language intersection(alphabet_);
   for (std::set<Chain>::iterator it1 = language_.begin();
@@ -91,9 +106,12 @@ Language Language::Intersection(const Language &param_language) {
   return intersection;
 }
 
+// Operacion potencia sobre un lenguaje, que recibe como parametro el exponente
+// al cual elevar el lenguaje
 Language Language::Power(int power) {
   // Aprovechando el constructor y el metodo recursivo,
   // el método quedaría simplificado de la siguiente manera
+  assert(power >= 0);
   Language aux(alphabet_, PowerSetChain(power));
   return aux;
 }
@@ -133,6 +151,7 @@ std::set<Chain> Language::PowerSetChain(int n) {
   }
 }
 
+// Operacion inversa de un lenguaje
 Language Language::Reverse() {
   Language reverse(alphabet_);
   for (std::set<Chain>::iterator it = language_.begin(); it != language_.end();
@@ -142,6 +161,8 @@ Language Language::Reverse() {
   return reverse;
 }
 
+// Operacion para saber si el lenguaje objeto está contenido o es igual que el
+// lenguaje que se la ha pasado por parametro
 bool Language::Subset(const Language &param_language) {
 
   for (std::set<Chain>::iterator it = language_.begin(); it != language_.end();
@@ -153,6 +174,7 @@ bool Language::Subset(const Language &param_language) {
   return true;
 }
 
+// Operacion union de dos lenguajes
 Language Language::Union(const Language &param_language) {
   Alphabet aux_alphabet(alphabet_);
   aux_alphabet.AlphabetUnion(param_language.alphabet_);
@@ -169,27 +191,32 @@ Language Language::Union(const Language &param_language) {
   return union_language;
 }
 
+// Sobrecarga operador '<' para trabajar con la clase std::set
 bool Language::operator<(const Language param_language) const {
+  // Diferente tamaño
   if ((int)language_.size() != param_language.Size()) {
     return ((int)language_.size() < param_language.Size());
   }
   // Ya sabemos tienen mismo tamaño
+  // Lenguaje vacio
   if (language_.size() == 0) {
     return ((int)language_.size() < param_language.Size());
   }
+  // Mismo tamaño mayor que 0
+  // Recorremos el conjunto de cadenas que forman el lenguaje del obejeto
   for (std::set<Chain>::iterator it = language_.begin(); it != language_.end();
        ++it) {
-    std::cout << "¿" << *it << " in " << param_language << "?" << std::endl;
-    if (!(param_language.inChain(*it))) {
-      std::cout << "FALSO\n";
+    // Si una cadena no se encuentra en el lenguaje parametro, retornamos true
+    if (!(param_language.inChain(*it)))
       return true;
-    }
   }
-  std::cout << "TRUE\n";
+  // Una vez terminado el for, sin que se haya salido del metodo, indicamos
+  // false. Se ha implementado de esta manera evitar lenguajes repetidos cuando
+  // se trabaje con la clase std::set
   return false;
 }
 
-// Sobrecarga operador<< para escritura del objeto
+// Sobrecarga operador '<<' para escritura del objeto
 std::ostream &operator<<(std::ostream &os, const Language &param_language) {
   os << param_language.language_id_ << " = {";
 
