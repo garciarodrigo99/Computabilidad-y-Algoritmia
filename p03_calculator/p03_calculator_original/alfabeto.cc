@@ -17,28 +17,28 @@
 
 #include "alfabeto.h"
 
-#include <iostream>
 #include <assert.h>
+#include <iostream>
 
 Alphabet::Alphabet(Symbol param) { alphabet_.insert(param); }
 
 Alphabet::Alphabet(std::set<Symbol> param) : alphabet_(param) {
-  assert(alphabet_.size()>0);
+  assert(alphabet_.size() > 0);
 }
 
-Alphabet::Alphabet(const Alphabet& param_alphabet) {
+Alphabet::Alphabet(const Alphabet &param_alphabet) {
   for (std::set<Symbol>::iterator it = param_alphabet.alphabet_.begin();
-    it != param_alphabet.alphabet_.end(); ++it)
-    alphabet_.insert(*it);
-}
-   
-void Alphabet::AlphabetUnion(const Alphabet& param_alphabet) {
-  for (std::set<Symbol>::iterator it = param_alphabet.alphabet_.begin();
-    it != param_alphabet.alphabet_.end(); ++it)
+       it != param_alphabet.alphabet_.end(); ++it)
     alphabet_.insert(*it);
 }
 
-int Alphabet::Size()const { return alphabet_.size(); }
+void Alphabet::AlphabetUnion(const Alphabet &param_alphabet) {
+  for (std::set<Symbol>::iterator it = param_alphabet.alphabet_.begin();
+       it != param_alphabet.alphabet_.end(); ++it)
+    alphabet_.insert(*it);
+}
+
+int Alphabet::Size() const { return alphabet_.size(); }
 
 void Alphabet::AddSymbol(Symbol param_simbolo) {
   alphabet_.insert(param_simbolo);
@@ -46,8 +46,8 @@ void Alphabet::AddSymbol(Symbol param_simbolo) {
 
 int Alphabet::DistinctSimbol(Chain param_cadena) {
   int count = 0;
-  for (std::set<Symbol>::iterator it = alphabet_.begin();
-      it != alphabet_.end(); ++it) {
+  for (std::set<Symbol>::iterator it = alphabet_.begin(); it != alphabet_.end();
+       ++it) {
     if (param_cadena.inSymbol(*it))
       count++;
   }
@@ -70,17 +70,17 @@ bool Alphabet::okChain(Chain param_cadena) {
   return true;
 }
 
-bool Alphabet::operator<(const Alphabet param_alphabet)const {
+bool Alphabet::operator<(const Alphabet param_alphabet) const {
   return ((int)alphabet_.size() < param_alphabet.Size());
 }
 
 // Sobrecarga operador<< para escritura del objeto
-std::ostream& operator<<(std::ostream& os, Alphabet& param_alfabeto) {
+std::ostream &operator<<(std::ostream &os, Alphabet &param_alfabeto) {
   os << "{ ";
 
   for (std::set<Symbol>::iterator it = param_alfabeto.alphabet_.begin();
-      it != param_alfabeto.alphabet_.end(); ++it)
-      std::cout << *it << " ";
+       it != param_alfabeto.alphabet_.end(); ++it)
+    std::cout << *it << " ";
 
   os << "}";
   return os;

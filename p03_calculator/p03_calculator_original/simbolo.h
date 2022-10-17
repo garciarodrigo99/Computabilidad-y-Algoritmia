@@ -19,29 +19,29 @@
 #include <string>
 #pragma once
 
-static char const kEmptyChain = '&'; //cambiar
+static char const kEmptyChain = '&'; // cambiar
 
 class Symbol {
-  public:
-    // Constructores y destructores
-    Symbol(const std::string);
-    ~Symbol();
+public:
+  // Constructores y destructores
+  Symbol(const std::string);
+  ~Symbol();
 
-    // Getters
-    std::string GetSymbol();
-    std::string GetSymbol()const;
-    const char position(int);
-    int Size()const;
+  // Getters
+  std::string GetSymbol();
+  std::string GetSymbol() const;
+  const char position(int);
+  int Size() const;
 
-    // Operaciones
-    bool CheckSimbols(Symbol);
-    bool isEqual(Symbol);
-    bool isEqual(Symbol)const;
+  // Operaciones
+  bool CheckSimbols(Symbol);
+  bool isEqual(Symbol);
+  bool isEqual(Symbol) const;
 
-    //Sobrecarga de operadores
-    bool operator<(const Symbol)const;
-    friend std::ostream& operator<<(std::ostream&, const Symbol&);
+  // Sobrecarga de operadores
+  bool operator<(const Symbol) const;
+  friend std::ostream &operator<<(std::ostream &, const Symbol &);
 
-  private:
-    std::string symbol_;
+private:
+  std::string symbol_;
 };

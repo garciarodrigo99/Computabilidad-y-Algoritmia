@@ -14,8 +14,8 @@
 // https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
 // Historial de revisiones
 // 11/10/2022 - Creaci´on (primera versi´on) del c´odigo
-#include "simbolo.h"
 #include "cadena.h"
+#include "simbolo.h"
 
 #include <iostream>
 #include <set>
@@ -24,26 +24,26 @@
 #pragma once
 
 class Alphabet {
-  public:
-    // Constructores y destructores
-    Alphabet(Symbol);
-    Alphabet(std::set<Symbol>);
-    Alphabet(const Alphabet&); // Copia
+public:
+  // Constructores y destructores
+  Alphabet(Symbol);
+  Alphabet(std::set<Symbol>);
+  Alphabet(const Alphabet &); // Copia
 
-    // Getters y setters
-    void AlphabetUnion(const Alphabet&);
-    int Size()const;
+  // Getters y setters
+  void AlphabetUnion(const Alphabet &);
+  int Size() const;
 
-    // Operaciones
-    void AddSymbol(Symbol);
-    int DistinctSimbol(Chain);
-    bool inSymbol(Symbol);
-    bool okChain(Chain);
+  // Operaciones
+  void AddSymbol(Symbol);
+  int DistinctSimbol(Chain);
+  bool inSymbol(Symbol);
+  bool okChain(Chain);
 
-    // Sobrecarga de operadores
-    bool operator<(const Alphabet)const;
-    friend std::ostream& operator<<(std::ostream&, Alphabet&);
+  // Sobrecarga de operadores
+  bool operator<(const Alphabet) const;
+  friend std::ostream &operator<<(std::ostream &, Alphabet &);
 
-  private:
-    std::set<Symbol> alphabet_;
+private:
+  std::set<Symbol> alphabet_;
 };

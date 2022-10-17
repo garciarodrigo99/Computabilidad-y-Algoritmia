@@ -21,57 +21,55 @@
 
 // https://stackoverflow.com/questions/3065438/switch-statement-with-returns-code-correctness
 
-
-Language::Language(Alphabet param_alphabet, std::string s = DEFAULT_NAME) 
-                  : alphabet_(param_alphabet) {
+Language::Language(Alphabet param_alphabet, std::string s = DEFAULT_NAME)
+    : alphabet_(param_alphabet) {
   language_id_ = s;
 }
 
-Language::Language(Alphabet param_alphabet, std::set<Chain> param_chain, 
-                  std::string s = DEFAULT_NAME) : alphabet_(param_alphabet), 
-                  language_(param_chain) { 
+Language::Language(Alphabet param_alphabet, std::set<Chain> param_chain,
+                   std::string s = DEFAULT_NAME)
+    : alphabet_(param_alphabet), language_(param_chain) {
   language_id_ = s;
 }
 
-Language::Language(const Language& param_language, 
-                  std::string s) : 
-                  Language(param_language.alphabet_, param_language.language_) {
+Language::Language(const Language &param_language, std::string s)
+    : Language(param_language.alphabet_, param_language.language_) {
   language_id_ = s;
-} 
+}
 
-std::string Language::GetNameID() const { return language_id_;}
+std::string Language::GetNameID() const { return language_id_; }
 
-int Language::Size()const { return language_.size(); }
+int Language::Size() const { return language_.size(); }
 
 void Language::SetName(std::string id) { language_id_ = id; }
 
 void Language::AddChain(Chain chain_param) { language_.insert(chain_param); }
 
 void Language::AddSetChain(std::set<Chain> param_set) {
-  for (std::set<Chain>::iterator it = param_set.begin();
-    it != param_set.end(); ++it)
+  for (std::set<Chain>::iterator it = param_set.begin(); it != param_set.end();
+       ++it)
     AddChain(*it);
 }
 
-Language Language::Concatenation_L(const Language& param_language) {
+Language Language::Concatenation_L(const Language &param_language) {
   Alphabet aux_alphabet(alphabet_);
   aux_alphabet.AlphabetUnion(param_language.alphabet_);
   Language union_language(aux_alphabet);
 
   for (std::set<Chain>::iterator it1 = language_.begin();
-      it1 != language_.end(); it1++) {
+       it1 != language_.end(); it1++) {
     for (std::set<Chain>::iterator it2 = param_language.language_.begin();
-        it2 != param_language.language_.end(); it2++) {
-        union_language.AddChain(Chain::Concatenate(*it1,*it2));
+         it2 != param_language.language_.end(); it2++) {
+      union_language.AddChain(Chain::Concatenate(*it1, *it2));
     }
   }
   return union_language;
 }
 
-Language Language::Diference(const Language& param_language) {
+Language Language::Diference(const Language &param_language) {
   Language diference(alphabet_);
   for (std::set<Chain>::iterator it1 = language_.begin();
-      it1 != language_.end(); it1++) {
+       it1 != language_.end(); it1++) {
     if (!(param_language.inChain(*it1)))
       diference.AddChain(*it1);
   }
@@ -83,10 +81,10 @@ bool Language::inChain(Chain param_chain) const {
   return (language_.count(param_chain) != 0);
 }
 
-Language Language::Intersection(const Language& param_language) {
+Language Language::Intersection(const Language &param_language) {
   Language intersection(alphabet_);
   for (std::set<Chain>::iterator it1 = language_.begin();
-      it1 != language_.end(); it1++) {
+       it1 != language_.end(); it1++) {
     if (param_language.inChain(*it1))
       intersection.AddChain(*it1);
   }
@@ -94,7 +92,7 @@ Language Language::Intersection(const Language& param_language) {
 }
 
 Language Language::Power(int power) {
-  // Aprovechando el constructor y el metodo recursivo, 
+  // Aprovechando el constructor y el metodo recursivo,
   // el método quedaría simplificado de la siguiente manera
   Language aux(alphabet_, PowerSetChain(power));
   return aux;
@@ -108,70 +106,70 @@ std::set<Chain> Language::PowerSetChain(int n) {
   std::set<Chain> power;
   power.insert(empty_chain);
   switch (n) {
-    case 0:
-      power.insert(empty_chain);
-      return power;
-      break;
+  case 0:
+    power.insert(empty_chain);
+    return power;
+    break;
 
-    case 1:
-      return language_;
-      break;
-    
-    default: {
-      power = language_;
+  case 1:
+    return language_;
+    break;
 
-      std::set<Chain> aux = PowerSetChain(n-1);
+  default: {
+    power = language_;
 
-      for (std::set<Chain>::iterator it1 = language_.begin();
-          it1 != language_.end(); it1++) {
-        for (std::set<Chain>::iterator it2 = aux.begin();
-            it2 != aux.end(); it2++) {
-          power.insert(Chain::Concatenate(*it1,*it2));
-        }
+    std::set<Chain> aux = PowerSetChain(n - 1);
+
+    for (std::set<Chain>::iterator it1 = language_.begin();
+         it1 != language_.end(); it1++) {
+      for (std::set<Chain>::iterator it2 = aux.begin(); it2 != aux.end();
+           it2++) {
+        power.insert(Chain::Concatenate(*it1, *it2));
       }
-      return power;
-      break;
     }
+    return power;
+    break;
+  }
   }
 }
 
 Language Language::Reverse() {
   Language reverse(alphabet_);
-  for (std::set<Chain>::iterator it = language_.begin();
-      it != language_.end(); ++it) {
+  for (std::set<Chain>::iterator it = language_.begin(); it != language_.end();
+       ++it) {
     reverse.AddChain(it->Reverse());
   }
   return reverse;
 }
 
-bool Language::Subset(const Language& param_language) {
+bool Language::Subset(const Language &param_language) {
 
-  for (std::set<Chain>::iterator it = language_.begin();
-      it != language_.end(); ++it) {
-      if (!(param_language.inChain(*it))) {
-        return false;
-      }
+  for (std::set<Chain>::iterator it = language_.begin(); it != language_.end();
+       ++it) {
+    if (!(param_language.inChain(*it))) {
+      return false;
+    }
   }
   return true;
 }
 
-Language Language::Union(const Language& param_language) {
+Language Language::Union(const Language &param_language) {
   Alphabet aux_alphabet(alphabet_);
   aux_alphabet.AlphabetUnion(param_language.alphabet_);
   Language union_language(aux_alphabet);
 
-  for (std::set<Chain>::iterator it = language_.begin();
-      it != language_.end(); ++it) {
+  for (std::set<Chain>::iterator it = language_.begin(); it != language_.end();
+       ++it) {
     union_language.AddChain(*it);
   }
   for (std::set<Chain>::iterator it = param_language.language_.begin();
-      it != param_language.language_.end(); ++it) {
+       it != param_language.language_.end(); ++it) {
     union_language.AddChain(*it);
   }
   return union_language;
 }
 
-bool Language::operator<(const Language param_language)const {
+bool Language::operator<(const Language param_language) const {
   if ((int)language_.size() != param_language.Size()) {
     return ((int)language_.size() < param_language.Size());
   }
@@ -179,8 +177,8 @@ bool Language::operator<(const Language param_language)const {
   if (language_.size() == 0) {
     return ((int)language_.size() < param_language.Size());
   }
-  for (std::set<Chain>::iterator it = language_.begin();
-      it != language_.end(); ++it) {
+  for (std::set<Chain>::iterator it = language_.begin(); it != language_.end();
+       ++it) {
     std::cout << "¿" << *it << " in " << param_language << "?" << std::endl;
     if (!(param_language.inChain(*it))) {
       std::cout << "FALSO\n";
@@ -192,11 +190,11 @@ bool Language::operator<(const Language param_language)const {
 }
 
 // Sobrecarga operador<< para escritura del objeto
-std::ostream& operator<<(std::ostream& os, const Language& param_language) {
+std::ostream &operator<<(std::ostream &os, const Language &param_language) {
   os << param_language.language_id_ << " = {";
 
   for (std::set<Chain>::iterator it = param_language.language_.begin();
-      it != param_language.language_.end(); ++it) {
+       it != param_language.language_.end(); ++it) {
     std::cout << *it;
     // Arreglo para que salga en el formato requerido
     std::set<Chain>::iterator it2 = it;

@@ -26,36 +26,36 @@
 #pragma once
 
 class Language {
-  public:
-    // Constructores y destructores
-    Language(Alphabet, std::string);
-    Language(Alphabet, std::set<Chain>, std::string);
-    Language(const Language&, std::string);
+public:
+  // Constructores y destructores
+  Language(Alphabet, std::string);
+  Language(Alphabet, std::set<Chain>, std::string);
+  Language(const Language &, std::string);
 
-    // Getters y setters
-    std::string GetNameID()const;
-    int Size()const;
-    void SetName(std::string);
+  // Getters y setters
+  std::string GetNameID() const;
+  int Size() const;
+  void SetName(std::string);
 
-    // Operaciones
-    void AddChain(Chain);
-    void AddSetChain(std::set<Chain>);
-    Language Concatenation_L(const Language&);//Union alfabeto
-    Language Diference(const Language&);
-    bool inChain(Chain) const;
-    Language Intersection(const Language&);
-    Language Power(int);//1
-    std::set<Chain> PowerSetChain(int);
-    Language Reverse();//1
-    bool Subset(const Language&);
-    Language Union(const Language&);//Union alfabeto
+  // Operaciones
+  void AddChain(Chain);
+  void AddSetChain(std::set<Chain>);
+  Language Concatenation_L(const Language &); // Union alfabeto
+  Language Diference(const Language &);
+  bool inChain(Chain) const;
+  Language Intersection(const Language &);
+  Language Power(int); // 1
+  std::set<Chain> PowerSetChain(int);
+  Language Reverse(); // 1
+  bool Subset(const Language &);
+  Language Union(const Language &); // Union alfabeto
 
-    // Sobrecarga de operadores
-    bool operator<(const Language)const;
-    friend std::ostream& operator<<(std::ostream&, const Language&);                 
+  // Sobrecarga de operadores
+  bool operator<(const Language) const;
+  friend std::ostream &operator<<(std::ostream &, const Language &);
 
-  private:
-    Alphabet alphabet_;
-    std::set<Chain> language_;
-    std::string language_id_;
+private:
+  Alphabet alphabet_;
+  std::set<Chain> language_;
+  std::string language_id_;
 };

@@ -16,14 +16,14 @@
 // Historial de revisiones
 // 11/10/2022 - Creaci´on (primera versi´on) del c´odigo
 
-#include "lenguaje.h"
 #include "calculator.h"
+#include "lenguaje.h"
 
-#include <iostream>
-#include <fstream>
 #include <chrono>
-#include <thread>
+#include <fstream>
+#include <iostream>
 #include <stdlib.h>
+#include <thread>
 
 #define kArgumentos 2
 #define kDelimeter ' '
@@ -35,20 +35,21 @@
 #define DEFAULT_ALPHABET_SYMBOL "0"
 
 // Funcion para separar cada linea en cadenas según espacios
-std::vector<std::string> SplitChain(std::string str, char pattern = kDelimeter) {
-    
-    int posInit = 0;
-    int posFound = 0;
-    std::string splitted;
-    std::vector<std::string> results;
-    
-    while(posFound >= 0){
-        posFound = str.find(pattern, posInit);
-        splitted = str.substr(posInit, posFound - posInit);
-        posInit = posFound + 1;
-        results.push_back(splitted);
-    }
-    return results;
+std::vector<std::string> SplitChain(std::string str,
+                                    char pattern = kDelimeter) {
+
+  int posInit = 0;
+  int posFound = 0;
+  std::string splitted;
+  std::vector<std::string> results;
+
+  while (posFound >= 0) {
+    posFound = str.find(pattern, posInit);
+    splitted = str.substr(posInit, posFound - posInit);
+    posInit = posFound + 1;
+    results.push_back(splitted);
+  }
+  return results;
 }
 
 // std::pair<Alphabet, int> ReadAlphabet(std::string string){
@@ -66,24 +67,24 @@ std::vector<std::string> SplitChain(std::string str, char pattern = kDelimeter) 
 Language ReadLanguage(std::vector<std::string> string_vector) {
   std::string alphabet_id(string_vector.at(0));
   std::set<Chain> chain_set;
-  std::set<Symbol> symbol_set;          //Para el alfabeto
+  std::set<Symbol> symbol_set; // Para el alfabeto
 
   for (size_t i = 2; i < string_vector.size(); i++) {
     // Lenguaje que contiene a la cadena vacia
-    std::vector<Symbol> symbol_vector;  //Para la cadena
+    std::vector<Symbol> symbol_vector; // Para la cadena
     // Condiciones donde puede aparecer la cadena vacia
-    if (((string_vector.at(i).size() == 3) && 
-        (string_vector.at(i).at(1) == kEmptyChain)) || 
-        ((string_vector.at(i).size() == 2) && 
-        (string_vector.at(i).at(0) == kEmptyChain))) {
+    if (((string_vector.at(i).size() == 3) &&
+         (string_vector.at(i).at(1) == kEmptyChain)) ||
+        ((string_vector.at(i).size() == 2) &&
+         (string_vector.at(i).at(0) == kEmptyChain))) {
       Chain empty_chain;
       chain_set.insert(empty_chain);
     } else {
       for (size_t j = 0; j < string_vector.at(i).size(); j++) {
-        bool read = ((string_vector.at(i).at(j) != SET_OPENER) && 
-                    (string_vector.at(i).at(j) != SET_CLOSER) && 
-                    (string_vector.at(i).at(j) != CHAIN_SEPARATOR) &&
-                    (string_vector.at(i).at(j) != kEmptyChain));
+        bool read = ((string_vector.at(i).at(j) != SET_OPENER) &&
+                     (string_vector.at(i).at(j) != SET_CLOSER) &&
+                     (string_vector.at(i).at(j) != CHAIN_SEPARATOR) &&
+                     (string_vector.at(i).at(j) != kEmptyChain));
         if (read == true) {
           std::string str_aux;
           str_aux.push_back(string_vector.at(i).at(j));
@@ -103,9 +104,9 @@ Language ReadLanguage(std::vector<std::string> string_vector) {
   if (symbol_set.size() == 0) {
     symbol_set.insert(Symbol(DEFAULT_ALPHABET_SYMBOL));
   }
-  
+
   Alphabet alfa(symbol_set);
-  Language lang(alfa,chain_set,alphabet_id);
+  Language lang(alfa, chain_set, alphabet_id);
   return lang;
 }
 
@@ -120,25 +121,27 @@ Language ReadLanguage(std::vector<std::string> string_vector) {
 //   std::cout << "}\n";
 // }
 
-// Funcion que indica la forma correcta de ejecutar y cada parametro a 
+// Funcion que indica la forma correcta de ejecutar y cada parametro a
 // introducir en caso de error.
-void information(char* p_name){
-    std::cout <<"La forma correcta de ejecutar el programa es:\n"
-    << p_name << " ficheroentrada.txt\n\n"
-    "ficheroentrada.txt\tFichero de texto que contiene las cadenas que forman "
-    "un lenguaje\n";
+void information(char *p_name) {
+  std::cout << "La forma correcta de ejecutar el programa es:\n"
+            << p_name
+            << " ficheroentrada.txt\n\n"
+               "ficheroentrada.txt\tFichero de texto que contiene las cadenas "
+               "que forman "
+               "un lenguaje\n";
 }
 
-int main(int argc, char* argv[]){
-//clang-format -i style=Google ejemplo.cc
-  // Comprobar numero de argumentos de ejecucion son correctos
+int main(int argc, char *argv[]) {
+  // clang-format -i style=Google ejemplo.cc
+  //  Comprobar numero de argumentos de ejecucion son correctos
   if (argc != kArgumentos) {
     std::cout << "¡Error de formato!\n\n";
     information(argv[0]);
     return 1;
   }
 
-  std::string nombre_archivo = argv[POS_FILE_IN]; //Parametro 1
+  std::string nombre_archivo = argv[POS_FILE_IN]; // Parametro 1
   std::ifstream archivo(nombre_archivo.c_str());
   std::string linea;
   std::set<Language> languages_set;
@@ -146,7 +149,7 @@ int main(int argc, char* argv[]){
   // Comienza lectura de fichero 1, se almacenará en un vector de Language
   // para más tarde trabajar con el
   while (getline(archivo, linea)) {
-    if (SplitChain(linea).at(1).at(0) == LANG_ASSIGN ) {
+    if (SplitChain(linea).at(1).at(0) == LANG_ASSIGN) {
       languages_set.insert(ReadLanguage(SplitChain(linea)));
     } else {
       operations_vector.push_back(linea);
@@ -155,9 +158,9 @@ int main(int argc, char* argv[]){
 
   for (size_t i = 0; i < operations_vector.size(); i++) {
     std::cout << operations_vector.at(i) << std::endl;
-    Calculator calc(languages_set,SplitChain(operations_vector.at(i)));
+    Calculator calc(languages_set, SplitChain(operations_vector.at(i)));
     std::cout << calc.GetResult() << std::endl;
-    std::endl (std::cout);
+    std::endl(std::cout);
   }
 
   return 0;
