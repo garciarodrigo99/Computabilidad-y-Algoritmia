@@ -24,24 +24,26 @@
 
 Language::Language(Alphabet param_alphabet, std::string s = DEFAULT_NAME) 
                   : alphabet_(param_alphabet) {
-  language_id = s;
+  language_id_ = s;
 }
 
 Language::Language(Alphabet param_alphabet, std::set<Chain> param_chain, 
                   std::string s = DEFAULT_NAME) : alphabet_(param_alphabet), 
                   language_(param_chain) { 
-  language_id = s;
+  language_id_ = s;
 }
 
 Language::Language(const Language& param_language, 
                   std::string s) : 
                   Language(param_language.alphabet_, param_language.language_) {
-  language_id = s;
+  language_id_ = s;
 } 
+
+std::string Language::GetNameID() const { return language_id_;}
 
 int Language::Size()const { return language_.size(); }
 
-void Language::SetName(std::string id) { language_id = id; }
+void Language::SetName(std::string id) { language_id_ = id; }
 
 void Language::AddChain(Chain chain_param) { language_.insert(chain_param); }
 
@@ -170,12 +172,12 @@ Language Language::Union(const Language& param_language) {
 }
 
 bool Language::operator<(const Language param_language)const {
-  if (language_.size() != param_language.Size()) {
-    return (language_.size() < param_language.Size());
+  if ((int)language_.size() != param_language.Size()) {
+    return ((int)language_.size() < param_language.Size());
   }
   // Ya sabemos tienen mismo tamaño
   if (language_.size() == 0) {
-    return (language_.size() < param_language.Size());
+    return ((int)language_.size() < param_language.Size());
   }
   for (std::set<Chain>::iterator it = language_.begin();
       it != language_.end(); ++it) {
@@ -191,7 +193,7 @@ bool Language::operator<(const Language param_language)const {
 
 // Sobrecarga operador<< para escritura del objeto
 std::ostream& operator<<(std::ostream& os, const Language& param_language) {
-  os << param_language.language_id << " = {";
+  os << param_language.language_id_ << " = {";
 
   for (std::set<Chain>::iterator it = param_language.language_.begin();
       it != param_language.language_.end(); ++it) {

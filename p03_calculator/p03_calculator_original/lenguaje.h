@@ -33,6 +33,7 @@ class Language {
     Language(const Language&, std::string);
 
     // Getters y setters
+    std::string GetNameID()const;
     int Size()const;
     void SetName(std::string);
 
@@ -56,5 +57,5 @@ class Language {
   private:
     Alphabet alphabet_;
     std::set<Chain> language_;
-    std::string language_id;
+    std::string language_id_;
 };

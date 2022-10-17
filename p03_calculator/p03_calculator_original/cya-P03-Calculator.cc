@@ -17,6 +17,7 @@
 // 11/10/2022 - Creaci´on (primera versi´on) del c´odigo
 
 #include "lenguaje.h"
+#include "calculator.h"
 
 #include <iostream>
 #include <fstream>
@@ -105,7 +106,6 @@ Language ReadLanguage(std::vector<std::string> string_vector) {
   
   Alphabet alfa(symbol_set);
   Language lang(alfa,chain_set,alphabet_id);
-  std::cout << lang << "\talfabeto: " << alfa << "\n" << std::endl;
   return lang;
 }
 
@@ -130,59 +130,34 @@ void information(char* p_name){
 }
 
 int main(int argc, char* argv[]){
-
+//clang-format -i style=Google ejemplo.cc
   // Comprobar numero de argumentos de ejecucion son correctos
   if (argc != kArgumentos) {
     std::cout << "¡Error de formato!\n\n";
     information(argv[0]);
     return 1;
   }
-  std::set<Language> language_set;
-  Symbol a("a");
-  Symbol b("b");
-  Symbol c("c");
-  Alphabet alfa(a);
-  alfa.AddSymbol(b);
-  alfa.AddSymbol(c);
-  Chain a_chain(a);
-  Chain ab(a);
-  ab.AddSymbol(b);
-  Chain abc(a);
-  abc.AddSymbol(b);
-  abc.AddSymbol(c);
-  std::string str_l1 = "L1";
-  Language l1(alfa,str_l1);
-  Chain empty_chain;
-  l1.AddChain(empty_chain);
-  std::string str_l2 = "L2";
-  Language l2(alfa,str_l2);
-  l2.AddChain(empty_chain);
-  language_set.insert(l1);
-  language_set.insert(l2);
-  std::cout << l1 << " " << l2 << std::endl;
-  for (std::set<Language>::iterator it = language_set.begin();
-      it != language_set.end(); ++it) {
-    std::cout << *it << std::endl;
-  }
-  return 0;
+
   std::string nombre_archivo = argv[POS_FILE_IN]; //Parametro 1
   std::ifstream archivo(nombre_archivo.c_str());
   std::string linea;
-  std::vector<Language> languages_vector;
+  std::set<Language> languages_set;
   std::vector<std::string> operations_vector;
   // Comienza lectura de fichero 1, se almacenará en un vector de Language
   // para más tarde trabajar con el
   while (getline(archivo, linea)) {
     if (SplitChain(linea).at(1).at(0) == LANG_ASSIGN ) {
-      languages_vector.push_back(ReadLanguage(SplitChain(linea)));
+      languages_set.insert(ReadLanguage(SplitChain(linea)));
     } else {
       operations_vector.push_back(linea);
     }
   }
 
-  for (size_t i = 0; i < languages_vector.size(); i++) {
-    //Menu(atoi(argv[argc - 1]), vector_language_file1.at(i), 
-        //vector_language_file1.at(i));
+  for (size_t i = 0; i < operations_vector.size(); i++) {
+    std::cout << operations_vector.at(i) << std::endl;
+    Calculator calc(languages_set,SplitChain(operations_vector.at(i)));
+    std::cout << calc.GetResult() << std::endl;
+    std::endl (std::cout);
   }
 
   return 0;
