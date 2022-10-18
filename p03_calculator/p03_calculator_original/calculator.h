@@ -19,6 +19,15 @@
 
 #include <stack>
 
+enum Operators {
+  concat = '+',
+  _union = '|',
+  intersec = '^',
+  diference = '-',
+  reverse = '!',
+  power = '*',
+};
+
 class Calculator {
 
 public:

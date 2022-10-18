@@ -36,14 +36,17 @@
 #define DEFAULT_ALPHABET_SYMBOL "0"
 
 Language ReadLanguage(std::vector<std::string> string_vector) {
-  std::string alphabet_id(string_vector.at(0));
+  // ID lenguaje
+  std::string language_id(string_vector.at(0));
   std::set<Chain> chain_set;
-  std::set<Symbol> symbol_set; // Para el alfabeto
+  std::set<Symbol> symbol_set; // Para alfabeto
 
+  // Empieza en dos ya que i=0 es nombre lenguaje
+  // e i=1 es simbolo igual
   for (size_t i = 2; i < string_vector.size(); i++) {
-    // Lenguaje que contiene a la cadena vacia
-    std::vector<Symbol> symbol_vector; // Para la cadena
+    std::vector<Symbol> symbol_vector; // Para cadena
     // Condiciones donde puede aparecer la cadena vacia
+    // Las demas opciones no serían correctas
     if (((string_vector.at(i).size() == 3) &&
          (string_vector.at(i).at(1) == kEmptyChain)) ||
         ((string_vector.at(i).size() == 2) &&
@@ -52,6 +55,7 @@ Language ReadLanguage(std::vector<std::string> string_vector) {
       chain_set.insert(empty_chain);
     } else {
       for (size_t j = 0; j < string_vector.at(i).size(); j++) {
+        // Si se encuentra algunos de los siguientes elementos, no se inserta
         bool read = ((string_vector.at(i).at(j) != SET_OPENER) &&
                      (string_vector.at(i).at(j) != SET_CLOSER) &&
                      (string_vector.at(i).at(j) != CHAIN_SEPARATOR) &&
@@ -71,13 +75,13 @@ Language ReadLanguage(std::vector<std::string> string_vector) {
     }
   }
 
-  // Ningún símbolo reconocido
+  // Ningún símbolo reconocido, generar alfabeto por defecto y lenguaje vacio
   if (symbol_set.size() == 0) {
     symbol_set.insert(Symbol(DEFAULT_ALPHABET_SYMBOL));
   }
 
   Alphabet alfa(symbol_set);
-  Language lang(alfa, chain_set, alphabet_id);
+  Language lang(alfa, chain_set, language_id);
   return lang;
 }
 

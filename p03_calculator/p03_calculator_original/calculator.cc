@@ -89,56 +89,40 @@ bool Calculator::isLanguage(std::string param_name) {
 // el supuesto operador, y un entero, para usar en el caso de la potencia, y
 // si no se indica el parametro, se pasará uno por defecto (modularidad)
 void Calculator::Operations(char _operator, int power = 1) {
-  switch (_operator) {
-  case '+': {
-    Language l2(stack_.top());
-    stack_.pop();
+  // Pila no vacia
+  assert(!(stack_.empty()));
+  Language l2(stack_.top());
+  stack_.pop();
+  bool operacion_unaria =
+      ((_operator == Operators::reverse) || (_operator == Operators::power));
+  if (operacion_unaria) {
+    if (_operator == Operators::power)
+      stack_.push(l2.Power(power));
+    else
+      stack_.push(l2.Reverse());
+  } else {
+    // Evito repetir este codigo varias veces
+    assert(!(stack_.empty()));
     Language l1(stack_.top());
     stack_.pop();
-    stack_.push(l1.Concatenation(l2));
-    break;
-  }
-  case '|': {
-    Language l2(stack_.top());
-    stack_.pop();
-    Language l1(stack_.top());
-    stack_.pop();
-    stack_.push(l1.Union(l2));
-    break;
-  }
-  case '^': {
-    Language l2(stack_.top());
-    stack_.pop();
-    Language l1(stack_.top());
-    stack_.pop();
-    Language lan_aux(l1.Intersection(l2));
-    stack_.push(l1.Intersection(l2));
-    break;
-  }
-  case '-': {
-    Language l2(stack_.top());
-    stack_.pop();
-    Language l1(stack_.top());
-    stack_.pop();
-    stack_.push(l1.Diference(l2));
-    break;
-  }
-  case '!': {
-    Language l1(stack_.top());
-    stack_.pop();
-    stack_.push(l1.Reverse());
-    break;
-  }
-  case '*': {
-    Language l1(stack_.top());
-    stack_.pop();
-    stack_.push(l1.Power(power));
-    break;
-  }
-  default:
-    bool entrada_correcta = false;
-    assert(entrada_correcta);
-    break;
+    switch (_operator) {
+    case Operators::concat:
+      stack_.push(l1.Concatenation(l2));
+      break;
+    case Operators::_union:
+      stack_.push(l1.Union(l2));
+      break;
+    case Operators::intersec:
+      stack_.push(l1.Intersection(l2));
+      break;
+    case Operators::diference:
+      stack_.push(l1.Diference(l2));
+      break;
+    default:
+      // Google Style
+      assert(false);
+      break;
+    }
   }
 }
 
