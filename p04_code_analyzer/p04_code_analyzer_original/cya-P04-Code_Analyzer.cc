@@ -94,10 +94,27 @@ int main(int argc, char *argv[]) {
   //   std::cout << string_vector.at(i) << std::endl;
   // }
 
-  std::cout << "PROGRAM: " << nombre_archivo << std::endl;
+  std::cout << "PROGRAM: \n" << nombre_archivo << "\n" << std::endl;
 
-  std::cout << string_vector.at(30) << std::endl; 
-  std::cout << fMain::isMain(string_vector.at(30)) << std::endl;
+  std::regex end("(\b*\\*\\/)");
+  // std::cout << string_vector.at(11) << std::endl;
+  // std::cout << std::regex_search(string_vector.at(11),end) << std::endl;
+  if (Comments::isDescription(string_vector.at(0))) {
+    std::cout << "DESCRIPTION: \n";
+    std::cout << string_vector.at(0) << std::endl;
+    int lastDescriptionPos = 1;
+    while (!(std::regex_search(string_vector.at(lastDescriptionPos),end))) {
+      std::cout << string_vector.at(lastDescriptionPos) << std::endl;
+      lastDescriptionPos++;
+    }
+    std::cout << string_vector.at(lastDescriptionPos) << std::endl;
+    lastDescriptionPos++;
+  }
+  
+
+  // std::cout << "MAIN: \n";
+  // if (fMain::isMain(string_vector.at(30))) std::cout << "True" << std::endl;
+  // else std::cout << "False" << std::endl;
   
   return 0;
 }

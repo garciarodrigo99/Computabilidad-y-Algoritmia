@@ -5,7 +5,7 @@ Comments::Comments(/* args */) {}
 Comments::~Comments() {}
 
 bool Comments::isDescription(std::string stringParam) {
-	std::regex rexp("(/'\'*)");
+	std::regex rexp("(\\/\\*.*)");
 	return (std::regex_search(stringParam, rexp));
 }
 
