@@ -105,7 +105,7 @@ int main(int argc, char *argv[]) {
   // std::cout << string_vector.at(30) << std::endl;
   // std::cout << std::boolalpha << fMain::isMain(string_vector.at(30)) << std::endl;
 
-  /*COMENTARIOS
+  /* COMENTARIOS
   std::cout << string_vector.at(0) << std::endl;
   std::cout << std::boolalpha << Comments::isComment(string_vector.at(0)) << std::endl;
   std::cout << Comments::Type(string_vector.at(0)) << std::endl;
@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
   std::cout << std::boolalpha << Comments::isComment(string_vector.at(15)) << std::endl;
   std::cout << Comments::Type(string_vector.at(15)) << std::endl;*/
 
-  // BUCLES
+  /* BUCLES
   std::cout << string_vector.at(23) << std::endl;
   std::cout << std::boolalpha << Loop::isFor(string_vector.at(23)) << std::endl;
   std::cout << std::boolalpha << Loop::isLoop(string_vector.at(23)) << std::endl;
@@ -121,7 +121,15 @@ int main(int argc, char *argv[]) {
   std::string str_while(" while (i > 0) {");
   std::cout << str_while << std::endl;
   std::cout << std::boolalpha << Loop::isWhile(str_while) << std::endl;
-  std::cout << std::boolalpha << Loop::isLoop(str_while) << std::endl;
+  std::cout << std::boolalpha << Loop::isLoop(str_while) << std::endl;*/
+
+  // VARIABLES
+  std::cout << string_vector.at(22) << std::endl;
+  std::cout << std::boolalpha << Variable::isInteger(string_vector.at(22)) << std::endl;
+  std::cout << std::boolalpha << Variable::isVariable(string_vector.at(22)) << std::endl;
+  std::cout << string_vector.at(32) << std::endl;
+  std::cout << std::boolalpha << Variable::isInteger(string_vector.at(32)) << std::endl;
+  std::cout << std::boolalpha << Variable::isVariable(string_vector.at(32)) << std::endl;
 
   return 0;
   CodeStructurer myCodeStructurer(argv[1],argv[2]);

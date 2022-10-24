@@ -22,26 +22,33 @@ void CodeStructurer::Write() {
   }
 
 	for (size_t i = 0; i < string_vector.size(); i++) {
-		// if (/* condition */) {
-		// 	/* code */
-		// }
-		if (Loop::isFor(string_vector.at(i)) || 
-				Loop::isWhile(string_vector.at(i))) {
+		int comment = Comments::Type(string_vector.at(i));
+		if (comment >= 0) {
+			if (comment == 1){
+				int pos = i;
+				/* code */
+				i = pos;
+			}
+			if (comment == 0) {
+				/* code */
+			}
+		}
+		if (Loop::isLoop(string_vector.at(i))) {
 			/* code */
 		}
-		// if (/* condition */) {
-		// 	/* code */
-		// }
-		// if (/* condition */) {
-		// 	/* code */
-		// }
+		if (fMain::isMain(string_vector.at(i))) {
+			/* code */
+		}
+		if (Variable::isVariable(string_vector.at(i))) {
+			/* code */
+		}
 		
 	}
 	
 
 	std::cout << "PROGRAM: " << program_name_ << std::endl;
 
-	std::regex end("(\b*\\*\\/)");
+	std::regex end("(\\s*\\*\\/)");
 
   // if (Comments::isMultiComment(string_vector.at(0))) {
   //   std::cout << "DESCRIPTION: \n";

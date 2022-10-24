@@ -9,6 +9,7 @@ class Variable{
 
 	static bool isInteger(std::string);
 	static bool isDouble(std::string);
+	static bool isVariable(std::string);
 
 	private:
 		int line_;
