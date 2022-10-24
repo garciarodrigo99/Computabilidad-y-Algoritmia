@@ -20,6 +20,25 @@ void CodeStructurer::Write() {
   while (getline(archivo, linea)) {
     string_vector.push_back(linea);
   }
+
+	for (size_t i = 0; i < string_vector.size(); i++) {
+		// if (/* condition */) {
+		// 	/* code */
+		// }
+		if (Loop::isFor(string_vector.at(i)) || 
+				Loop::isWhile(string_vector.at(i))) {
+			/* code */
+		}
+		// if (/* condition */) {
+		// 	/* code */
+		// }
+		// if (/* condition */) {
+		// 	/* code */
+		// }
+		
+	}
+	
+
 	std::cout << "PROGRAM: " << program_name_ << std::endl;
 
 	std::regex end("(\b*\\*\\/)");
