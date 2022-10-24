@@ -90,9 +90,9 @@ int main(int argc, char *argv[]) {
   //std::string ejemplo("// Comentario");
   // std::cout << string_vector.at(23) << std::endl;
   // std::cout << Loop::isFor(string_vector.at(23)) << std::endl;
-  std::cout << string_vector.at(22) << std::endl;
-  std::cout << Variable::isInteger(string_vector.at(22)) << std::endl;
-  return 0;
+  // std::cout << string_vector.at(22) << std::endl;
+  // std::cout << Variable::isInteger(string_vector.at(22)) << std::endl;
+  // return 0;
   CodeStructurer myCodeStructurer(argv[1],argv[2]);
   myCodeStructurer.Write();
 

@@ -13,4 +13,6 @@ class Variable{
 	private:
 		int line_;
 		std::string type_;
+		std::string name_;
+		bool initialization_;
 };

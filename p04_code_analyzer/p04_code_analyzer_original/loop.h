@@ -11,5 +11,6 @@ class Loop {
 		static bool isWhile(std::string);
 
 	private:
+		int type_;
 		int start_;
 };

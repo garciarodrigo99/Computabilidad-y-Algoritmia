@@ -40,19 +40,12 @@ void CodeStructurer::Write() {
 	// comments_.front().Write();
 	std::cout << comments_.front() << std::endl;
 	std::cout << "COMMENTS: \n";
-	switch (comments_.size()) {
-		case 0:
-			break;
-
-		case 1:
-			comments_.front().WriteAsReference();
-			break;
-
-		default: {
-			for (size_t i = 1; i < comments_.size(); i++){
-				std::cout << comments_.at(i) << std::endl;
-			}
-			break;
+	if (comments_.size() != 0) {
+		comments_.front().WriteAsReference();
+	}
+	if (comments_.size() > 1) {
+		for (size_t i = 1; i < comments_.size(); i++){
+			std::cout << comments_.at(i) << std::endl;
 		}
 	}
 }

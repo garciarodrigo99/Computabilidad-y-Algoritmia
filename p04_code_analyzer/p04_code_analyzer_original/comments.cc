@@ -47,11 +47,13 @@ void Comments::WriteAsReference(void) {
 }
 
 std::ostream &operator<<(std::ostream & os, Comments & paramComments) {
-	os << "[Line " << paramComments.start_;
-	if (paramComments.comments_.size() > 1) {
-		os << "-" << paramComments.end_;
+	if (!(paramComments.isDescription())) {	
+		os << "[Line " << paramComments.start_;
+		if (paramComments.comments_.size() > 1) {
+			os << "-" << paramComments.end_;
+		}
+		os << "] ";
 	}
-	os << "] ";
 	for (size_t i = 0; i < paramComments.comments_.size(); i++) {
 		os << paramComments.comments_.at(i) << std::endl;
 	}
