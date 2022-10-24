@@ -9,6 +9,7 @@ class Loop {
 
 		static bool isFor(std::string);
 		static bool isWhile(std::string);
+		static bool isLoop(std::string);
 
 	private:
 		int type_;
