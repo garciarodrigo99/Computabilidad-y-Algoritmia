@@ -1,7 +1,15 @@
+#include <string>
+#include <regex>
+
 class Loop {
-	private:
-			/* data */
+
 	public:
-			Loop(/* args */);
-			~Loop();
+		Loop(/* args */);
+		~Loop();
+
+		static bool isFor(std::string);
+		static bool isWhile(std::string);
+
+	private:
+		int start_;
 };
