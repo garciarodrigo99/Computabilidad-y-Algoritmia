@@ -43,19 +43,19 @@ void CodeStructurer::Write() {
 
 	std::regex end("(\b*\\*\\/)");
 
-  if (Comments::isMultiComment(string_vector.at(0))) {
-    std::cout << "DESCRIPTION: \n";
-		Comments description(string_vector.at(0));
-    int lastDescriptionPos = 1;
-    while (!(std::regex_search(string_vector.at(lastDescriptionPos),end))) {
-			description.AddString(string_vector.at(lastDescriptionPos));
-      lastDescriptionPos++;
-    }
-		description.AddString(string_vector.at(lastDescriptionPos));
-		description.SetEnd(lastDescriptionPos);
-    lastDescriptionPos++;
-		comments_.push_back(description);
-  }
+  // if (Comments::isMultiComment(string_vector.at(0))) {
+  //   std::cout << "DESCRIPTION: \n";
+	// 	Comments description(string_vector.at(0));
+  //   int lastDescriptionPos = 1;
+  //   while (!(std::regex_search(string_vector.at(lastDescriptionPos),end))) {
+	// 		description.AddString(string_vector.at(lastDescriptionPos));
+  //     lastDescriptionPos++;
+  //   }
+	// 	description.AddString(string_vector.at(lastDescriptionPos));
+	// 	description.SetEnd(lastDescriptionPos);
+  //   lastDescriptionPos++;
+	// 	comments_.push_back(description);
+  // }
 	// comments_.front().Write();
 	std::cout << comments_.front() << std::endl;
 	std::cout << "COMMENTS: \n";

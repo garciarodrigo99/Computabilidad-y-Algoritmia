@@ -92,16 +92,24 @@ int main(int argc, char *argv[]) {
   // std::cout << Loop::isFor(string_vector.at(23)) << std::endl;
   // std::cout << string_vector.at(22) << std::endl;
   // std::cout << Variable::isInteger(string_vector.at(22)) << std::endl;
-  std::regex rexp("\\s*(for)\\s\\(.*;.*;.*\\)\\s\\{");
-  std::string str(" for (int i = 1 ; i <= number; ++i) {");
-  std::smatch str_match;
-  std::cout << std::boolalpha << std::regex_match(str,rexp) << std::endl;
-  std::regex_search(str,str_match,rexp);
-  for (size_t i = 0; i < str_match.size(); i++) {
-    std::cout << i << ": " << str_match[i] << std::endl;
-  }
+  // std::regex rexp("\\s*(for)\\s\\(.*;.*;.*\\)\\s\\{");
+  // std::string str(" for (int i = 1 ; i <= number; ++i) {");
+  // std::smatch str_match;
+  // std::cout << std::boolalpha << std::regex_match(str,rexp) << std::endl;
+  // std::regex_search(str,str_match,rexp);
+  // for (size_t i = 0; i < str_match.size(); i++) {
+  //   std::cout << i << ": " << str_match[i] << std::endl;
+  // }
+  // std::cout << string_vector.at(15) << std::endl;
+  // std::cout << std::boolalpha << Comments::isSingleComment(string_vector.at(15)) << std::endl;
+  // std::cout << string_vector.at(30) << std::endl;
+  // std::cout << std::boolalpha << fMain::isMain(string_vector.at(30)) << std::endl;
+  std::cout << string_vector.at(0) << std::endl;
+  std::cout << std::boolalpha << Comments::isComment(string_vector.at(0)) << std::endl;
+  std::cout << Comments::Type(string_vector.at(0)) << std::endl;
   std::cout << string_vector.at(15) << std::endl;
-  std::cout << std::boolalpha << Comments::isSingleComment(string_vector.at(15)) << std::endl;
+  std::cout << std::boolalpha << Comments::isComment(string_vector.at(15)) << std::endl;
+  std::cout << Comments::Type(string_vector.at(15)) << std::endl;
   return 0;
   CodeStructurer myCodeStructurer(argv[1],argv[2]);
   myCodeStructurer.Write();

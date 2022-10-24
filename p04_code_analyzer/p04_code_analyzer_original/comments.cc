@@ -23,15 +23,29 @@ bool Comments::isDescription() { return description_; }
 
 void Comments::SetEnd(int paramEnd) { end_ = paramEnd; }
 
-bool Comments::isMultiComment(std::string stringParam) {
-	std::regex rexp("\\/\\*.*");
+bool Comments::isComment(std::string stringParam) {
+	std::regex rexp("\\/(\\*)|(\\/).*");
 	return (std::regex_match(stringParam, rexp));
 }
 
-bool Comments::isSingleComment(std::string stringParam) {
-	std::regex rexp("\\/\\/.*");
-	return (std::regex_match(stringParam, rexp));
+int Comments::Type(std::string stringParam) {
+	std::regex rexp("\\/(\\*|\\/).*");
+	std::smatch str_match;
+	std::regex_search(stringParam,str_match,rexp);
+	if (str_match[1] == '*') return 1;
+	if (str_match[1] == '/') return 0;
+	else return -1;
 }
+
+// bool Comments::isMultiComment(std::string stringParam) {
+// 	std::regex rexp("\\/\\*.*");
+// 	return (std::regex_match(stringParam, rexp));
+// }
+
+// bool Comments::isSingleComment(std::string stringParam) {
+// 	std::regex rexp("\\/\\/.*");
+// 	return (std::regex_match(stringParam, rexp));
+// }
 
 void Comments::AddString(std::string paramString) {
 	comments_.push_back(paramString);
