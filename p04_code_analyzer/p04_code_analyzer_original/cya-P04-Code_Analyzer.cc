@@ -16,8 +16,7 @@
 // Historial de revisiones
 // 13/10/2022 - Creaci´on (primera versi´on) del c´odigo
 
-#include "comments.h"
-#include "fMain.h"
+#include "codeStructurer.h"
 
 #include <algorithm>
 #include <chrono>
@@ -85,32 +84,12 @@ int main(int argc, char *argv[]) {
   while (getline(archivo, linea)) {
     string_vector.push_back(linea);
   }
-
-  for (size_t i = 0; i < string_vector.size(); i++) {
-    RemoveInitialSpaces(string_vector.at(i));
-  }
-
-  // for (size_t i = 0; i < string_vector.size(); i++) {
-  //   std::cout << string_vector.at(i) << std::endl;
-  // }
-
-  std::cout << "PROGRAM: \n" << nombre_archivo << "\n" << std::endl;
-
-  std::regex end("(\b*\\*\\/)");
-  // std::cout << string_vector.at(11) << std::endl;
-  // std::cout << std::regex_search(string_vector.at(11),end) << std::endl;
-  if (Comments::isDescription(string_vector.at(0))) {
-    std::cout << "DESCRIPTION: \n";
-    std::cout << string_vector.at(0) << std::endl;
-    int lastDescriptionPos = 1;
-    while (!(std::regex_search(string_vector.at(lastDescriptionPos),end))) {
-      std::cout << string_vector.at(lastDescriptionPos) << std::endl;
-      lastDescriptionPos++;
-    }
-    std::cout << string_vector.at(lastDescriptionPos) << std::endl;
-    lastDescriptionPos++;
-  }
   
+  std::string ejemplo("// Comentario");
+  std::cout << Comments::isSingleComment(ejemplo) << std::endl;
+
+  CodeStructurer myCodeStructurer(argv[1],argv[2]);
+  myCodeStructurer.Write();
 
   // std::cout << "MAIN: \n";
   // if (fMain::isMain(string_vector.at(30))) std::cout << "True" << std::endl;

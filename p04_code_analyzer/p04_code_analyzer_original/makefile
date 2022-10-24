@@ -1,7 +1,7 @@
 # https://stackoverflow.com/questions/2214575/passing-arguments-to-make-run
 
 MAIN_FILE = $(cliente)cya-P04-Code_Analyzer.cc
-SRC_FILES = $(comments)comments.cc $(fMain)fMain.cc $(loop)loop.cc $(variable)variable.cc
+SRC_FILES = $(comments)comments.cc $(fMain)fMain.cc $(loop)loop.cc $(variable)variable.cc $(codeStructurer)codeStructurer.cc
 EXECUTABLE_FILE = $(exe)cya-P04-Code_Analyzer
 ERROR_FILE = $(error)error.txt
 
