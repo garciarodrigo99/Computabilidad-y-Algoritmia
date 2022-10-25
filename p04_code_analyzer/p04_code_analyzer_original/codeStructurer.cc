@@ -63,7 +63,7 @@ void CodeStructurer::FillContent() {
 			loops_.push_back(auxLoop);
 		}
 		if (fMain::isMain(lines_.at(i))) {
-			/* code */
+			main_ = true;
 		}
 		if (Variable::isVariable(lines_.at(i))) {
 			/* code */
@@ -79,24 +79,25 @@ void CodeStructurer::Write() {
 	std::cout << "PROGRAM: " << program_name_ << std::endl;
 
 	if (comments_.front().isDescription()) {
-		std::cout << "DESCRIPTION: \n";
+		std::cout << "DESCRIPTION:" << std::endl;
 		std::cout << comments_.front() << std::endl;
 	}
 	SALTO_LINEA
 
-	std::cout << "VARIABLES: \n" << std::endl;
+	std::cout << "VARIABLES:" << std::endl;
 	// code
 	SALTO_LINEA
 
-	std::cout << "STATEMENTS: \n" << std::endl;
-	for (size_t i = 0; i < loops_.size(); i++) {
-		std::cout << loops_.at(i) << std::endl;
+	std::cout << "STATEMENTS:" << std::endl;
+	if (!(loops_.empty())) {
+		for (size_t i = 0; i < loops_.size(); i++) {
+			std::cout << loops_.at(i) << std::endl;
+		}
 	}
-	
 	SALTO_LINEA
 
-	std::cout << "MAIN: \n" << std::endl;
-	// code
+	std::cout << "MAIN:" << std::endl;
+	std::cout << std::boolalpha << main_ << std::endl;
 	SALTO_LINEA
 
 	std::cout << "COMMENTS: \n";

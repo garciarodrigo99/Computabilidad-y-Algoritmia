@@ -125,13 +125,14 @@ int main(int argc, char *argv[]) {
   // std::cout << string_vector.at(11) << std::endl;
   // std::cout << std::boolalpha << Comments::isLastMultiComment(string_vector.at(11)) << std::endl;
 
-  /* VARIABLES
-  std::cout << string_vector.at(22) << std::endl;
-  std::cout << std::boolalpha << Variable::isInteger(string_vector.at(22)) << std::endl;
-  std::cout << std::boolalpha << Variable::isVariable(string_vector.at(22)) << std::endl;
-  std::cout << string_vector.at(32) << std::endl;
-  std::cout << std::boolalpha << Variable::isInteger(string_vector.at(32)) << std::endl;
-  std::cout << std::boolalpha << Variable::isVariable(string_vector.at(32)) << std::endl;*/
+  // VARIABLES
+  std::cout << string_vector.at(23) << std::endl;
+  std::cout << std::boolalpha << Variable::isInteger(string_vector.at(23)) << std::endl;
+  std::cout << std::boolalpha << Variable::isVariable(string_vector.at(23)) << std::endl;
+  std::cout << string_vector.at(33) << std::endl;
+  std::cout << std::boolalpha << Variable::isInteger(string_vector.at(33)) << std::endl;
+  std::cout << std::boolalpha << Variable::isVariable(string_vector.at(33)) << std::endl;
+  return 0;
   
   CodeStructurer myCodeStructurer(argv[1],argv[2]);
   myCodeStructurer.Write();

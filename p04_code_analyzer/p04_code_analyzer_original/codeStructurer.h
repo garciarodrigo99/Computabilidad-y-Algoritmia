@@ -17,7 +17,8 @@ class CodeStructurer {
 	private:
 		std::string program_name_;
 		std::string out_file_;
-		fMain main_;
+		//fMain main_;
+		bool main_;
 		std::vector<Comments> comments_;
 		std::vector<Loop> loops_;
 		std::vector<Variable> variable_;

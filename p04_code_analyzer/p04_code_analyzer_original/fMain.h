@@ -6,8 +6,8 @@ class fMain{
 	public:
     fMain(/* args */);
     ~fMain();
-		static bool isMain(std::string);
+	static bool isMain(std::string);
 
 	private:
-    std::string main_;	
+    std::string main_;
 };
