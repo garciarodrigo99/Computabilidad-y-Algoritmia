@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include "assert.h"
 #define SALTO_LINEA std::cout << "\n";
  
 CodeStructurer::CodeStructurer(std::string paramProgramName, 
@@ -63,12 +64,13 @@ void CodeStructurer::FillContent() {
 			loops_.push_back(auxLoop);
 		}
 		if (fMain::isMain(lines_.at(i))) {
+			assert(main_ == false);
 			main_ = true;
 		}
 		if (Variable::isVariable(lines_.at(i))) {
-			/* code */
-		}
-		
+			Variable auxVariable(lines_.at(i),i);
+			variable_.push_back(auxVariable);
+		}	
 	}
 }
 
@@ -85,7 +87,11 @@ void CodeStructurer::Write() {
 	SALTO_LINEA
 
 	std::cout << "VARIABLES:" << std::endl;
-	// code
+	if (!(variable_.empty())) {
+		for (size_t i = 0; i < variable_.size(); i++) {
+			std::cout << variable_.at(i) << std::endl;
+		}
+	}
 	SALTO_LINEA
 
 	std::cout << "STATEMENTS:" << std::endl;

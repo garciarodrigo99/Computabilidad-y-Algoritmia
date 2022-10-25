@@ -4,16 +4,22 @@
 class Variable{
 
 	public:
-  Variable(/* args */);
+  Variable(std::string,int);
 	~Variable();
 
-	static bool isInteger(std::string);
-	static bool isDouble(std::string);
 	static bool isVariable(std::string);
 
+	friend std::ostream &operator<<(std::ostream &, Variable &);
+
 	private:
-		int line_;
+		static bool isInteger(std::string);
+		static bool isDouble(std::string);
+
+	private:
+		int n_line_;
 		std::string type_;
 		std::string name_;
+		int integerValue;
+		double doubleValue;
 		bool initialization_;
 };

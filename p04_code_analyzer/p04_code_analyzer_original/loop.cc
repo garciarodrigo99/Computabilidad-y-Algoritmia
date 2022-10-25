@@ -21,13 +21,7 @@ bool Loop::isFor(std::string stringParam) {
 }
 
 bool Loop::isLoop(std::string stringParam) {
-	std::regex rexp("\\s*((for)\\s\\(.*;.*;|while\\s).*\\)\\s\\{");
-	std::smatch str_match;
-	std::regex_search(stringParam,str_match,rexp);
-	for (size_t i = 0; i < str_match.size(); i++) {
-		std::cout << i << ": " << str_match[i] << "\tlength: " << str_match[i].length() << std::endl;
-	}
-	return (std::regex_match(stringParam, rexp));
+	return (isWhile(stringParam) || isFor(stringParam));
 }
 
 bool Loop::isWhile(std::string stringParam) {

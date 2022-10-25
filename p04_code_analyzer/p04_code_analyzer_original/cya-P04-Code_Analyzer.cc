@@ -85,61 +85,8 @@ int main(int argc, char *argv[]) {
     string_vector.push_back(linea);
   }
   
-  // std::cout << string_vector.at(30) << std::endl;
-  // std::cout << fMain::isMain(string_vector.at(30)) << std::endl;
-  //std::string ejemplo("// Comentario");
-  // std::cout << string_vector.at(23) << std::endl;
-  // std::cout << Loop::isFor(string_vector.at(23)) << std::endl;
-  // std::cout << string_vector.at(22) << std::endl;
-  // std::cout << Variable::isInteger(string_vector.at(22)) << std::endl;
-  // std::regex rexp("\\s*(for)\\s\\(.*;.*;.*\\)\\s\\{");
-  // std::string str(" for (int i = 1 ; i <= number; ++i) {");
-  // std::smatch str_match;
-  // std::cout << std::boolalpha << std::regex_match(str,rexp) << std::endl;
-  // std::regex_search(str,str_match,rexp);
-  // for (size_t i = 0; i < str_match.size(); i++) {
-  //   std::cout << i << ": " << str_match[i] << std::endl;
-  // }
-  // std::cout << string_vector.at(15) << std::endl;
-  // std::cout << std::boolalpha << Comments::isSingleComment(string_vector.at(15)) << std::endl;
-  // std::cout << string_vector.at(30) << std::endl;
-  // std::cout << std::boolalpha << fMain::isMain(string_vector.at(30)) << std::endl;
-
-  /* COMENTARIOS
-  std::cout << string_vector.at(0) << std::endl;
-  std::cout << std::boolalpha << Comments::isComment(string_vector.at(0)) << std::endl;
-  std::cout << Comments::Type(string_vector.at(0)) << std::endl;
-  std::cout << string_vector.at(15) << std::endl;
-  std::cout << std::boolalpha << Comments::isComment(string_vector.at(15)) << std::endl;
-  std::cout << Comments::Type(string_vector.at(15)) << std::endl;*/
-
-  // BUCLES
-  // std::cout << string_vector.at(22) << std::endl;
-  // std::cout << std::boolalpha << Loop::isFor(string_vector.at(24)) << std::endl;
-  // std::cout << std::boolalpha << Loop::isLoop(string_vector.at(24)) << std::endl;
-  // std::cout << "-----------------------------------------------------------\n";
-  // std::string str_while(" while (i > 0) {");
-  // std::cout << str_while << std::endl;
-  // std::cout << std::boolalpha << Loop::isWhile(str_while) << std::endl;
-  // std::cout << std::boolalpha << Loop::isLoop(str_while) << std::endl;
-  // std::cout << string_vector.at(11) << std::endl;
-  // std::cout << std::boolalpha << Comments::isLastMultiComment(string_vector.at(11)) << std::endl;
-
-  // VARIABLES
-  std::cout << string_vector.at(23) << std::endl;
-  std::cout << std::boolalpha << Variable::isInteger(string_vector.at(23)) << std::endl;
-  std::cout << std::boolalpha << Variable::isVariable(string_vector.at(23)) << std::endl;
-  std::cout << string_vector.at(33) << std::endl;
-  std::cout << std::boolalpha << Variable::isInteger(string_vector.at(33)) << std::endl;
-  std::cout << std::boolalpha << Variable::isVariable(string_vector.at(33)) << std::endl;
-  return 0;
-  
   CodeStructurer myCodeStructurer(argv[1],argv[2]);
   myCodeStructurer.Write();
-
-  // std::cout << "MAIN: \n";
-  // if (fMain::isMain(string_vector.at(30))) std::cout << "True" << std::endl;
-  // else std::cout << "False" << std::endl;
   
   return 0;
 }
