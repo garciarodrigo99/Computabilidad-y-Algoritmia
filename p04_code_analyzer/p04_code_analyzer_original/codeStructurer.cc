@@ -2,7 +2,8 @@
 
 #include <iostream>
 #include <fstream>
-
+#define SALTO_LINEA std::cout << "\n";
+ 
 CodeStructurer::CodeStructurer(std::string paramProgramName, 
 															std::string paramOutFile) : 
 															program_name_(paramProgramName),
@@ -35,19 +36,10 @@ void CodeStructurer::FillContent() {
 			}
 			description.AddString(lines_.at(pos));
 			description.SetEnd(pos);
-			pos++;
 		}
+		pos++;
 		description.SetEnd(pos);
 		comments_.push_back(description);
-	}
-	if (Loop::isLoop(lines_.at(pos))) {
-		/* code */
-	}
-	if (fMain::isMain(lines_.at(pos))) {
-		/* code */
-	}
-	if (Variable::isVariable(lines_.at(pos))) {
-		/* code */
 	}
 
 	for (size_t i = pos; i < lines_.size(); i++) {
@@ -67,7 +59,8 @@ void CodeStructurer::FillContent() {
 			comments_.push_back(commentLine);
 		}
 		if (Loop::isLoop(lines_.at(i))) {
-			/* code */
+			Loop auxLoop(lines_.at(i),i);
+			loops_.push_back(auxLoop);
 		}
 		if (fMain::isMain(lines_.at(i))) {
 			/* code */
@@ -89,7 +82,22 @@ void CodeStructurer::Write() {
 		std::cout << "DESCRIPTION: \n";
 		std::cout << comments_.front() << std::endl;
 	}
+	SALTO_LINEA
+
+	std::cout << "VARIABLES: \n" << std::endl;
+	// code
+	SALTO_LINEA
+
+	std::cout << "STATEMENTS: \n" << std::endl;
+	for (size_t i = 0; i < loops_.size(); i++) {
+		std::cout << loops_.at(i) << std::endl;
+	}
 	
+	SALTO_LINEA
+
+	std::cout << "MAIN: \n" << std::endl;
+	// code
+	SALTO_LINEA
 
 	std::cout << "COMMENTS: \n";
 	if (comments_.size() != 0) {

@@ -1,12 +1,19 @@
 #include "loop.h"
 #include <iostream>
-Loop::Loop(/* args */)
-{
+
+Loop::Loop(std::string paramString, int paramLine) : start_(paramLine) {
+	std::regex rexp("\\s*((for)\\s\\(.*;.*;|while\\s).*\\)\\s\\{");
+	std::smatch str_match;
+	std::regex_search(paramString,str_match,rexp);
+	if (str_match[2].length() == 0) {
+		type_ = "while";
+	} else {
+		type_ = "for";
+	}
+	
 }
 
-Loop::~Loop()
-{
-}
+Loop::~Loop() {}
 
 bool Loop::isFor(std::string stringParam) {
 	std::regex rexp("\\s*(for)\\s\\(.*;.*;.*\\)\\s\\{");
@@ -17,13 +24,18 @@ bool Loop::isLoop(std::string stringParam) {
 	std::regex rexp("\\s*((for)\\s\\(.*;.*;|while\\s).*\\)\\s\\{");
 	std::smatch str_match;
 	std::regex_search(stringParam,str_match,rexp);
-	// for (size_t i = 0; i < str_match.size(); i++) {
-	// 	std::cout << i << ": " << str_match[i] << std::endl;
-	// }
+	for (size_t i = 0; i < str_match.size(); i++) {
+		std::cout << i << ": " << str_match[i] << "\tlength: " << str_match[i].length() << std::endl;
+	}
 	return (std::regex_match(stringParam, rexp));
 }
 
 bool Loop::isWhile(std::string stringParam) {
 	std::regex rexp("(\\s*(while)\\s\\(.*\\)\\s\\{)");
 	return (std::regex_search(stringParam, rexp));
+}
+
+std::ostream &operator<<(std::ostream & os, Loop & paramLoop) {
+	os << "[Line " << paramLoop.start_ << "] LOOP: " << paramLoop.type_;
+	return os;
 }

@@ -4,14 +4,14 @@
 class Loop {
 
 	public:
-		Loop(/* args */);
+		Loop(std::string,int);
 		~Loop();
 
 		static bool isFor(std::string);
 		static bool isWhile(std::string);
 		static bool isLoop(std::string);
-
+		friend std::ostream &operator<<(std::ostream &, Loop &);
 	private:
-		int type_;
+		std::string type_;
 		int start_;
 };
