@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/cya-P04-Code_Analyzer",
-            "args": ["test_code","out.txt"],
+            "args": ["test_code.cc","out.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

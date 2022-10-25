@@ -5,6 +5,7 @@
 Comments::Comments(std::string paramString,int paramStart) : 
 									start_(paramStart) {
 	comments_.push_back(paramString);
+	description_ = false;
 }
 
 Comments::Comments(std::string paramString) {
@@ -23,29 +24,24 @@ bool Comments::isDescription() { return description_; }
 
 void Comments::SetEnd(int paramEnd) { end_ = paramEnd; }
 
-bool Comments::isComment(std::string stringParam) {
+bool Comments::isComment(std::string paramString) {
 	std::regex rexp("\\/(\\*)|(\\/).*");
-	return (std::regex_match(stringParam, rexp));
+	return (std::regex_match(paramString, rexp));
 }
 
-int Comments::Type(std::string stringParam) {
+bool Comments::isLastMultiComment(std::string paramString) {
+	std::regex end("(\\s*\\*\\/)");
+	return (std::regex_match(paramString, end));
+}
+
+int Comments::Type(std::string paramString) {
 	std::regex rexp("\\/(\\*|\\/).*");
 	std::smatch str_match;
-	std::regex_search(stringParam,str_match,rexp);
+	std::regex_search(paramString,str_match,rexp);
 	if (str_match[1] == '*') return 1;
 	if (str_match[1] == '/') return 0;
 	else return -1;
 }
-
-// bool Comments::isMultiComment(std::string stringParam) {
-// 	std::regex rexp("\\/\\*.*");
-// 	return (std::regex_match(stringParam, rexp));
-// }
-
-// bool Comments::isSingleComment(std::string stringParam) {
-// 	std::regex rexp("\\/\\/.*");
-// 	return (std::regex_match(stringParam, rexp));
-// }
 
 void Comments::AddString(std::string paramString) {
 	comments_.push_back(paramString);
@@ -61,7 +57,7 @@ void Comments::WriteAsReference(void) {
 }
 
 std::ostream &operator<<(std::ostream & os, Comments & paramComments) {
-	if (!(paramComments.isDescription())) {	
+	if (!(paramComments.isDescription())) {
 		os << "[Line " << paramComments.start_;
 		if (paramComments.comments_.size() > 1) {
 			os << "-" << paramComments.end_;

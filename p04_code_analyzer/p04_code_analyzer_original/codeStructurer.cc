@@ -10,61 +10,87 @@ CodeStructurer::CodeStructurer(std::string paramProgramName,
 
 CodeStructurer::~CodeStructurer() {}
 
-void CodeStructurer::Write() {
+void CodeStructurer::ReadFile() {
 	std::string nombre_archivo = program_name_; // Parametro 1
   std::ifstream archivo(nombre_archivo.c_str());
   std::string linea;
 
-  std::vector<std::string> string_vector;
   // Lectura fichero
   while (getline(archivo, linea)) {
-    string_vector.push_back(linea);
+    lines_.push_back(linea);
   }
+}
 
-	for (size_t i = 0; i < string_vector.size(); i++) {
-		int comment = Comments::Type(string_vector.at(i));
+void CodeStructurer::FillContent() {
+	// std::cout << lines_.size() << std::endl;
+	// return;
+	int pos = 0;
+	int comment = Comments::Type(lines_.at(pos));
+	if (comment >= 0) {
+		Comments description(lines_.at(pos));
+		if (comment == 1){
+			while (!(Comments::isLastMultiComment(lines_.at(pos)))) {
+				description.AddString(lines_.at(pos));
+				pos++;
+			}
+			description.AddString(lines_.at(pos));
+			description.SetEnd(pos);
+			pos++;
+		}
+		description.SetEnd(pos);
+		comments_.push_back(description);
+	}
+	if (Loop::isLoop(lines_.at(pos))) {
+		/* code */
+	}
+	if (fMain::isMain(lines_.at(pos))) {
+		/* code */
+	}
+	if (Variable::isVariable(lines_.at(pos))) {
+		/* code */
+	}
+
+	for (size_t i = pos; i < lines_.size(); i++) {
+		int comment = Comments::Type(lines_.at(i));
 		if (comment >= 0) {
+			Comments commentLine(lines_.at(i),i);
 			if (comment == 1){
-				int pos = i;
-				/* code */
-				i = pos;
+				while (!(Comments::isLastMultiComment(lines_.at(i)))) {
+					commentLine.AddString(lines_.at(i));
+					i++;
+				}
+				commentLine.AddString(lines_.at(i));
+				commentLine.SetEnd(i);
+				i++;
 			}
-			if (comment == 0) {
-				/* code */
-			}
+			commentLine.SetEnd(i);
+			comments_.push_back(commentLine);
 		}
-		if (Loop::isLoop(string_vector.at(i))) {
+		if (Loop::isLoop(lines_.at(i))) {
 			/* code */
 		}
-		if (fMain::isMain(string_vector.at(i))) {
+		if (fMain::isMain(lines_.at(i))) {
 			/* code */
 		}
-		if (Variable::isVariable(string_vector.at(i))) {
+		if (Variable::isVariable(lines_.at(i))) {
 			/* code */
 		}
 		
 	}
-	
+}
 
+void CodeStructurer::Write() {
+	ReadFile();
+	FillContent();
+	
 	std::cout << "PROGRAM: " << program_name_ << std::endl;
 
-	std::regex end("(\\s*\\*\\/)");
+	if (comments_.front().isDescription()) {
+		std::cout << "DESCRIPTION: \n";
+		std::cout << comments_.front() << std::endl;
+	}
+	
 
-  // if (Comments::isMultiComment(string_vector.at(0))) {
-  //   std::cout << "DESCRIPTION: \n";
-	// 	Comments description(string_vector.at(0));
-  //   int lastDescriptionPos = 1;
-  //   while (!(std::regex_search(string_vector.at(lastDescriptionPos),end))) {
-	// 		description.AddString(string_vector.at(lastDescriptionPos));
-  //     lastDescriptionPos++;
-  //   }
-	// 	description.AddString(string_vector.at(lastDescriptionPos));
-	// 	description.SetEnd(lastDescriptionPos);
-  //   lastDescriptionPos++;
-	// 	comments_.push_back(description);
-  // }
-	// comments_.front().Write();
-	std::cout << comments_.front() << std::endl;
 	std::cout << "COMMENTS: \n";
 	if (comments_.size() != 0) {
 		comments_.front().WriteAsReference();

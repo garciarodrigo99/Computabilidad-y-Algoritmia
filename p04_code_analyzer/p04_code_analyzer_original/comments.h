@@ -18,10 +18,9 @@ class Comments {
 		void SetEnd(int);
 
 		// Funciones estáticas
-		// static bool isMultiComment(std::string);
-		// static bool isSingleComment(std::string);
 		static bool isComment(std::string);
 		static int Type(std::string);
+		static bool isLastMultiComment(std::string);
 
 		// Operaciones
 		void AddString(std::string);

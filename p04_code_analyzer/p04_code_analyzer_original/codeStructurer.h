@@ -11,9 +11,15 @@ class CodeStructurer {
 		void Write(void);
 
 	private:
+		void ReadFile();
+		void FillContent();
+
+	private:
 		std::string program_name_;
 		std::string out_file_;
+		fMain main_;
 		std::vector<Comments> comments_;
 		std::vector<Loop> loops_;
 		std::vector<Variable> variable_;
+		std::vector<std::string> lines_;
 };
