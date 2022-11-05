@@ -10,6 +10,7 @@ class Transition {
 		Symbol getSymbol() const ;
 		State getDestinationState() const;
 
+		bool operator<(const Transition) const;
 	private:
 		State originState_;
 		Symbol symbol_;

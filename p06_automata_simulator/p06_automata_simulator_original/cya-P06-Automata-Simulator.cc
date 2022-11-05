@@ -25,6 +25,7 @@
 
 #include "alfabeto.h"
 #include "cadena.h"
+#include "automata.h"
 
 #define kArgumentos 3
 #define kDelimeter ' '
@@ -153,10 +154,28 @@ int main(int argc, char *argv[]) {
   int initialState = linea.at(0) - 48; 
 	std::cout << initialState << std::endl;
 
-  while (getline(archivo, linea)) {
-    std::vector<std::string> auxStrVector(SplitChain(linea));
-		
+  std::vector<std::vector<std::string>> statesInformation; // Parte del fichero descripcion estados
+  std::set<State> auxStateSet; // Conjunto auxiliar de estados
+  for (int iteratorLine = 0; iteratorLine < nStates; iteratorLine++) {
+    getline(archivo, linea);
+    statesInformation.push_back(SplitChain(linea));
+    // Identificador y si es estado final
+    State auxState(stoi(SplitChain(linea).at(0)));
+    if (stoi(SplitChain(linea).at(1)) == 1) auxState.setFinalState();
+    // Insertar estado en conjunto
+    auxStateSet.insert(auxState);
   }
+  for (int iteratorStates = 0; iteratorStates < statesInformation.size();
+      iteratorStates++) {
+    int nTransitions = stoi(statesInformation.at(iteratorStates).at(2));
+    
+  }
+    //   State auxState(stoi(auxStrVector.at(0)));
+    // if (stoi(auxStrVector.at(1)) == 1) auxState.setFinalState();
+    // int nTransitions = stoi(auxStrVector.at(2));
+    // for (size_t i = 0; i < nTransitions; i = i + 2) {
+    //   Transition 
+    // }
 
   // for (size_t i = 0; i < operations_vector.size(); i++) {
   //   std::cout << operations_vector.at(i) << std::endl;

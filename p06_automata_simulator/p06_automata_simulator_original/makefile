@@ -1,7 +1,7 @@
 # https://stackoverflow.com/questions/2214575/passing-arguments-to-make-run
 
 MAIN_FILE = $(cliente)cya-P06-Automata-Simulator.cc
-SRC_FILES = $(alfabeto)alfabeto.cc $(automata)automata.cc $(cadena)cadena.cc $(estados)estados.cc $(simbolo)simbolo.cc $(trFunction)transitionFunction.cc
+SRC_FILES = $(alfabeto)alfabeto.cc $(automata)automata.cc $(cadena)cadena.cc $(estados)estados.cc $(simbolo)simbolo.cc $(transicion)transicion.cc $(trFunction)transitionFunction.cc
 EXECUTABLE_FILE = $(exe)p06_automata_simulator
 ERROR_FILE = $(error)error.txt
 

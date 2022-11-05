@@ -67,6 +67,10 @@ bool Symbol::isEqual(Symbol simbolo_param) const {
     return false;
 }
 
+bool Symbol::operator==(const Symbol paramSymbol) const {
+  return (isEqual(paramSymbol));
+}
+
 // Sobrecarga operador '<' para trabajar con la clase std::set
 bool Symbol::operator<(const Symbol param_symbol) const {
   return (symbol_ < param_symbol.symbol_);
