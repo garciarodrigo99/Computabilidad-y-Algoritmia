@@ -11,10 +11,13 @@ class Automata {
 		Automata(/* args */);
 		Automata(Alphabet, State);
 		~Automata();
-		bool acceptChain(Chain);
-		
-	private:
 
+		bool acceptChain(Chain);
+		void addTransition(State, Symbol, int);
+		void addState(State);
+
+	private:
+		State getState(int);
 
 	private:
 		Alphabet alphabet_;

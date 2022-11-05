@@ -156,7 +156,20 @@ int main(int argc, char *argv[]) {
 
   std::vector<std::vector<std::string>> statesInformation; // Parte del fichero descripcion estados
   std::set<State> auxStateSet; // Conjunto auxiliar de estados
-  for (int iteratorLine = 0; iteratorLine < nStates; iteratorLine++) {
+
+  getline(archivo, linea);
+  statesInformation.push_back(SplitChain(linea));
+  // Identificador y si es estado final
+  if (stoi(SplitChain(linea).at(0)) != initialState) return 1;
+  
+  State auxState(stoi(SplitChain(linea).at(0)));
+  if (stoi(SplitChain(linea).at(1)) == 1) auxState.setFinalState();
+  // Insertar estado en conjunto
+  auxStateSet.insert(auxState);
+
+  Automata myAutomata(myAlphabet, auxState);
+
+  for (int iteratorLine = 1; iteratorLine < nStates; iteratorLine++) {
     getline(archivo, linea);
     statesInformation.push_back(SplitChain(linea));
     // Identificador y si es estado final
@@ -168,6 +181,12 @@ int main(int argc, char *argv[]) {
   for (int iteratorStates = 0; iteratorStates < statesInformation.size();
       iteratorStates++) {
     int nTransitions = stoi(statesInformation.at(iteratorStates).at(2));
+    int positions = 3;
+    for (int i = 0; i < nTransitions; i++) {
+      statesInformation.at(iteratorStates).at(positions);
+      // positions + 1
+      positions += 2;
+    }
     
   }
     //   State auxState(stoi(auxStrVector.at(0)));

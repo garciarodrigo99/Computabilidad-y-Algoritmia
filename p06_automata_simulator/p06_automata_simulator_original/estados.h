@@ -15,7 +15,9 @@ class State {
 		void setFinalState();
 
 		bool operator<(const State) const;
+		void operator=(const State);
 		bool operator==(const State) const;
+
 	private:
 		int identifier_;
 		bool initialState_;

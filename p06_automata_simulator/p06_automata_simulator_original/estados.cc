@@ -17,6 +17,12 @@ bool State::operator<(const State paramState)const {
 	return (identifier_ != paramState.getIdentifier());
 }
 
+void State::operator=(const State paramState) {
+	identifier_ =	paramState.identifier_;
+	initialState_ = paramState.initialState_;
+	finalState_ = paramState.finalState_;
+}
+
 // Sobrecarga de operador para indicar si un estado tiene el mismo 
 // identificador que otro, no si es equivalente
 bool State::operator==(const State paramState)const {

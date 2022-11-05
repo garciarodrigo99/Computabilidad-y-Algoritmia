@@ -11,6 +11,7 @@ class TransitionFunction {
 		int getSize();
 		State getState(State, Symbol);
 
+		void addTransition(Transition);
 		bool isTransition(State, Symbol);
 
 	private:

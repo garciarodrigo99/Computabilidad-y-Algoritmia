@@ -19,6 +19,10 @@ State TransitionFunction::getState(State paramState, Symbol paramSymbol) {
 	}
 }
 
+void TransitionFunction::addTransition(Transition paramTransition) {
+	transitionSet_.insert(paramTransition);
+}
+
 // Metodo que comprueba si para un estado y simbolo dado existe transicion
 bool TransitionFunction::isTransition(State paramState, Symbol paramSymbol) {
 	for (std::set<Transition>::iterator it = transitionSet_.begin();
