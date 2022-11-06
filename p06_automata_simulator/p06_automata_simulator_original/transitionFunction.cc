@@ -1,5 +1,6 @@
 #include "transitionFunction.h"
 
+#include <iostream>
 #include <assert.h>
 
 TransitionFunction::TransitionFunction(/* args */) {}
@@ -35,3 +36,20 @@ bool TransitionFunction::isTransition(State paramState, Symbol paramSymbol) {
 	}
 	return false;
 }
+
+void TransitionFunction::print() {
+	for (std::set<Transition>::iterator it = transitionSet_.begin();
+			it != transitionSet_.end(); ++it) {
+		std::cout << *it << std::endl;
+	}
+}
+
+// std::ostream &operator<<(std::ostream &os, 
+// 												TransitionFunction &paramFTransition) {
+// 	for (std::set<Transition>::iterator it = paramFTransition.transitionSet_.begin();
+// 			it != paramFTransition.transitionSet_.end(); ++it) {
+// 				os << *it << "\n";
+				
+// 	}
+// 	return os;
+// }

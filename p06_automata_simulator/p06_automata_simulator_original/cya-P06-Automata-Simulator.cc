@@ -142,17 +142,14 @@ int main(int argc, char *argv[]) {
     auxSet.insert(SplitChain(linea).at(i));
   }
   Alphabet myAlphabet(auxSet);
-  std::cout << myAlphabet << std::endl;
 
   // Simbolos numero estados automata
   getline(archivo, linea);
   int nStates = linea.at(0) - 48;
-	std::cout << nStates << std::endl;
 
   // Estado arranque
   getline(archivo, linea);
   int initialState = linea.at(0) - 48; 
-	std::cout << initialState << std::endl;
 
   std::vector<std::vector<std::string>> statesInformation; // Parte del fichero descripcion estados
   std::set<State> auxStateSet; // Conjunto auxiliar de estados
@@ -176,33 +173,28 @@ int main(int argc, char *argv[]) {
     State auxState(stoi(SplitChain(linea).at(0)));
     if (stoi(SplitChain(linea).at(1)) == 1) auxState.setFinalState();
     // Insertar estado en conjunto
-    auxStateSet.insert(auxState);
+    myAutomata.addState(auxState);
   }
-  for (int iteratorStates = 0; iteratorStates < statesInformation.size();
-      iteratorStates++) {
-    int nTransitions = stoi(statesInformation.at(iteratorStates).at(2));
-    int positions = 3;
-    for (int i = 0; i < nTransitions; i++) {
-      statesInformation.at(iteratorStates).at(positions);
-      // positions + 1
-      positions += 2;
-    }
-    
-  }
-    //   State auxState(stoi(auxStrVector.at(0)));
-    // if (stoi(auxStrVector.at(1)) == 1) auxState.setFinalState();
-    // int nTransitions = stoi(auxStrVector.at(2));
-    // for (size_t i = 0; i < nTransitions; i = i + 2) {
-    //   Transition 
-    // }
 
-  // for (size_t i = 0; i < operations_vector.size(); i++) {
-  //   std::cout << operations_vector.at(i) << std::endl;
-  //   Calculator calc(languages_set);
-  //   std::cout << calc.GetResult(operations_vector.at(i), kDelimeter)
-  //             << std::endl;
-  //   std::endl(std::cout);
+  myAutomata.print();
+  // OK
+  // for (int iteratorStates = 0; iteratorStates < statesInformation.size();
+  //     iteratorStates++) {
+  //   int nTransitions = stoi(statesInformation.at(iteratorStates).at(2));
+  //   int positions = 3;
+  //   for (int i = 0; i < nTransitions; i++) {
+  //     statesInformation.at(iteratorStates).at(positions);
+  //     // positions + 1
+  //     positions += 2;
+  //   }
+    
   // }
+  //     State auxState(stoi(auxStrVector.at(0)));
+  //   if (stoi(auxStrVector.at(1)) == 1) auxState.setFinalState();
+  //   int nTransitions = stoi(auxStrVector.at(2));
+  //   for (size_t i = 0; i < nTransitions; i = i + 2) {
+  //     Transition 
+  //   }
 
   return 0;
 }

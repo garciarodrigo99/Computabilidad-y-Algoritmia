@@ -1,6 +1,8 @@
 #include "simbolo.h"
 #include "estados.h"
 
+#include <iostream>
+
 class Transition {
 
 	public:
@@ -11,6 +13,8 @@ class Transition {
 		State getDestinationState() const;
 
 		bool operator<(const Transition) const;
+		friend std::ostream &operator<<(std::ostream &, Transition &);
+		friend std::ostream &operator<<(std::ostream &, const Transition &);
 	private:
 		State originState_;
 		Symbol symbol_;

@@ -19,3 +19,17 @@ bool Transition::operator<(const Transition paramTransition)const {
 												paramTransition.destinationState_);
 	return (sameInitialState && sameSymbol && sameFinalState);
 }
+
+std::ostream &operator<<(std::ostream &os, Transition &paramTransition) {
+  os << "(" << paramTransition.originState_ << ",";
+  os << paramTransition.symbol_ << ") - >";
+	os << paramTransition.destinationState_;
+	return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const Transition &paramTransition) {
+  os << "(" << paramTransition.originState_ << ",";
+  os << paramTransition.symbol_ << ") - >";
+	os << paramTransition.destinationState_;
+	return os;
+}

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 class State {
 
 	public:
@@ -15,6 +17,8 @@ class State {
 		void setFinalState();
 
 		bool operator<(const State) const;
+		friend std::ostream &operator<<(std::ostream &, State &);
+		friend std::ostream &operator<<(std::ostream &, const State &); 
 		void operator=(const State);
 		bool operator==(const State) const;
 

@@ -13,6 +13,9 @@ class TransitionFunction {
 
 		void addTransition(Transition);
 		bool isTransition(State, Symbol);
+		void print();
+
+		//friend std::ostream &operator<<(std::ostream &, TransitionFunction &); 
 
 	private:
     std::set<Transition> transitionSet_;

@@ -1,6 +1,8 @@
 #include "estados.h"
+#include <iostream>
 
-State::State(int paramID) : identifier_(paramID) {}
+State::State(int paramID) : identifier_(paramID), initialState_(false),
+							finalState_(false) {}
 
 State::State(int paramID, bool paramIS, bool paramFS) : identifier_(paramID),
 						initialState_(paramIS), finalState_(paramFS) {}
@@ -14,7 +16,7 @@ bool State::isFinalState() {return finalState_; }
 void State::setFinalState() { finalState_ = true; }
 
 bool State::operator<(const State paramState)const {
-	return (identifier_ != paramState.getIdentifier());
+	return (identifier_ < paramState.getIdentifier());
 }
 
 void State::operator=(const State paramState) {
@@ -27,4 +29,14 @@ void State::operator=(const State paramState) {
 // identificador que otro, no si es equivalente
 bool State::operator==(const State paramState)const {
 	return (identifier_ == paramState.getIdentifier());
+}
+
+std::ostream &operator<<(std::ostream &os, State &paramState) {
+  os << paramState.identifier_;
+  return os;
+}
+
+std::ostream &operator<<(std::ostream &os, const State &paramState) {
+  os << paramState.identifier_;
+  return os;
 }

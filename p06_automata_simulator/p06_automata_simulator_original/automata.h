@@ -15,6 +15,7 @@ class Automata {
 		bool acceptChain(Chain);
 		void addTransition(State, Symbol, int);
 		void addState(State);
+		void print();
 
 	private:
 		State getState(int);
