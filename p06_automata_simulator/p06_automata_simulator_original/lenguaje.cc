@@ -3,10 +3,10 @@
 // Grado en Ingeniería Informática
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
-// Práctica 3: Calculadora de lenguajes formales
+// Practica 6: Simulación de autómatas finitos
 // Autor: Rodrigo Garcia Jimenez
 // Correo: alu0101154473@ull.edu.es
-// Fecha: 18/10/2022
+// Fecha: 08/11/2022
 // Archivo lenguaje.cc: Fichero de implementación de la clase Language.
 // Se define la clase Language con sus métodos y atributos
 // Referencias:
@@ -14,7 +14,7 @@
 // https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
 // https://stackoverflow.com/questions/3065438/switch-statement-with-returns-code-correctness
 // Historial de revisiones
-// 13/10/2022 - Creaci´on (primera versi´on) del c´odigo
+// 04/11/2022 - Creaci´on (primera versi´on) del c´odigo
 
 #include "lenguaje.h"
 

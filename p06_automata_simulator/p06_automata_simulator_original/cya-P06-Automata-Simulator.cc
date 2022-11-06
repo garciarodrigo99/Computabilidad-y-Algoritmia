@@ -3,10 +3,10 @@
 // Grado en Ingeniería Informática
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
-// Práctica 3: Calculadora de lenguajes formales
+// Practica 6: Simulación de autómatas finitos
 // Autor: Rodrigo Garcia Jimenez
 // Correo: alu0101154473@ull.edu.es
-// Fecha: 18/10/2022
+// Fecha: 08/11/2022
 // Archivo cya-P02-Languages.cc: programa cliente.
 // Contiene la función main del proyecto que usa las clases X e Y
 // para ... (indicar brevemente el objetivo)
@@ -14,7 +14,7 @@
 // Enlaces de interéss
 //
 // Historial de revisiones
-// 13/10/2022 - Creaci´on (primera versi´on) del c´odigo
+// 04/11/2022 - Creaci´on (primera versi´on) del c´odigo
 
 #include <algorithm>
 #include <chrono>
@@ -208,5 +208,7 @@ int main(int argc, char *argv[]) {
   chain2.AddSymbol(zero);
   chain2.AddSymbol(zero);
   std::cout << std::boolalpha << myAutomata.acceptChain(chain2) << std::endl;
+  Chain chain3(Symbol("a"));
+  std::cout << std::boolalpha << myAutomata.acceptChain(chain3) << std::endl;
   return 0;
 }
