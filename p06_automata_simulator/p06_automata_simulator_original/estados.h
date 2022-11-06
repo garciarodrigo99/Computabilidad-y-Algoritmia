@@ -4,27 +4,27 @@
 
 class State {
 
-	public:
-		State(int);
-		State(int, bool, bool);
-		~State();
+public:
+  State(int);
+  State(int, bool, bool);
+  ~State();
 
-		int getIdentifier() const;
-		bool isInitialState();
-		bool isFinalState();
-		bool isFinalState() const;
+  int getIdentifier() const;
+  bool isInitialState();
+  bool isFinalState();
+  bool isFinalState() const;
 
-		void setInitialState();
-		void setFinalState();
+  void setInitialState();
+  void setFinalState();
 
-		bool operator<(const State) const;
-		friend std::ostream &operator<<(std::ostream &, State &);
-		friend std::ostream &operator<<(std::ostream &, const State &); 
-		void operator=(const State);
-		bool operator==(const State) const;
+  bool operator<(const State) const;
+  friend std::ostream &operator<<(std::ostream &, State &);
+  friend std::ostream &operator<<(std::ostream &, const State &);
+  void operator=(const State);
+  bool operator==(const State) const;
 
-	private:
-		int identifier_;
-		bool initialState_;
-		bool finalState_;
+private:
+  int identifier_;
+  bool initialState_;
+  bool finalState_;
 };

@@ -1,23 +1,23 @@
 #include "transicion.h"
 
-#include <set>
 #include <iostream>
+#include <set>
 
 class TransitionFunction {
 
-	public:
-    TransitionFunction();
-    ~TransitionFunction();
+public:
+  TransitionFunction();
+  ~TransitionFunction();
 
-		int getSize();
-		State getState(State, Symbol);
+  int getSize();
+  State getState(State, Symbol);
 
-		void addTransition(Transition);
-		bool isTransition(State, Symbol);
-		void print();
+  void addTransition(Transition);
+  bool isTransition(State, Symbol);
+  void print();
 
-		friend std::ostream &operator<<(std::ostream &, TransitionFunction &); 
+  friend std::ostream &operator<<(std::ostream &, TransitionFunction &);
 
-	private:
-    std::set<Transition> transitionSet_;
+private:
+  std::set<Transition> transitionSet_;
 };

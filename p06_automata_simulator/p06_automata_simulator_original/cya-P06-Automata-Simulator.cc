@@ -24,8 +24,8 @@
 #include <thread>
 
 #include "alfabeto.h"
-#include "cadena.h"
 #include "automata.h"
+#include "cadena.h"
 
 #define kArgumentos 3
 #define kDelimeter ' '
@@ -83,20 +83,21 @@
 //   return lang;
 // }
 
-std::vector<std::string> SplitChain(std::string str, char pattern = kDelimeter) {
-    
-    int posInit = 0;
-    int posFound = 0;
-    std::string splitted;
-    std::vector<std::string> results;
-    
-    while(posFound >= 0){
-        posFound = str.find(pattern, posInit);
-        splitted = str.substr(posInit, posFound - posInit);
-        posInit = posFound + 1;
-        results.push_back(splitted);
-    }
-    return results;
+std::vector<std::string> SplitChain(std::string str,
+                                    char pattern = kDelimeter) {
+
+  int posInit = 0;
+  int posFound = 0;
+  std::string splitted;
+  std::vector<std::string> results;
+
+  while (posFound >= 0) {
+    posFound = str.find(pattern, posInit);
+    splitted = str.substr(posInit, posFound - posInit);
+    posInit = posFound + 1;
+    results.push_back(splitted);
+  }
+  return results;
 }
 
 // std::pair<Alphabet, int> ReadAlphabet(std::string string){
@@ -149,18 +150,21 @@ int main(int argc, char *argv[]) {
 
   // Estado arranque
   getline(archivo, linea);
-  int initialState = linea.at(0) - 48; 
+  int initialState = linea.at(0) - 48;
 
-  std::vector<std::vector<std::string>> statesInformation; // Parte del fichero descripcion estados
+  std::vector<std::vector<std::string>>
+      statesInformation;       // Parte del fichero descripcion estados
   std::set<State> auxStateSet; // Conjunto auxiliar de estados
 
   getline(archivo, linea);
   statesInformation.push_back(SplitChain(linea));
   // Identificador y si es estado final
-  if (stoi(SplitChain(linea).at(0)) != initialState) return 1;
-  
+  if (stoi(SplitChain(linea).at(0)) != initialState)
+    return 1;
+
   State auxState(stoi(SplitChain(linea).at(0)));
-  if (stoi(SplitChain(linea).at(1)) == 1) auxState.setFinalState();
+  if (stoi(SplitChain(linea).at(1)) == 1)
+    auxState.setFinalState();
   // Insertar estado en conjunto
   auxStateSet.insert(auxState);
 
@@ -171,25 +175,26 @@ int main(int argc, char *argv[]) {
     statesInformation.push_back(SplitChain(linea));
     // Identificador y si es estado final
     State auxState(stoi(SplitChain(linea).at(0)));
-    if (stoi(SplitChain(linea).at(1)) == 1) auxState.setFinalState();
+    if (stoi(SplitChain(linea).at(1)) == 1)
+      auxState.setFinalState();
     // Insertar estado en conjunto
     myAutomata.addState(auxState);
   }
 
-  //myAutomata.print();
+  // myAutomata.print();
 
   for (size_t iteratorStates = 0; iteratorStates < statesInformation.size();
-      iteratorStates++) {
+       iteratorStates++) {
     int nTransitions = stoi(statesInformation.at(iteratorStates).at(2));
     int positions = 3;
     for (int i = 0; i < nTransitions; i++) {
-      
+
       int originId = stoi(statesInformation.at(iteratorStates).at(0));
-      int destinationId = stoi(
-                        statesInformation.at(iteratorStates).at(positions+1));
-      myAutomata.addTransition(originId,
-      Symbol(statesInformation.at(iteratorStates).at(positions)), 
-            destinationId);
+      int destinationId =
+          stoi(statesInformation.at(iteratorStates).at(positions + 1));
+      myAutomata.addTransition(
+          originId, Symbol(statesInformation.at(iteratorStates).at(positions)),
+          destinationId);
       positions += 2;
     }
   }
