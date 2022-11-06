@@ -46,8 +46,8 @@ void TransitionFunction::print() {
 
 std::ostream &operator<<(std::ostream &os, 
 												TransitionFunction &paramFTransition) {
-	for (std::set<Transition>::iterator it = paramFTransition.transitionSet_.begin();
-			it != paramFTransition.transitionSet_.end(); ++it) {
+	for (std::set<Transition>::reverse_iterator it = paramFTransition.transitionSet_.rbegin();
+			it != paramFTransition.transitionSet_.rend(); ++it) {
 				os << *it << "\n";
 				
 	}

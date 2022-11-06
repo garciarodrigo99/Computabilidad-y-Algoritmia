@@ -177,26 +177,36 @@ int main(int argc, char *argv[]) {
   }
 
   myAutomata.print();
-  Transition auxTransition(auxState,Symbol("a"),auxState);
-  std::cout << auxTransition << std::endl;
-  // OK
-  // for (int iteratorStates = 0; iteratorStates < statesInformation.size();
-  //     iteratorStates++) {
-  //   int nTransitions = stoi(statesInformation.at(iteratorStates).at(2));
-  //   int positions = 3;
-  //   for (int i = 0; i < nTransitions; i++) {
-  //     statesInformation.at(iteratorStates).at(positions);
-  //     // positions + 1
-  //     positions += 2;
-  //   }
-    
-  // }
-  //     State auxState(stoi(auxStrVector.at(0)));
-  //   if (stoi(auxStrVector.at(1)) == 1) auxState.setFinalState();
-  //   int nTransitions = stoi(auxStrVector.at(2));
-  //   for (size_t i = 0; i < nTransitions; i = i + 2) {
-  //     Transition 
-  //   }
 
+  for (int iteratorStates = 0; iteratorStates < statesInformation.size();
+      iteratorStates++) {
+    int nTransitions = stoi(statesInformation.at(iteratorStates).at(2));
+    int positions = 3;
+    for (int i = 0; i < nTransitions; i++) {
+      
+      int originId = stoi(statesInformation.at(iteratorStates).at(0));
+      int destinationId = stoi(
+                        statesInformation.at(iteratorStates).at(positions+1));
+      myAutomata.addTransition(originId,
+      Symbol(statesInformation.at(iteratorStates).at(positions)), 
+            destinationId);
+      std::cout << originId << ",";
+      std::cout << Symbol(statesInformation.at(iteratorStates).at(positions));
+      std::cout << " -> " << destinationId << std::endl; 
+      positions += 2;
+    }
+  }
+  std::endl(std::cout);
+  myAutomata.print();
+
+  Symbol one("1");
+  Symbol zero("0");
+  Chain chain1(one);
+  std::cout << std::boolalpha << myAutomata.acceptChain(chain1) << std::endl;
+  Chain chain2(zero);
+  chain2.AddSymbol(one);
+  chain2.AddSymbol(zero);
+  chain2.AddSymbol(zero);
+  std::cout << std::boolalpha << myAutomata.acceptChain(chain2) << std::endl;
   return 0;
 }

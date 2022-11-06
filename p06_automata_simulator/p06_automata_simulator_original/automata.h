@@ -13,7 +13,7 @@ class Automata {
 		~Automata();
 
 		bool acceptChain(Chain);
-		void addTransition(State, Symbol, int);
+		void addTransition(int, Symbol, int);
 		void addState(State);
 		void print();
 

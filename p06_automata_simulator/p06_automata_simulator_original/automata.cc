@@ -19,15 +19,17 @@ bool Automata::acceptChain(Chain paramChain) {
 	State actualState(automataIntialState_);
 	for (int i = 0; i < paramChain.Size(); i++) {
 		if (trFunction_.isTransition(actualState,paramChain.Position(i)))
-			actualState = trFunction_.getState(actualState,paramChain.Position(i)); 
+			actualState = trFunction_.getState(actualState,paramChain.Position(i));
+		std::cout << "iteracion:" << i << " estado:" << actualState << std::endl;
 	}
-	return (finalStateSet_.count(actualState) == 0);
+	return (finalStateSet_.count(actualState) != 0);
 }
 
-void Automata::addTransition(State paramState, Symbol paramSymbol, 
+void Automata::addTransition(int actualStateId, Symbol paramSymbol, 
 														int nextStateId) {
-	State auxState(getState(nextStateId));
-	Transition auxTransition(paramState,paramSymbol,auxState);
+	State originState(getState(actualStateId));
+	State destinationState(getState(nextStateId));
+	Transition auxTransition(actualStateId,paramSymbol,nextStateId);
 	trFunction_.addTransition(auxTransition);
 }
 

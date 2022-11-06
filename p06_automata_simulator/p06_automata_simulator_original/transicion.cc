@@ -17,7 +17,7 @@ bool Transition::operator<(const Transition paramTransition)const {
 	bool sameSymbol = (symbol_ == paramTransition.symbol_);
 	bool sameFinalState = (destinationState_ == 
 												paramTransition.destinationState_);
-	return (sameInitialState && sameSymbol && sameFinalState);
+	return (!(sameInitialState && sameSymbol && sameFinalState));
 }
 
 std::ostream &operator<<(std::ostream &os, Transition &paramTransition) {
