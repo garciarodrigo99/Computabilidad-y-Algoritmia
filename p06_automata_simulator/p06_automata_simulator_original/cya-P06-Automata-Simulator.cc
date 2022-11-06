@@ -177,6 +177,8 @@ int main(int argc, char *argv[]) {
   }
 
   myAutomata.print();
+  Transition auxTransition(auxState,Symbol("a"),auxState);
+  std::cout << auxTransition << std::endl;
   // OK
   // for (int iteratorStates = 0; iteratorStates < statesInformation.size();
   //     iteratorStates++) {

@@ -58,4 +58,5 @@ void Automata::print() {
 				std::cout << it->getIdentifier() << " ";
 	}
 	std::endl(std::cout);
+	std::cout << trFunction_ << std::endl;
 }

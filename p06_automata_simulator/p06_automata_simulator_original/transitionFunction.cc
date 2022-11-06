@@ -44,12 +44,12 @@ void TransitionFunction::print() {
 	}
 }
 
-// std::ostream &operator<<(std::ostream &os, 
-// 												TransitionFunction &paramFTransition) {
-// 	for (std::set<Transition>::iterator it = paramFTransition.transitionSet_.begin();
-// 			it != paramFTransition.transitionSet_.end(); ++it) {
-// 				os << *it << "\n";
+std::ostream &operator<<(std::ostream &os, 
+												TransitionFunction &paramFTransition) {
+	for (std::set<Transition>::iterator it = paramFTransition.transitionSet_.begin();
+			it != paramFTransition.transitionSet_.end(); ++it) {
+				os << *it << "\n";
 				
-// 	}
-// 	return os;
-// }
+	}
+	return os;
+}

@@ -1,6 +1,7 @@
 #include "transicion.h"
 
 #include <set>
+#include <iostream>
 
 class TransitionFunction {
 
@@ -15,7 +16,7 @@ class TransitionFunction {
 		bool isTransition(State, Symbol);
 		void print();
 
-		//friend std::ostream &operator<<(std::ostream &, TransitionFunction &); 
+		friend std::ostream &operator<<(std::ostream &, TransitionFunction &); 
 
 	private:
     std::set<Transition> transitionSet_;
