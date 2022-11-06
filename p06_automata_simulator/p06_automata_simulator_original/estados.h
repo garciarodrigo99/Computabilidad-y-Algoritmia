@@ -12,6 +12,7 @@ class State {
 		int getIdentifier() const;
 		bool isInitialState();
 		bool isFinalState();
+		bool isFinalState() const;
 
 		void setInitialState();
 		void setFinalState();

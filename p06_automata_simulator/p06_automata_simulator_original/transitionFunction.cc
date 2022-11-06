@@ -18,6 +18,7 @@ State TransitionFunction::getState(State paramState, Symbol paramSymbol) {
 						return it->getDestinationState();
 			}
 	}
+	return 0; // Evitar warning
 }
 
 void TransitionFunction::addTransition(Transition paramTransition) {

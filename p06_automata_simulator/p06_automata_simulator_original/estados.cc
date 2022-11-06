@@ -10,8 +10,12 @@ State::State(int paramID, bool paramIS, bool paramFS) : identifier_(paramID),
 State::~State() {}
 
 int State::getIdentifier() const { return identifier_; }
+
 bool State::isInitialState() { return initialState_; }
+
 bool State::isFinalState() {return finalState_; }
+
+bool State::isFinalState() const {return finalState_; }
 
 void State::setFinalState() { finalState_ = true; }
 

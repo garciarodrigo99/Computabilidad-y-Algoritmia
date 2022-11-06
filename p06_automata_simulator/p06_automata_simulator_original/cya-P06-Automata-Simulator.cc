@@ -176,9 +176,9 @@ int main(int argc, char *argv[]) {
     myAutomata.addState(auxState);
   }
 
-  myAutomata.print();
+  //myAutomata.print();
 
-  for (int iteratorStates = 0; iteratorStates < statesInformation.size();
+  for (size_t iteratorStates = 0; iteratorStates < statesInformation.size();
       iteratorStates++) {
     int nTransitions = stoi(statesInformation.at(iteratorStates).at(2));
     int positions = 3;
@@ -190,9 +190,6 @@ int main(int argc, char *argv[]) {
       myAutomata.addTransition(originId,
       Symbol(statesInformation.at(iteratorStates).at(positions)), 
             destinationId);
-      std::cout << originId << ",";
-      std::cout << Symbol(statesInformation.at(iteratorStates).at(positions));
-      std::cout << " -> " << destinationId << std::endl; 
       positions += 2;
     }
   }

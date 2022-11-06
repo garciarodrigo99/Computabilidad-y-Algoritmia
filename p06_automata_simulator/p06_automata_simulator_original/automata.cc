@@ -38,6 +38,7 @@ State Automata::getState(int stateIdentifyer) {
       it != stateSet_.end(); ++it) {
 				if (it->getIdentifier() == stateIdentifyer) return *it;
 	}
+	return 0; // Evitar warning
 }
 
 void Automata::addState(State paramState) {
@@ -47,17 +48,31 @@ void Automata::addState(State paramState) {
 
 void Automata::print() {
 	std::cout << "Alfabeto: " << alphabet_ << std::endl;
-	std::cout << "Estados: ";
-	for (std::set<State>::iterator it = stateSet_.begin();
+	// std::cout << "Estados: ";
+	// for (std::set<State>::iterator it = stateSet_.begin();
+  //     it != stateSet_.end(); ++it) {
+	// 			std::cout << it->getIdentifier() << " ";
+	// }
+	// std::endl(std::cout);
+	// std::cout << "Estado inicial: " << automataIntialState_.getIdentifier() << std::endl;
+	// std::cout << "Estados de aceptacion: ";
+	// for (std::set<State>::iterator it = finalStateSet_.begin();
+  //     it != finalStateSet_.end(); ++it) {
+	// 			std::cout << it->getIdentifier() << " ";
+	// }
+	// std::endl(std::cout);
+	std::cout << ">";
+	if (automataIntialState_.isFinalState())
+		std::cout << "((" << automataIntialState_ << ")) ";
+	else
+		std::cout << "(" << automataIntialState_ << ") ";
+
+	for (std::set<State>::iterator it = ++stateSet_.begin();
       it != stateSet_.end(); ++it) {
-				std::cout << it->getIdentifier() << " ";
-	}
-	std::endl(std::cout);
-	std::cout << "Estado inicial: " << automataIntialState_.getIdentifier() << std::endl;
-	std::cout << "Estados de aceptacion: ";
-	for (std::set<State>::iterator it = finalStateSet_.begin();
-      it != finalStateSet_.end(); ++it) {
-				std::cout << it->getIdentifier() << " ";
+		if (it->isFinalState())
+			std::cout << "((" << *it << ")) ";
+		else
+			std::cout << "(" << *it << ") ";
 	}
 	std::endl(std::cout);
 	std::cout << trFunction_ << std::endl;
