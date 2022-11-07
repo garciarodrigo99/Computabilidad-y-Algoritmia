@@ -204,13 +204,15 @@ int main(int argc, char *argv[]) {
   Symbol one("1");
   Symbol zero("0");
   Chain chain1(one);
-  std::cout << std::boolalpha << myAutomata.acceptChain(chain1) << std::endl;
-  Chain chain2(zero);
-  chain2.AddSymbol(one);
-  chain2.AddSymbol(zero);
-  chain2.AddSymbol(zero);
-  std::cout << std::boolalpha << myAutomata.acceptChain(chain2) << std::endl;
-  Chain chain3(Symbol("a"));
-  std::cout << std::boolalpha << myAutomata.acceptChain(chain3) << std::endl;
+  chain1.AddSymbol(one);
+  chain1.AddSymbol(zero);
+  std::cout << std::boolalpha << myAutomata.acceptChainNFA(chain1) << std::endl;
+  // Chain chain2(zero);
+  // chain2.AddSymbol(one);
+  // chain2.AddSymbol(zero);
+  // chain2.AddSymbol(zero);
+  // std::cout << std::boolalpha << myAutomata.acceptChain(chain2) << std::endl;
+  // Chain chain3(Symbol("a"));
+  // std::cout << std::boolalpha << myAutomata.acceptChain(chain3) << std::endl;
   return 0;
 }

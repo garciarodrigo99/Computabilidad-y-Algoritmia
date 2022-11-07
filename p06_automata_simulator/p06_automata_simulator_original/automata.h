@@ -13,12 +13,14 @@ public:
   ~Automata();
 
   bool acceptChain(Chain);
+	bool acceptChainNFA(Chain);
   void addTransition(int, Symbol, int);
   void addState(State);
   void print();
 
 private:
   State getState(int);
+	bool containsFinalState(std::set<State>);
 
 private:
   Alphabet alphabet_;

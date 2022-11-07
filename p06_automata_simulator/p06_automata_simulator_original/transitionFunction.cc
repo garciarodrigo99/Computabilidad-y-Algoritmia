@@ -21,6 +21,19 @@ State TransitionFunction::getState(State paramState, Symbol paramSymbol) {
   return 0; // Evitar warning
 }
 
+std::set<State> TransitionFunction::getStatesSet(State paramState, Symbol paramSymbol) {
+  assert(isTransition(paramState, paramSymbol));
+	std::set<State> auxSet;
+  for (std::set<Transition>::iterator it = transitionSet_.begin();
+       it != transitionSet_.end(); ++it) {
+    if ((it->getOriginState().getIdentifier() == paramState.getIdentifier()) &&
+        (it->getSymbol().isEqual(paramSymbol))) {
+      auxSet.insert(it->getDestinationState());
+    }
+  }
+  return auxSet; // Evitar warning
+}
+
 void TransitionFunction::addTransition(Transition paramTransition) {
   transitionSet_.insert(paramTransition);
 }

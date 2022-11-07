@@ -11,6 +11,7 @@ public:
 
   int getSize();
   State getState(State, Symbol);
+	std::set<State> getStatesSet(State, Symbol);
 
   void addTransition(Transition);
   bool isTransition(State, Symbol);

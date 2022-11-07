@@ -26,6 +26,37 @@ bool Automata::acceptChain(Chain paramChain) {
   return (finalStateSet_.count(actualState) != 0);
 }
 
+bool Automata::acceptChainNFA(Chain paramChain) {
+  // assert(alphabet_.okChain(paramChain));
+  if (!(alphabet_.okChain(paramChain)))
+    return false;
+  std::set<State> actualStates;
+	actualStates.insert(automataIntialState_);
+  for (int chainIterator = 0; chainIterator < paramChain.Size(); 
+		chainIterator++) {
+		std::set<State> nextStates;
+		for (std::set<State>::iterator stateIterator = actualStates.begin();
+			stateIterator != actualStates.end(); stateIterator++) {
+				std::set<State> transitionSet;
+				if (trFunction_.isTransition(*stateIterator, paramChain.Position(chainIterator)))
+					transitionSet = (trFunction_.getStatesSet(*stateIterator, 
+						paramChain.Position(chainIterator)));
+				nextStates.insert(transitionSet.begin(),transitionSet.end());
+		}
+		actualStates = nextStates;
+  }
+  return containsFinalState(actualStates);
+}
+
+bool Automata::containsFinalState(std::set<State> paramStatesSet) {
+	std::cout << "Numero de ultimos estados: " << paramStatesSet.size() << std::endl;
+	for (std::set<State>::iterator it = paramStatesSet.begin();
+			it != paramStatesSet.end(); it++) {
+				if (finalStateSet_.count(*it) > 0) return true;			
+	}
+	return false;
+}
+
 void Automata::addTransition(int actualStateId, Symbol paramSymbol,
                              int nextStateId) {
   State originState(getState(actualStateId));
