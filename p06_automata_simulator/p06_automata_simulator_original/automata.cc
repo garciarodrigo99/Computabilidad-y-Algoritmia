@@ -1,9 +1,32 @@
+/**
+ * @file automata.cc
+ * @author Rodrigo Garcia Jimenez (alu0101154473@ull.edu.es)
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Asignatura: Computabilidad y Algoritmia
+ * Curso: 2º
+ * Practica 6: Simulación de autómatas finitos
+ * @brief Fichero de implementación de la clase Automata.
+ * Se define la clase Automata con sus métodos y atributos
+ * @version 1.0
+ * @date 2022-11-08
+ * 
+ * @copyright Copyright (c) 2022
+ */
+
 #include "automata.h"
 
 #include <assert.h>
 
 // Automata::Automata() {}
 
+/**
+ * @brief Construct a new Automata:: Automata object
+ * 
+ * @param paramAlphabet 
+ * @param paramInitialState 
+ */
 Automata::Automata(Alphabet paramAlphabet, State paramInitialState)
     : alphabet_(paramAlphabet), automataIntialState_(paramInitialState) {
   stateSet_.insert(paramInitialState);
@@ -11,25 +34,16 @@ Automata::Automata(Alphabet paramAlphabet, State paramInitialState)
     finalStateSet_.insert(paramInitialState);
 }
 
+/**
+ * @brief Destroy the Automata:: Automata object
+ * 
+ */
 Automata::~Automata() {}
-
-bool Automata::acceptChain(Chain paramChain) {
-  // assert(alphabet_.okChain(paramChain));
-  if (!(alphabet_.okChain(paramChain)))
-    return false;
-  State actualState(automataIntialState_);
-  for (int i = 0; i < paramChain.Size(); i++) {
-    if (trFunction_.isTransition(actualState, paramChain.Position(i)))
-      actualState = trFunction_.getState(actualState, paramChain.Position(i));
-    std::cout << "iteracion:" << i << " estado:" << actualState << std::endl;
-  }
-  return (finalStateSet_.count(actualState) != 0);
-}
 
 bool Automata::acceptChainNFA(Chain paramChain) {
   // assert(alphabet_.okChain(paramChain));
-  if (!(alphabet_.okChain(paramChain)))
-    return false;
+  if (!(alphabet_.okChain(paramChain))) return false;
+
   std::set<State> actualStates;
   actualStates.insert(automataIntialState_);
   for (int chainIterator = 0; chainIterator < paramChain.Size();
@@ -83,34 +97,29 @@ void Automata::addState(State paramState) {
     finalStateSet_.insert(paramState);
 }
 
-void Automata::print() {
-  std::cout << "Alfabeto: " << alphabet_ << std::endl;
-  // std::cout << "Estados: ";
-  // for (std::set<State>::iterator it = stateSet_.begin();
-  //     it != stateSet_.end(); ++it) {
-  // 			std::cout << it->getIdentifier() << " ";
-  // }
-  // std::endl(std::cout);
-  // std::cout << "Estado inicial: " << automataIntialState_.getIdentifier() <<
-  // std::endl; std::cout << "Estados de aceptacion: "; for
-  // (std::set<State>::iterator it = finalStateSet_.begin();
-  //     it != finalStateSet_.end(); ++it) {
-  // 			std::cout << it->getIdentifier() << " ";
-  // }
-  // std::endl(std::cout);
-  std::cout << ">";
-  if (automataIntialState_.isFinalState())
-    std::cout << "((" << automataIntialState_ << ")) ";
-  else
-    std::cout << "(" << automataIntialState_ << ") ";
+/**
+ * @brief Sobrecarga del operador de escritura
+ * 
+ * @param os 
+ * @param paramFTransition 
+ * @return std::ostream& 
+ */
+std::ostream &operator<<(std::ostream &os,
+                         Automata &paramFTransition) {
+  os << "Alfabeto: " << paramFTransition.alphabet_ << "\n";
 
-  for (std::set<State>::iterator it = ++stateSet_.begin();
-       it != stateSet_.end(); ++it) {
-    if (it->isFinalState())
-      std::cout << "((" << *it << ")) ";
-    else
-      std::cout << "(" << *it << ") ";
+  os << ">";
+  if (paramFTransition.automataIntialState_.isFinalState())
+    os << "((" << paramFTransition.automataIntialState_ << ")) ";
+  else
+    os << "(" << paramFTransition.automataIntialState_ << ") ";
+
+  for (std::set<State>::iterator it = ++paramFTransition.stateSet_.begin();
+      it != paramFTransition.stateSet_.end(); ++it) {
+    if (it->isFinalState()) os << "((" << *it << ")) ";
+    else  os << "(" << *it << ") ";
   }
-  std::endl(std::cout);
-  std::cout << trFunction_ << std::endl;
+  std::endl(os);
+  os << paramFTransition.trFunction_ << "\n";
+  return os;
 }

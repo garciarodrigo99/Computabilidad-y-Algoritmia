@@ -1,19 +1,23 @@
-// Universidad de La Laguna
-// Escuela Superior de Ingeniería y Tecnología
-// Grado en Ingeniería Informática
-// Asignatura: Computabilidad y Algoritmia
-// Curso: 2º
-// Practica 6: Simulación de autómatas finitos
-// Autor: Rodrigo Garcia Jimenez
-// Correo: alu0101154473@ull.edu.es
-// Fecha: 08/11/2022
-// Archivo cadena.cc: Fichero de implementación de la clase Chain.
-// Se define la clase Chain con sus métodos y atributos
-// Referencias:
-// Enlaces de interéss
-//
-// Historial de revisiones
-// 04/11/2022 - Creaci´on (primera versi´on) del c´odigo
+/**
+ * @file cadena.cc
+ * @author Rodrigo Garcia Jimenez (alu0101154473@ull.edu.es)
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Asignatura: Computabilidad y Algoritmia
+ * Curso: 2º
+ * Practica 6: Simulación de autómatas finitos
+ * @brief Fichero de implementación de la clase Chain.
+ * Se define la clase Chain con sus métodos y atributos
+ * @version 2.0
+ * @date 2022-11-08
+ * 
+ * @copyright Copyright (c) 2022
+ * @link https://stackoverflow.com/questions/308276/can-i-call-a-constructor-from-another-constructor-do-constructor-chaining-in-c
+ * @link https://www.tutorialspoint.com/strcmp-in-c-cplusplus#
+ * @link https://en.cppreference.com/w/c/string/byte/strcmp
+ */
+
 #include "cadena.h"
 #include "alfabeto.h"
 #include <algorithm>
@@ -21,38 +25,70 @@
 
 #define DEFAULT_ALPHABET_SYMBOL "0"
 
-// https://stackoverflow.com/questions/308276/can-i-call-a-constructor-from-another-constructor-do-constructor-chaining-in-c
-// https://www.tutorialspoint.com/strcmp-in-c-cplusplus#
-// https://en.cppreference.com/w/c/string/byte/strcmp
-
-// Constructor por defecto(cadena vacia)
+/**
+ * @brief Construct a new Chain:: Chain object
+ * Cadena vacía
+ * 
+ */
 Chain::Chain() {}
 
-// Constructor con simbolo, todos menos cadena vacia
-Chain::Chain(Symbol param) : Chain() { chain_.push_back(param); }
+/**
+ * @brief Construct a new Chain:: Chain object
+ * Constructor con simbolo, todos menos cadena vacia
+ * @param paramChain Primer simbolo de la cadena
+ */
+Chain::Chain(Symbol paramChain) : Chain() { chain_.push_back(paramChain); }
 
-Chain::Chain(std::vector<Symbol> symbol_vector) {
-  for (size_t i = 0; i < symbol_vector.size(); i++) {
-    chain_.push_back(Symbol(symbol_vector.at(i)));
+/**
+ * @brief Construct a new Chain:: Chain object
+ * 
+ * @param symbolVector Vector de simbolos
+ */
+Chain::Chain(std::vector<Symbol> symbolVector) {
+  for (size_t i = 0; i < symbolVector.size(); i++) {
+    chain_.push_back(Symbol(symbolVector.at(i)));
   }
 }
 
-// Constructor de copia de la clase
-Chain::Chain(const Chain &param) : chain_(param.chain_) {} // Comprobar
+ /**
+  * @brief Construct a new Chain:: Chain object
+  * Constructor de copia de la clase
+  * @param paramChain Cadena
+  */
+Chain::Chain(const Chain &paramChain) : chain_(paramChain.chain_) {} // Comprobar
 
-// Getter de la posicion index de la cadena
+/**
+ * @brief Getter del index lemento de la cadena
+ * 
+ * @param index Indice de la cadenq
+ * @return Symbol 
+ */
 Symbol Chain::Position(int index) const {
   assert((index >= 0) && (index < (int)chain_.size()));
   return chain_.at(index);
 }
 
-// Getter tamaño cadena
+/**
+ * @brief Devuelve la longitud de la cadena
+ * 
+ * @return int - Longitud cadena
+ */
 int Chain::Size() const { return chain_.size(); }
 
-// Añadir simbolo a la cadena
-void Chain::AddSymbol(Symbol param) { chain_.push_back(param); }
+/**
+ * @brief Añadir simbolo a la cadena
+ * 
+ * @param paramSymbol Symbol a añadir
+ */
+void Chain::AddSymbol(Symbol paramSymbol) { chain_.push_back(paramSymbol); }
 
-// Operacion concatenar
+/**
+ * @brief Operacion concatenar
+ * 
+ * @param original Primera cadena
+ * @param adder Cadena a concatenar 
+ * @return Chain - Cadena resultante
+ */
 Chain Chain::Concatenate(const Chain &original, const Chain &adder) {
   Chain concatenated;
   Chain empty_chain;
@@ -71,7 +107,11 @@ Chain Chain::Concatenate(const Chain &original, const Chain &adder) {
   return concatenated;
 }
 
-// Metodo para generar un alfabeto a partir de una cadena
+/**
+ * @brief Metodo para generar un alfabeto a partir de una cadena
+ * 
+ * @return Alphabet - Alfabeto generado
+ */
 Alphabet Chain::GenerateAlphabet(void) {
   std::set<Symbol> symbol_set;
   for (size_t i = 0; i < chain_.size(); i++) {
@@ -85,30 +125,45 @@ Alphabet Chain::GenerateAlphabet(void) {
   return aux;
 }
 
-// Metodo para saber si una cadena contiene un simbolo pasado por parametro
-bool Chain::inSymbol(Symbol simbolo_param) {
+/**
+ * @brief Metodo para saber si la cadena contiene un simbolo pasado por 
+ * parametro
+ * 
+ * @param paramSymbol Simbolo a comprobar
+ * @return true - El simbolo esta en la cadena.
+ * @return False - El simbolo no esta en la cadena.
+ */
+bool Chain::inSymbol(Symbol paramSymbol) {
   for (size_t i = 0; i < chain_.size(); i++) {
-    if (chain_.at(i).isEqual(simbolo_param))
+    if (chain_.at(i).isEqual(paramSymbol))
       return true;
   }
   return false;
 }
 
-// Metodo para saber si una cadena es igual a otra
-bool Chain::isEqual(const Chain &cadena_param) const {
-  if (((int)chain_.size()) != cadena_param.Size()) {
+/**
+ * @brief Metodo para saber si una cadena es igual a otra
+ * 
+ * @param paramChain Cadena a comparar
+ * @return true - Las cadenas son iguales.
+ * @return False - Las cadenas no son iguales.
+ */
+bool Chain::isEqual(const Chain &paramChain) const {
+  if (((int)chain_.size()) != paramChain.Size()) { 
     return false;
   } else {
     for (size_t i = 0; i < chain_.size(); i++) {
-      if (!(chain_.at(i).isEqual(cadena_param.Position(i)))) {
-        return false;
-      }
+      if (!(chain_.at(i).isEqual(paramChain.Position(i)))) return false;
     }
   }
   return true;
 }
 
-// Operacion prefijos
+/**
+ * @brief Genera todos los prefijos de la cadena
+ * 
+ * @return std::vector<Chain> - Vector de cadenas
+ */
 std::vector<Chain> Chain::Prefix() {
   std::vector<Chain> prefijos;
   Chain v;
@@ -123,18 +178,11 @@ std::vector<Chain> Chain::Prefix() {
   return prefijos;
 }
 
-// Salida por pantalla
-void Chain::Print() {
-  if (chain_.size() == 0) {
-    std::cout << kEmptyChain;
-  } else {
-    for (size_t i = 0; i < chain_.size(); i++) {
-      std::cout << chain_.at(i);
-    }
-  }
-}
-
-// Operacion inversa
+/**
+ * @brief 
+ * 
+ * @return Chain - Reversa de la cadena
+ */
 Chain Chain::Reverse() {
   if (chain_.size() == 0)
     return *this;
@@ -147,7 +195,11 @@ Chain Chain::Reverse() {
   return inversa;
 }
 
-// Operacion inversa objeto constante
+/**
+ * @brief Metodo para objeto constante
+ * 
+ * @return Chain - Reversa de la cadena
+ */
 Chain Chain::Reverse() const {
   if (chain_.size() == 0)
     return *this;
@@ -160,7 +212,11 @@ Chain Chain::Reverse() const {
   return inversa;
 }
 
-// Operacion subcadenas
+/**
+ * @brief Genera todas las subcadenas de la cadena
+ * 
+ * @return std::vector<Chain> - Vector de cadenas
+ */
 std::vector<Chain> Chain::Substring() {
   std::vector<Chain> subcadena;
   Chain v;
@@ -180,7 +236,11 @@ std::vector<Chain> Chain::Substring() {
   return subcadena;
 }
 
-// Operacion sufijos
+/**
+ * @brief Genera todos los sufijos de la cadena
+ * 
+ * @return std::vector<Chain> - Vector de cadenas
+ */
 std::vector<Chain> Chain::Sufix() {
   std::vector<Chain> sufijos;
   Chain v;
@@ -195,53 +255,77 @@ std::vector<Chain> Chain::Sufix() {
   return sufijos;
 }
 
-// Sobrecarga del operador '<' necesario para la clase std::set
-// Compara si una cadena es mayor a otra
-bool Chain::operator<(const Chain param_cadena) const {
+/**
+ * @brief Sobrecarga del operador '<' necesario para la clase std::set
+ * Compara si una cadena es mayor a otra
+ * 
+ * @param paramChain Cadena candidata a entrar en std::set
+ * @return True - La cadena no se encuentra en el conjunto.
+ * @return False - La cadena se encuentra en el conjunto.
+ * @see std::set
+ */
+bool Chain::operator<(const Chain paramChain) const {
   // Cadenas distinto tamaño
-  if (((int)chain_.size() != param_cadena.Size()))
-    return ((int)chain_.size() < param_cadena.Size());
+  if (((int)chain_.size() != paramChain.Size()))
+    return ((int)chain_.size() < paramChain.Size());
 
   // Caso comparar cadena vacia (ya tienen mismo tamaño)
   if (chain_.size() == 0)
-    return ((int)chain_.size() < param_cadena.Size());
+    return ((int)chain_.size() < paramChain.Size());
   // terminate called after throwing an instance of 'std::out_of_range'
   // what():  vector::_M_range_check: __n (which is 0) >= this->size() (which is
   // 0)
 
   // Cadenas mismo tamaño y distinto de 0
   for (size_t i = 0; i < (chain_.size() - 1); i++) {
-    if (!(chain_.at(i).isEqual(param_cadena.Position(i)))) {
-      return (chain_.at(i) < param_cadena.Position(i));
+    if (!(chain_.at(i).isEqual(paramChain.Position(i)))) {
+      return (chain_.at(i) < paramChain.Position(i));
     }
   }
-  return (chain_.back() < param_cadena.Position(param_cadena.Size() - 1));
+  return (chain_.back() < paramChain.Position(paramChain.Size() - 1));
 }
 
-// Sobrecarga operador '<<' para escritura del objeto
-std::ostream &operator<<(std::ostream &os, const Chain &param_cadena) {
-  if (param_cadena.Size() == 0) {
+/**
+ * @brief Sobrecarga operador '<<' para escritura del objeto
+ * 
+ * @param os 
+ * @param paramChain 
+ * @return std::ostream& 
+ */
+std::ostream &operator<<(std::ostream &os, const Chain &paramChain) {
+  if (paramChain.Size() == 0) {
     return os << kEmptyChain;
   } else {
-    for (int i = 0; i < param_cadena.Size(); i++) {
-      os << param_cadena.chain_.at(i);
+    for (int i = 0; i < paramChain.Size(); i++) {
+      os << paramChain.chain_.at(i);
     }
     return os;
   }
 }
 
-// Sobrecarga operador '==' para comparación del objeto
+/**
+ * @brief Sobrecarga operador '==' para comparación del objeto
+ * 
+ * @param param_chain 
+ * @return true 
+ * @return false 
+ */
 bool Chain::operator==(const Chain &param_chain) const {
   return isEqual(param_chain);
 }
 
-// Funcion externa para saber si en un vector de cadenas, la cadena por
-// parametro se encuentra dentro del vector
-bool inVector(std::vector<Chain> param_vector, Chain param_cadena) {
+/**
+ * @brief Funcion externa para saber si en un vector de cadenas, la cadena por
+ * parametro se encuentra dentro del vector
+ * 
+ * @param param_vector Vector en el que buscar
+ * @param paramChain Cadena a buscar
+ * @return true Se encuentra la cadena.
+ * @return false No se encuentra la cadena
+ */
+bool inVector(std::vector<Chain> param_vector, Chain paramChain) {
   for (size_t i = 0; i < param_vector.size(); i++) {
-    if (param_cadena.isEqual(param_vector.at(i))) {
-      return true;
-    }
+    if (paramChain.isEqual(param_vector.at(i))) return true;
   }
   return false;
 }

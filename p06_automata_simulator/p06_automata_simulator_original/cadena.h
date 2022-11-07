@@ -1,19 +1,19 @@
-// Universidad de La Laguna
-// Escuela Superior de Ingeniería y Tecnología
-// Grado en Ingeniería Informática
-// Asignatura: Computabilidad y Algoritmia
-// Curso: 2º
-// Practica 6: Simulación de autómatas finitos
-// Autor: Rodrigo Garcia Jimenez
-// Correo: alu0101154473@ull.edu.es
-// Fecha: 08/11/2022
-// Archivo cadena.h: Cabecera de la clase Chain.
-// Se define la clase Chain con sus métodos y atributos
-// Referencias:
-// Enlaces de interéss
-//
-// Historial de revisiones
-// 04/11/2022 - Creaci´on (primera versi´on) del c´odigo
+/**
+ * @file cadena.h
+ * @author Rodrigo Garcia Jimenez (alu0101154473@ull.edu.es)
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Asignatura: Computabilidad y Algoritmia
+ * Curso: 2º
+ * Practica 6: Simulación de autómatas finitos
+ * @brief Cabecera de la clase Chain.
+ * Se define la clase Chain con sus métodos y atributos.
+ * @version 2.0
+ * @date 2022-11-08
+ * 
+ * @copyright Copyright (c) 2022
+ */
 
 #include "simbolo.h"
 
@@ -43,7 +43,6 @@ public:
   bool inSymbol(Symbol);
   bool isEqual(const Chain &) const;
   std::vector<Chain> Prefix();
-  void Print(void);
   Chain Reverse(void);
   Chain Reverse(void) const;
   std::vector<Chain> Substring(void);

@@ -1,20 +1,18 @@
-// Universidad de La Laguna
-// Escuela Superior de Ingeniería y Tecnología
-// Grado en Ingeniería Informática
-// Asignatura: Computabilidad y Algoritmia
-// Curso: 2º
-// Practica 6: Simulación de autómatas finitos
-// Autor: Rodrigo Garcia Jimenez
-// Correo: alu0101154473@ull.edu.es
-// Fecha: 08/11/2022
-// Archivo cya-P02-Languages.cc: programa cliente.
-// Contiene la función main del proyecto que usa las clases X e Y
-// para ... (indicar brevemente el objetivo)
-// Referencias:
-// Enlaces de interéss
-//
-// Historial de revisiones
-// 04/11/2022 - Creaci´on (primera versi´on) del c´odigo
+/**
+ * @file cya-P06-Automata-Simulator.cc
+ * @author Rodrigo Garcia Jimenez (alu0101154473@ull.edu.es)
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Asignatura: Computabilidad y Algoritmia
+ * Curso: 2º
+ * Practica 6: Simulación de autómatas finitos
+ * @brief Programa principal
+ * @version 1.0
+ * @date 2022-11-08
+ * 
+ * @copyright Copyright (c) 2022
+ */
 
 #include <algorithm>
 #include <chrono>
@@ -32,56 +30,6 @@
 #define POS_FA_FILE 1
 #define POS_CHAIN_FILE 2
 #define DEFAULT_ALPHABET_SYMBOL "0"
-
-// Language ReadLanguage(std::vector<std::string> string_vector) {
-//   // ID lenguaje
-//   std::string language_id(string_vector.at(0));
-//   std::set<Chain> chain_set;
-//   std::set<Symbol> symbol_set; // Para alfabeto
-
-//   // Empieza en dos ya que i=0 es nombre lenguaje
-//   // e i=1 es simbolo igual
-//   for (size_t i = 2; i < string_vector.size(); i++) {
-//     std::vector<Symbol> symbol_vector; // Para cadena
-//     // Condiciones donde puede aparecer la cadena vacia
-//     // Las demas opciones no serían correctas
-//     if (((string_vector.at(i).size() == 3) &&
-//          (string_vector.at(i).at(1) == kEmptyChain)) ||
-//         ((string_vector.at(i).size() == 2) &&
-//          (string_vector.at(i).at(0) == kEmptyChain))) {
-//       Chain empty_chain;
-//       chain_set.insert(empty_chain);
-//     } else {
-//       for (size_t j = 0; j < string_vector.at(i).size(); j++) {
-//         // Si se encuentra algunos de los siguientes elementos, no se inserta
-//         bool read = ((string_vector.at(i).at(j) != SET_OPENER) &&
-//                      (string_vector.at(i).at(j) != SET_CLOSER) &&
-//                      (string_vector.at(i).at(j) != CHAIN_SEPARATOR) &&
-//                      (string_vector.at(i).at(j) != kEmptyChain));
-//         if (read == true) {
-//           std::string str_aux;
-//           str_aux.push_back(string_vector.at(i).at(j));
-//           symbol_vector.push_back(Symbol(str_aux));
-//           symbol_set.insert(Symbol(str_aux));
-//         }
-//       }
-//       // Condicion solo si no es lenguaje vacio
-//       if (symbol_vector.size() > 0) {
-//         Chain aux_chain(symbol_vector);
-//         chain_set.insert(aux_chain);
-//       }
-//     }
-//   }
-
-//   // Ningún símbolo reconocido, generar alfabeto por defecto y lenguaje vacio
-//   if (symbol_set.size() == 0) {
-//     symbol_set.insert(Symbol(DEFAULT_ALPHABET_SYMBOL));
-//   }
-
-//   Alphabet alfa(symbol_set);
-//   Language lang(alfa, chain_set, language_id);
-//   return lang;
-// }
 
 std::vector<std::string> SplitChain(std::string str,
                                     char pattern = kDelimeter) {
@@ -199,7 +147,7 @@ int main(int argc, char *argv[]) {
     }
   }
   std::endl(std::cout);
-  myAutomata.print();
+  std::cout << myAutomata << std::endl;
 
   Symbol one("1");
   Symbol zero("0");
@@ -207,12 +155,6 @@ int main(int argc, char *argv[]) {
   chain1.AddSymbol(one);
   chain1.AddSymbol(zero);
   std::cout << std::boolalpha << myAutomata.acceptChainNFA(chain1) << std::endl;
-  // Chain chain2(zero);
-  // chain2.AddSymbol(one);
-  // chain2.AddSymbol(zero);
-  // chain2.AddSymbol(zero);
-  // std::cout << std::boolalpha << myAutomata.acceptChain(chain2) << std::endl;
-  // Chain chain3(Symbol("a"));
-  // std::cout << std::boolalpha << myAutomata.acceptChain(chain3) << std::endl;
+
   return 0;
 }

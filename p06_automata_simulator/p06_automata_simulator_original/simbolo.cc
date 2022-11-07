@@ -1,83 +1,122 @@
-// Universidad de La Laguna
-// Escuela Superior de Ingeniería y Tecnología
-// Grado en Ingeniería Informática
-// Asignatura: Computabilidad y Algoritmia
-// Curso: 2º
-// Practica 6: Simulación de autómatas finitos
-// Autor: Rodrigo Garcia Jimenez
-// Correo: alu0101154473@ull.edu.es
-// Fecha: 08/11/2022
-// Archivo simbolo.h: Fichero de implementación de la clase Symbol.
-// Se define la clase Symbol con sus métodos y atributos
-// Referencias:
-// Enlaces de interés
-// https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
-// https://stackoverflow.com/questions/3025997/defining-static-const-integer-members-in-class-definition
-// Historial de revisiones
-// 04/11/2022 - Creaci´on (primera versi´on) del c´odigo
+/**
+ * @file simbolo.cc
+ * @author Rodrigo Garcia Jimenez (alu0101154473@ull.edu.es)
+ * Universidad de La Laguna
+ * Escuela Superior de Ingeniería y Tecnología
+ * Grado en Ingeniería Informática
+ * Asignatura: Computabilidad y Algoritmia
+ * Curso: 2º
+ * Practica 6: Simulación de autómatas finitos
+ * @brief Fichero de implementación de la clase Symbol.
+ * @version 2.0
+ * @date 2022-11-08
+ * 
+ * @copyright Copyright (c) 2022
+ * @link https://stackoverflow.com/questions/3025997/defining-static-const-integer-members-in-class-definition
+ * @link https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
+ */
 
 #include "simbolo.h"
 
 #include <assert.h>
 
-// Constructor a través de caracter
-Symbol::Symbol(const std::string param) : symbol_(param) {
+/**
+ * @brief Construct a new Symbol:: Symbol object
+ * @param paramString 
+ */
+Symbol::Symbol(const std::string paramString) : symbol_(paramString) {
   // Comprobar no es simbolo reservado cadena vacia
   assert(CheckSimbols(*this));
 }
 
-// Destructor
+/**
+ * @brief Destroy the Symbol:: Symbol object
+ */
 Symbol::~Symbol() {}
 
-// Devuelve el caracter que ocupa index posicion
+/**
+ * @brief Devuelve el caracter que ocupa index posicion
+ * @param index Posicion a la que se quiere acceder
+ * @return Caracter 
+ */
 const char Symbol::position(int index) {
   assert((index >= 0) && (index < (int)symbol_.size()));
   return symbol_[index];
 }
 
-// Devuelve el numero de caracteres del simbolo
+/**
+ * @brief Devuelve el numero de caracteres del simbolo
+ * @return Numero de caracteres ASCII del simbolo 
+ */
 int Symbol::Size() const { return symbol_.size(); }
 
-// Comprueba que no contiene el caracter reservado para la cadena vacía y
-// devuelve true si la cadena es correcta y false en caso contrario
-bool Symbol::CheckSimbols(Symbol simbolo_param) {
-  for (int i = 0; i < simbolo_param.Size(); i++) {
-    if (simbolo_param.position(i) == kEmptyChain) {
+/**
+ * @brief Comprueba que no contiene el caracter reservado para la cadena vacía
+ * 
+ * @param paramSymbol Simbolo
+ * @return true si la cadena es correcta y false en caso contrario
+ */
+bool Symbol::CheckSimbols(Symbol paramSymbol) {
+  for (int i = 0; i < paramSymbol.Size(); i++) {
+    if (paramSymbol.position(i) == kEmptyChain) {
       return false;
     }
   }
   return true;
 }
 
-// Comprueba, comparando con el simbolo por parametro, si un simbolo es igual
-// a otro
-bool Symbol::isEqual(Symbol simbolo_param) {
-  if ((symbol_.compare(simbolo_param.symbol_)) == 0) { // Cambiar
+/**
+ * @brief Comprueba, comparando con el simbolo por parametro, si un simbolo 
+ * es igual a otro
+ * @param paramSymbol Simbolo a comparar
+ * @return True si los simbolos son iguales, false en caso contrario.
+ */
+bool Symbol::isEqual(Symbol paramSymbol) {
+  if ((symbol_.compare(paramSymbol.symbol_)) == 0) { // Cambiar
     return true;
   } else {
     return false;
   }
 }
 
-// Método anterior para objetos constantes
-bool Symbol::isEqual(Symbol simbolo_param) const {
-  if ((symbol_.compare(simbolo_param.symbol_)) == 0) // Cambiar
+/**
+ * @brief Comprueba, comparando con el simbolo por parametro, si un simbolo es 
+ * igual a otro. Método para objetos constantes
+ * @param paramSymbol Simbolo a comparar 
+ * @return True si los simbolos son iguales, false en caso contrario.
+ */
+bool Symbol::isEqual(Symbol paramSymbol) const {
+  if ((symbol_.compare(paramSymbol.symbol_)) == 0) // Cambiar
     return true;
   else
     return false;
 }
 
+/**
+ * @brief 
+ * @param paramSymbol 
+ * @return 
+ */
 bool Symbol::operator==(const Symbol paramSymbol) const {
   return (isEqual(paramSymbol));
 }
 
-// Sobrecarga operador '<' para trabajar con la clase std::set
+/**
+ * @brief Sobrecarga operador '<' para trabajar con la clase std::set
+ * @param param_symbol Simbolo candidato a entrar en el conjunto
+ * @return True si el elemento no esta en el conjunto. False en caso contrario.
+ */
 bool Symbol::operator<(const Symbol param_symbol) const {
   return (symbol_ < param_symbol.symbol_);
 }
 
-// Sobrecarga operador '<<' para escritura del objeto
-std::ostream &operator<<(std::ostream &os, const Symbol &param_simbolo) {
-  os << param_simbolo.symbol_;
+/**
+ * @brief Sobrecarga operador '<<' para escritura del objeto
+ * @param os std::ostream 
+ * @param param_symbol Simbolo a escribir
+ * @return std::ostream& 
+ */
+std::ostream &operator<<(std::ostream &os, const Symbol &param_symbol) {
+  os << param_symbol.symbol_;
   return os;
 }
