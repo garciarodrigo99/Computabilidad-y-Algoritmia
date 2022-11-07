@@ -11,7 +11,7 @@
  * Se define la clase Chain con sus métodos y atributos.
  * @version 2.0
  * @date 2022-11-08
- * 
+ *
  * @copyright Copyright (c) 2022
  */
 

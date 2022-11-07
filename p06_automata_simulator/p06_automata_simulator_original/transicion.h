@@ -11,7 +11,7 @@
  * Se define la clase Transition con sus métodos y atributos
  * @version 1.0
  * @date 2022-11-08
- * 
+ *
  * @copyright Copyright (c) 2022
  */
 
@@ -26,7 +26,7 @@ public:
   // Constructores y destructor
   Transition(State, Symbol, State);
   ~Transition();
-  
+
   // Getters y setters
   State getDestinationState() const;
   State getOriginState() const;

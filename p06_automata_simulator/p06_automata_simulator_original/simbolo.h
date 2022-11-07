@@ -11,12 +11,13 @@
  * Se define la clase Symbol con sus métodos y atributos
  * @version 2.0
  * @date 2022-11-08
- * 
+ *
  * @copyright Copyright (c) 2022
- * @link https://stackoverflow.com/questions/3025997/defining-static-const-integer-members-in-class-definition
- * @link https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
+ * @link
+ * https://stackoverflow.com/questions/3025997/defining-static-const-integer-members-in-class-definition
+ * @link
+ * https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
  */
-
 
 #include <iostream>
 #include <string>

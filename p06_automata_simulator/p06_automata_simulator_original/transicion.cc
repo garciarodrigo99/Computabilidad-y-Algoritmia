@@ -11,7 +11,7 @@
  * Se define la clase Transition con sus métodos y atributos
  * @version 1.0
  * @date 2022-11-08
- * 
+ *
  * @copyright Copyright (c) 2022
  */
 
@@ -19,7 +19,7 @@
 
 /**
  * @brief Construct a new Transition:: Transition object
- * 
+ *
  * @param paramOriginState Estado origen
  * @param paramSymbol Simbolo
  * @param paramDestinationState Estado destino
@@ -31,37 +31,37 @@ Transition::Transition(State paramOriginState, Symbol paramSymbol,
 
 /**
  * @brief Destroy the Transition:: Transition object
- * 
+ *
  */
 Transition::~Transition() {}
 
 /**
  * @brief Getter estado destino
- * 
- * @return State 
+ *
+ * @return State
  */
 State Transition::getDestinationState() const { return destinationState_; }
 
 /**
  * @brief Getter estado origen
- * 
- * @return State 
+ *
+ * @return State
  */
 State Transition::getOriginState() const { return originState_; }
 
 /**
  * @brief Getter simbolo
- * 
- * @return Symbol 
+ *
+ * @return Symbol
  */
 Symbol Transition::getSymbol() const { return symbol_; }
 
 /**
  * @brief Sobrecarga operador '<' para poder trabajar clase std::set
- * 
+ *
  * @param paramAlphabet Transicion candidato a entrar en std::set
- * @return True - La transicion no se encuentra en el conjunto 
- * @return false - La transicion se encuentra en el conjunto 
+ * @return True - La transicion no se encuentra en el conjunto
+ * @return false - La transicion se encuentra en el conjunto
  * @see std::set
  */
 bool Transition::operator<(const Transition paramTransition) const {
@@ -73,11 +73,11 @@ bool Transition::operator<(const Transition paramTransition) const {
 }
 
 /**
- * @brief 
- * 
- * @param os 
- * @param paramTransition 
- * @return std::ostream& 
+ * @brief
+ *
+ * @param os
+ * @param paramTransition
+ * @return std::ostream&
  */
 std::ostream &operator<<(std::ostream &os, Transition &paramTransition) {
   os << "(" << paramTransition.originState_ << ",";
@@ -87,11 +87,11 @@ std::ostream &operator<<(std::ostream &os, Transition &paramTransition) {
 }
 
 /**
- * @brief 
- * 
- * @param os 
- * @param paramTransition 
- * @return std::ostream& 
+ * @brief
+ *
+ * @param os
+ * @param paramTransition
+ * @return std::ostream&
  */
 std::ostream &operator<<(std::ostream &os, const Transition &paramTransition) {
   os << "(" << paramTransition.originState_ << ",";

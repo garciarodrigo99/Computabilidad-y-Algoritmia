@@ -11,7 +11,7 @@
  * Se define la clase Automata con sus métodos y atributos
  * @version 1.0
  * @date 2022-11-08
- * 
+ *
  * @copyright Copyright (c) 2022
  */
 
@@ -23,9 +23,9 @@
 
 /**
  * @brief Construct a new Automata:: Automata object
- * 
- * @param paramAlphabet 
- * @param paramInitialState 
+ *
+ * @param paramAlphabet
+ * @param paramInitialState
  */
 Automata::Automata(Alphabet paramAlphabet, State paramInitialState)
     : alphabet_(paramAlphabet), automataIntialState_(paramInitialState) {
@@ -36,13 +36,14 @@ Automata::Automata(Alphabet paramAlphabet, State paramInitialState)
 
 /**
  * @brief Destroy the Automata:: Automata object
- * 
+ *
  */
 Automata::~Automata() {}
 
 bool Automata::acceptChainNFA(Chain paramChain) {
   // assert(alphabet_.okChain(paramChain));
-  if (!(alphabet_.okChain(paramChain))) return false;
+  if (!(alphabet_.okChain(paramChain)))
+    return false;
 
   std::set<State> actualStates;
   actualStates.insert(automataIntialState_);
@@ -99,13 +100,12 @@ void Automata::addState(State paramState) {
 
 /**
  * @brief Sobrecarga del operador de escritura
- * 
- * @param os 
- * @param paramFTransition 
- * @return std::ostream& 
+ *
+ * @param os
+ * @param paramFTransition
+ * @return std::ostream&
  */
-std::ostream &operator<<(std::ostream &os,
-                         Automata &paramFTransition) {
+std::ostream &operator<<(std::ostream &os, Automata &paramFTransition) {
   os << "Alfabeto: " << paramFTransition.alphabet_ << "\n";
 
   os << ">";
@@ -115,9 +115,11 @@ std::ostream &operator<<(std::ostream &os,
     os << "(" << paramFTransition.automataIntialState_ << ") ";
 
   for (std::set<State>::iterator it = ++paramFTransition.stateSet_.begin();
-      it != paramFTransition.stateSet_.end(); ++it) {
-    if (it->isFinalState()) os << "((" << *it << ")) ";
-    else  os << "(" << *it << ") ";
+       it != paramFTransition.stateSet_.end(); ++it) {
+    if (it->isFinalState())
+      os << "((" << *it << ")) ";
+    else
+      os << "(" << *it << ") ";
   }
   std::endl(os);
   os << paramFTransition.trFunction_ << "\n";

@@ -11,7 +11,7 @@
  * Se define la clase State con sus métodos y atributos
  * @version 1.0
  * @date 2022-11-08
- * 
+ *
  * @copyright Copyright (c) 2022
  * @link https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
  */

@@ -10,10 +10,12 @@
  * @brief Fichero de implementación de la clase Symbol.
  * @version 2.0
  * @date 2022-11-08
- * 
+ *
  * @copyright Copyright (c) 2022
- * @link https://stackoverflow.com/questions/3025997/defining-static-const-integer-members-in-class-definition
- * @link https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
+ * @link
+ * https://stackoverflow.com/questions/3025997/defining-static-const-integer-members-in-class-definition
+ * @link
+ * https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
  */
 
 #include "simbolo.h"
@@ -22,7 +24,7 @@
 
 /**
  * @brief Construct a new Symbol:: Symbol object
- * @param paramString 
+ * @param paramString
  */
 Symbol::Symbol(const std::string paramString) : symbol_(paramString) {
   // Comprobar no es simbolo reservado cadena vacia
@@ -37,7 +39,7 @@ Symbol::~Symbol() {}
 /**
  * @brief Devuelve el caracter que ocupa index posicion
  * @param index Posicion a la que se quiere acceder
- * @return Caracter 
+ * @return Caracter
  */
 const char Symbol::position(int index) {
   assert((index >= 0) && (index < (int)symbol_.size()));
@@ -46,13 +48,13 @@ const char Symbol::position(int index) {
 
 /**
  * @brief Devuelve el numero de caracteres del simbolo
- * @return Numero de caracteres ASCII del simbolo 
+ * @return Numero de caracteres ASCII del simbolo
  */
 int Symbol::Size() const { return symbol_.size(); }
 
 /**
  * @brief Comprueba que no contiene el caracter reservado para la cadena vacía
- * 
+ *
  * @param paramSymbol Simbolo
  * @return true si la cadena es correcta y false en caso contrario
  */
@@ -66,7 +68,7 @@ bool Symbol::CheckSimbols(Symbol paramSymbol) {
 }
 
 /**
- * @brief Comprueba, comparando con el simbolo por parametro, si un simbolo 
+ * @brief Comprueba, comparando con el simbolo por parametro, si un simbolo
  * es igual a otro
  * @param paramSymbol Simbolo a comparar
  * @return True si los simbolos son iguales, false en caso contrario.
@@ -80,9 +82,9 @@ bool Symbol::isEqual(Symbol paramSymbol) {
 }
 
 /**
- * @brief Comprueba, comparando con el simbolo por parametro, si un simbolo es 
+ * @brief Comprueba, comparando con el simbolo por parametro, si un simbolo es
  * igual a otro. Método para objetos constantes
- * @param paramSymbol Simbolo a comparar 
+ * @param paramSymbol Simbolo a comparar
  * @return True si los simbolos son iguales, false en caso contrario.
  */
 bool Symbol::isEqual(Symbol paramSymbol) const {
@@ -93,9 +95,9 @@ bool Symbol::isEqual(Symbol paramSymbol) const {
 }
 
 /**
- * @brief 
- * @param paramSymbol 
- * @return 
+ * @brief
+ * @param paramSymbol
+ * @return
  */
 bool Symbol::operator==(const Symbol paramSymbol) const {
   return (isEqual(paramSymbol));
@@ -112,9 +114,9 @@ bool Symbol::operator<(const Symbol param_symbol) const {
 
 /**
  * @brief Sobrecarga operador '<<' para escritura del objeto
- * @param os std::ostream 
+ * @param os std::ostream
  * @param param_symbol Simbolo a escribir
- * @return std::ostream& 
+ * @return std::ostream&
  */
 std::ostream &operator<<(std::ostream &os, const Symbol &param_symbol) {
   os << param_symbol.symbol_;
