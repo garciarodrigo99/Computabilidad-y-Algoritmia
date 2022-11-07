@@ -24,6 +24,7 @@ class State {
 
 public:
   // Constructores y destructores
+  State();
   State(int);
   State(int, bool, bool);
   ~State();

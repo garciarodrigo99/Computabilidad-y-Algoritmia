@@ -22,6 +22,8 @@
 #include <assert.h>
 #include <iostream>
 
+Alphabet::Alphabet() {}
+
 /**
  * @brief Construct a new Alphabet:: Alphabet object
  * Constructor a través de un simbolo

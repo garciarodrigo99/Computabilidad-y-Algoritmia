@@ -17,9 +17,69 @@
 
 #include "automata.h"
 
+#include <fstream>
 #include <assert.h>
+#include <string>
 
-// Automata::Automata() {}
+//Automata::Automata() {}
+
+Automata::Automata(std::string fileName) {
+  std::ifstream archivo(fileName.c_str());
+  std::string linea;
+
+  // Simbolos alfabeto
+  getline(archivo, linea);
+  for (size_t i = 0; i < SplitChain(linea).size(); i++)
+    alphabet_.AddSymbol(SplitChain(linea).at(i));
+
+  // Simbolos numero estados automata
+  getline(archivo, linea);
+  int nStates = linea.at(0) - 48;
+
+  // Estado arranque
+  getline(archivo, linea);
+  int initialState = linea.at(0) - 48;
+
+  std::vector<std::vector<std::string>> statesInformation;  // Parte del fichero descripcion estados
+
+  getline(archivo, linea);
+  statesInformation.push_back(SplitChain(linea));
+  // Identificador y si es estado final
+  assert(std::stoi(SplitChain(linea).at(0)) == initialState);
+
+  State automataIntialState_(std::stoi(SplitChain(linea).at(0)));
+  if (std::stoi(SplitChain(linea).at(1)) == 1)
+    automataIntialState_.setFinalState();
+
+  addState(initialState);
+
+  for (int iteratorLine = 1; iteratorLine < nStates; iteratorLine++) {
+    getline(archivo, linea);
+    statesInformation.push_back(SplitChain(linea));
+    // Identificador y si es estado final
+    State auxState(std::stoi(SplitChain(linea).at(0)));
+    if (std::stoi(SplitChain(linea).at(1)) == 1)
+      auxState.setFinalState();
+    // Insertar estado en conjunto
+    addState(auxState);
+  }
+
+  for (size_t iteratorStates = 0; iteratorStates < statesInformation.size();
+       iteratorStates++) {
+    int nTransitions = std::stoi(statesInformation.at(iteratorStates).at(2));
+    int positions = 3;
+    for (int i = 0; i < nTransitions; i++) {
+
+      int originId = std::stoi(statesInformation.at(iteratorStates).at(0));
+      int destinationId =
+          std::stoi(statesInformation.at(iteratorStates).at(positions + 1));
+      addTransition(
+          originId, Symbol(statesInformation.at(iteratorStates).at(positions)),
+          destinationId);
+      positions += 2;
+    }
+  }
+}
 
 /**
  * @brief Construct a new Automata:: Automata object
@@ -77,10 +137,21 @@ bool Automata::containsFinalState(std::set<State> paramStatesSet) {
 
 void Automata::addTransition(int actualStateId, Symbol paramSymbol,
                              int nextStateId) {
+  assert(isState(actualStateId));
+  assert(isState(nextStateId));
+  assert(alphabet_.inSymbol(paramSymbol));
   State originState(getState(actualStateId));
   State destinationState(getState(nextStateId));
   Transition auxTransition(actualStateId, paramSymbol, nextStateId);
   trFunction_.addTransition(auxTransition);
+}
+
+bool Automata::isState(int stateIdentifyer) {
+  for (std::set<State>::iterator it = stateSet_.begin();
+      it != stateSet_.end(); it++) {
+        if (it->getIdentifier() == stateIdentifyer) return true;
+  }
+  return false;
 }
 
 State Automata::getState(int stateIdentifyer) {
@@ -124,4 +195,20 @@ std::ostream &operator<<(std::ostream &os, Automata &paramFTransition) {
   std::endl(os);
   os << paramFTransition.trFunction_ << "\n";
   return os;
+}
+
+std::vector<std::string> SplitChain(std::string str, char pattern) {
+
+  int posInit = 0;
+  int posFound = 0;
+  std::string splitted;
+  std::vector<std::string> results;
+
+  while (posFound >= 0) {
+    posFound = str.find(pattern, posInit);
+    splitted = str.substr(posInit, posFound - posInit);
+    posInit = posFound + 1;
+    results.push_back(splitted);
+  }
+  return results;
 }

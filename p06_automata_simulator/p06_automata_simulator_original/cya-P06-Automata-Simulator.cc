@@ -31,33 +31,21 @@
 #define POS_CHAIN_FILE 2
 #define DEFAULT_ALPHABET_SYMBOL "0"
 
-std::vector<std::string> SplitChain(std::string str,
-                                    char pattern = kDelimeter) {
+// std::vector<std::string> SplitChain(std::string str,
+//                                     char pattern = kDelimeter) {
 
-  int posInit = 0;
-  int posFound = 0;
-  std::string splitted;
-  std::vector<std::string> results;
+//   int posInit = 0;
+//   int posFound = 0;
+//   std::string splitted;
+//   std::vector<std::string> results;
 
-  while (posFound >= 0) {
-    posFound = str.find(pattern, posInit);
-    splitted = str.substr(posInit, posFound - posInit);
-    posInit = posFound + 1;
-    results.push_back(splitted);
-  }
-  return results;
-}
-
-// std::pair<Alphabet, int> ReadAlphabet(std::string string){
-//   std::set<Symbol> symbol_set;
-//   int iterator = 1;
-//   // While para recorrer los primeros corchetes(alfabeto)
-//   while (SplitChain(string,kDelimeter).at(iterator).at(0) != SET_CLOSER) {
-//     symbol_set.insert(SplitChain(string,kDelimeter).at(iterator));
-//     iterator++;
+//   while (posFound >= 0) {
+//     posFound = str.find(pattern, posInit);
+//     splitted = str.substr(posInit, posFound - posInit);
+//     posInit = posFound + 1;
+//     results.push_back(splitted);
 //   }
-//   Alphabet alfa(symbol_set);
-//   return std::pair<Alphabet, int>(alfa,iterator);
+//   return results;
 // }
 
 // Funcion que indica la forma correcta de ejecutar y cada parametro a
@@ -81,72 +69,72 @@ int main(int argc, char *argv[]) {
   }
 
   std::string nombre_archivo = argv[POS_FA_FILE]; // Parametro 1
-  std::ifstream archivo(nombre_archivo.c_str());
-  std::string linea;
+  // std::ifstream archivo(nombre_archivo.c_str());
+  // std::string linea;
 
-  // Simbolos alfabeto
-  getline(archivo, linea);
-  std::set<Symbol> auxSet;
-  for (size_t i = 0; i < SplitChain(linea).size(); i++) {
-    auxSet.insert(SplitChain(linea).at(i));
-  }
-  Alphabet myAlphabet(auxSet);
+  // // Simbolos alfabeto
+  // getline(archivo, linea);
+  // std::set<Symbol> auxSet;
+  // for (size_t i = 0; i < SplitChain(linea).size(); i++) {
+  //   auxSet.insert(SplitChain(linea).at(i));
+  // }
+  // Alphabet myAlphabet(auxSet);
 
-  // Simbolos numero estados automata
-  getline(archivo, linea);
-  int nStates = linea.at(0) - 48;
+  // // Simbolos numero estados automata
+  // getline(archivo, linea);
+  // int nStates = linea.at(0) - 48;
 
-  // Estado arranque
-  getline(archivo, linea);
-  int initialState = linea.at(0) - 48;
+  // // Estado arranque
+  // getline(archivo, linea);
+  // int initialState = linea.at(0) - 48;
 
-  std::vector<std::vector<std::string>>
-      statesInformation;       // Parte del fichero descripcion estados
-  std::set<State> auxStateSet; // Conjunto auxiliar de estados
+  // std::vector<std::vector<std::string>>
+  //     statesInformation;       // Parte del fichero descripcion estados
+  // std::set<State> auxStateSet; // Conjunto auxiliar de estados
 
-  getline(archivo, linea);
-  statesInformation.push_back(SplitChain(linea));
-  // Identificador y si es estado final
-  if (stoi(SplitChain(linea).at(0)) != initialState)
-    return 1;
+  // getline(archivo, linea);
+  // statesInformation.push_back(SplitChain(linea));
+  // // Identificador y si es estado final
+  // if (stoi(SplitChain(linea).at(0)) != initialState)
+  //   return 1;
 
-  State auxState(stoi(SplitChain(linea).at(0)));
-  if (stoi(SplitChain(linea).at(1)) == 1)
-    auxState.setFinalState();
-  // Insertar estado en conjunto
-  auxStateSet.insert(auxState);
+  // State auxState(stoi(SplitChain(linea).at(0)));
+  // if (stoi(SplitChain(linea).at(1)) == 1)
+  //   auxState.setFinalState();
+  // // Insertar estado en conjunto
+  // auxStateSet.insert(auxState);
 
-  Automata myAutomata(myAlphabet, auxState);
+  // Automata myAutomata(myAlphabet, auxState);
 
-  for (int iteratorLine = 1; iteratorLine < nStates; iteratorLine++) {
-    getline(archivo, linea);
-    statesInformation.push_back(SplitChain(linea));
-    // Identificador y si es estado final
-    State auxState(stoi(SplitChain(linea).at(0)));
-    if (stoi(SplitChain(linea).at(1)) == 1)
-      auxState.setFinalState();
-    // Insertar estado en conjunto
-    myAutomata.addState(auxState);
-  }
+  // for (int iteratorLine = 1; iteratorLine < nStates; iteratorLine++) {
+  //   getline(archivo, linea);
+  //   statesInformation.push_back(SplitChain(linea));
+  //   // Identificador y si es estado final
+  //   State auxState(stoi(SplitChain(linea).at(0)));
+  //   if (stoi(SplitChain(linea).at(1)) == 1)
+  //     auxState.setFinalState();
+  //   // Insertar estado en conjunto
+  //   myAutomata.addState(auxState);
+  // }
 
-  // myAutomata.print();
+  // // myAutomata.print();
 
-  for (size_t iteratorStates = 0; iteratorStates < statesInformation.size();
-       iteratorStates++) {
-    int nTransitions = stoi(statesInformation.at(iteratorStates).at(2));
-    int positions = 3;
-    for (int i = 0; i < nTransitions; i++) {
+  // for (size_t iteratorStates = 0; iteratorStates < statesInformation.size();
+  //      iteratorStates++) {
+  //   int nTransitions = stoi(statesInformation.at(iteratorStates).at(2));
+  //   int positions = 3;
+  //   for (int i = 0; i < nTransitions; i++) {
 
-      int originId = stoi(statesInformation.at(iteratorStates).at(0));
-      int destinationId =
-          stoi(statesInformation.at(iteratorStates).at(positions + 1));
-      myAutomata.addTransition(
-          originId, Symbol(statesInformation.at(iteratorStates).at(positions)),
-          destinationId);
-      positions += 2;
-    }
-  }
-  std::endl(std::cout);
+  //     int originId = stoi(statesInformation.at(iteratorStates).at(0));
+  //     int destinationId =
+  //         stoi(statesInformation.at(iteratorStates).at(positions + 1));
+  //     myAutomata.addTransition(
+  //         originId, Symbol(statesInformation.at(iteratorStates).at(positions)),
+  //         destinationId);
+  //     positions += 2;
+  //   }
+  // }
+  Automata myAutomata(nombre_archivo);
   std::cout << myAutomata << std::endl;
 
   Symbol one("1");

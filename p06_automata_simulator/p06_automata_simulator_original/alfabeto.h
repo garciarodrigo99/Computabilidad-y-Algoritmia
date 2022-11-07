@@ -27,6 +27,7 @@
 class Alphabet {
 public:
   // Constructores y destructores
+  Alphabet();
   Alphabet(Symbol);
   Alphabet(std::set<Symbol>);
   Alphabet(const Alphabet &); // Copia

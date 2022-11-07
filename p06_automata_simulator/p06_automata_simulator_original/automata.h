@@ -26,7 +26,6 @@ class Automata {
 
 public:
   // Constructores y destructores
-  Automata();
   Automata(Alphabet, State);
   Automata(std::string);
   ~Automata();
@@ -43,6 +42,7 @@ public:
 private:
   State getState(int);
   bool containsFinalState(std::set<State>);
+  bool isState(int);
 
 private:
   Alphabet alphabet_;
@@ -51,3 +51,5 @@ private:
   std::set<State> finalStateSet_;
   TransitionFunction trFunction_;
 };
+
+std::vector<std::string> SplitChain(std::string str, char pattern = ' ');

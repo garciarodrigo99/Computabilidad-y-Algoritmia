@@ -20,6 +20,13 @@
 
 /**
  * @brief Construct a new State:: State object
+ * Por defecto. Se hace para la compilacion del constructor de Automata
+ * mediante nombre de fichero
+ */
+State::State() {}
+
+/**
+ * @brief Construct a new State:: State object
  * Construye un estado a partir de su identificador
  * @param paramID
  */
