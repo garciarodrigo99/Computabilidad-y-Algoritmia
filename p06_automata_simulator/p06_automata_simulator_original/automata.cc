@@ -100,7 +100,7 @@ Automata::Automata(Alphabet paramAlphabet, State paramInitialState)
  */
 Automata::~Automata() {}
 
-bool Automata::acceptChainNFA(Chain paramChain) {
+bool Automata::acceptChain(Chain paramChain) {
   // assert(alphabet_.okChain(paramChain));
   if (!(alphabet_.okChain(paramChain)))
     return false;
@@ -125,8 +125,6 @@ bool Automata::acceptChainNFA(Chain paramChain) {
 }
 
 bool Automata::containsFinalState(std::set<State> paramStatesSet) {
-  std::cout << "Numero de ultimos estados: " << paramStatesSet.size()
-            << std::endl;
   for (std::set<State>::iterator it = paramStatesSet.begin();
        it != paramStatesSet.end(); it++) {
     if (finalStateSet_.count(*it) > 0)

@@ -31,7 +31,7 @@ public:
   ~Automata();
 
   // Operaciones
-  bool acceptChainNFA(Chain);
+  bool acceptChain(Chain);
   void addState(State);
   void addTransition(int, Symbol, int);
 
