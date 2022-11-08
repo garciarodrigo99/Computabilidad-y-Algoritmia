@@ -21,8 +21,6 @@
 #include <assert.h>
 #include <string>
 
-//Automata::Automata() {}
-
 Automata::Automata(std::string fileName) {
   std::ifstream archivo(fileName.c_str());
   std::string linea;
@@ -100,6 +98,14 @@ Automata::Automata(Alphabet paramAlphabet, State paramInitialState)
  */
 Automata::~Automata() {}
 
+/**
+ * @brief Metodo para analizar si una cadena es aceptada o rechazada por 
+ * cualquier automata
+ * 
+ * @param paramChain Cadena a analizar
+ * @return true - La cadena es aceptada.
+ * @return false - La cadena es rechazada.
+ */
 bool Automata::acceptChain(Chain paramChain) {
   // assert(alphabet_.okChain(paramChain));
   if (!(alphabet_.okChain(paramChain)))
@@ -124,15 +130,26 @@ bool Automata::acceptChain(Chain paramChain) {
   return containsFinalState(actualStates);
 }
 
-bool Automata::containsFinalState(std::set<State> paramStatesSet) {
-  for (std::set<State>::iterator it = paramStatesSet.begin();
-       it != paramStatesSet.end(); it++) {
-    if (finalStateSet_.count(*it) > 0)
-      return true;
-  }
-  return false;
+/**
+ * @brief Metodo para añadir un estado al automata
+ * 
+ * @param paramState Estado a añadir
+ */
+void Automata::addState(State paramState) {
+  stateSet_.insert(paramState);
+  if (paramState.isFinalState())
+    finalStateSet_.insert(paramState);
 }
 
+/**
+ * @brief Metodo que añade transiciones al automata. Se comprueba que ambos 
+ * estados pertenecen al conjunto de estados del automata y que el simbolo
+ * pertenece al Alfabeto
+ * 
+ * @param actualStateId Estado origen
+ * @param paramSymbol Simbolo
+ * @param nextStateId Estado destino
+ */
 void Automata::addTransition(int actualStateId, Symbol paramSymbol,
                              int nextStateId) {
   assert(isState(actualStateId));
@@ -144,14 +161,31 @@ void Automata::addTransition(int actualStateId, Symbol paramSymbol,
   trFunction_.addTransition(auxTransition);
 }
 
-bool Automata::isState(int stateIdentifyer) {
-  for (std::set<State>::iterator it = stateSet_.begin();
-      it != stateSet_.end(); it++) {
-        if (it->getIdentifier() == stateIdentifyer) return true;
+/**
+ * @brief Metodo que recibe el conjunto de estados en los que se encuentra el 
+ * automata al leer el ultimo simbolo de una cadena, y comprueba si alguno de 
+ * estos estados es de aceptacion.
+ * 
+ * @param paramStatesSet Conjunto de estados 
+ * @return true - Alguno de los ultimos estados es de aceptacion.
+ * @return false - Ninguno de los ultimos estados es de aceptacion.
+ */
+bool Automata::containsFinalState(std::set<State> paramStatesSet) {
+  for (std::set<State>::iterator it = paramStatesSet.begin();
+       it != paramStatesSet.end(); it++) {
+    if (finalStateSet_.count(*it) > 0)
+      return true;
   }
   return false;
 }
 
+/**
+ * @brief A través de un identificador, devuelve el objeto estado con el 
+ * identificador dado
+ * 
+ * @param stateIdentifyer Identificador de estado
+ * @return State Estado con stateIdentifyer
+ */
 State Automata::getState(int stateIdentifyer) {
   for (std::set<State>::iterator it = stateSet_.begin(); it != stateSet_.end();
        ++it) {
@@ -161,10 +195,22 @@ State Automata::getState(int stateIdentifyer) {
   return 0; // Evitar warning
 }
 
-void Automata::addState(State paramState) {
-  stateSet_.insert(paramState);
-  if (paramState.isFinalState())
-    finalStateSet_.insert(paramState);
+/**
+ * @brief Comprueba si el identificador parametro se corresponde con algun 
+ * identificador del conjunto de estados del automata.
+ * 
+ * @param stateIdentifyer Identificador a buscar 
+ * @return true - El identificador coincide con el identificador de algun 
+ * estado del conjunto de estados del automata.
+ * @return false - El identificador no coincide con el identificador de algun 
+ * estado del conjunto de estados del automata..
+ */
+bool Automata::isState(int stateIdentifyer) {
+  for (std::set<State>::iterator it = stateSet_.begin();
+      it != stateSet_.end(); it++) {
+        if (it->getIdentifier() == stateIdentifyer) return true;
+  }
+  return false;
 }
 
 /**
@@ -195,6 +241,14 @@ std::ostream &operator<<(std::ostream &os, Automata &paramFTransition) {
   return os;
 }
 
+/**
+ * @brief Funcion auxiliar, que dada una cadena, normalmente, devuelve un 
+ * vector de cadenas que elimina los espacios
+ * 
+ * @param str Cadena a partir
+ * @param pattern Caracter a eliminar
+ * @return std::vector<std::string> Vector de cadenas
+ */
 std::vector<std::string> SplitChain(std::string str, char pattern) {
 
   int posInit = 0;

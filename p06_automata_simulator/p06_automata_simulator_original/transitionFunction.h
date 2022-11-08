@@ -40,7 +40,6 @@ public:
 
   // Getters y setters
   int getSize();
-  // State getState(State, Symbol);
   std::set<State> getStatesSet(State, Symbol);
 
   // Operaciones

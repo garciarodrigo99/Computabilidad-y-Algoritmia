@@ -40,8 +40,8 @@ public:
 
   // Metodos privados
 private:
-  State getState(int);
   bool containsFinalState(std::set<State>);
+  State getState(int);
   bool isState(int);
 
 private:
