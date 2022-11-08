@@ -26,13 +26,13 @@ class Automata {
 
 public:
   // Constructores y destructores
-  Automata(Alphabet, State);
+  Automata(Alphabet, State, int);
   Automata(std::string);
   ~Automata();
 
   // Operaciones
   bool acceptChain(Chain);
-  void addState(State);
+  void addState(State, int = 0);
   void addTransition(int, Symbol, int);
 
   // Sobrecarga de operadores
@@ -42,6 +42,7 @@ public:
 private:
   bool containsFinalState(std::set<State>);
   State getState(int);
+  bool isFinalState(State);
   bool isState(int);
 
 private:

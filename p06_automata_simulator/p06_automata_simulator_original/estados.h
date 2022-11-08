@@ -26,17 +26,10 @@ public:
   // Constructores y destructores
   State();
   State(int);
-  State(int, bool, bool);
   ~State();
 
   // Getters y setters
   int getIdentifier() const;
-  bool isInitialState();
-  bool isFinalState();
-  bool isFinalState() const;
-
-  void setInitialState();
-  void setFinalState();
 
   // Sobrecarga de operadores
   bool operator<(const State) const;
@@ -47,6 +40,4 @@ public:
 
 private:
   int identifier_;
-  bool initialState_;
-  bool finalState_;
 };

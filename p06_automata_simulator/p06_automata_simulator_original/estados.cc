@@ -30,16 +30,15 @@ State::State() {}
  * Construye un estado a partir de su identificador
  * @param paramID
  */
-State::State(int paramID)
-    : identifier_(paramID), initialState_(false), finalState_(false) {}
+State::State(int paramID) : identifier_(paramID) {}
 
-/**
- * @brief Construct a new State:: State object
- * Construye un estado a partir de su identificador
- * @param paramID
- */
-State::State(int paramID, bool paramIS, bool paramFS)
-    : identifier_(paramID), initialState_(paramIS), finalState_(paramFS) {}
+// /**
+//  * @brief Construct a new State:: State object
+//  * Construye un estado a partir de su identificador
+//  * @param paramID
+//  */
+// State::State(int paramID, bool paramIS, bool paramFS)
+//     : identifier_(paramID), initialState_(paramIS), finalState_(paramFS) {}
 
 /**
  * @brief Destroy the State:: State object
@@ -53,35 +52,6 @@ State::~State() {}
  * @return int
  */
 int State::getIdentifier() const { return identifier_; }
-
-/**
- * @brief
- *
- * @return true
- * @return false
- */
-bool State::isInitialState() { return initialState_; }
-/**
- * @brief
- *
- * @return true
- * @return false
- */
-bool State::isFinalState() { return finalState_; }
-
-/**
- * @brief
- *
- * @return true
- * @return false
- */
-bool State::isFinalState() const { return finalState_; }
-
-/**
- * @brief
- *
- */
-void State::setFinalState() { finalState_ = true; }
 
 /**
  * @brief Sobrecarga operador '<' para poder trabajar clase std::set
@@ -102,8 +72,6 @@ bool State::operator<(const State paramState) const {
  */
 void State::operator=(const State paramState) {
   identifier_ = paramState.identifier_;
-  initialState_ = paramState.initialState_;
-  finalState_ = paramState.finalState_;
 }
 
 /**

@@ -43,7 +43,7 @@ void information(char *p_name) {
 int main(int argc, char *argv[]) {
   // clang-format -i style=Google ejemplo.cc
 
-  if ((argv[1] == "-h") || (argv[1] == "--help")) information(argv[0]);
+  //if ((argv[1] == "-h") || (argv[1] == "--help")) information(argv[0]);
 
   //  Comprobar numero de argumentos de ejecucion son correctos
   if (argc != kArgumentos) {
@@ -68,6 +68,7 @@ int main(int argc, char *argv[]) {
       std::cout << "\033[;32m Accepted\033[0m\n";
     else std::cout << "\033[;31m Rejected\033[0m\n";
   }
+  //chainFile.close();
 
   return 0;
 }

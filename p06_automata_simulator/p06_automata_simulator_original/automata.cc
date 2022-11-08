@@ -37,29 +37,31 @@ Automata::Automata(std::string fileName) {
   // Estado arranque
   getline(archivo, linea);
   int initialState = linea.at(0) - 48;
-
+  std::cout << initialState << std::endl;
   std::vector<std::vector<std::string>> statesInformation;  // Parte del fichero descripcion estados
 
   getline(archivo, linea);
   statesInformation.push_back(SplitChain(linea));
   // Identificador y si es estado final
   assert(std::stoi(SplitChain(linea).at(0)) == initialState);
-
+  std::cout << std::stoi(SplitChain(linea).at(0)) << "¿?" << initialState << std::endl;
   State automataIntialState_(std::stoi(SplitChain(linea).at(0)));
+  std::cout << "id: " << automataIntialState_.getIdentifier() << std::endl;
+  State aux(automataIntialState_.getIdentifier());
+  stateSet_.insert(aux);
   if (std::stoi(SplitChain(linea).at(1)) == 1)
-    automataIntialState_.setFinalState();
+    finalStateSet_.insert(aux);
 
-  addState(initialState);
-
+  std::cout << "----------------\n";
   for (int iteratorLine = 1; iteratorLine < nStates; iteratorLine++) {
     getline(archivo, linea);
     statesInformation.push_back(SplitChain(linea));
     // Identificador y si es estado final
     State auxState(std::stoi(SplitChain(linea).at(0)));
-    if (std::stoi(SplitChain(linea).at(1)) == 1)
-      auxState.setFinalState();
-    // Insertar estado en conjunto
-    addState(auxState);
+    // // Insertar estado en conjunto
+    // addState(auxState);
+    if (std::stoi(SplitChain(linea).at(1)) == 1) addState(auxState,1);
+    else  addState(auxState);
   }
 
   for (size_t iteratorStates = 0; iteratorStates < statesInformation.size();
@@ -77,6 +79,7 @@ Automata::Automata(std::string fileName) {
       positions += 2;
     }
   }
+  //archivo.close();
 }
 
 /**
@@ -85,10 +88,10 @@ Automata::Automata(std::string fileName) {
  * @param paramAlphabet
  * @param paramInitialState
  */
-Automata::Automata(Alphabet paramAlphabet, State paramInitialState)
+Automata::Automata(Alphabet paramAlphabet, State paramInitialState, int finalState)
     : alphabet_(paramAlphabet), automataIntialState_(paramInitialState) {
   stateSet_.insert(paramInitialState);
-  if (paramInitialState.isFinalState())
+  if (finalState == 1)
     finalStateSet_.insert(paramInitialState);
 }
 
@@ -135,9 +138,10 @@ bool Automata::acceptChain(Chain paramChain) {
  * 
  * @param paramState Estado a añadir
  */
-void Automata::addState(State paramState) {
+void Automata::addState(State paramState, int finalState) {
+  std::cout << "id: " << paramState.getIdentifier() << std::endl;
   stateSet_.insert(paramState);
-  if (paramState.isFinalState())
+  if (finalState == 1)
     finalStateSet_.insert(paramState);
 }
 
@@ -173,9 +177,14 @@ void Automata::addTransition(int actualStateId, Symbol paramSymbol,
 bool Automata::containsFinalState(std::set<State> paramStatesSet) {
   for (std::set<State>::iterator it = paramStatesSet.begin();
        it != paramStatesSet.end(); it++) {
-    if (finalStateSet_.count(*it) > 0)
+    if (isFinalState(*it))
       return true;
   }
+  return false;
+}
+
+bool Automata::isFinalState(State paramState) {
+  if (finalStateSet_.count(paramState) > 0) return true;
   return false;
 }
 
@@ -224,14 +233,14 @@ std::ostream &operator<<(std::ostream &os, Automata &paramFTransition) {
   os << "Alfabeto: " << paramFTransition.alphabet_ << "\n";
 
   os << ">";
-  if (paramFTransition.automataIntialState_.isFinalState())
+  if (paramFTransition.isFinalState(paramFTransition.automataIntialState_))
     os << "((" << paramFTransition.automataIntialState_ << ")) ";
   else
     os << "(" << paramFTransition.automataIntialState_ << ") ";
 
   for (std::set<State>::iterator it = ++paramFTransition.stateSet_.begin();
        it != paramFTransition.stateSet_.end(); ++it) {
-    if (it->isFinalState())
+    if (paramFTransition.isFinalState(*it))
       os << "((" << *it << ")) ";
     else
       os << "(" << *it << ") ";
