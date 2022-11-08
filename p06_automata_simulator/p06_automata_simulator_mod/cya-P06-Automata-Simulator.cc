@@ -68,15 +68,24 @@ int main(int argc, char *argv[]) {
   Symbol one("1");
   Alphabet alfa(zero);
   alfa.AddSymbol(one);
+  Chain chainZero(zero);
+  Chain chainOne(one);
 
   Language auxLanguage(alfa,DEFAULT_NAME);
-  std::set<Chain> chainSet(auxLanguage.PowerSetChain(POS_SIZE));
+  auxLanguage.AddChain(chainOne);
+  auxLanguage.AddChain(chainZero);
+
+  int n = atoi(argv[POS_SIZE]);
+  std::set<Chain> chainSet(auxLanguage.PowerSetChain(n));
+
+  //std::cout << auxLanguage.Power(n) << std::endl;
 
   for (auto iterator : chainSet) {
+    std::cout << iterator << std::endl;
     if (firstAutomata.acceptChain(iterator) != secondAutomata.acceptChain(iterator)) {
       std::cout << iterator;
-      std::cout << ": Primer automata" << std::boolalpha << firstAutomata.acceptChain(iterator);
-      std::cout << ": Segundo automata" << std::boolalpha << secondAutomata.acceptChain(iterator);
+      std::cout << ": automata 1: " << std::boolalpha << firstAutomata.acceptChain(iterator);
+      std::cout << ", automata 2: " << std::boolalpha << secondAutomata.acceptChain(iterator) << std::endl;
     }
   }
 
