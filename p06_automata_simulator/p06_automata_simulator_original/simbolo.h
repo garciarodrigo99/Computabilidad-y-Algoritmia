@@ -29,6 +29,7 @@ class Symbol {
 public:
   // Constructores y destructores
   Symbol(const std::string);
+  Symbol(char);
   ~Symbol();
 
   // Getters

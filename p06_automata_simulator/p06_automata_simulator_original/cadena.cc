@@ -59,6 +59,17 @@ Chain::Chain(std::vector<Symbol> symbolVector) {
 Chain::Chain(const Chain &paramChain)
     : chain_(paramChain.chain_) {} // Comprobar
 
+Chain::Chain(std::string paramChain) {
+  if ((paramChain.size() == 1) && (paramChain.at(0) == kEmptyChain))
+    Chain();
+  else {
+    for (auto pos : paramChain) {
+      Symbol aux(pos);
+      AddSymbol(aux);
+    }
+  }
+}
+
 /**
  * @brief Getter del index lemento de la cadena
  *

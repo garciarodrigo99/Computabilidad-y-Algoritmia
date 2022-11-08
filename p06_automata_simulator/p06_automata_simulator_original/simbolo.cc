@@ -31,6 +31,12 @@ Symbol::Symbol(const std::string paramString) : symbol_(paramString) {
   assert(CheckSimbols(*this));
 }
 
+Symbol::Symbol(char paramString) {
+  symbol_.push_back(paramString);
+  // Comprobar no es simbolo reservado cadena vacia
+  assert(CheckSimbols(*this));
+}
+
 /**
  * @brief Destroy the Symbol:: Symbol object
  */

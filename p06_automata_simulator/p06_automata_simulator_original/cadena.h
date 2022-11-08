@@ -31,6 +31,7 @@ public:
   Chain(Symbol);
   Chain(std::vector<Symbol>);
   Chain(const Chain &); // Constructor de copia
+  Chain(std::string);
 
   // Getters y setters
   Symbol Position(int) const;

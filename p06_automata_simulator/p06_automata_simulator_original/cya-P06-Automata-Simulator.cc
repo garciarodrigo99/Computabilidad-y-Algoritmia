@@ -53,17 +53,20 @@ int main(int argc, char *argv[]) {
   }
   
 
-  std::string nombre_archivo = argv[POS_FA_FILE]; // Parametro 1
+  std::string automataFileName = argv[POS_FA_FILE]; // Parametro 1
 
-  Automata myAutomata(nombre_archivo);
+  Automata myAutomata(automataFileName);
   std::cout << myAutomata;
 
-  Symbol one("1");
-  Symbol zero("0");
-  Chain chain1(one);
-  chain1.AddSymbol(one);
-  chain1.AddSymbol(zero);
-  std::cout << std::boolalpha << myAutomata.acceptChain(chain1) << std::endl;
+  std::string chainsFileName = argv[POS_CHAIN_FILE];
+  std::ifstream chainFile(chainsFileName.c_str());
+  std::string chainFileLine;
+
+  while (getline(chainFile,chainFileLine)) {
+    std::cout << chainFileLine << " --- ";
+    if (myAutomata.acceptChain(chainFileLine)) std::cout << "Accepted\n";
+    else std::cout << "Rejected\n";
+  }
 
   return 0;
 }
