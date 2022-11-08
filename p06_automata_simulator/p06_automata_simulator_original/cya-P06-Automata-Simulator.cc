@@ -64,8 +64,9 @@ int main(int argc, char *argv[]) {
 
   while (getline(chainFile,chainFileLine)) {
     std::cout << chainFileLine << " --- ";
-    if (myAutomata.acceptChain(chainFileLine)) std::cout << "Accepted\n";
-    else std::cout << "Rejected\n";
+    if (myAutomata.acceptChain(chainFileLine)) 
+      std::cout << "\033[;32m Accepted\033[0m\n";
+    else std::cout << "\033[;31m Rejected\033[0m\n";
   }
 
   return 0;
