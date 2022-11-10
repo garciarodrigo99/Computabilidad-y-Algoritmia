@@ -61,7 +61,7 @@ Grammar::Grammar(std::string fileName) {
       auxSymbolVector.push_back(auxSymbol);
     }
     ProductionRule auxProductionRule(splittedLine.at(0),auxSymbolVector);
-    productionRules_.insert(auxProductionRule);
+    addProductionRule(auxProductionRule);
   }
 }
 
@@ -113,12 +113,19 @@ bool Grammar::acceptChain(Chain paramChain) {
  * @param paramSymbol Simbolo
  * @param nextStateId Estado destino
  */
-void Grammar::addProductionRule(Symbol paramSymbol, std::vector<Symbol> nextStateId) {
+void Grammar::addProductionRule(ProductionRule paramProduction) {
   // assert(isState(actualStateId));
   // assert(isState(nextStateId));
   // assert(alphabet_.inSymbol(paramSymbol));
-  ProductionRule auxPR(paramSymbol,nextStateId);
-  productionRules_.insert(auxPR);
+  bool foundPr = false;
+  for (auto pr : productionRules_) {
+    if (pr == paramProduction) {
+      foundPr = true;
+      break;
+    } 
+  }
+  if (foundPr == false)
+    productionRules_.push_back(paramProduction);
 }
 
 /**

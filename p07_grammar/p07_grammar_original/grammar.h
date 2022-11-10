@@ -17,21 +17,17 @@ public:
 
   // Operaciones
   bool acceptChain(Chain);
-  void addProductionRule(Symbol, std::vector<Symbol>);
+  void addProductionRule(ProductionRule);
 
   // Sobrecarga de operadores
   friend std::ostream &operator<<(std::ostream &, Grammar &);
-
-  // Metodos privados
-private:
-  Symbol getSymbol(int);
 
 private:
   //Alphabet alphabet_;
   std::set<Symbol> terminalSymbol;
   std::set<Symbol> nonTerminalSymbol;
   std::string startSymbol;
-  std::set<ProductionRule> productionRules_;
+  std::vector<ProductionRule> productionRules_;
 };
 
 std::vector<std::string> SplitChainGrammar(std::string str, char pattern = ' ');

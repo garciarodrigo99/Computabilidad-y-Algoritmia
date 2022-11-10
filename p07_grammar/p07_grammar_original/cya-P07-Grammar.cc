@@ -56,54 +56,6 @@ int main(int argc, char *argv[]) {
   std::string grammarFileName = argv[POS_GRA_FILE]; // Parametro 1
   Grammar gra(grammarFileName);
   std::cout << gra << std::endl;
-  std::set<ProductionRule> testProductionRule;
-  Symbol S("S");
-  Symbol Z("Z");
-  Symbol zero("0");
-  Symbol A("A");
-  std::vector<Symbol> symbolVector;
-  symbolVector.push_back(zero);
-  symbolVector.push_back(A);
-  ProductionRule pr1(S,symbolVector);
-  ProductionRule pr2(Z,symbolVector);
-  testProductionRule.insert(pr1);
-  testProductionRule.insert(pr2);
-  for (auto pr : testProductionRule)
-    std::cout << pr << std::endl;
-  std::cout << "Iguales: " << (pr1==pr2) << std::endl;
-//   std::string firstAutomataFileName = argv[POS_FA_FILE]; // Parametro 1
-//   Automata firstAutomata(firstAutomataFileName);
-
-//   std::string secondAutomataFileName = argv[POS_FA_2_FILE]; // Parametro 2
-//   Automata secondAutomata(secondAutomataFileName);
-
-//   std::cout << "Primer automata: \n" << firstAutomata << std::endl;
-//   std::cout << "Segundo automata \n" << secondAutomata << std::endl;
-
-//   Symbol zero("0");
-//   Symbol one("1");
-//   Alphabet alfa(zero);
-//   alfa.AddSymbol(one);
-//   Chain chainZero(zero);
-//   Chain chainOne(one);
-
-//   Language auxLanguage(alfa,DEFAULT_NAME);
-//   auxLanguage.AddChain(chainOne);
-//   auxLanguage.AddChain(chainZero);
-
-//   int n = atoi(argv[POS_SIZE]);
-//   std::set<Chain> chainSet(auxLanguage.PowerSetChain(n));
-
-//   //std::cout << auxLanguage.Power(n) << std::endl;
-
-//   for (auto iterator : chainSet) {
-//     std::cout << iterator << std::endl;
-//     if (firstAutomata.acceptChain(iterator) != secondAutomata.acceptChain(iterator)) {
-//       std::cout << iterator;
-//       std::cout << ": automata 1: " << std::boolalpha << firstAutomata.acceptChain(iterator);
-//       std::cout << ", automata 2: " << std::boolalpha << secondAutomata.acceptChain(iterator) << std::endl;
-//     }
-//   }
 
   return 0;
 }
