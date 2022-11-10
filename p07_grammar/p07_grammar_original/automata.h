@@ -22,6 +22,8 @@
 
 #include <set>
 
+#pragma once
+
 class Automata {
 
 public:
