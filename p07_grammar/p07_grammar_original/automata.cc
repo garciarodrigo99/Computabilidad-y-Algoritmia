@@ -20,6 +20,7 @@
 #include <fstream>
 #include <assert.h>
 #include <string>
+#include <map>
 
 Automata::Automata(std::string fileName) {
   std::ifstream archivo(fileName.c_str());
@@ -118,10 +119,10 @@ bool Automata::acceptChain(Chain paramChain) {
     for (std::set<State>::iterator stateIterator = actualStates.begin();
          stateIterator != actualStates.end(); stateIterator++) {
       std::set<State> transitionSet;
-      if (trFunction_.isTransition(*stateIterator,
-                                   paramChain.Position(chainIterator)))
-        transitionSet = (trFunction_.getStatesSet(
-            *stateIterator, paramChain.Position(chainIterator)));
+      if (isTransition(*stateIterator,
+          paramChain.Position(chainIterator)))
+            transitionSet = (getStatesSet(*stateIterator, 
+              paramChain.Position(chainIterator)));
       nextStates.insert(transitionSet.begin(), transitionSet.end());
     }
     actualStates = nextStates;
@@ -157,7 +158,7 @@ void Automata::addTransition(int actualStateId, Symbol paramSymbol,
   State originState(getState(actualStateId));
   State destinationState(getState(nextStateId));
   Transition auxTransition(actualStateId, paramSymbol, nextStateId);
-  trFunction_.addTransition(auxTransition);
+  trFunction_.insert(auxTransition);
 }
 
 /**
@@ -176,6 +177,56 @@ bool Automata::containsFinalState(std::set<State> paramStatesSet) {
       return true;
   }
   return false;
+}
+
+bool Automata::isDFA() {
+  for (auto state : stateSet_ ) {
+    for (auto symbol : alphabet_.getSymbols()) {
+      if (getStatesSet(state,symbol).size() != 1)
+        return false;
+    }
+  }
+  return true;
+}
+
+Grammar Automata::convertToGrammar() {
+  assert(isDFA());
+  Grammar dfaGrammar;
+  // Crear simbolos terminales
+  for (auto alphabetSymbol : alphabet_.getSymbols()) {
+    dfaGrammar.addTerminalSymbol(alphabetSymbol);
+  }
+  // Crear simbolos no terminales
+  std::map<int, std::string> mapStateNonTerminalSymbol;
+  for (auto states : stateSet_) {
+    char nonTerminalSymbolId = (char)(states.getIdentifier() + 65);
+    std::string string_id;
+    string_id.push_back(nonTerminalSymbolId);
+    dfaGrammar.addNonTerminalSymbol(string_id);
+      //if (isFinalState(states))
+      // Generar estado de aceptación
+    mapStateNonTerminalSymbol.insert({states.getIdentifier(),string_id});
+  }
+  for (auto transition : trFunction_) {
+    std::vector<Symbol> auxVectorSymbol;
+    auxVectorSymbol.push_back(transition.getSymbol());
+    if (auto search = mapStateNonTerminalSymbol.find(
+      transition.getDestinationState().getIdentifier());
+        search != mapStateNonTerminalSymbol.end()) {
+          Symbol auxSymbol(search->second);
+          auxVectorSymbol.push_back(auxSymbol);
+    }
+
+    if (auto search = mapStateNonTerminalSymbol.find(
+      transition.getOriginState().getIdentifier());
+        search != mapStateNonTerminalSymbol.end()) {
+          Symbol auxSymbol(search->second);
+          ProductionRule auxProdRule(auxSymbol,auxVectorSymbol);
+          dfaGrammar.addProductionRule(auxProdRule);
+    }
+  }
+  std::cout << dfaGrammar << std::endl;
+  return dfaGrammar;
 }
 
 bool Automata::isFinalState(State paramState) {
@@ -200,6 +251,27 @@ State Automata::getState(int stateIdentifyer) {
 }
 
 /**
+ * @brief Metodo que retorna un conjunto de estados a los que transita el
+ * estado paramState dado un simbolo paramSymbol
+ *
+ * @param paramState Estado origen
+ * @param paramSymbol Simbolo
+ * @return std::set<State> Conjunto de siguientes estados
+ */
+std::set<State> Automata::getStatesSet(State paramState,
+                                                 Symbol paramSymbol) {
+  assert(isTransition(paramState, paramSymbol));
+  std::set<State> auxSet;
+  for (std::set<Transition>::iterator it = trFunction_.begin();
+       it != trFunction_.end(); ++it) {
+    if ((it->getOriginState() == paramState) &&
+        (it->getSymbol() == paramSymbol))
+      auxSet.insert(it->getDestinationState());
+  }
+  return auxSet; // Evitar warning
+}
+
+/**
  * @brief Comprueba si el identificador parametro se corresponde con algun 
  * identificador del conjunto de estados del automata.
  * 
@@ -213,6 +285,25 @@ bool Automata::isState(int stateIdentifyer) {
   for (std::set<State>::iterator it = stateSet_.begin();
       it != stateSet_.end(); it++) {
         if (it->getIdentifier() == stateIdentifyer) return true;
+  }
+  return false;
+}
+
+/**
+ * @brief Metodo que comprueba si para un estado y simbolo dado existe
+ * alguna transicion
+ *
+ * @param paramState Estado
+ * @param paramSymbol Simbolo
+ * @return true - Existe transicion.
+ * @return false - No transicion.
+ */
+bool Automata::isTransition(State paramState, Symbol paramSymbol) {
+  for (std::set<Transition>::iterator it = trFunction_.begin();
+       it != trFunction_.end(); ++it) {
+    if ((it->getOriginState() == paramState) &&
+        (it->getSymbol() == paramSymbol))
+      return true;
   }
   return false;
 }
@@ -241,7 +332,9 @@ std::ostream &operator<<(std::ostream &os, Automata &paramFTransition) {
       os << "(" << *it << ") ";
   }
   std::endl(os);
-  os << paramFTransition.trFunction_ << "\n";
+  for (auto tr : paramFTransition.trFunction_) 
+    os << tr << "\n";
+  
   return os;
 }
 

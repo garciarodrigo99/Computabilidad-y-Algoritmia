@@ -31,7 +31,7 @@ Grammar::Grammar(std::string fileName) {
   for (int i = 0; i < nTerminalSymbol; i++) {
     getline(archivo, linea);
     Symbol auxSymbol(linea.front());
-    terminalSymbol.insert(auxSymbol);
+    terminalSymbol_.insert(auxSymbol);
   }
 
   // Simbolos no terminales
@@ -40,7 +40,7 @@ Grammar::Grammar(std::string fileName) {
   for (int i = 0; i < nNonTerminalSymbol; i++) {
     getline(archivo, linea);
     Symbol auxSymbol(linea.front());
-    nonTerminalSymbol.insert(auxSymbol);
+    nonTerminalSymbol_.insert(auxSymbol);
   }
   
   //@To-Do
@@ -64,6 +64,14 @@ Grammar::Grammar(std::string fileName) {
     addProductionRule(auxProductionRule);
   }
 }
+
+Grammar::Grammar() {}
+
+Grammar::Grammar(Grammar& paramGrammar) : 
+  terminalSymbol_(paramGrammar.terminalSymbol_), 
+  nonTerminalSymbol_(paramGrammar.nonTerminalSymbol_),
+  startSymbolId_(paramGrammar.startSymbolId_),
+  productionRules_(paramGrammar.productionRules_) {}
 
 /**
  * @brief Destroy the Grammar:: Grammar object
@@ -104,6 +112,10 @@ bool Grammar::acceptChain(Chain paramChain) {
   return false;
 }
 
+void Grammar::addNonTerminalSymbol(Symbol paramSymbol) {
+  nonTerminalSymbol_.insert(paramSymbol);
+}
+
 /**
  * @brief Metodo que añade transiciones al Grammar. Se comprueba que ambos 
  * estados pertenecen al conjunto de estados del Grammar y que el simbolo
@@ -114,18 +126,28 @@ bool Grammar::acceptChain(Chain paramChain) {
  * @param nextStateId Estado destino
  */
 void Grammar::addProductionRule(ProductionRule paramProduction) {
-  // assert(isState(actualStateId));
-  // assert(isState(nextStateId));
-  // assert(alphabet_.inSymbol(paramSymbol));
-  bool foundPr = false;
-  for (auto pr : productionRules_) {
-    if (pr == paramProduction) {
-      foundPr = true;
-      break;
-    } 
+  productionRules_.insert(paramProduction);
+}
+
+void Grammar::addTerminalSymbol(Symbol paramSymbol) {
+  terminalSymbol_.insert(paramSymbol);
+}
+
+int Grammar::getNProductions(Symbol paramSymbol) {
+  assert(nonTerminalSymbol_.count(paramSymbol) != 0);
+  int count = 0;
+  for (auto production : productionRules_) {
+    if (paramSymbol == production.getNonFinalSymbol())
+      count++;
   }
-  if (foundPr == false)
-    productionRules_.push_back(paramProduction);
+  return count;
+}
+
+void Grammar::operator=(const Grammar& paramGrammar) {
+  terminalSymbol_ = paramGrammar.terminalSymbol_;
+  nonTerminalSymbol_ = paramGrammar.nonTerminalSymbol_;
+  startSymbolId_ = paramGrammar.startSymbolId_;
+  productionRules_ = paramGrammar.productionRules_;
 }
 
 /**
@@ -135,9 +157,26 @@ void Grammar::addProductionRule(ProductionRule paramProduction) {
  * @param paramFTransition
  * @return std::ostream&
  */
-std::ostream &operator<<(std::ostream &os, Grammar &paramFTransition) {
-  for (auto production : paramFTransition.productionRules_) {
-    os << production << "\n";
+std::ostream &operator<<(std::ostream &os, Grammar &paramGrammar) {
+  for (auto pr : paramGrammar.productionRules_)
+    os << pr << "\n";
+
+  for (auto symbol : paramGrammar.nonTerminalSymbol_) {
+    int productionsNumber = paramGrammar.getNProductions(symbol);
+    if (productionsNumber > 0) {
+      os << symbol << " -> ";
+      int iterator = 0;
+      for (auto production : paramGrammar.productionRules_) {
+        if (production.getNonFinalSymbol() == symbol) {
+          for (auto vectorSymbol : production.getSymbolVector()) 
+            os << vectorSymbol;
+          if ((productionsNumber - 1) > iterator)
+            os << " | ";
+          iterator++;
+        } 
+      }
+      os << "\n";
+    }
   }
   return os;
 }

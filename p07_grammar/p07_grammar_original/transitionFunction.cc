@@ -40,27 +40,6 @@ TransitionFunction::~TransitionFunction() {}
 int TransitionFunction::getSize() { return transitionSet_.size(); }
 
 /**
- * @brief Metodo que retorna un conjunto de estados a los que transita el
- * estado paramState dado un simbolo paramSymbol
- *
- * @param paramState Estado origen
- * @param paramSymbol Simbolo
- * @return std::set<State> Conjunto de siguientes estados
- */
-std::set<State> TransitionFunction::getStatesSet(State paramState,
-                                                 Symbol paramSymbol) {
-  assert(isTransition(paramState, paramSymbol));
-  std::set<State> auxSet;
-  for (std::set<Transition>::iterator it = transitionSet_.begin();
-       it != transitionSet_.end(); ++it) {
-    if ((it->getOriginState() == paramState) &&
-        (it->getSymbol() == paramSymbol))
-      auxSet.insert(it->getDestinationState());
-  }
-  return auxSet; // Evitar warning
-}
-
-/**
  * @brief Añadir transicion a la funcion de transicion
  *
  * @param paramTransition Transicion a añadir

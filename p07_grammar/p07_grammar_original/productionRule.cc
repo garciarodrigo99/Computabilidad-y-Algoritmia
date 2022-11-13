@@ -56,8 +56,9 @@ std::vector<Symbol> ProductionRule::getSymbolVector() const { return symbolVecto
  * @see std::set
  */
 bool ProductionRule::operator<(const ProductionRule paramProductionRule) const {
-  if (nonTerminalSymbol_ < paramProductionRule.getNonFinalSymbol())
-    return true;
+  //std::cout << "Hola\n";
+  if (!(nonTerminalSymbol_ == paramProductionRule.getNonFinalSymbol()))
+    return (paramProductionRule.getNonFinalSymbol() < nonTerminalSymbol_);
 	return (symbolVector_ != paramProductionRule.symbolVector_);
 }
 

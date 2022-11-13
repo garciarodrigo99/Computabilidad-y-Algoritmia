@@ -18,7 +18,8 @@
 #include "alfabeto.h"
 #include "cadena.h"
 #include "estados.h"
-#include "transitionFunction.h"
+#include "transicion.h"
+#include "grammar.h"
 
 #include <set>
 
@@ -36,7 +37,8 @@ public:
   bool acceptChain(Chain);
   void addState(State, int = 0);
   void addTransition(int, Symbol, int);
-
+  bool isDFA();
+  Grammar convertToGrammar();
   // Sobrecarga de operadores
   friend std::ostream &operator<<(std::ostream &, Automata &);
 
@@ -44,15 +46,17 @@ public:
 private:
   bool containsFinalState(std::set<State>);
   State getState(int);
+  std::set<State> getStatesSet(State, Symbol);
   bool isFinalState(State);
   bool isState(int);
+  bool isTransition(State, Symbol);
 
 private:
   Alphabet alphabet_;
   std::set<State> stateSet_;
   int automataIntialState_;
   std::set<int> finalStateSet_;
-  TransitionFunction trFunction_;
+  std::set<Transition> trFunction_;
 };
 
 std::vector<std::string> SplitChain(std::string str, char pattern = ' ');

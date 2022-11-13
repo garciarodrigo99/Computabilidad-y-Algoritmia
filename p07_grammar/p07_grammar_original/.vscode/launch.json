@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/p07_grammar",
-            "args": ["nfa.fa","grammar.gra"],
+            "args": ["dfa.fa","grammar.gra"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

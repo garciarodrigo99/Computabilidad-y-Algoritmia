@@ -52,6 +52,8 @@ Alphabet::Alphabet(const Alphabet &paramAlphabet) {
     alphabet_.insert(*it);
 }
 
+const std::set<Symbol> Alphabet::getSymbols() { return alphabet_; }
+
 /**
  * @brief
  *

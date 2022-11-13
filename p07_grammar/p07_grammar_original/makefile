@@ -1,7 +1,7 @@
 # https://stackoverflow.com/questions/2214575/passing-arguments-to-make-run
 
 MAIN_FILE = $(cliente)cya-P07-Grammar.cc
-SRC_FILES = $(alfabeto)alfabeto.cc $(automata)automata.cc $(cadena)cadena.cc $(estados)estados.cc $(lenguaje)lenguaje.cc $(simbolo)simbolo.cc $(transicion)transicion.cc $(trFunction)transitionFunction.cc $(prRule)productionRule.cc $(grammar)grammar.cc
+SRC_FILES = $(alfabeto)alfabeto.cc $(automata)automata.cc $(cadena)cadena.cc $(estados)estados.cc $(lenguaje)lenguaje.cc $(simbolo)simbolo.cc $(transicion)transicion.cc $(prRule)productionRule.cc $(grammar)grammar.cc
 EXECUTABLE_FILE = $(exe)p07_grammar
 ERROR_FILE = $(error)error.txt
 

@@ -11,23 +11,31 @@ class Grammar {
 
 public:
   // Constructores y destructores
-  //Grammar(Alphabet, State, int);
+  Grammar();
   Grammar(std::string);
+  Grammar(Grammar&);  // Copia
   ~Grammar();
 
   // Operaciones
   bool acceptChain(Chain);
+  void addNonTerminalSymbol(Symbol);
   void addProductionRule(ProductionRule);
+  void addTerminalSymbol(Symbol);
+  void setStartSymbol(std::string);
 
   // Sobrecarga de operadores
+  void operator=(const Grammar&);
   friend std::ostream &operator<<(std::ostream &, Grammar &);
 
 private:
+  int getNProductions(Symbol);
+
+private:
   //Alphabet alphabet_;
-  std::set<Symbol> terminalSymbol;
-  std::set<Symbol> nonTerminalSymbol;
-  std::string startSymbol;
-  std::vector<ProductionRule> productionRules_;
+  std::set<Symbol> terminalSymbol_;
+  std::set<Symbol> nonTerminalSymbol_;
+  std::string startSymbolId_;
+  std::set<ProductionRule> productionRules_;
 };
 
 std::vector<std::string> SplitChainGrammar(std::string str, char pattern = ' ');

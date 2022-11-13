@@ -33,7 +33,9 @@ public:
   Alphabet(const Alphabet &); // Copia
 
   // Getters y setters
+  const std::set<Symbol> getSymbols();
   int Size() const;
+
 
   // Operaciones
   void AddSymbol(Symbol);
