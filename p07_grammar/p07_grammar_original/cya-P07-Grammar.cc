@@ -54,8 +54,8 @@ int main(int argc, char *argv[]) {
     return 1;
   }
   std::string grammarFileName = argv[POS_GRA_FILE]; // Parametro 1
-  Grammar gra(grammarFileName);
-  std::cout << gra << std::endl;
+  // Grammar gra(grammarFileName);
+  // std::cout << gra << std::endl;
 
   std::string automatonFileName = argv[POS_FA_FILE];
   Automata fa(automatonFileName);
@@ -63,6 +63,7 @@ int main(int argc, char *argv[]) {
   Grammar grammarFromDFA;
   grammarFromDFA = fa.convertToGrammar();
   std::cout << grammarFromDFA << std::endl;
+  grammarFromDFA.writeFile(grammarFileName);
 
   return 0;
 }

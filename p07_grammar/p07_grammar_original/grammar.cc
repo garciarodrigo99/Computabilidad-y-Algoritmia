@@ -140,11 +140,28 @@ void Grammar::setStartSymbol(std::string paramString) {
  * @param nextStateId Estado destino
  */
 void Grammar::addProductionRule(ProductionRule paramProduction) {
+  assert(nonTerminalSymbol_.count(paramProduction.getNonFinalSymbol()) != 0);
   productionRules_.push_back(paramProduction);
 }
 
 void Grammar::addTerminalSymbol(Symbol paramSymbol) {
   terminalSymbol_.insert(paramSymbol);
+}
+
+void Grammar::writeFile(std::string outputFile) {
+  std::ofstream file(outputFile);
+  std::string line;
+  file << terminalSymbol_.size() << "\n";
+  for (auto symbol : terminalSymbol_)
+    file << symbol << "\n";
+  file << nonTerminalSymbol_.size() << "\n";
+  for (auto symbol : nonTerminalSymbol_)
+    file << symbol << "\n";
+  file << startSymbolId_ << "\n";
+  file << productionRules_.size() << "\n";
+  for (auto pr : productionRules_)
+    file << pr << "\n";
+  file.close();
 }
 
 int Grammar::getNProductions(Symbol paramSymbol) {
