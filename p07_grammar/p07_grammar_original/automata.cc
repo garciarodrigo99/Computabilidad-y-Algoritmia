@@ -17,10 +17,10 @@
 
 #include "automata.h"
 
-#include <fstream>
 #include <assert.h>
-#include <string>
+#include <fstream>
 #include <map>
+#include <string>
 
 Automata::Automata(std::string fileName) {
   std::ifstream archivo(fileName.c_str());
@@ -38,7 +38,8 @@ Automata::Automata(std::string fileName) {
   // Estado arranque
   getline(archivo, linea);
   int initialState = linea.at(0) - 48;
-  std::vector<std::vector<std::string>> statesInformation;  // Parte del fichero descripcion estados
+  std::vector<std::vector<std::string>>
+      statesInformation; // Parte del fichero descripcion estados
 
   getline(archivo, linea);
   statesInformation.push_back(SplitChain(linea));
@@ -57,8 +58,10 @@ Automata::Automata(std::string fileName) {
     State auxState(std::stoi(SplitChain(linea).at(0)));
     // Insertar estado en conjunto
 
-    if (std::stoi(SplitChain(linea).at(1)) == 1) addState(auxState,1);
-    else  addState(auxState);
+    if (std::stoi(SplitChain(linea).at(1)) == 1)
+      addState(auxState, 1);
+    else
+      addState(auxState);
   }
 
   for (size_t iteratorStates = 0; iteratorStates < statesInformation.size();
@@ -70,13 +73,13 @@ Automata::Automata(std::string fileName) {
       int originId = std::stoi(statesInformation.at(iteratorStates).at(0));
       int destinationId =
           std::stoi(statesInformation.at(iteratorStates).at(positions + 1));
-      addTransition(
-          originId, Symbol(statesInformation.at(iteratorStates).at(positions)),
-          destinationId);
+      addTransition(originId,
+                    Symbol(statesInformation.at(iteratorStates).at(positions)),
+                    destinationId);
       positions += 2;
     }
   }
-  //archivo.close();
+  // archivo.close();
 }
 
 /**
@@ -85,8 +88,10 @@ Automata::Automata(std::string fileName) {
  * @param paramAlphabet
  * @param paramInitialState
  */
-Automata::Automata(Alphabet paramAlphabet, State paramInitialState, int finalState)
-    : alphabet_(paramAlphabet), automataIntialState_(paramInitialState.getIdentifier()) {
+Automata::Automata(Alphabet paramAlphabet, State paramInitialState,
+                   int finalState)
+    : alphabet_(paramAlphabet),
+      automataIntialState_(paramInitialState.getIdentifier()) {
   stateSet_.insert(paramInitialState);
   if (finalState == 1)
     finalStateSet_.insert(paramInitialState.getIdentifier());
@@ -99,9 +104,9 @@ Automata::Automata(Alphabet paramAlphabet, State paramInitialState, int finalSta
 Automata::~Automata() {}
 
 /**
- * @brief Metodo para analizar si una cadena es aceptada o rechazada por 
+ * @brief Metodo para analizar si una cadena es aceptada o rechazada por
  * cualquier automata
- * 
+ *
  * @param paramChain Cadena a analizar
  * @return true - La cadena es aceptada.
  * @return false - La cadena es rechazada.
@@ -119,10 +124,9 @@ bool Automata::acceptChain(Chain paramChain) {
     for (std::set<State>::iterator stateIterator = actualStates.begin();
          stateIterator != actualStates.end(); stateIterator++) {
       std::set<State> transitionSet;
-      if (isTransition(*stateIterator,
-          paramChain.Position(chainIterator)))
-            transitionSet = (getStatesSet(*stateIterator, 
-              paramChain.Position(chainIterator)));
+      if (isTransition(*stateIterator, paramChain.Position(chainIterator)))
+        transitionSet =
+            (getStatesSet(*stateIterator, paramChain.Position(chainIterator)));
       nextStates.insert(transitionSet.begin(), transitionSet.end());
     }
     actualStates = nextStates;
@@ -132,7 +136,7 @@ bool Automata::acceptChain(Chain paramChain) {
 
 /**
  * @brief Metodo para añadir un estado al automata
- * 
+ *
  * @param paramState Estado a añadir
  */
 void Automata::addState(State paramState, int finalState) {
@@ -142,10 +146,10 @@ void Automata::addState(State paramState, int finalState) {
 }
 
 /**
- * @brief Metodo que añade transiciones al automata. Se comprueba que ambos 
+ * @brief Metodo que añade transiciones al automata. Se comprueba que ambos
  * estados pertenecen al conjunto de estados del automata y que el simbolo
  * pertenece al Alfabeto
- * 
+ *
  * @param actualStateId Estado origen
  * @param paramSymbol Simbolo
  * @param nextStateId Estado destino
@@ -162,11 +166,11 @@ void Automata::addTransition(int actualStateId, Symbol paramSymbol,
 }
 
 /**
- * @brief Metodo que recibe el conjunto de estados en los que se encuentra el 
- * automata al leer el ultimo simbolo de una cadena, y comprueba si alguno de 
+ * @brief Metodo que recibe el conjunto de estados en los que se encuentra el
+ * automata al leer el ultimo simbolo de una cadena, y comprueba si alguno de
  * estos estados es de aceptacion.
- * 
- * @param paramStatesSet Conjunto de estados 
+ *
+ * @param paramStatesSet Conjunto de estados
  * @return true - Alguno de los ultimos estados es de aceptacion.
  * @return false - Ninguno de los ultimos estados es de aceptacion.
  */
@@ -180,9 +184,9 @@ bool Automata::containsFinalState(std::set<State> paramStatesSet) {
 }
 
 bool Automata::isDFA() {
-  for (auto state : stateSet_ ) {
+  for (auto state : stateSet_) {
     for (auto symbol : alphabet_.getSymbols()) {
-      if (getStatesSet(state,symbol).size() != 1)
+      if (getStatesSet(state, symbol).size() != 1)
         return false;
     }
   }
@@ -208,45 +212,46 @@ Grammar Automata::convertToGrammar() {
       Symbol nonTerminalSymbol(string_id);
       std::vector<Symbol> auxVectorSymbol;
       auxVectorSymbol.push_back(emptychain);
-      ProductionRule auxProdRule(nonTerminalSymbol,auxVectorSymbol);
+      ProductionRule auxProdRule(nonTerminalSymbol, auxVectorSymbol);
       dfaGrammar.addProductionRule(auxProdRule);
     }
-    mapStateNonTerminalSymbol.insert({states.getIdentifier(),string_id});
+    mapStateNonTerminalSymbol.insert({states.getIdentifier(), string_id});
   }
   if (auto search = mapStateNonTerminalSymbol.find(automataIntialState_);
       search != mapStateNonTerminalSymbol.end())
-        dfaGrammar.setStartSymbol(search->second);
-        
+    dfaGrammar.setStartSymbol(search->second);
+
   for (auto transition : trFunction_) {
     std::vector<Symbol> auxVectorSymbol;
     auxVectorSymbol.push_back(transition.getSymbol());
     if (auto search = mapStateNonTerminalSymbol.find(
-      transition.getDestinationState().getIdentifier());
+            transition.getDestinationState().getIdentifier());
         search != mapStateNonTerminalSymbol.end()) {
-          Symbol auxSymbol(search->second);
-          auxVectorSymbol.push_back(auxSymbol);
+      Symbol auxSymbol(search->second);
+      auxVectorSymbol.push_back(auxSymbol);
     }
 
     if (auto search = mapStateNonTerminalSymbol.find(
-      transition.getOriginState().getIdentifier());
+            transition.getOriginState().getIdentifier());
         search != mapStateNonTerminalSymbol.end()) {
-          Symbol auxSymbol(search->second);
-          ProductionRule auxProdRule(auxSymbol,auxVectorSymbol);
-          dfaGrammar.addProductionRule(auxProdRule);
+      Symbol auxSymbol(search->second);
+      ProductionRule auxProdRule(auxSymbol, auxVectorSymbol);
+      dfaGrammar.addProductionRule(auxProdRule);
     }
   }
   return dfaGrammar;
 }
 
 bool Automata::isFinalState(State paramState) {
-  if (finalStateSet_.count(paramState.getIdentifier()) > 0) return true;
+  if (finalStateSet_.count(paramState.getIdentifier()) > 0)
+    return true;
   return false;
 }
 
 /**
- * @brief A través de un identificador, devuelve el objeto estado con el 
+ * @brief A través de un identificador, devuelve el objeto estado con el
  * identificador dado
- * 
+ *
  * @param stateIdentifyer Identificador de estado
  * @return State Estado con stateIdentifyer
  */
@@ -267,8 +272,7 @@ State Automata::getState(int stateIdentifyer) {
  * @param paramSymbol Simbolo
  * @return std::set<State> Conjunto de siguientes estados
  */
-std::set<State> Automata::getStatesSet(State paramState,
-                                                 Symbol paramSymbol) {
+std::set<State> Automata::getStatesSet(State paramState, Symbol paramSymbol) {
   assert(isTransition(paramState, paramSymbol));
   std::set<State> auxSet;
   for (std::set<Transition>::iterator it = trFunction_.begin();
@@ -281,19 +285,20 @@ std::set<State> Automata::getStatesSet(State paramState,
 }
 
 /**
- * @brief Comprueba si el identificador parametro se corresponde con algun 
+ * @brief Comprueba si el identificador parametro se corresponde con algun
  * identificador del conjunto de estados del automata.
- * 
- * @param stateIdentifyer Identificador a buscar 
- * @return true - El identificador coincide con el identificador de algun 
+ *
+ * @param stateIdentifyer Identificador a buscar
+ * @return true - El identificador coincide con el identificador de algun
  * estado del conjunto de estados del automata.
- * @return false - El identificador no coincide con el identificador de algun 
+ * @return false - El identificador no coincide con el identificador de algun
  * estado del conjunto de estados del automata..
  */
 bool Automata::isState(int stateIdentifyer) {
-  for (std::set<State>::iterator it = stateSet_.begin();
-      it != stateSet_.end(); it++) {
-        if (it->getIdentifier() == stateIdentifyer) return true;
+  for (std::set<State>::iterator it = stateSet_.begin(); it != stateSet_.end();
+       it++) {
+    if (it->getIdentifier() == stateIdentifyer)
+      return true;
   }
   return false;
 }
@@ -341,16 +346,16 @@ std::ostream &operator<<(std::ostream &os, Automata &paramFTransition) {
       os << "(" << *it << ") ";
   }
   std::endl(os);
-  for (auto tr : paramFTransition.trFunction_) 
+  for (auto tr : paramFTransition.trFunction_)
     os << tr << "\n";
-  
+
   return os;
 }
 
 /**
- * @brief Funcion auxiliar, que dada una cadena, normalmente, devuelve un 
+ * @brief Funcion auxiliar, que dada una cadena, normalmente, devuelve un
  * vector de cadenas que elimina los espacios
- * 
+ *
  * @param str Cadena a partir
  * @param pattern Caracter a eliminar
  * @return std::vector<std::string> Vector de cadenas

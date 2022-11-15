@@ -18,8 +18,8 @@
 #include "alfabeto.h"
 #include "cadena.h"
 #include "estados.h"
-#include "transicion.h"
 #include "grammar.h"
+#include "transicion.h"
 
 #include <set>
 

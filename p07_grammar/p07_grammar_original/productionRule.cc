@@ -24,8 +24,9 @@
  * @param paramSymbol Simbolo
  * @param paramDestinationState Estado destino
  */
-ProductionRule::ProductionRule(Symbol nonTerminalSymbol, std::vector<Symbol> symbolVector) : 
-                nonTerminalSymbol_(nonTerminalSymbol), symbolVector_(symbolVector) {}
+ProductionRule::ProductionRule(Symbol nonTerminalSymbol,
+                               std::vector<Symbol> symbolVector)
+    : nonTerminalSymbol_(nonTerminalSymbol), symbolVector_(symbolVector) {}
 
 /**
  * @brief Destroy the ProductionRule:: ProductionRule object
@@ -45,7 +46,9 @@ Symbol ProductionRule::getNonFinalSymbol() const { return nonTerminalSymbol_; }
  *
  * @return State
  */
-std::vector<Symbol> ProductionRule::getSymbolVector() const { return symbolVector_; }
+std::vector<Symbol> ProductionRule::getSymbolVector() const {
+  return symbolVector_;
+}
 
 /**
  * @brief Sobrecarga operador '<' para poder trabajar clase std::set
@@ -56,13 +59,14 @@ std::vector<Symbol> ProductionRule::getSymbolVector() const { return symbolVecto
  * @see std::set
  */
 bool ProductionRule::operator<(const ProductionRule paramProductionRule) const {
-  //std::cout << "Hola\n";
+  // std::cout << "Hola\n";
   if (!(nonTerminalSymbol_ == paramProductionRule.getNonFinalSymbol()))
     return (paramProductionRule.getNonFinalSymbol() < nonTerminalSymbol_);
-	return (symbolVector_ != paramProductionRule.symbolVector_);
+  return (symbolVector_ != paramProductionRule.symbolVector_);
 }
 
-bool ProductionRule::operator==(const ProductionRule paramProductionRule) const {
+bool ProductionRule::operator==(
+    const ProductionRule paramProductionRule) const {
   if (!(nonTerminalSymbol_ == paramProductionRule.getNonFinalSymbol()))
     return false;
   if (symbolVector_ != paramProductionRule.symbolVector_)
@@ -77,7 +81,8 @@ bool ProductionRule::operator==(const ProductionRule paramProductionRule) const 
  * @param paramProductionRule
  * @return std::ostream&
  */
-std::ostream &operator<<(std::ostream &os, ProductionRule &paramProductionRule) {
+std::ostream &operator<<(std::ostream &os,
+                         ProductionRule &paramProductionRule) {
   os << paramProductionRule.nonTerminalSymbol_ << " -> ";
   for (auto symbol : paramProductionRule.symbolVector_) {
     os << symbol;
@@ -92,7 +97,8 @@ std::ostream &operator<<(std::ostream &os, ProductionRule &paramProductionRule) 
  * @param paramProductionRule
  * @return std::ostream&
  */
-std::ostream &operator<<(std::ostream &os, const ProductionRule &paramProductionRule) {
+std::ostream &operator<<(std::ostream &os,
+                         const ProductionRule &paramProductionRule) {
   os << paramProductionRule.nonTerminalSymbol_ << " -> ";
   for (auto symbol : paramProductionRule.symbolVector_) {
     os << symbol;

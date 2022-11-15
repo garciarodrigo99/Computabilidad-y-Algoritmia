@@ -36,12 +36,11 @@ public:
   const std::set<Symbol> getSymbols();
   int Size() const;
 
-
   // Operaciones
   void AddSymbol(Symbol);
   void AlphabetUnion(const Alphabet &);
   int DistinctSimbol(Chain);
-  //std::set<Chain> GenerateChains(int);
+  // std::set<Chain> GenerateChains(int);
   bool inSymbol(Symbol);
   bool okChain(Chain);
 

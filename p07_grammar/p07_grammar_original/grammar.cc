@@ -17,8 +17,8 @@
 
 #include "grammar.h"
 
-#include <fstream>
 #include <assert.h>
+#include <fstream>
 #include <string>
 
 Grammar::Grammar(std::string fileName) {
@@ -42,7 +42,7 @@ Grammar::Grammar(std::string fileName) {
     Symbol auxSymbol(linea.front());
     nonTerminalSymbol_.insert(auxSymbol);
   }
-  
+
   //@To-Do
   // Asignar simbolo no terminal de arranque
   getline(archivo, linea);
@@ -58,30 +58,30 @@ Grammar::Grammar(std::string fileName) {
     getline(archivo, linea);
     std::vector<std::string> splittedLine(SplitChainGrammar(linea));
     std::vector<Symbol> auxSymbolVector;
-    if ((splittedLine.at(2).size() == 1) && 
+    if ((splittedLine.at(2).size() == 1) &&
         (splittedLine.at(2).at(0) == kEmptyChain)) {
       Symbol emptyChain(kEmptyChain);
       auxSymbolVector.push_back(emptyChain);
-    } else  {
+    } else {
       for (auto symbol : splittedLine.at(2)) {
-      std::string auxString;
-      auxString.push_back(symbol);
-      Symbol auxSymbol(auxString);
-      auxSymbolVector.push_back(auxSymbol);
+        std::string auxString;
+        auxString.push_back(symbol);
+        Symbol auxSymbol(auxString);
+        auxSymbolVector.push_back(auxSymbol);
+      }
     }
-    }
-    ProductionRule auxProductionRule(splittedLine.at(0),auxSymbolVector);
+    ProductionRule auxProductionRule(splittedLine.at(0), auxSymbolVector);
     addProductionRule(auxProductionRule);
   }
 }
 
 Grammar::Grammar() {}
 
-Grammar::Grammar(Grammar& paramGrammar) : 
-  terminalSymbol_(paramGrammar.terminalSymbol_), 
-  nonTerminalSymbol_(paramGrammar.nonTerminalSymbol_),
-  startSymbolId_(paramGrammar.startSymbolId_),
-  productionRules_(paramGrammar.productionRules_) {}
+Grammar::Grammar(Grammar &paramGrammar)
+    : terminalSymbol_(paramGrammar.terminalSymbol_),
+      nonTerminalSymbol_(paramGrammar.nonTerminalSymbol_),
+      startSymbolId_(paramGrammar.startSymbolId_),
+      productionRules_(paramGrammar.productionRules_) {}
 
 /**
  * @brief Destroy the Grammar:: Grammar object
@@ -90,9 +90,9 @@ Grammar::Grammar(Grammar& paramGrammar) :
 Grammar::~Grammar() {}
 
 /**
- * @brief Metodo para analizar si una cadena es aceptada o rechazada por 
+ * @brief Metodo para analizar si una cadena es aceptada o rechazada por
  * cualquier Grammar
- * 
+ *
  * @param paramChain Cadena a analizar
  * @return true - La cadena es aceptada.
  * @return false - La cadena es rechazada.
@@ -131,10 +131,10 @@ void Grammar::setStartSymbol(std::string paramString) {
 }
 
 /**
- * @brief Metodo que añade transiciones al Grammar. Se comprueba que ambos 
+ * @brief Metodo que añade transiciones al Grammar. Se comprueba que ambos
  * estados pertenecen al conjunto de estados del Grammar y que el simbolo
  * pertenece al Alfabeto
- * 
+ *
  * @param actualStateId Estado origen
  * @param paramSymbol Simbolo
  * @param nextStateId Estado destino
@@ -174,7 +174,7 @@ int Grammar::getNProductions(Symbol paramSymbol) {
   return count;
 }
 
-void Grammar::operator=(const Grammar& paramGrammar) {
+void Grammar::operator=(const Grammar &paramGrammar) {
   terminalSymbol_ = paramGrammar.terminalSymbol_;
   nonTerminalSymbol_ = paramGrammar.nonTerminalSymbol_;
   startSymbolId_ = paramGrammar.startSymbolId_;
@@ -189,7 +189,8 @@ void Grammar::operator=(const Grammar& paramGrammar) {
  * @return std::ostream&
  */
 std::ostream &operator<<(std::ostream &os, Grammar &paramGrammar) {
-  std::cout << "Simbolo de arranque: " << paramGrammar.startSymbolId_ << std::endl;
+  std::cout << "Simbolo de arranque: " << paramGrammar.startSymbolId_
+            << std::endl;
 
   for (auto symbol : paramGrammar.nonTerminalSymbol_) {
     int productionsNumber = paramGrammar.getNProductions(symbol);
@@ -198,12 +199,12 @@ std::ostream &operator<<(std::ostream &os, Grammar &paramGrammar) {
       int iterator = 0;
       for (auto production : paramGrammar.productionRules_) {
         if (production.getNonFinalSymbol() == symbol) {
-          for (auto vectorSymbol : production.getSymbolVector()) 
+          for (auto vectorSymbol : production.getSymbolVector())
             os << vectorSymbol;
           if ((productionsNumber - 1) > iterator)
             os << " | ";
           iterator++;
-        } 
+        }
       }
       os << "\n";
     }
@@ -212,9 +213,9 @@ std::ostream &operator<<(std::ostream &os, Grammar &paramGrammar) {
 }
 
 /**
- * @brief Funcion auxiliar, que dada una cadena, normalmente, devuelve un 
+ * @brief Funcion auxiliar, que dada una cadena, normalmente, devuelve un
  * vector de cadenas que elimina los espacios
- * 
+ *
  * @param str Cadena a partir
  * @param pattern Caracter a eliminar
  * @return std::vector<std::string> Vector de cadenas

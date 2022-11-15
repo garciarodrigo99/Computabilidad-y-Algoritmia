@@ -105,7 +105,7 @@ bool Symbol::isEqual(Symbol paramSymbol) const {
 bool Symbol::isEqual(std::string paramString) {
   if (symbol_.size() != paramString.size())
     return false;
-  for (size_t i =0 ; i < symbol_.size();i++) {
+  for (size_t i = 0; i < symbol_.size(); i++) {
     if (symbol_.at(i) != paramString.at(i))
       return false;
   }
