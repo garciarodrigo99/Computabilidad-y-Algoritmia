@@ -50,7 +50,7 @@ std::vector<Symbol> ProductionRule::getSymbolVector() const {
   return symbolVector_;
 }
 
-int ProductionRule::getType(std::set<Symbol> paramNonTerminal, std::set<Symbol> paramTerminal) {
+int ProductionRule::getType(std::set<Symbol> paramNonTerminal) {
   if (paramNonTerminal.count(symbolVector_.front()) != 0) {
     for (size_t i = 1; i < symbolVector_.size(); i++) {
       if ((paramNonTerminal.count(symbolVector_.at(i)) != 0))

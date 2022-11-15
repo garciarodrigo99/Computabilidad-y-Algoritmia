@@ -31,7 +31,7 @@ public:
   // Getters y setters
   Symbol getNonFinalSymbol() const;
   std::vector<Symbol> getSymbolVector() const;
-  int getType(std::set<Symbol>, std::set<Symbol>);
+  int getType(std::set<Symbol>);
 
   // Sobrecarga de operadores
   bool operator<(const ProductionRule) const;

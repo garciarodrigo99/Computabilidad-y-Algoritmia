@@ -41,6 +41,7 @@ public:
   bool isRegular();
   void setStartSymbol(std::string);
   void writeFile(std::string);
+  void writeTypes();
 
   // Sobrecarga de operadores
   void operator=(const Grammar &);

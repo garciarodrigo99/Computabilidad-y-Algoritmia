@@ -69,6 +69,7 @@ int main(int argc, char *argv[]) {
   std::string grammarFileName = argv[POS_IRR_GRA_FILE]; // Parametro 3
   Grammar irregularGrammar(grammarFileName);
   std::cout << irregularGrammar << "\n" << std::endl;
+  irregularGrammar.writeTypes();
   std::cout << "¿Regular? : " << std::boolalpha << irregularGrammar.isRegular() << std::endl;
 
   return 0;

@@ -148,10 +148,11 @@ void Grammar::addTerminalSymbol(Symbol paramSymbol) {
   terminalSymbol_.insert(paramSymbol);
 }
 
-bool Grammar::isRegular() {
+void Grammar::writeTypes() {
+  bool status = true;
   for (auto pr : productionRules_) {
     std::cout << pr;
-    switch (pr.getType(nonTerminalSymbol_,terminalSymbol_)){
+    switch (pr.getType(nonTerminalSymbol_)){
       case -1:
         std::cout << " : No regular." << std::endl;
         break;
@@ -169,10 +170,18 @@ bool Grammar::isRegular() {
       default:
         break;
     }
-    // if (pr.getType(nonTerminalSymbol_,terminalSymbol_) == -1)
-    //   return false;
+    if (pr.getType(nonTerminalSymbol_) == -1)
+      status = false;
   }
-  return true;
+}
+
+bool Grammar::isRegular() {
+  bool status = true;
+  for (auto pr : productionRules_) {
+    if (pr.getType(nonTerminalSymbol_) == -1)
+      status = false;
+  }
+  return status;
 }
 
 void Grammar::writeFile(std::string outputFile) {
