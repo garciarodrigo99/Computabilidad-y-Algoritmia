@@ -150,8 +150,27 @@ void Grammar::addTerminalSymbol(Symbol paramSymbol) {
 
 bool Grammar::isRegular() {
   for (auto pr : productionRules_) {
-    if (pr.getType(nonTerminalSymbol_,terminalSymbol_) == -1)
-      return false;
+    std::cout << pr;
+    switch (pr.getType(nonTerminalSymbol_,terminalSymbol_)){
+      case -1:
+        std::cout << " : No regular." << std::endl;
+        break;
+      case 0:
+        std::cout << " : Regular ambos lados." << std::endl;
+        break;
+      case 1:
+        std::cout << " : Regular por la izquierda." << std::endl;
+        break;
+
+      case 2:
+        std::cout << " : Regular por la derecha." << std::endl;
+        break;
+      
+      default:
+        break;
+    }
+    // if (pr.getType(nonTerminalSymbol_,terminalSymbol_) == -1)
+    //   return false;
   }
   return true;
 }

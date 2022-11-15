@@ -1,22 +1,16 @@
 2
-0
-1
-5
+a
+b
+3
 A
 B
 C
-D
-E
 A
-11
-E -> &
-E -> 1E
-E -> 0E
-D -> 1A
-D -> 0E
-C -> 1D
-C -> 0B
-B -> 1C
-B -> 0B
-A -> 1A
-A -> 0B
+7
+C -> &
+C -> bC
+C -> aC
+B -> bC
+B -> aC
+A -> bB
+A -> aA
