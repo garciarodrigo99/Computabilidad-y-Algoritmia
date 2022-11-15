@@ -60,7 +60,6 @@ int main(int argc, char *argv[]) {
   std::string automatonFileName = argv[POS_FA_FILE];
   Automata fa(automatonFileName);
   std::cout << fa << std::endl;
-  std::cout << std::boolalpha << fa.isDFA() << std::endl;
   Grammar grammarFromDFA;
   grammarFromDFA = fa.convertToGrammar();
   std::cout << grammarFromDFA << std::endl;

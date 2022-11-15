@@ -40,6 +40,7 @@ public:
   bool CheckSimbols(Symbol);
   bool isEqual(Symbol);
   bool isEqual(Symbol) const;
+  bool isEqual(std::string);
 
   // Sobrecarga de operadores
   bool operator<(const Symbol) const;

@@ -46,6 +46,9 @@ Grammar::Grammar(std::string fileName) {
   //@To-Do
   // Asignar simbolo no terminal de arranque
   getline(archivo, linea);
+  for (auto symbol : linea) {
+    startSymbolId_.push_back(symbol);
+  }
 
   // Producciones
   getline(archivo, linea);
@@ -126,7 +129,7 @@ void Grammar::addNonTerminalSymbol(Symbol paramSymbol) {
  * @param nextStateId Estado destino
  */
 void Grammar::addProductionRule(ProductionRule paramProduction) {
-  productionRules_.insert(paramProduction);
+  productionRules_.push_back(paramProduction);
 }
 
 void Grammar::addTerminalSymbol(Symbol paramSymbol) {
@@ -158,8 +161,8 @@ void Grammar::operator=(const Grammar& paramGrammar) {
  * @return std::ostream&
  */
 std::ostream &operator<<(std::ostream &os, Grammar &paramGrammar) {
-  for (auto pr : paramGrammar.productionRules_)
-    os << pr << "\n";
+  // for (auto pr : paramGrammar.productionRules_)
+  //   os << pr << "\n";
 
   for (auto symbol : paramGrammar.nonTerminalSymbol_) {
     int productionsNumber = paramGrammar.getNProductions(symbol);

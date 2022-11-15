@@ -35,7 +35,7 @@ private:
   std::set<Symbol> terminalSymbol_;
   std::set<Symbol> nonTerminalSymbol_;
   std::string startSymbolId_;
-  std::set<ProductionRule> productionRules_;
+  std::vector<ProductionRule> productionRules_;
 };
 
 std::vector<std::string> SplitChainGrammar(std::string str, char pattern = ' ');

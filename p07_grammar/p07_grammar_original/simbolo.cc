@@ -26,9 +26,12 @@
  * @brief Construct a new Symbol:: Symbol object
  * @param paramString
  */
-Symbol::Symbol(const std::string paramString) : symbol_(paramString) {
+Symbol::Symbol(const std::string paramString) {
+  for (auto pos : paramString) {
+    symbol_.push_back(pos);
+    assert(CheckSimbols(*this));
+  }
   // Comprobar no es simbolo reservado cadena vacia
-  assert(CheckSimbols(*this));
 }
 
 Symbol::Symbol(char paramString) {
@@ -98,6 +101,16 @@ bool Symbol::isEqual(Symbol paramSymbol) const {
     return true;
   else
     return false;
+}
+
+bool Symbol::isEqual(std::string paramString) {
+  if (symbol_.size() != paramString.size())
+    return false;
+  for (int i =0 ; i < symbol_.size();i++) {
+    if (symbol_.at(i) != paramString.at(i))
+      return false;
+  }
+  return true;
 }
 
 /**

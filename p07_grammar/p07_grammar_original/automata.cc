@@ -225,7 +225,6 @@ Grammar Automata::convertToGrammar() {
           dfaGrammar.addProductionRule(auxProdRule);
     }
   }
-  std::cout << dfaGrammar << std::endl;
   return dfaGrammar;
 }
 
