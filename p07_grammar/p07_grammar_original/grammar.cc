@@ -49,6 +49,7 @@ Grammar::Grammar(std::string fileName) {
   for (auto symbol : linea) {
     startSymbolId_.push_back(symbol);
   }
+  // std::cout << "Simbolo de arranque: " << startSymbolId_ << std::endl;
 
   // Producciones
   getline(archivo, linea);
@@ -57,11 +58,17 @@ Grammar::Grammar(std::string fileName) {
     getline(archivo, linea);
     std::vector<std::string> splittedLine(SplitChainGrammar(linea));
     std::vector<Symbol> auxSymbolVector;
-    for (auto symbol : splittedLine.at(2)) {
+    if ((splittedLine.at(2).size() == 1) && 
+        (splittedLine.at(2).at(0) == kEmptyChain)) {
+      Symbol emptyChain(kEmptyChain);
+      auxSymbolVector.push_back(emptyChain);
+    } else  {
+      for (auto symbol : splittedLine.at(2)) {
       std::string auxString;
       auxString.push_back(symbol);
       Symbol auxSymbol(auxString);
       auxSymbolVector.push_back(auxSymbol);
+    }
     }
     ProductionRule auxProductionRule(splittedLine.at(0),auxSymbolVector);
     addProductionRule(auxProductionRule);
@@ -119,6 +126,10 @@ void Grammar::addNonTerminalSymbol(Symbol paramSymbol) {
   nonTerminalSymbol_.insert(paramSymbol);
 }
 
+void Grammar::setStartSymbol(std::string paramString) {
+  startSymbolId_ = paramString;
+}
+
 /**
  * @brief Metodo que añade transiciones al Grammar. Se comprueba que ambos 
  * estados pertenecen al conjunto de estados del Grammar y que el simbolo
@@ -161,8 +172,7 @@ void Grammar::operator=(const Grammar& paramGrammar) {
  * @return std::ostream&
  */
 std::ostream &operator<<(std::ostream &os, Grammar &paramGrammar) {
-  // for (auto pr : paramGrammar.productionRules_)
-  //   os << pr << "\n";
+  std::cout << "Simbolo de arranque: " << paramGrammar.startSymbolId_ << std::endl;
 
   for (auto symbol : paramGrammar.nonTerminalSymbol_) {
     int productionsNumber = paramGrammar.getNProductions(symbol);

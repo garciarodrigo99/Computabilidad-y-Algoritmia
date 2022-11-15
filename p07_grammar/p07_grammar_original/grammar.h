@@ -22,6 +22,7 @@ public:
   void addProductionRule(ProductionRule);
   void addTerminalSymbol(Symbol);
   void setStartSymbol(std::string);
+  void writeFile(std::string);
 
   // Sobrecarga de operadores
   void operator=(const Grammar&);

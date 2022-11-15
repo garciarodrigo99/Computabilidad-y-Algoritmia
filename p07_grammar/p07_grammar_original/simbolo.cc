@@ -36,8 +36,7 @@ Symbol::Symbol(const std::string paramString) {
 
 Symbol::Symbol(char paramString) {
   symbol_.push_back(paramString);
-  // Comprobar no es simbolo reservado cadena vacia
-  assert(CheckSimbols(*this));
+  // Se suprime assert para trabajar en con la clase gramatica
 }
 
 /**
@@ -106,7 +105,7 @@ bool Symbol::isEqual(Symbol paramSymbol) const {
 bool Symbol::isEqual(std::string paramString) {
   if (symbol_.size() != paramString.size())
     return false;
-  for (int i =0 ; i < symbol_.size();i++) {
+  for (size_t i =0 ; i < symbol_.size();i++) {
     if (symbol_.at(i) != paramString.at(i))
       return false;
   }

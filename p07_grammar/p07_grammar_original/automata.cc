@@ -203,10 +203,20 @@ Grammar Automata::convertToGrammar() {
     std::string string_id;
     string_id.push_back(nonTerminalSymbolId);
     dfaGrammar.addNonTerminalSymbol(string_id);
-      //if (isFinalState(states))
-      // Generar estado de aceptación
+    if (isFinalState(states)) {
+      Symbol emptychain(kEmptyChain);
+      Symbol nonTerminalSymbol(string_id);
+      std::vector<Symbol> auxVectorSymbol;
+      auxVectorSymbol.push_back(emptychain);
+      ProductionRule auxProdRule(nonTerminalSymbol,auxVectorSymbol);
+      dfaGrammar.addProductionRule(auxProdRule);
+    }
     mapStateNonTerminalSymbol.insert({states.getIdentifier(),string_id});
   }
+  if (auto search = mapStateNonTerminalSymbol.find(automataIntialState_);
+      search != mapStateNonTerminalSymbol.end())
+        dfaGrammar.setStartSymbol(search->second);
+        
   for (auto transition : trFunction_) {
     std::vector<Symbol> auxVectorSymbol;
     auxVectorSymbol.push_back(transition.getSymbol());
