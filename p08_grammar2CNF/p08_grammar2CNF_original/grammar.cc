@@ -21,6 +21,8 @@
 #include <fstream>
 #include <string>
 
+Grammar::Grammar() {}
+
 Grammar::Grammar(std::string fileName) {
   std::ifstream archivo(fileName.c_str());
   std::string linea;
@@ -75,8 +77,6 @@ Grammar::Grammar(std::string fileName) {
   }
 }
 
-Grammar::Grammar() {}
-
 Grammar::Grammar(Grammar &paramGrammar)
     : terminalSymbol_(paramGrammar.terminalSymbol_),
       nonTerminalSymbol_(paramGrammar.nonTerminalSymbol_),
@@ -89,45 +89,8 @@ Grammar::Grammar(Grammar &paramGrammar)
  */
 Grammar::~Grammar() {}
 
-/**
- * @brief Metodo para analizar si una cadena es aceptada o rechazada por
- * cualquier Grammar
- *
- * @param paramChain Cadena a analizar
- * @return true - La cadena es aceptada.
- * @return false - La cadena es rechazada.
- */
-bool Grammar::acceptChain(Chain paramChain) {
-  // // assert(alphabet_.okChain(paramChain));
-  // if (!(alphabet_.okChain(paramChain)))
-  //   return false;
-
-  // std::set<State> actualStates;
-  // actualStates.insert(GrammarIntialState_);
-  // for (int chainIterator = 0; chainIterator < paramChain.Size();
-  //      chainIterator++) {
-  //   std::set<State> nextStates;
-  //   for (std::set<State>::iterator stateIterator = actualStates.begin();
-  //        stateIterator != actualStates.end(); stateIterator++) {
-  //     std::set<State> transitionSet;
-  //     if (trFunction_.isTransition(*stateIterator,
-  //                                  paramChain.Position(chainIterator)))
-  //       transitionSet = (trFunction_.getStatesSet(
-  //           *stateIterator, paramChain.Position(chainIterator)));
-  //     nextStates.insert(transitionSet.begin(), transitionSet.end());
-  //   }
-  //   actualStates = nextStates;
-  // }
-  // return containsFinalState(actualStates);
-  return false;
-}
-
 void Grammar::addNonTerminalSymbol(Symbol paramSymbol) {
   nonTerminalSymbol_.insert(paramSymbol);
-}
-
-void Grammar::setStartSymbol(std::string paramString) {
-  startSymbolId_ = paramString;
 }
 
 /**
@@ -141,37 +104,23 @@ void Grammar::setStartSymbol(std::string paramString) {
  */
 void Grammar::addProductionRule(ProductionRule paramProduction) {
   assert(nonTerminalSymbol_.count(paramProduction.getNonFinalSymbol()) != 0);
-  productionRules_.push_back(paramProduction);
+  productionRules_.insert(paramProduction);
 }
 
 void Grammar::addTerminalSymbol(Symbol paramSymbol) {
   terminalSymbol_.insert(paramSymbol);
 }
 
-void Grammar::writeTypes() {
-  bool status = true;
+void Grammar::convertToCFG() {
+  // Sustituir simbolos terminales
   for (auto pr : productionRules_) {
-    std::cout << pr;
-    switch (pr.getType(nonTerminalSymbol_)){
-      case -1:
-        std::cout << " : No regular." << std::endl;
-        break;
-      case 0:
-        std::cout << " : Regular ambos lados." << std::endl;
-        break;
-      case 1:
-        std::cout << " : Regular por la izquierda." << std::endl;
-        break;
+    if (pr.getSymbolVector().size() > 1) {
 
-      case 2:
-        std::cout << " : Regular por la derecha." << std::endl;
-        break;
-      
-      default:
-        break;
     }
-    if (pr.getType(nonTerminalSymbol_) == -1)
-      status = false;
+  }
+  // Reducir a 2 numero estados no terminales
+  for (auto pr : productionRules_) {
+    
   }
 }
 
@@ -183,6 +132,11 @@ bool Grammar::isRegular() {
   }
   return status;
 }
+
+void Grammar::setStartSymbol(std::string paramString) {
+  startSymbolId_ = paramString;
+}
+
 
 void Grammar::writeFile(std::string outputFile) {
   std::ofstream file(outputFile);
@@ -208,6 +162,30 @@ int Grammar::getNProductions(Symbol paramSymbol) {
       count++;
   }
   return count;
+}
+
+void Grammar::writeTypes() {
+  for (auto pr : productionRules_) {
+    std::cout << pr;
+    switch (pr.getType(nonTerminalSymbol_)){
+      case -1:
+        std::cout << " : No regular." << std::endl;
+        break;
+      case 0:
+        std::cout << " : Regular ambos lados." << std::endl;
+        break;
+      case 1:
+        std::cout << " : Regular por la izquierda." << std::endl;
+        break;
+
+      case 2:
+        std::cout << " : Regular por la derecha." << std::endl;
+        break;
+      
+      default:
+        break;
+    }
+  }
 }
 
 void Grammar::operator=(const Grammar &paramGrammar) {

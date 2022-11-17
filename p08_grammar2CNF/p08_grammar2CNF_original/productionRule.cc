@@ -81,10 +81,15 @@ int ProductionRule::getType(std::set<Symbol> paramNonTerminal) {
  * @see std::set
  */
 bool ProductionRule::operator<(const ProductionRule paramProductionRule) const {
-  // std::cout << "Hola\n";
   if (!(nonTerminalSymbol_ == paramProductionRule.getNonFinalSymbol()))
-    return (paramProductionRule.getNonFinalSymbol() < nonTerminalSymbol_);
-  return (symbolVector_ != paramProductionRule.symbolVector_);
+    return (nonTerminalSymbol_ < paramProductionRule.getNonFinalSymbol());
+  if (symbolVector_.size() != paramProductionRule.symbolVector_.size())
+    return (symbolVector_.size() < paramProductionRule.symbolVector_.size());
+  for (size_t i = 0; i < symbolVector_.size() - 1; i++) {
+    if (!(symbolVector_.at(i) == paramProductionRule.symbolVector_.at(i)))
+      return (symbolVector_.at(i) < paramProductionRule.symbolVector_.at(i));
+  }
+  return (symbolVector_.back() < paramProductionRule.symbolVector_.back());
 }
 
 bool ProductionRule::operator==(

@@ -34,10 +34,10 @@ public:
   ~Grammar();
 
   // Operaciones
-  bool acceptChain(Chain);
   void addNonTerminalSymbol(Symbol);
   void addProductionRule(ProductionRule);
   void addTerminalSymbol(Symbol);
+  void convertToCFG();
   bool isRegular();
   void setStartSymbol(std::string);
   void writeFile(std::string);
@@ -55,7 +55,7 @@ private:
   std::set<Symbol> terminalSymbol_;
   std::set<Symbol> nonTerminalSymbol_;
   std::string startSymbolId_;
-  std::vector<ProductionRule> productionRules_;
+  std::set<ProductionRule> productionRules_;
 };
 
 std::vector<std::string> SplitChainGrammar(std::string str, char pattern = ' ');
