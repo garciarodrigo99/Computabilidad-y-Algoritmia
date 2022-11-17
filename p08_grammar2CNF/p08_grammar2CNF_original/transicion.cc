@@ -65,11 +65,13 @@ Symbol Transition::getSymbol() const { return symbol_; }
  * @see std::set
  */
 bool Transition::operator<(const Transition paramTransition) const {
-  bool sameInitialState = (originState_ == paramTransition.getOriginState());
-  bool sameSymbol = (symbol_ == paramTransition.symbol_);
-  bool sameFinalState =
-      (destinationState_ == paramTransition.destinationState_);
-  return (!(sameInitialState && sameSymbol && sameFinalState));
+  if (originState_.getIdentifier() != paramTransition.originState_.getIdentifier())
+    return (originState_.getIdentifier() < paramTransition.originState_.getIdentifier());
+  if (!(symbol_ == paramTransition.getSymbol()))
+    return (symbol_ < paramTransition.getSymbol());
+  if (destinationState_.getIdentifier() != paramTransition.destinationState_.getIdentifier())
+    return (destinationState_.getIdentifier() < paramTransition.destinationState_.getIdentifier());
+  return false;
 }
 
 /**
