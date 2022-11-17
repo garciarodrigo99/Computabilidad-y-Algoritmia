@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/p07_grammar",
-            "args": ["dfa.fa","grammar.gra"],
+            "args": ["GrammarCheckCNF.gra"," output.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

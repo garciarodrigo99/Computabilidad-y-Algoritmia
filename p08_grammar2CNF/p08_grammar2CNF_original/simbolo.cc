@@ -112,6 +112,11 @@ bool Symbol::isEqual(std::string paramString) {
   return true;
 }
 
+void Symbol::operator=(const Symbol paramSymbol) {
+  symbol_.clear();
+  symbol_ = paramSymbol;
+}
+
 /**
  * @brief
  * @param paramSymbol
@@ -127,11 +132,17 @@ bool Symbol::operator==(const Symbol paramSymbol) const {
  * @return True si el elemento no esta en el conjunto. False en caso contrario.
  */
 bool Symbol::operator<(const Symbol param_symbol) const {
-  return (symbol_ < param_symbol.symbol_);
+  if (symbol_.size() != param_symbol.symbol_.size())
+    return (symbol_.size() < param_symbol.symbol_.size());
+  for (size_t i = 0; i < symbol_.size() - 1; i++) {
+    if (symbol_.at(i) != param_symbol.symbol_.at(i))
+      return (symbol_.at(i) < param_symbol.symbol_.at(i));
+  }
+  return (symbol_.back() < param_symbol.symbol_.back());
 }
 
 
-std::string Symbol::operator()(const Symbol) const {
+Symbol::operator std::string (void) const {
   return symbol_;
 }
 

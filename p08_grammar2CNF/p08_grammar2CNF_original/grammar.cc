@@ -29,7 +29,7 @@ Grammar::Grammar(std::string fileName) {
 
   // Simbolos terminales
   getline(archivo, linea);
-  int nTerminalSymbol = linea.at(0) - 48;
+  int nTerminalSymbol = stoi(linea);
   for (int i = 0; i < nTerminalSymbol; i++) {
     getline(archivo, linea);
     Symbol auxSymbol(linea.front());
@@ -38,7 +38,7 @@ Grammar::Grammar(std::string fileName) {
 
   // Simbolos no terminales
   getline(archivo, linea);
-  int nNonTerminalSymbol = linea.at(0) - 48;
+  int nNonTerminalSymbol = stoi(linea);
   for (int i = 0; i < nNonTerminalSymbol; i++) {
     getline(archivo, linea);
     Symbol auxSymbol(linea.front());
@@ -55,7 +55,8 @@ Grammar::Grammar(std::string fileName) {
 
   // Producciones
   getline(archivo, linea);
-  int nProductions = linea.at(0) - 48;
+  int nProductions = stoi(linea);
+  std::cout << nProductions << "\n";
   for (int i = 0; i < nProductions; i++) {
     getline(archivo, linea);
     std::vector<std::string> splittedLine(SplitChainGrammar(linea));
@@ -103,7 +104,7 @@ void Grammar::addNonTerminalSymbol(Symbol paramSymbol) {
  * @param nextStateId Estado destino
  */
 void Grammar::addProductionRule(ProductionRule paramProduction) {
-  assert(nonTerminalSymbol_.count(paramProduction.getNonFinalSymbol()) != 0);
+  //assert(nonTerminalSymbol_.count(paramProduction.getNonFinalSymbol()) != 0);
   productionRules_.insert(paramProduction);
 }
 
@@ -115,18 +116,24 @@ void Grammar::convertToCFG() {
   // Sustituir simbolos terminales
   for (auto pr : productionRules_) {
     if (pr.getSymbolVector().size() > 1) {
-      for (auto symbol : pr.getSymbolVector()) {
-        if (terminalSymbol_.count(symbol) != 0) {
+      std::cout << "Produccion: " << pr << std::endl;
+      for (int i = 0; i < pr.getSymbolVector().size(); i++) {
+        if (terminalSymbol_.count(pr.getSymbolVector().at(i)) != 0) {
           std::string auxString;
           auxString.push_back('C');
-          for (int i = 0; i < symbol.Size(); i++)
-            auxString.push_back(symbol.position(i));
+          for (int i = 0; i < pr.getSymbolVector().at(i).Size(); i++)
+            auxString.push_back(pr.getSymbolVector().at(i).position(i));
           Symbol Cs(auxString);
-          ProductionRule auxProd(Cs,symbol);
-          productionRules_.insert(auxProd);
-          symbol = Cs;
+          nonTerminalSymbol_.insert(Cs);
+          std::cout << pr.getSymbolVector().at(i) << " -> " << Cs << std::endl;
+          ProductionRule auxProd(Cs,pr.getSymbolVector().at(i));
+          std::cout << "Produccion: " << auxProd << std::endl;
+          std::cout << "Insertada?: " << std::boolalpha << productionRules_.insert(auxProd).second << std::endl;
+          pr.getSymbolVector().at(i) = Cs;
+          std::cout << "¿Nuevo symbol?: " << pr.getSymbolVector().at(i) << std::endl;
         }
       }
+      std::endl(std::cout);
     }
   }
   // Reducir a 2 numero estados no terminales
