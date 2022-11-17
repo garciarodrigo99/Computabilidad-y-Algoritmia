@@ -27,10 +27,9 @@
 #include "grammar.h"
 #include "lenguaje.h"
 
-#define kArgumentos 4
-#define POS_FA_FILE 1
-#define POS_GRA_FILE 2
-#define POS_IRR_GRA_FILE 3
+#define kArgumentos 3
+#define POS_INPUT_GRA_FILE 1
+#define POS_OUTPUT_GRA_FILE 2
 #define DEFAULT_ALPHABET_SYMBOL "0"
 
 // Funcion que indica la forma correcta de ejecutar y cada parametro a
@@ -55,22 +54,13 @@ int main(int argc, char *argv[]) {
     information(argv[0]);
     return 1;
   }
-  std::string dfaToGrammarFileName = argv[POS_GRA_FILE]; // Parametro 2
+  std::string grammarFileName = argv[POS_INPUT_GRA_FILE]; // Parametro 2
 
-  std::string automatonFileName = argv[POS_FA_FILE]; // Parametro 1
-  Automata fa(automatonFileName);
-  std::cout << fa << std::endl;
-  Grammar grammarFromDFA;
-  grammarFromDFA = fa.convertToGrammar();
-  std::cout << grammarFromDFA << std::endl;
-  std::cout << "¿Regular? : " << std::boolalpha << grammarFromDFA.isRegular() << std::endl;
-  grammarFromDFA.writeFile(dfaToGrammarFileName);
-
-  std::string grammarFileName = argv[POS_IRR_GRA_FILE]; // Parametro 3
-  Grammar irregularGrammar(grammarFileName);
-  std::cout << irregularGrammar << "\n" << std::endl;
-  irregularGrammar.writeTypes();
-  std::cout << "¿Regular? : " << std::boolalpha << irregularGrammar.isRegular() << std::endl;
+  Grammar grammarToCheck(grammarFileName);
+  std::cout << grammarToCheck << std::endl;
+  grammarToCheck.convertToCFG();
+  std::cout << grammarToCheck << std::endl;
+  //grammarToCheck.writeFile(dfaToGrammarFileName);
 
   return 0;
 }

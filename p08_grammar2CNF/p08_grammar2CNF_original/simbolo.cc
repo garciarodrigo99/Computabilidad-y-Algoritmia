@@ -130,6 +130,11 @@ bool Symbol::operator<(const Symbol param_symbol) const {
   return (symbol_ < param_symbol.symbol_);
 }
 
+
+std::string Symbol::operator()(const Symbol) const {
+  return symbol_;
+}
+
 /**
  * @brief Sobrecarga operador '<<' para escritura del objeto
  * @param os std::ostream

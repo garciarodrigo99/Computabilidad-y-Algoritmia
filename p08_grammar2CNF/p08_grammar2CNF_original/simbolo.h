@@ -45,6 +45,7 @@ public:
   // Sobrecarga de operadores
   bool operator<(const Symbol) const;
   bool operator==(const Symbol) const;
+  std::string operator()(const Symbol) const;
   friend std::ostream &operator<<(std::ostream &, const Symbol &);
 
 private:

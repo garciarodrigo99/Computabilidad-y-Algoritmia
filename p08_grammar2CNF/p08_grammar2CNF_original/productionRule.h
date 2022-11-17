@@ -26,6 +26,7 @@ class ProductionRule {
 public:
   // Constructores y destructor
   ProductionRule(Symbol, std::vector<Symbol>);
+  ProductionRule(Symbol, Symbol);
   ~ProductionRule();
 
   // Getters y setters

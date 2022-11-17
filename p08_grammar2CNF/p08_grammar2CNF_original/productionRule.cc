@@ -28,6 +28,11 @@ ProductionRule::ProductionRule(Symbol nonTerminalSymbol,
                                std::vector<Symbol> symbolVector)
     : nonTerminalSymbol_(nonTerminalSymbol), symbolVector_(symbolVector) {}
 
+ProductionRule::ProductionRule(Symbol nonTerminalSymbol, Symbol symbol)
+                              : nonTerminalSymbol_(nonTerminalSymbol) {
+  symbolVector_.push_back(symbol);
+}
+
 /**
  * @brief Destroy the ProductionRule:: ProductionRule object
  *

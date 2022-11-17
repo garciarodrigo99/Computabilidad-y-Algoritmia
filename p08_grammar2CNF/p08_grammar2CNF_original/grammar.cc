@@ -115,7 +115,18 @@ void Grammar::convertToCFG() {
   // Sustituir simbolos terminales
   for (auto pr : productionRules_) {
     if (pr.getSymbolVector().size() > 1) {
-
+      for (auto symbol : pr.getSymbolVector()) {
+        if (terminalSymbol_.count(symbol) != 0) {
+          std::string auxString;
+          auxString.push_back('C');
+          for (int i = 0; i < symbol.Size(); i++)
+            auxString.push_back(symbol.position(i));
+          Symbol Cs(auxString);
+          ProductionRule auxProd(Cs,symbol);
+          productionRules_.insert(auxProd);
+          symbol = Cs;
+        }
+      }
     }
   }
   // Reducir a 2 numero estados no terminales
