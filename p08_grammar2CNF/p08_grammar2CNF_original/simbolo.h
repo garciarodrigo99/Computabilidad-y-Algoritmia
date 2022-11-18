@@ -46,7 +46,7 @@ public:
   bool operator<(const Symbol) const;
   void operator=(const Symbol);
   bool operator==(const Symbol) const;
-  operator std::string (void) const;
+  operator std::string(void) const;
   friend std::ostream &operator<<(std::ostream &, const Symbol &);
 
 private:

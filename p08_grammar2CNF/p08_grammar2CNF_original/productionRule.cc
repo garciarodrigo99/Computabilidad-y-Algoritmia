@@ -29,7 +29,7 @@ ProductionRule::ProductionRule(Symbol nonTerminalSymbol,
     : nonTerminalSymbol_(nonTerminalSymbol), symbolVector_(symbolVector) {}
 
 ProductionRule::ProductionRule(Symbol nonTerminalSymbol, Symbol symbol)
-                              : nonTerminalSymbol_(nonTerminalSymbol) {
+    : nonTerminalSymbol_(nonTerminalSymbol) {
   symbolVector_.push_back(symbol);
 }
 
@@ -51,9 +51,7 @@ Symbol ProductionRule::getNonFinalSymbol() const { return nonTerminalSymbol_; }
  *
  * @return State
  */
-std::vector<Symbol> ProductionRule::getSymbolVector() {
-  return symbolVector_;
-}
+std::vector<Symbol> ProductionRule::getSymbolVector() { return symbolVector_; }
 
 void ProductionRule::setSymbolVector(std::vector<Symbol> paramVector) {
   symbolVector_.clear();

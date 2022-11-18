@@ -58,10 +58,9 @@ int main(int argc, char *argv[]) {
 
   Grammar grammarToCheck(grammarFileName);
   std::cout << grammarToCheck << std::endl;
-  grammarToCheck.convertToCFG();
+  grammarToCheck.convertToCNF();
   std::cout << grammarToCheck << std::endl;
-  //grammarToCheck.writeFile(dfaToGrammarFileName);
-  
+  // grammarToCheck.writeFile(dfaToGrammarFileName);
 
   return 0;
 }

@@ -18,8 +18,8 @@
 #include "simbolo.h"
 
 #include <iostream>
-#include <vector>
 #include <set>
+#include <vector>
 
 class ProductionRule {
 
@@ -31,7 +31,7 @@ public:
 
   // Getters y setters
   Symbol getNonFinalSymbol() const;
-  //std::vector<Symbol> getSymbolVector() const;
+  // std::vector<Symbol> getSymbolVector() const;
   std::vector<Symbol> getSymbolVector();
   int getType(std::set<Symbol>);
   void setSymbolVector(std::vector<Symbol>);

@@ -141,10 +141,7 @@ bool Symbol::operator<(const Symbol param_symbol) const {
   return (symbol_.back() < param_symbol.symbol_.back());
 }
 
-
-Symbol::operator std::string (void) const {
-  return symbol_;
-}
+Symbol::operator std::string(void) const { return symbol_; }
 
 /**
  * @brief Sobrecarga operador '<<' para escritura del objeto

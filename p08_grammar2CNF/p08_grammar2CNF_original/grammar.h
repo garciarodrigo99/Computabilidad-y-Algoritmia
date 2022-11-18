@@ -37,7 +37,7 @@ public:
   void addNonTerminalSymbol(Symbol);
   void addProductionRule(ProductionRule);
   void addTerminalSymbol(Symbol);
-  void convertToCFG();
+  void convertToCNF();
   bool isRegular();
   void setStartSymbol(std::string);
   void writeFile(std::string);
