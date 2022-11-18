@@ -38,6 +38,7 @@ public:
   void addProductionRule(ProductionRule);
   void addTerminalSymbol(Symbol);
   void convertToCNF();
+  Grammar getCNF();
   bool isRegular();
   void setStartSymbol(std::string);
   void writeFile(std::string);

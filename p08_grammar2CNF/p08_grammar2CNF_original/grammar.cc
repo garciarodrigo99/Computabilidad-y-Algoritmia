@@ -197,6 +197,12 @@ void Grammar::convertToCNF() {
   toEraseSet.clear(); // Limpiar set
 }
 
+Grammar Grammar::getCNF() {
+  Grammar auxGrammar(*this);
+  auxGrammar.convertToCNF();
+  return auxGrammar;
+}
+
 bool Grammar::isRegular() {
   bool status = true;
   for (auto pr : productionRules_) {
