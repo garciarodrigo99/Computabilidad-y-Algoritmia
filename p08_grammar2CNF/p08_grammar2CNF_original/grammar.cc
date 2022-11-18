@@ -162,14 +162,14 @@ void Grammar::convertToCNF() {
   char initialCharacter = 'D';
   for (auto pr : productionRules_) {
     ProductionRule referenceProduction(pr.getNonFinalSymbol(),pr.getSymbolVector());
-    int counter = 0;
-    //int counter = referenceProduction.getSymbolVector().size() - 1;
+    int counter = referenceProduction.getSymbolVector().size() - 2;
+    bool modified = false;
     while (referenceProduction.getSymbolVector().size() > 2) {
+      modified = true;
       toEraseSet.insert(referenceProduction); // Enviar referenceProductionoduccion para que sea borrada
-      counter++;
       std::string sustNonTerminalSymbolId {initialCharacter};
       sustNonTerminalSymbolId.append(std::to_string(counter));
-      //counter--;
+      counter--;
       Symbol newNonTerminalSymbol(sustNonTerminalSymbolId);
       nonTerminalSymbol_.insert(newNonTerminalSymbol);
       std::vector<Symbol> newProductionVectorSymbol {
@@ -189,9 +189,8 @@ void Grammar::convertToCNF() {
       productionRules_.insert(sustitutionProduction);
       referenceProduction = sustitutionProduction;
     }
-    // if (counter == 0)
-    if (counter > 0)
-      initialCharacter++; // Corregir
+    if (modified)
+      initialCharacter++;
   }
   // Borrar las producciones obsoletas tras la primera pasada
   for (auto erase : toEraseSet)
@@ -280,11 +279,6 @@ void Grammar::operator=(const Grammar &paramGrammar) {
 std::ostream &operator<<(std::ostream &os, Grammar &paramGrammar) {
   std::cout << "Simbolo de arranque: " << paramGrammar.startSymbolId_
             << std::endl;
-
-  std::cout << "Simbolos no terminales: ";
-  for (auto symbol : paramGrammar.nonTerminalSymbol_)
-    std::cout << symbol << " ";
-  std::endl(std::cout);
 
   for (auto symbol : paramGrammar.nonTerminalSymbol_) {
     int productionsNumber = paramGrammar.getNProductions(symbol);
