@@ -117,7 +117,6 @@ void Grammar::convertToCFG() {
   std::set<ProductionRule> toEraseSet;
   for (auto pr : productionRules_) {
     if (pr.getSymbolVector().size() > 1) {
-      std::cout << "Produccion: " << pr << std::endl;
       for (size_t i = 0; i < pr.getSymbolVector().size(); i++) {
         if (terminalSymbol_.count(pr.getSymbolVector().at(i)) != 0) {
           toEraseSet.insert(pr);
@@ -127,18 +126,14 @@ void Grammar::convertToCFG() {
             auxString.push_back(pr.getSymbolVector().at(i).position(j));
           Symbol Cs(auxString);
           nonTerminalSymbol_.insert(Cs);
-          std::cout << pr.getSymbolVector().at(i) << " -> " << Cs << std::endl;
           ProductionRule terminalSymbolProduction(Cs,pr.getSymbolVector().at(i));
-          std::cout << "Produccion: " << terminalSymbolProduction << std::endl;
-          std::cout << "Insertada?: " << std::boolalpha << productionRules_.insert(terminalSymbolProduction).second << std::endl;
+          productionRules_.insert(terminalSymbolProduction);
           std::vector<Symbol> prVector(pr.getSymbolVector());
           prVector.at(i) = Cs;
           ProductionRule correctedProd(pr.getNonFinalSymbol(),prVector);
           productionRules_.insert(correctedProd);
-          std::cout << "¿Nuevo symbol?: " << pr.getSymbolVector().at(i) << std::endl;
         }
       }
-      std::endl(std::cout);
     }
   }
   for (auto erase : toEraseSet)
