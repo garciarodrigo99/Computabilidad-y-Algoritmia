@@ -46,8 +46,8 @@ Chain::Chain(Symbol paramChain) : Chain() { chain_.push_back(paramChain); }
  * @param symbolVector Vector de simbolos
  */
 Chain::Chain(std::vector<Symbol> symbolVector) {
-  for (size_t i = 0; i < symbolVector.size(); i++) {
-    chain_.push_back(Symbol(symbolVector.at(i)));
+  for (auto symbol : symbolVector) {
+    chain_.push_back(symbol);
   }
 }
 
@@ -68,6 +68,22 @@ Chain::Chain(std::string paramChain) {
       AddSymbol(aux);
     }
   }
+}
+
+Symbol Chain::back() const {
+  return chain_.back();
+}
+
+void Chain::assign(int index, Symbol paramSymbol) {
+  chain_.at(index) = paramSymbol;
+}
+
+std::vector<Symbol>::const_iterator Chain::begin() const{
+  return chain_.begin();
+}
+
+std::vector<Symbol>::const_iterator Chain::end() const{
+  return chain_.end();
 }
 
 /**
@@ -315,6 +331,12 @@ std::ostream &operator<<(std::ostream &os, const Chain &paramChain) {
     }
     return os;
   }
+}
+
+void Chain::operator=(const Chain paramChain) {
+  chain_.clear();
+  for (int i=0; i < paramChain.Size(); i++)
+    chain_.push_back(paramChain.Position(i));
 }
 
 /**

@@ -16,6 +16,7 @@
  */
 
 #include "simbolo.h"
+#include "cadena.h"
 
 #include <iostream>
 #include <set>
@@ -25,16 +26,15 @@ class ProductionRule {
 
 public:
   // Constructores y destructor
-  ProductionRule(Symbol, std::vector<Symbol>);
+  ProductionRule(Symbol, Chain);
   ProductionRule(Symbol, Symbol);
   ~ProductionRule();
 
   // Getters y setters
   Symbol getNonFinalSymbol() const;
   // std::vector<Symbol> getSymbolVector() const;
-  std::vector<Symbol> getSymbolVector();
+  Chain getChain();
   int getType(std::set<Symbol>);
-  void setSymbolVector(std::vector<Symbol>);
 
   // Sobrecarga de operadores
   bool operator<(const ProductionRule) const;
@@ -45,6 +45,6 @@ public:
 
 private:
   Symbol nonTerminalSymbol_;
-  std::vector<Symbol> symbolVector_;
+  Chain chain_;
   int type;
 };

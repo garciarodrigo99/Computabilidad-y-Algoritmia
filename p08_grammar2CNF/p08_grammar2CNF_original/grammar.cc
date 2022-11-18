@@ -122,16 +122,16 @@ void Grammar::convertToCNF() {
   std::set<ProductionRule> toEraseSet;
   for (auto pr : productionRules_) {
     // Longitud de produccion > 1
-    if (pr.getSymbolVector().size() > 1) {
-      for (size_t i = 0; i < pr.getSymbolVector().size(); i++) {
+    if (pr.getChain().Size() > 1) {
+      for (int i = 0; i < pr.getChain().Size(); i++) {
         // Simbolo terminal
-        if (terminalSymbol_.count(pr.getSymbolVector().at(i)) != 0) {
+        if (terminalSymbol_.count(pr.getChain().Position(i)) != 0) {
           toEraseSet.insert(pr); // Enviar produccion para que sea borrada
           // Nombre nueva produccion
           std::string auxString;
           auxString.push_back('C');
-          for (int j = 0; j < pr.getSymbolVector().at(i).Size(); j++)
-            auxString.push_back(pr.getSymbolVector().at(i).position(j));
+          for (int j = 0; j < pr.getChain().Position(i).Size(); j++)
+            auxString.push_back(pr.getChain().Position(i).position(j));
 
           Symbol Cs(auxString);
           // Se inserta el simbolo designado al conjunto de simbolos no
@@ -140,14 +140,15 @@ void Grammar::convertToCNF() {
           // Inserto la (nueva) produccion de simbolo terminal al conjunto de
           // producciones
           ProductionRule terminalSymbolProduction(Cs,
-                                                  pr.getSymbolVector().at(i));
+                                                  pr.getChain().Position(i));
           productionRules_.insert(terminalSymbolProduction);
 
           // Modificar la produccion cambiando simbolo terminal por su
           // produccion
-          std::vector<Symbol> prVector(pr.getSymbolVector());
-          prVector.at(i) = Cs;
-          ProductionRule correctedProd(pr.getNonFinalSymbol(), prVector);
+          Chain prChain(pr.getChain());
+          //prChain.Position(i) = Cs;
+          prChain.assign(i,Cs);
+          ProductionRule correctedProd(pr.getNonFinalSymbol(), prChain);
           productionRules_.insert(correctedProd);
         }
       }
@@ -161,10 +162,10 @@ void Grammar::convertToCNF() {
   // Reducir a 2 numero estados no terminales
   char initialCharacter = 'D';
   for (auto pr : productionRules_) {
-    ProductionRule referenceProduction(pr.getNonFinalSymbol(),pr.getSymbolVector());
-    int counter = referenceProduction.getSymbolVector().size() - 2;
+    ProductionRule referenceProduction(pr.getNonFinalSymbol(),pr.getChain());
+    int counter = referenceProduction.getChain().Size() - 2;
     bool modified = false;
-    while (referenceProduction.getSymbolVector().size() > 2) {
+    while (referenceProduction.getChain().Size() > 2) {
       modified = true;
       toEraseSet.insert(referenceProduction); // Enviar referenceProductionoduccion para que sea borrada
       std::string sustNonTerminalSymbolId {initialCharacter};
@@ -173,17 +174,17 @@ void Grammar::convertToCNF() {
       Symbol newNonTerminalSymbol(sustNonTerminalSymbolId);
       nonTerminalSymbol_.insert(newNonTerminalSymbol);
       std::vector<Symbol> newProductionVectorSymbol {
-        referenceProduction.getSymbolVector().at(
-          referenceProduction.getSymbolVector().size()-2), 
-        referenceProduction.getSymbolVector().at(
-          referenceProduction.getSymbolVector().size()-1)
+        referenceProduction.getChain().Position(
+          referenceProduction.getChain().Size()-2), 
+        referenceProduction.getChain().Position(
+          referenceProduction.getChain().Size()-1)
       };
       ProductionRule newProduction(newNonTerminalSymbol,
         newProductionVectorSymbol);
       productionRules_.insert(newProduction);
       std::vector<Symbol> sustitutionSymbolVector;
-      for (int i = 0; i < referenceProduction.getSymbolVector().size() - 2; i++)
-        sustitutionSymbolVector.push_back(pr.getSymbolVector().at(i));
+      for (int i = 0; i < referenceProduction.getChain().Size() - 2; i++)
+        sustitutionSymbolVector.push_back(pr.getChain().Position(i));
       sustitutionSymbolVector.push_back(newNonTerminalSymbol);
       ProductionRule sustitutionProduction(referenceProduction.getNonFinalSymbol(),sustitutionSymbolVector);
       productionRules_.insert(sustitutionProduction);
@@ -287,7 +288,7 @@ std::ostream &operator<<(std::ostream &os, Grammar &paramGrammar) {
       int iterator = 0;
       for (auto production : paramGrammar.productionRules_) {
         if (production.getNonFinalSymbol() == symbol) {
-          for (auto vectorSymbol : production.getSymbolVector())
+          for (auto vectorSymbol : production.getChain())
             os << vectorSymbol;
           if ((productionsNumber - 1) > iterator)
             os << " | ";

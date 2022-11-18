@@ -25,12 +25,12 @@
  * @param paramDestinationState Estado destino
  */
 ProductionRule::ProductionRule(Symbol nonTerminalSymbol,
-                               std::vector<Symbol> symbolVector)
-    : nonTerminalSymbol_(nonTerminalSymbol), symbolVector_(symbolVector) {}
+                               Chain paramChain)
+    : nonTerminalSymbol_(nonTerminalSymbol), chain_(paramChain) {}
 
 ProductionRule::ProductionRule(Symbol nonTerminalSymbol, Symbol symbol)
     : nonTerminalSymbol_(nonTerminalSymbol) {
-  symbolVector_.push_back(symbol);
+  chain_.AddSymbol(nonTerminalSymbol);
 }
 
 /**
@@ -51,29 +51,24 @@ Symbol ProductionRule::getNonFinalSymbol() const { return nonTerminalSymbol_; }
  *
  * @return State
  */
-std::vector<Symbol> ProductionRule::getSymbolVector() { return symbolVector_; }
-
-void ProductionRule::setSymbolVector(std::vector<Symbol> paramVector) {
-  symbolVector_.clear();
-  symbolVector_ = paramVector;
-}
+Chain ProductionRule::getChain() { return chain_; }
 
 int ProductionRule::getType(std::set<Symbol> paramNonTerminal) {
-  if (paramNonTerminal.count(symbolVector_.front()) != 0) {
-    for (size_t i = 1; i < symbolVector_.size(); i++) {
-      if ((paramNonTerminal.count(symbolVector_.at(i)) != 0))
+  if (paramNonTerminal.count(chain_.Position(0)) != 0) {
+    for (int i = 1; i < chain_.Size(); i++) {
+      if ((paramNonTerminal.count(chain_.Position(i)) != 0))
         return -1; // No regular
     }
     return 1; // Regular izquierda
   }
-  if (paramNonTerminal.count(symbolVector_.back()) != 0) {
-    for (size_t i = 0; i < symbolVector_.size() - 1; i++) {
-      if (paramNonTerminal.count(symbolVector_.at(i)) != 0)
+  if (paramNonTerminal.count(chain_.back()) != 0) {
+    for (int i = 0; i < chain_.Size() - 1; i++) {
+      if (paramNonTerminal.count(chain_.Position(i)) != 0)
         return -1; // No regular
     }
     return 2; // Regular derecha
   }
-  for (auto symbol : symbolVector_) {
+  for (auto symbol : chain_) {
     if (paramNonTerminal.count(symbol) != 0)
       return -1; // No regular
   }
@@ -91,25 +86,25 @@ int ProductionRule::getType(std::set<Symbol> paramNonTerminal) {
 bool ProductionRule::operator<(const ProductionRule paramProductionRule) const {
   if (!(nonTerminalSymbol_ == paramProductionRule.getNonFinalSymbol()))
     return (nonTerminalSymbol_ < paramProductionRule.getNonFinalSymbol());
-  if (symbolVector_.size() != paramProductionRule.symbolVector_.size())
-    return (symbolVector_.size() < paramProductionRule.symbolVector_.size());
-  for (size_t i = 0; i < symbolVector_.size() - 1; i++) {
-    if (!(symbolVector_.at(i) == paramProductionRule.symbolVector_.at(i)))
-      return (symbolVector_.at(i) < paramProductionRule.symbolVector_.at(i));
+  if (chain_.Size() != paramProductionRule.chain_.Size())
+    return (chain_.Size() < paramProductionRule.chain_.Size());
+  for (int i = 0; i < chain_.Size() - 1; i++) {
+    if (!(chain_.Position(i) == paramProductionRule.chain_.Position(i)))
+      return (chain_.Position(i) < paramProductionRule.chain_.Position(i));
   }
-  return (symbolVector_.back() < paramProductionRule.symbolVector_.back());
+  return (chain_.back() < paramProductionRule.chain_.back());
 }
 
 void ProductionRule::operator=(const ProductionRule paramProduction) {
   nonTerminalSymbol_ = paramProduction.nonTerminalSymbol_;
-  symbolVector_ = paramProduction.symbolVector_;
+  chain_ = paramProduction.chain_;
 }
 
 bool ProductionRule::operator==(
     const ProductionRule paramProductionRule) const {
   if (!(nonTerminalSymbol_ == paramProductionRule.getNonFinalSymbol()))
     return false;
-  if (symbolVector_ != paramProductionRule.symbolVector_)
+  if (!(chain_ == paramProductionRule.chain_))
     return false;
   return true;
 }
@@ -124,7 +119,7 @@ bool ProductionRule::operator==(
 std::ostream &operator<<(std::ostream &os,
                          ProductionRule &paramProductionRule) {
   os << paramProductionRule.nonTerminalSymbol_ << " -> ";
-  for (auto symbol : paramProductionRule.symbolVector_) {
+  for (auto symbol : paramProductionRule.chain_) {
     os << symbol;
   }
   return os;
@@ -140,7 +135,7 @@ std::ostream &operator<<(std::ostream &os,
 std::ostream &operator<<(std::ostream &os,
                          const ProductionRule &paramProductionRule) {
   os << paramProductionRule.nonTerminalSymbol_ << " -> ";
-  for (auto symbol : paramProductionRule.symbolVector_) {
+  for (auto symbol : paramProductionRule.chain_) {
     os << symbol;
   }
   return os;

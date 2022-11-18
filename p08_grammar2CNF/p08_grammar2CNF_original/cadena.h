@@ -19,6 +19,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 #pragma once
 
@@ -36,6 +37,12 @@ public:
   // Getters y setters
   Symbol Position(int) const;
   int Size(void) const;
+  Symbol back(void) const;
+  void assign(int, Symbol);
+
+  // Para for auto
+  std::vector<Symbol>::const_iterator begin() const;
+  std::vector<Symbol>::const_iterator end() const;
 
   // Operaciones
   void AddSymbol(Symbol);
@@ -52,6 +59,7 @@ public:
   // Sobrecarga operadores
   bool operator<(const Chain) const;
   friend std::ostream &operator<<(std::ostream &, const Chain &);
+  void operator=(const Chain);
   bool operator==(const Chain &) const;
 
 private:
