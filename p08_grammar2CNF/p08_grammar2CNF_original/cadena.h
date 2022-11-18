@@ -17,9 +17,9 @@
 
 #include "simbolo.h"
 
+#include <algorithm>
 #include <iostream>
 #include <vector>
-#include <algorithm>
 
 #pragma once
 

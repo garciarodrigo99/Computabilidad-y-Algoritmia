@@ -70,21 +70,17 @@ Chain::Chain(std::string paramChain) {
   }
 }
 
-Symbol Chain::back() const {
-  return chain_.back();
-}
+Symbol Chain::back() const { return chain_.back(); }
 
 void Chain::assign(int index, Symbol paramSymbol) {
   chain_.at(index) = paramSymbol;
 }
 
-std::vector<Symbol>::const_iterator Chain::begin() const{
+std::vector<Symbol>::const_iterator Chain::begin() const {
   return chain_.begin();
 }
 
-std::vector<Symbol>::const_iterator Chain::end() const{
-  return chain_.end();
-}
+std::vector<Symbol>::const_iterator Chain::end() const { return chain_.end(); }
 
 /**
  * @brief Getter del index lemento de la cadena
@@ -335,7 +331,7 @@ std::ostream &operator<<(std::ostream &os, const Chain &paramChain) {
 
 void Chain::operator=(const Chain paramChain) {
   chain_.clear();
-  for (int i=0; i < paramChain.Size(); i++)
+  for (int i = 0; i < paramChain.Size(); i++)
     chain_.push_back(paramChain.Position(i));
 }
 

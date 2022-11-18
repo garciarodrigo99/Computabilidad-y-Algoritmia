@@ -24,8 +24,7 @@
  * @param paramSymbol Simbolo
  * @param paramDestinationState Estado destino
  */
-ProductionRule::ProductionRule(Symbol nonTerminalSymbol,
-                               Chain paramChain)
+ProductionRule::ProductionRule(Symbol nonTerminalSymbol, Chain paramChain)
     : nonTerminalSymbol_(nonTerminalSymbol), chain_(paramChain) {}
 
 ProductionRule::ProductionRule(Symbol nonTerminalSymbol, Symbol symbol)

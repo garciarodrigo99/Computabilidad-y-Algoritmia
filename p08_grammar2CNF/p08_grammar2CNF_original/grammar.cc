@@ -64,7 +64,7 @@ Grammar::Grammar(std::string fileName) {
     std::vector<std::string> splittedLine(SplitChainGrammar(linea));
     Chain auxChain;
     if (!((splittedLine.at(2).size() == 1) &&
-        (splittedLine.at(2).at(0) == kEmptyChain))) {
+          (splittedLine.at(2).at(0) == kEmptyChain))) {
       for (auto symbol : splittedLine.at(2)) {
         std::string auxString;
         auxString.push_back(symbol);
@@ -113,8 +113,9 @@ void Grammar::addTerminalSymbol(Symbol paramSymbol) {
 
 void Grammar::convertToCNF() {
   /* Comprobar que la gramatica no tiene producciones unitarias
-  * Comprobar que la gramatica no tiene producciones vacias menos el de arranque
-  */
+   * Comprobar que la gramatica no tiene producciones vacias menos el de
+   * arranque
+   */
   // Sustituir simbolos terminales
   std::set<ProductionRule> toEraseSet;
   for (auto pr : productionRules_) {
@@ -143,8 +144,8 @@ void Grammar::convertToCNF() {
           // Modificar la produccion cambiando simbolo terminal por su
           // produccion
           Chain prChain(pr.getChain());
-          //prChain.Position(i) = Cs;
-          prChain.assign(i,Cs);
+          // prChain.Position(i) = Cs;
+          prChain.assign(i, Cs);
           ProductionRule correctedProd(pr.getNonFinalSymbol(), prChain);
           productionRules_.insert(correctedProd);
         }
@@ -159,29 +160,31 @@ void Grammar::convertToCNF() {
   // Reducir a 2 numero estados no terminales
   char initialCharacter = 'D';
   for (auto pr : productionRules_) {
-    ProductionRule referenceProduction(pr.getNonFinalSymbol(),pr.getChain());
+    ProductionRule referenceProduction(pr.getNonFinalSymbol(), pr.getChain());
     int counter = referenceProduction.getChain().Size() - 2;
     bool modified = false;
     while (referenceProduction.getChain().Size() > 2) {
       modified = true;
-      toEraseSet.insert(referenceProduction); // Enviar referenceProductionoduccion para que sea borrada
-      std::string sustNonTerminalSymbolId {initialCharacter};
+      toEraseSet.insert(
+          referenceProduction); // Enviar referenceProductionoduccion para que
+                                // sea borrada
+      std::string sustNonTerminalSymbolId{initialCharacter};
       sustNonTerminalSymbolId.append(std::to_string(counter));
       counter--;
       Symbol newNonTerminalSymbol(sustNonTerminalSymbolId);
       nonTerminalSymbol_.insert(newNonTerminalSymbol);
       Chain newProductionChain(referenceProduction.getChain().Position(
-          referenceProduction.getChain().Size()-2)); 
+          referenceProduction.getChain().Size() - 2));
       newProductionChain.AddSymbol(referenceProduction.getChain().Position(
-          referenceProduction.getChain().Size()-1));
-      ProductionRule newProduction(newNonTerminalSymbol,
-        newProductionChain);
+          referenceProduction.getChain().Size() - 1));
+      ProductionRule newProduction(newNonTerminalSymbol, newProductionChain);
       productionRules_.insert(newProduction);
       Chain sustitutionChain;
       for (int i = 0; i < referenceProduction.getChain().Size() - 2; i++)
         sustitutionChain.AddSymbol(pr.getChain().Position(i));
       sustitutionChain.AddSymbol(newNonTerminalSymbol);
-      ProductionRule sustitutionProduction(referenceProduction.getNonFinalSymbol(),sustitutionChain);
+      ProductionRule sustitutionProduction(
+          referenceProduction.getNonFinalSymbol(), sustitutionChain);
       productionRules_.insert(sustitutionProduction);
       referenceProduction = sustitutionProduction;
     }
@@ -192,7 +195,6 @@ void Grammar::convertToCNF() {
   for (auto erase : toEraseSet)
     productionRules_.erase(erase);
   toEraseSet.clear(); // Limpiar set
-
 }
 
 bool Grammar::isRegular() {

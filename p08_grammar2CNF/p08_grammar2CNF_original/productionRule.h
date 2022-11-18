@@ -15,8 +15,8 @@
  * @copyright Copyright (c) 2022
  */
 
-#include "simbolo.h"
 #include "cadena.h"
+#include "simbolo.h"
 
 #include <iostream>
 #include <set>
