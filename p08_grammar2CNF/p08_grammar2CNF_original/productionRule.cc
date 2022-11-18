@@ -100,6 +100,11 @@ bool ProductionRule::operator<(const ProductionRule paramProductionRule) const {
   return (symbolVector_.back() < paramProductionRule.symbolVector_.back());
 }
 
+void ProductionRule::operator=(const ProductionRule paramProduction) {
+  nonTerminalSymbol_ = paramProduction.nonTerminalSymbol_;
+  symbolVector_ = paramProduction.symbolVector_;
+}
+
 bool ProductionRule::operator==(
     const ProductionRule paramProductionRule) const {
   if (!(nonTerminalSymbol_ == paramProductionRule.getNonFinalSymbol()))

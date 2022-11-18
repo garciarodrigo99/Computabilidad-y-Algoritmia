@@ -30,6 +30,8 @@ Grammar::Grammar(std::string fileName) {
   // Simbolos terminales
   getline(archivo, linea);
   int nTerminalSymbol = stoi(linea);
+  // Comprobar mayor que 0
+  // Coger solo hasta el primer espacio
   for (int i = 0; i < nTerminalSymbol; i++) {
     getline(archivo, linea);
     Symbol auxSymbol(linea.front());
@@ -39,6 +41,8 @@ Grammar::Grammar(std::string fileName) {
   // Simbolos no terminales
   getline(archivo, linea);
   int nNonTerminalSymbol = stoi(linea);
+  // Comprobar mayor que 0
+  // Coger solo hasta el primer espacio
   for (int i = 0; i < nNonTerminalSymbol; i++) {
     getline(archivo, linea);
     Symbol auxSymbol(linea.front());
@@ -111,6 +115,9 @@ void Grammar::addTerminalSymbol(Symbol paramSymbol) {
 }
 
 void Grammar::convertToCNF() {
+  /* Comprobar que la gramatica no tiene producciones unitarias
+  * Comprobar que la gramatica no tiene producciones vacias menos el de arranque
+  */
   // Sustituir simbolos terminales
   std::set<ProductionRule> toEraseSet;
   for (auto pr : productionRules_) {
@@ -152,8 +159,45 @@ void Grammar::convertToCNF() {
   toEraseSet.clear(); // Limpiar set
 
   // Reducir a 2 numero estados no terminales
+  char initialCharacter = 'D';
   for (auto pr : productionRules_) {
+    ProductionRule referenceProduction(pr.getNonFinalSymbol(),pr.getSymbolVector());
+    int counter = 0;
+    //int counter = referenceProduction.getSymbolVector().size() - 1;
+    while (referenceProduction.getSymbolVector().size() > 2) {
+      toEraseSet.insert(referenceProduction); // Enviar referenceProductionoduccion para que sea borrada
+      counter++;
+      std::string sustNonTerminalSymbolId {initialCharacter};
+      sustNonTerminalSymbolId.append(std::to_string(counter));
+      //counter--;
+      Symbol newNonTerminalSymbol(sustNonTerminalSymbolId);
+      nonTerminalSymbol_.insert(newNonTerminalSymbol);
+      std::vector<Symbol> newProductionVectorSymbol {
+        referenceProduction.getSymbolVector().at(
+          referenceProduction.getSymbolVector().size()-2), 
+        referenceProduction.getSymbolVector().at(
+          referenceProduction.getSymbolVector().size()-1)
+      };
+      ProductionRule newProduction(newNonTerminalSymbol,
+        newProductionVectorSymbol);
+      productionRules_.insert(newProduction);
+      std::vector<Symbol> sustitutionSymbolVector;
+      for (int i = 0; i < referenceProduction.getSymbolVector().size() - 2; i++)
+        sustitutionSymbolVector.push_back(pr.getSymbolVector().at(i));
+      sustitutionSymbolVector.push_back(newNonTerminalSymbol);
+      ProductionRule sustitutionProduction(referenceProduction.getNonFinalSymbol(),sustitutionSymbolVector);
+      productionRules_.insert(sustitutionProduction);
+      referenceProduction = sustitutionProduction;
+    }
+    // if (counter == 0)
+    if (counter > 0)
+      initialCharacter++; // Corregir
   }
+  // Borrar las producciones obsoletas tras la primera pasada
+  for (auto erase : toEraseSet)
+    productionRules_.erase(erase);
+  toEraseSet.clear(); // Limpiar set
+
 }
 
 bool Grammar::isRegular() {
@@ -236,6 +280,11 @@ void Grammar::operator=(const Grammar &paramGrammar) {
 std::ostream &operator<<(std::ostream &os, Grammar &paramGrammar) {
   std::cout << "Simbolo de arranque: " << paramGrammar.startSymbolId_
             << std::endl;
+
+  std::cout << "Simbolos no terminales: ";
+  for (auto symbol : paramGrammar.nonTerminalSymbol_)
+    std::cout << symbol << " ";
+  std::endl(std::cout);
 
   for (auto symbol : paramGrammar.nonTerminalSymbol_) {
     int productionsNumber = paramGrammar.getNProductions(symbol);

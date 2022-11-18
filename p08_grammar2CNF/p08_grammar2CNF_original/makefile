@@ -2,7 +2,7 @@
 
 MAIN_FILE = $(cliente)cya-P08-Grammar2CNF.cc
 SRC_FILES = $(alfabeto)alfabeto.cc $(automata)automata.cc $(cadena)cadena.cc $(estados)estados.cc $(lenguaje)lenguaje.cc $(simbolo)simbolo.cc $(transicion)transicion.cc $(prRule)productionRule.cc $(grammar)grammar.cc
-EXECUTABLE_FILE = $(exe)p07_grammar
+EXECUTABLE_FILE = $(exe)p08_Grammar2CNF
 ERROR_FILE = $(error)error.txt
 
 # If the first argument is "run"...

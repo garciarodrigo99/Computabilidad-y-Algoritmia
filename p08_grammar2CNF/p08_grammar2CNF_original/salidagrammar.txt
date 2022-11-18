@@ -1,0 +1,12 @@
+Simbolo de arranque: S
+S -> ab | aXb | abX | aXbX
+X -> a | b | aY | bY
+Y -> a | b | c | aY | bY
+
+Simbolo de arranque: S
+S -> CaCb | CaXCb | CaCbX | CaXCbX
+X -> a | b | CaY | CbY
+Y -> a | b | c | CaY | CbY
+Ca -> a
+Cb -> b
+

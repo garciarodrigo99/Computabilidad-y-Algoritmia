@@ -39,6 +39,7 @@ public:
   // Sobrecarga de operadores
   bool operator<(const ProductionRule) const;
   bool operator==(const ProductionRule) const;
+  void operator=(const ProductionRule);
   friend std::ostream &operator<<(std::ostream &, ProductionRule &);
   friend std::ostream &operator<<(std::ostream &, const ProductionRule &);
 
