@@ -114,28 +114,35 @@ void Grammar::addTerminalSymbol(Symbol paramSymbol) {
 
 void Grammar::convertToCFG() {
   // Sustituir simbolos terminales
+  std::set<ProductionRule> toEraseSet;
   for (auto pr : productionRules_) {
     if (pr.getSymbolVector().size() > 1) {
       std::cout << "Produccion: " << pr << std::endl;
-      for (int i = 0; i < pr.getSymbolVector().size(); i++) {
+      for (size_t i = 0; i < pr.getSymbolVector().size(); i++) {
         if (terminalSymbol_.count(pr.getSymbolVector().at(i)) != 0) {
+          toEraseSet.insert(pr);
           std::string auxString;
           auxString.push_back('C');
-          for (int i = 0; i < pr.getSymbolVector().at(i).Size(); i++)
-            auxString.push_back(pr.getSymbolVector().at(i).position(i));
+          for (int j = 0; j < pr.getSymbolVector().at(i).Size(); j++)
+            auxString.push_back(pr.getSymbolVector().at(i).position(j));
           Symbol Cs(auxString);
           nonTerminalSymbol_.insert(Cs);
           std::cout << pr.getSymbolVector().at(i) << " -> " << Cs << std::endl;
-          ProductionRule auxProd(Cs,pr.getSymbolVector().at(i));
-          std::cout << "Produccion: " << auxProd << std::endl;
-          std::cout << "Insertada?: " << std::boolalpha << productionRules_.insert(auxProd).second << std::endl;
-          pr.getSymbolVector().at(i) = Cs;
+          ProductionRule terminalSymbolProduction(Cs,pr.getSymbolVector().at(i));
+          std::cout << "Produccion: " << terminalSymbolProduction << std::endl;
+          std::cout << "Insertada?: " << std::boolalpha << productionRules_.insert(terminalSymbolProduction).second << std::endl;
+          std::vector<Symbol> prVector(pr.getSymbolVector());
+          prVector.at(i) = Cs;
+          ProductionRule correctedProd(pr.getNonFinalSymbol(),prVector);
+          productionRules_.insert(correctedProd);
           std::cout << "¿Nuevo symbol?: " << pr.getSymbolVector().at(i) << std::endl;
         }
       }
       std::endl(std::cout);
     }
   }
+  for (auto erase : toEraseSet)
+    productionRules_.erase(erase);
   // Reducir a 2 numero estados no terminales
   for (auto pr : productionRules_) {
     

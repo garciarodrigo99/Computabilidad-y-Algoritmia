@@ -61,6 +61,7 @@ int main(int argc, char *argv[]) {
   grammarToCheck.convertToCFG();
   std::cout << grammarToCheck << std::endl;
   //grammarToCheck.writeFile(dfaToGrammarFileName);
+  
 
   return 0;
 }

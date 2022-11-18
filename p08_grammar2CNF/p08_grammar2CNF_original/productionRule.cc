@@ -51,8 +51,13 @@ Symbol ProductionRule::getNonFinalSymbol() const { return nonTerminalSymbol_; }
  *
  * @return State
  */
-std::vector<Symbol> ProductionRule::getSymbolVector() const {
+std::vector<Symbol> ProductionRule::getSymbolVector() {
   return symbolVector_;
+}
+
+void ProductionRule::setSymbolVector(std::vector<Symbol> paramVector) {
+  symbolVector_.clear();
+  symbolVector_ = paramVector;
 }
 
 int ProductionRule::getType(std::set<Symbol> paramNonTerminal) {
