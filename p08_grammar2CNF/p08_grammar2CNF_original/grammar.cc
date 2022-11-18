@@ -170,20 +170,18 @@ void Grammar::convertToCNF() {
       counter--;
       Symbol newNonTerminalSymbol(sustNonTerminalSymbolId);
       nonTerminalSymbol_.insert(newNonTerminalSymbol);
-      std::vector<Symbol> newProductionVectorSymbol {
-        referenceProduction.getChain().Position(
-          referenceProduction.getChain().Size()-2), 
-        referenceProduction.getChain().Position(
-          referenceProduction.getChain().Size()-1)
-      };
+      Chain newProductionChain(referenceProduction.getChain().Position(
+          referenceProduction.getChain().Size()-2)); 
+      newProductionChain.AddSymbol(referenceProduction.getChain().Position(
+          referenceProduction.getChain().Size()-1));
       ProductionRule newProduction(newNonTerminalSymbol,
-        newProductionVectorSymbol);
+        newProductionChain);
       productionRules_.insert(newProduction);
-      std::vector<Symbol> sustitutionSymbolVector;
+      Chain sustitutionChain;
       for (int i = 0; i < referenceProduction.getChain().Size() - 2; i++)
-        sustitutionSymbolVector.push_back(pr.getChain().Position(i));
-      sustitutionSymbolVector.push_back(newNonTerminalSymbol);
-      ProductionRule sustitutionProduction(referenceProduction.getNonFinalSymbol(),sustitutionSymbolVector);
+        sustitutionChain.AddSymbol(pr.getChain().Position(i));
+      sustitutionChain.AddSymbol(newNonTerminalSymbol);
+      ProductionRule sustitutionProduction(referenceProduction.getNonFinalSymbol(),sustitutionChain);
       productionRules_.insert(sustitutionProduction);
       referenceProduction = sustitutionProduction;
     }

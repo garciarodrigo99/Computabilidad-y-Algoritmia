@@ -32,7 +32,6 @@ public:
 
   // Getters y setters
   Symbol getNonFinalSymbol() const;
-  // std::vector<Symbol> getSymbolVector() const;
   Chain getChain();
   int getType(std::set<Symbol>);
 

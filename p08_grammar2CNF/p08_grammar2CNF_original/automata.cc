@@ -220,20 +220,20 @@ Grammar Automata::convertToGrammar() {
     dfaGrammar.setStartSymbol(search->second);
 
   for (auto transition : trFunction_) {
-    std::vector<Symbol> auxVectorSymbol;
-    auxVectorSymbol.push_back(transition.getSymbol());
+    Chain auxChain;
+    auxChain.AddSymbol(transition.getSymbol());
     if (auto search = mapStateNonTerminalSymbol.find(
             transition.getDestinationState().getIdentifier());
         search != mapStateNonTerminalSymbol.end()) {
       Symbol auxSymbol(search->second);
-      auxVectorSymbol.push_back(auxSymbol);
+      auxChain.AddSymbol(auxSymbol);
     }
 
     if (auto search = mapStateNonTerminalSymbol.find(
             transition.getOriginState().getIdentifier());
         search != mapStateNonTerminalSymbol.end()) {
       Symbol auxSymbol(search->second);
-      ProductionRule auxProdRule(auxSymbol, auxVectorSymbol);
+      ProductionRule auxProdRule(auxSymbol, auxChain);
       dfaGrammar.addProductionRule(auxProdRule);
     }
   }
