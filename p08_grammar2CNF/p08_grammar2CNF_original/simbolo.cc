@@ -36,7 +36,7 @@ Symbol::Symbol(const std::string paramString) {
 
 Symbol::Symbol(char paramString) {
   symbol_.push_back(paramString);
-  // Se suprime assert para trabajar en con la clase gramatica
+  assert(CheckSimbols(*this));
 }
 
 /**

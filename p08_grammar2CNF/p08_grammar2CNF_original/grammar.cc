@@ -62,20 +62,17 @@ Grammar::Grammar(std::string fileName) {
   for (int i = 0; i < nProductions; i++) {
     getline(archivo, linea);
     std::vector<std::string> splittedLine(SplitChainGrammar(linea));
-    std::vector<Symbol> auxSymbolVector;
-    if ((splittedLine.at(2).size() == 1) &&
-        (splittedLine.at(2).at(0) == kEmptyChain)) {
-      Symbol emptyChain(kEmptyChain);
-      auxSymbolVector.push_back(emptyChain);
-    } else {
+    Chain auxChain;
+    if (!((splittedLine.at(2).size() == 1) &&
+        (splittedLine.at(2).at(0) == kEmptyChain))) {
       for (auto symbol : splittedLine.at(2)) {
         std::string auxString;
         auxString.push_back(symbol);
         Symbol auxSymbol(auxString);
-        auxSymbolVector.push_back(auxSymbol);
+        auxChain.AddSymbol(auxSymbol);
       }
     }
-    ProductionRule auxProductionRule(splittedLine.at(0), auxSymbolVector);
+    ProductionRule auxProductionRule(splittedLine.at(0), auxChain);
     addProductionRule(auxProductionRule);
   }
 }

@@ -208,11 +208,9 @@ Grammar Automata::convertToGrammar() {
     string_id.push_back(nonTerminalSymbolId);
     dfaGrammar.addNonTerminalSymbol(string_id);
     if (isFinalState(states)) {
-      Symbol emptychain(kEmptyChain);
+      Chain emptychain;
       Symbol nonTerminalSymbol(string_id);
-      std::vector<Symbol> auxVectorSymbol;
-      auxVectorSymbol.push_back(emptychain);
-      ProductionRule auxProdRule(nonTerminalSymbol, auxVectorSymbol);
+      ProductionRule auxProdRule(nonTerminalSymbol, emptychain);
       dfaGrammar.addProductionRule(auxProdRule);
     }
     mapStateNonTerminalSymbol.insert({states.getIdentifier(), string_id});
