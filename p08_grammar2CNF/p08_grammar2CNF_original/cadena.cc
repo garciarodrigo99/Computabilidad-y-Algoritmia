@@ -6,11 +6,11 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Fichero de implementación de la clase Chain.
  * Se define la clase Chain con sus métodos y atributos
  * @version 2.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  * @link
@@ -38,7 +38,7 @@ Chain::Chain() {}
  * Constructor con simbolo, todos menos cadena vacia
  * @param paramChain Primer simbolo de la cadena
  */
-Chain::Chain(Symbol paramChain) : Chain() { chain_.push_back(paramChain); }
+Chain::Chain(Symbol paramSymbol) : Chain() { chain_.push_back(paramSymbol); }
 
 /**
  * @brief Construct a new Chain:: Chain object
@@ -56,9 +56,15 @@ Chain::Chain(std::vector<Symbol> symbolVector) {
  * Constructor de copia de la clase
  * @param paramChain Cadena
  */
-Chain::Chain(const Chain &paramChain)
-    : chain_(paramChain.chain_) {} // Comprobar
+Chain::Chain(const Chain &paramChain) : chain_(paramChain.chain_) {}
 
+/**
+ * @brief Construct a new Chain:: Chain object
+ * Constructor que, a partir de una cadena(std) va a añadiendo cada caracter
+ * de la cadena como si fuera un simbolo
+ * 
+ * @param paramChain 
+ */
 Chain::Chain(std::string paramChain) {
   if ((paramChain.size() == 1) && (paramChain.at(0) == kEmptyChain))
     Chain();
@@ -69,18 +75,22 @@ Chain::Chain(std::string paramChain) {
     }
   }
 }
-
-Symbol Chain::back() const { return chain_.back(); }
-
+ /**
+  * @brief Asigna un simbolo como simbolo de la cadena en la 'index' posicion
+  * 
+  * @param index Posicion de la cadena
+  * @param paramSymbol Simbolo a establecer
+  */
 void Chain::assign(int index, Symbol paramSymbol) {
   chain_.at(index) = paramSymbol;
 }
 
-std::vector<Symbol>::const_iterator Chain::begin() const {
-  return chain_.begin();
-}
-
-std::vector<Symbol>::const_iterator Chain::end() const { return chain_.end(); }
+/**
+ * @brief Metodo para devolver el ultimo simbolo de la cadena
+ * 
+ * @return Symbol 
+ */
+Symbol Chain::back() const { return chain_.back(); }
 
 /**
  * @brief Getter del index lemento de la cadena
@@ -101,6 +111,26 @@ Symbol Chain::Position(int index) const {
 int Chain::Size() const { return chain_.size(); }
 
 /**
+ * @brief "Sobrecarga" de la función begin para que se pueda recorrer el vector
+ * de simbolos en los for de tipo 'auto'
+ * 
+ * @return std::vector<Symbol>::const_iterator Iterador a la primera posicion
+ * de la cadena
+ */
+std::vector<Symbol>::const_iterator Chain::begin() const {
+  return chain_.begin();
+}
+
+/**
+ * @brief "Sobrecarga" de la función begin para que se pueda recorrer el vector
+ * de simbolos en los for de tipo 'auto'
+ * 
+ * @return std::vector<Symbol>::const_iterator Iterador a la ultima posicion
+ * de la cadena
+ */
+std::vector<Symbol>::const_iterator Chain::end() const { return chain_.end(); }
+
+/**
  * @brief Añadir simbolo a la cadena
  *
  * @param paramSymbol Symbol a añadir
@@ -119,14 +149,14 @@ Chain Chain::Concatenate(const Chain &original, const Chain &adder) {
   Chain empty_chain;
   // Primera cadena no es cadena vacia
   if (!(original == empty_chain)) {
-    for (int i = 0; i < original.Size(); i++) {
-      concatenated.AddSymbol(original.Position(i));
+    for (auto symbol : original) {
+      concatenated.AddSymbol(symbol);
     }
   }
   // Segunda cadena no es cadena vacia
   if (!(adder == empty_chain)) {
-    for (int i = 0; i < adder.Size(); i++) {
-      concatenated.AddSymbol(adder.Position(i));
+    for (auto symbol : adder) {
+      concatenated.AddSymbol(symbol);
     }
   }
   return concatenated;
@@ -139,8 +169,8 @@ Chain Chain::Concatenate(const Chain &original, const Chain &adder) {
  */
 Alphabet Chain::GenerateAlphabet(void) {
   std::set<Symbol> symbol_set;
-  for (size_t i = 0; i < chain_.size(); i++) {
-    symbol_set.insert(chain_.at(i));
+  for (auto symbol : chain_) {
+    symbol_set.insert(symbol);
   }
   // Cadena vacia
   if (symbol_set.size() == 0) {
@@ -159,30 +189,11 @@ Alphabet Chain::GenerateAlphabet(void) {
  * @return False - El simbolo no esta en la cadena.
  */
 bool Chain::inSymbol(Symbol paramSymbol) {
-  for (size_t i = 0; i < chain_.size(); i++) {
-    if (chain_.at(i).isEqual(paramSymbol))
+  for (auto symbol : chain_) {
+    if (symbol == paramSymbol)
       return true;
   }
   return false;
-}
-
-/**
- * @brief Metodo para saber si una cadena es igual a otra
- *
- * @param paramChain Cadena a comparar
- * @return true - Las cadenas son iguales.
- * @return False - Las cadenas no son iguales.
- */
-bool Chain::isEqual(const Chain &paramChain) const {
-  if (((int)chain_.size()) != paramChain.Size()) {
-    return false;
-  } else {
-    for (size_t i = 0; i < chain_.size(); i++) {
-      if (!(chain_.at(i).isEqual(paramChain.Position(i))))
-        return false;
-    }
-  }
-  return true;
 }
 
 /**
@@ -304,7 +315,7 @@ bool Chain::operator<(const Chain paramChain) const {
 
   // Cadenas mismo tamaño y distinto de 0
   for (size_t i = 0; i < (chain_.size() - 1); i++) {
-    if (!(chain_.at(i).isEqual(paramChain.Position(i)))) {
+    if (!(chain_.at(i) == paramChain.Position(i))) {
       return (chain_.at(i) < paramChain.Position(i));
     }
   }
@@ -322,17 +333,16 @@ std::ostream &operator<<(std::ostream &os, const Chain &paramChain) {
   if (paramChain.Size() == 0) {
     return os << kEmptyChain;
   } else {
-    for (int i = 0; i < paramChain.Size(); i++) {
-      os << paramChain.chain_.at(i);
-    }
+    for (auto symbol : paramChain.chain_)
+      os << symbol;
     return os;
   }
 }
 
 void Chain::operator=(const Chain paramChain) {
   chain_.clear();
-  for (int i = 0; i < paramChain.Size(); i++)
-    chain_.push_back(paramChain.Position(i));
+  for (auto symbol : paramChain)
+    chain_.push_back(symbol);
 }
 
 /**
@@ -342,8 +352,16 @@ void Chain::operator=(const Chain paramChain) {
  * @return true
  * @return false
  */
-bool Chain::operator==(const Chain &param_chain) const {
-  return isEqual(param_chain);
+bool Chain::operator==(const Chain &paramChain) const {
+  if (((int)chain_.size()) != paramChain.Size()) {
+    return false;
+  } else {
+    for (size_t i = 0; i < chain_.size(); i++) {
+      if (!(chain_.at(i) == paramChain.Position(i)))
+        return false;
+    }
+  }
+  return true;
 }
 
 /**
@@ -356,8 +374,8 @@ bool Chain::operator==(const Chain &param_chain) const {
  * @return false No se encuentra la cadena
  */
 bool inVector(std::vector<Chain> param_vector, Chain paramChain) {
-  for (size_t i = 0; i < param_vector.size(); i++) {
-    if (paramChain.isEqual(param_vector.at(i)))
+  for (auto chain: param_vector) {
+    if (paramChain == chain)
       return true;
   }
   return false;

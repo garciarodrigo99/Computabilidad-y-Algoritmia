@@ -6,11 +6,11 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Fichero de implementación de la clase Automata.
  * Se define la clase Automata con sus métodos y atributos
  * @version 1.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  */
@@ -22,6 +22,26 @@
 #include <map>
 #include <string>
 
+/**
+ * @brief Construct a new Automata:: Automata object
+ *
+ * @param paramAlphabet
+ * @param paramInitialState
+ */
+Automata::Automata(Alphabet paramAlphabet, State paramInitialState,
+                  int finalState) : alphabet_(paramAlphabet),
+                  automataIntialState_(paramInitialState.getIdentifier()) {
+  stateSet_.insert(paramInitialState);
+  if (finalState == 1)
+    finalStateSet_.insert(paramInitialState.getIdentifier());
+}
+
+/**
+ * @brief Construct a new Automata:: Automata object
+ * Constructor lectura de fichero
+ * 
+ * @param fileName 
+ */
 Automata::Automata(std::string fileName) {
   std::ifstream archivo(fileName.c_str());
   std::string linea;
@@ -82,20 +102,6 @@ Automata::Automata(std::string fileName) {
   // archivo.close();
 }
 
-/**
- * @brief Construct a new Automata:: Automata object
- *
- * @param paramAlphabet
- * @param paramInitialState
- */
-Automata::Automata(Alphabet paramAlphabet, State paramInitialState,
-                   int finalState)
-    : alphabet_(paramAlphabet),
-      automataIntialState_(paramInitialState.getIdentifier()) {
-  stateSet_.insert(paramInitialState);
-  if (finalState == 1)
-    finalStateSet_.insert(paramInitialState.getIdentifier());
-}
 
 /**
  * @brief Destroy the Automata:: Automata object
@@ -164,35 +170,12 @@ void Automata::addTransition(int actualStateId, Symbol paramSymbol,
   Transition auxTransition(actualStateId, paramSymbol, nextStateId);
   trFunction_.insert(auxTransition);
 }
-
-/**
- * @brief Metodo que recibe el conjunto de estados en los que se encuentra el
- * automata al leer el ultimo simbolo de una cadena, y comprueba si alguno de
- * estos estados es de aceptacion.
- *
- * @param paramStatesSet Conjunto de estados
- * @return true - Alguno de los ultimos estados es de aceptacion.
- * @return false - Ninguno de los ultimos estados es de aceptacion.
- */
-bool Automata::containsFinalState(std::set<State> paramStatesSet) {
-  for (std::set<State>::iterator it = paramStatesSet.begin();
-       it != paramStatesSet.end(); it++) {
-    if (isFinalState(*it))
-      return true;
-  }
-  return false;
-}
-
-bool Automata::isDFA() {
-  for (auto state : stateSet_) {
-    for (auto symbol : alphabet_.getSymbols()) {
-      if (getStatesSet(state, symbol).size() != 1)
-        return false;
-    }
-  }
-  return true;
-}
-
+ /**
+  * @brief Metodo que devuelve una gramatica a partir del DFA. En caso de que
+  * el automata sea NFA salta un assert y termina el programa
+  * 
+  * @return Grammar 
+  */
 Grammar Automata::convertToGrammar() {
   assert(isDFA());
   Grammar dfaGrammar;
@@ -240,9 +223,67 @@ Grammar Automata::convertToGrammar() {
   return dfaGrammar;
 }
 
-bool Automata::isFinalState(State paramState) {
-  if (finalStateSet_.count(paramState.getIdentifier()) > 0)
-    return true;
+/**
+ * @brief Metodo para comprobar si un automata es DFA
+ * 
+ * @return true Es DFA. -
+ * @return false No es DFA.
+ */
+bool Automata::isDFA() {
+  for (auto state : stateSet_) {
+    for (auto symbol : alphabet_.getSymbols()) {
+      if (getStatesSet(state, symbol).size() != 1)
+        return false;
+    }
+  }
+  return true;
+}
+
+/**
+ * @brief Sobrecarga del operador de escritura
+ *
+ * @param os
+ * @param paramFTransition
+ * @return std::ostream&
+ */
+std::ostream &operator<<(std::ostream &os, Automata &paramFTransition) {
+  os << "Alfabeto: " << paramFTransition.alphabet_ << "\n";
+
+  os << ">";
+  if (paramFTransition.isFinalState(paramFTransition.automataIntialState_))
+    os << "((" << paramFTransition.automataIntialState_ << ")) ";
+  else
+    os << "(" << paramFTransition.automataIntialState_ << ") ";
+
+  for (std::set<State>::iterator it = ++paramFTransition.stateSet_.begin();
+       it != paramFTransition.stateSet_.end(); ++it) {
+    if (paramFTransition.isFinalState(*it))
+      os << "((" << *it << ")) ";
+    else
+      os << "(" << *it << ") ";
+  }
+  std::endl(os);
+  for (auto tr : paramFTransition.trFunction_)
+    os << tr << "\n";
+
+  return os;
+}
+
+/**
+ * @brief Metodo que recibe el conjunto de estados en los que se encuentra el
+ * automata al leer el ultimo simbolo de una cadena, y comprueba si alguno de
+ * estos estados es de aceptacion.
+ *
+ * @param paramStatesSet Conjunto de estados
+ * @return true - Alguno de los ultimos estados es de aceptacion.
+ * @return false - Ninguno de los ultimos estados es de aceptacion.
+ */
+bool Automata::containsFinalState(std::set<State> paramStatesSet) {
+  for (std::set<State>::iterator it = paramStatesSet.begin();
+       it != paramStatesSet.end(); it++) {
+    if (isFinalState(*it))
+      return true;
+  }
   return false;
 }
 
@@ -283,6 +324,19 @@ std::set<State> Automata::getStatesSet(State paramState, Symbol paramSymbol) {
 }
 
 /**
+ * @brief Metodo para saber si un estado es estado de aceptacion.
+ * 
+ * @param paramState Estado a evaluar
+ * @return true Es estado de aceptacion. -
+ * @return false No es estado de aceptacion.
+ */
+bool Automata::isFinalState(State paramState) {
+  if (finalStateSet_.count(paramState.getIdentifier()) > 0)
+    return true;
+  return false;
+}
+
+/**
  * @brief Comprueba si el identificador parametro se corresponde con algun
  * identificador del conjunto de estados del automata.
  *
@@ -318,36 +372,6 @@ bool Automata::isTransition(State paramState, Symbol paramSymbol) {
       return true;
   }
   return false;
-}
-
-/**
- * @brief Sobrecarga del operador de escritura
- *
- * @param os
- * @param paramFTransition
- * @return std::ostream&
- */
-std::ostream &operator<<(std::ostream &os, Automata &paramFTransition) {
-  os << "Alfabeto: " << paramFTransition.alphabet_ << "\n";
-
-  os << ">";
-  if (paramFTransition.isFinalState(paramFTransition.automataIntialState_))
-    os << "((" << paramFTransition.automataIntialState_ << ")) ";
-  else
-    os << "(" << paramFTransition.automataIntialState_ << ") ";
-
-  for (std::set<State>::iterator it = ++paramFTransition.stateSet_.begin();
-       it != paramFTransition.stateSet_.end(); ++it) {
-    if (paramFTransition.isFinalState(*it))
-      os << "((" << *it << ")) ";
-    else
-      os << "(" << *it << ") ";
-  }
-  std::endl(os);
-  for (auto tr : paramFTransition.trFunction_)
-    os << tr << "\n";
-
-  return os;
 }
 
 /**

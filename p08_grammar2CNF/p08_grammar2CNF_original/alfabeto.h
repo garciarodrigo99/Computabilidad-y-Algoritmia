@@ -6,11 +6,11 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Cabecera de la clase Alphabet.
  * Se define la clase Alphabet con sus métodos y atributos
  * @version 2.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  * @link https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
@@ -35,6 +35,10 @@ public:
   // Getters y setters
   const std::set<Symbol> getSymbols();
   int Size() const;
+
+  // Iteradores
+  std::set<Symbol>::const_iterator begin() const;
+  std::set<Symbol>::const_iterator end() const;
 
   // Operaciones
   void AddSymbol(Symbol);

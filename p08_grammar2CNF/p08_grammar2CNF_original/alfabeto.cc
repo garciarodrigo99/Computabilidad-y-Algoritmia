@@ -7,11 +7,11 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Fichero de implementación de la clase Alphabet.
  * Se define la clase Alphabet con sus métodos y atributos
  * @version 2.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  * @link https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
@@ -60,6 +60,28 @@ const std::set<Symbol> Alphabet::getSymbols() { return alphabet_; }
  * @return int - Numero de elementos del alfabeto
  */
 int Alphabet::Size() const { return alphabet_.size(); }
+
+
+
+/**
+ * @brief "Sobrecarga" de la función begin para que se pueda recorrer el vector
+ * de simbolos en los for de tipo 'auto'
+ * 
+ * @return std::vector<Symbol>::const_iterator Iterador a la primera posicion
+ * de la cadena
+ */
+std::set<Symbol>::const_iterator Alphabet::begin() const {
+  return alphabet_.begin();
+}
+
+/**
+ * @brief "Sobrecarga" de la función begin para que se pueda recorrer el vector
+ * de simbolos en los for de tipo 'auto'
+ * 
+ * @return std::vector<Symbol>::const_iterator Iterador a la ultima posicion
+ * de la cadena
+ */
+std::set<Symbol>::const_iterator Alphabet::end() const { return alphabet_.end(); }
 
 /**
  * @brief Añadir simbolo al alfabeto

@@ -6,11 +6,11 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Cabecera de la clase Symbol.
  * Se define la clase Symbol con sus métodos y atributos
  * @version 2.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  * @link
@@ -38,14 +38,17 @@ public:
 
   // Operaciones
   bool CheckSimbols(Symbol);
-  bool isEqual(Symbol);
-  bool isEqual(Symbol) const;
-  bool isEqual(std::string);
+
+  // Iteradores
+  std::string::const_iterator begin() const;
+  std::string::const_iterator end() const;
 
   // Sobrecarga de operadores
-  bool operator<(const Symbol) const;
   void operator=(const Symbol);
   bool operator==(const Symbol) const;
+  bool operator==(const Symbol);
+  bool operator==(const std::string);
+  bool operator<(const Symbol) const;
   operator std::string(void) const;
   friend std::ostream &operator<<(std::ostream &, const Symbol &);
 

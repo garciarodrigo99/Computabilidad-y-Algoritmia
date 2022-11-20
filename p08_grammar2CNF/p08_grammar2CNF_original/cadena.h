@@ -6,11 +6,11 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Cabecera de la clase Chain.
  * Se define la clase Chain con sus métodos y atributos.
  * @version 2.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  */
@@ -35,12 +35,12 @@ public:
   Chain(std::string);
 
   // Getters y setters
+  void assign(int, Symbol);
+  Symbol back(void) const;
   Symbol Position(int) const;
   int Size(void) const;
-  Symbol back(void) const;
-  void assign(int, Symbol);
 
-  // Para for auto
+  // Iteradores
   std::vector<Symbol>::const_iterator begin() const;
   std::vector<Symbol>::const_iterator end() const;
 
@@ -49,7 +49,6 @@ public:
   static Chain Concatenate(const Chain &, const Chain &);
   Alphabet GenerateAlphabet(void);
   bool inSymbol(Symbol);
-  bool isEqual(const Chain &) const;
   std::vector<Chain> Prefix();
   Chain Reverse(void);
   Chain Reverse(void) const;

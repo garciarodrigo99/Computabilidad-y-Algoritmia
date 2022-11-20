@@ -6,11 +6,11 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Cabecera de la clase Automata.
  * Se define la clase Automata con sus métodos y atributos
  * @version 1.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  */
@@ -37,8 +37,9 @@ public:
   bool acceptChain(Chain);
   void addState(State, int = 0);
   void addTransition(int, Symbol, int);
-  bool isDFA();
   Grammar convertToGrammar();
+  bool isDFA();
+
   // Sobrecarga de operadores
   friend std::ostream &operator<<(std::ostream &, Automata &);
 

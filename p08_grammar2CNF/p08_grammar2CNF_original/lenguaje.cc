@@ -3,7 +3,7 @@
 // Grado en Ingeniería Informática
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
-// Practica 7: Gramaticas Regulares
+// Practica 8: Gramáticas en Forma Normal de Chomsk
 // Autor: Rodrigo Garcia Jimenez
 // Correo: alu0101154473@ull.edu.es
 // Fecha: 08/11/2022
@@ -52,6 +52,10 @@ int Language::Size() const { return language_.size(); }
 
 // Setter del nombre del lenguaje
 void Language::SetName(std::string id) { language_id_ = id; }
+
+std::set<Chain>::const_iterator Language::begin() const { return language_.begin(); }
+
+std::set<Chain>::const_iterator Language::end() const { return language_.end(); }
 
 // Añadir cadena al lenguaje
 void Language::AddChain(Chain chain_param) { language_.insert(chain_param); }

@@ -6,10 +6,10 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Fichero de implementación de la clase Symbol.
  * @version 2.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  * @link
@@ -67,50 +67,16 @@ int Symbol::Size() const { return symbol_.size(); }
  * @return true si la cadena es correcta y false en caso contrario
  */
 bool Symbol::CheckSimbols(Symbol paramSymbol) {
-  for (int i = 0; i < paramSymbol.Size(); i++) {
-    if (paramSymbol.position(i) == kEmptyChain) {
-      return false;
-    }
-  }
-  return true;
-}
-
-/**
- * @brief Comprueba, comparando con el simbolo por parametro, si un simbolo
- * es igual a otro
- * @param paramSymbol Simbolo a comparar
- * @return True si los simbolos son iguales, false en caso contrario.
- */
-bool Symbol::isEqual(Symbol paramSymbol) {
-  if ((symbol_.compare(paramSymbol.symbol_)) == 0) { // Cambiar
-    return true;
-  } else {
-    return false;
-  }
-}
-
-/**
- * @brief Comprueba, comparando con el simbolo por parametro, si un simbolo es
- * igual a otro. Método para objetos constantes
- * @param paramSymbol Simbolo a comparar
- * @return True si los simbolos son iguales, false en caso contrario.
- */
-bool Symbol::isEqual(Symbol paramSymbol) const {
-  if ((symbol_.compare(paramSymbol.symbol_)) == 0) // Cambiar
-    return true;
-  else
-    return false;
-}
-
-bool Symbol::isEqual(std::string paramString) {
-  if (symbol_.size() != paramString.size())
-    return false;
-  for (size_t i = 0; i < symbol_.size(); i++) {
-    if (symbol_.at(i) != paramString.at(i))
+  for (auto pos : paramSymbol) {
+    if (pos == kEmptyChain)
       return false;
   }
   return true;
 }
+
+std::string::const_iterator Symbol::begin() const { return symbol_.begin(); }
+
+std::string::const_iterator Symbol::end() const { return symbol_.end(); }
 
 void Symbol::operator=(const Symbol paramSymbol) {
   symbol_.clear();
@@ -123,7 +89,33 @@ void Symbol::operator=(const Symbol paramSymbol) {
  * @return
  */
 bool Symbol::operator==(const Symbol paramSymbol) const {
-  return (isEqual(paramSymbol));
+  if ((symbol_.compare(paramSymbol.symbol_)) == 0) return true;
+  else return false;
+}
+
+/**
+ * @brief
+ * @param paramSymbol
+ * @return
+ */
+bool Symbol::operator==(const Symbol paramSymbol) {
+  if ((symbol_.compare(paramSymbol.symbol_)) == 0) return true;
+  else return false;
+}
+
+/**
+ * @brief
+ * @param paramSymbol
+ * @return
+ */
+bool Symbol::operator==(const std::string paramString) {
+  if (symbol_.size() != paramString.size())
+    return false;
+  for (size_t i = 0; i < symbol_.size(); i++) {
+    if (symbol_.at(i) != paramString.at(i))
+      return false;
+  }
+  return true;
 }
 
 /**

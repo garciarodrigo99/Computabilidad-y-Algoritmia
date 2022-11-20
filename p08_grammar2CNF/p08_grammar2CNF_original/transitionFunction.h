@@ -6,7 +6,7 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Cabecera de la clase TransitionFunction.
  * Se define la clase TransitionFunction con sus métodos y atributos
  * Se ha implementado este objeto para establecer un punto medio entre el
@@ -19,7 +19,7 @@
  * @see class Transition
  * @see class Automata
  * @version 1.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  * @link

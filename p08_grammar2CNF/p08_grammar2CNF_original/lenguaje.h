@@ -3,7 +3,7 @@
 // Grado en Ingeniería Informática
 // Asignatura: Computabilidad y Algoritmia
 // Curso: 2º
-// Practica 7: Gramaticas Regulares
+// Practica 8: Gramáticas en Forma Normal de Chomsk
 // Autor: Rodrigo Garcia Jimenez
 // Correo: alu0101154473@ull.edu.es
 // Fecha: 08/11/2022
@@ -36,6 +36,10 @@ public:
   std::string GetNameID() const;
   int Size() const;
   void SetName(std::string);
+
+  // Iteradores
+  std::set<Chain>::const_iterator begin() const;
+  std::set<Chain>::const_iterator end() const;
 
   // Operaciones
   void AddChain(Chain);

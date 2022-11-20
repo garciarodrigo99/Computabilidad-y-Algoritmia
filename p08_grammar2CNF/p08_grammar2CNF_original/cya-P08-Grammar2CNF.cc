@@ -6,10 +6,10 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Programa principal
  * @version 1.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  */
@@ -62,7 +62,8 @@ int main(int argc, char *argv[]) {
   // std::cout << grammarToCheck << std::endl;
   // grammarToCheck.writeFile(dfaToGrammarFileName);
   Grammar auxGrammar;
-  auxGrammar = grammarToCheck.getCNF();
+  auxGrammar = grammarToCheck.getCNFGrammar();
   std::cout << auxGrammar << std::endl;
+  std::cout << grammarToCheck << std::endl;
   return 0;
 }

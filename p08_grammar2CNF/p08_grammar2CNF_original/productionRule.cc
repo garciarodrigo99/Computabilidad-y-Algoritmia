@@ -6,11 +6,11 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Fichero de implementación de la clase ProductionRule.
  * Se define la clase ProductionRule con sus métodos y atributos
  * @version 1.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  */
@@ -39,19 +39,44 @@ ProductionRule::ProductionRule(Symbol nonTerminalSymbol, Symbol symbol)
 ProductionRule::~ProductionRule() {}
 
 /**
- * @brief Getter estado destino
+ * @brief Getter de la cadena de simbolos producidos
+ * Objeto constante
+ *
+ * @return State
+ */
+Chain ProductionRule::getChain() const { return chain_; }
+
+/**
+ * @brief Getter de la cadena de simbolos producidos
+ * 
+ * @return State
+ */
+Chain ProductionRule::getChain() { return chain_; }
+
+/**
+ * @brief Getter simbolo no terminal de la produccion
+ * Objeto constante
  *
  * @return State
  */
 Symbol ProductionRule::getNonFinalSymbol() const { return nonTerminalSymbol_; }
 
 /**
- * @brief Getter estado origen
+ * @brief Getter simbolo no terminal de la produccion
  *
  * @return State
  */
-Chain ProductionRule::getChain() { return chain_; }
+Symbol ProductionRule::getNonFinalSymbol() { return nonTerminalSymbol_; }
 
+/**
+ * @brief Retorna el tipo de regularidad de la producción
+ * 
+ * @param paramNonTerminal Simbolos no terminales de la gramatica
+ * @return int: -1 No regular |
+ * 0 Regular izquierda y derecha |
+ * 1 Regular por la izquierda |
+ * 2 Regular por la derecha
+ */
 int ProductionRule::getType(std::set<Symbol> paramNonTerminal) {
   if (paramNonTerminal.count(chain_.Position(0)) != 0) {
     for (int i = 1; i < chain_.Size(); i++) {
@@ -94,11 +119,23 @@ bool ProductionRule::operator<(const ProductionRule paramProductionRule) const {
   return (chain_.back() < paramProductionRule.chain_.back());
 }
 
+/**
+ * @brief Sobrecarga operador de asignación
+ * 
+ * @param paramProduction Produccion a la que va a ser igualada la produccion
+ * objeto
+ */
 void ProductionRule::operator=(const ProductionRule paramProduction) {
   nonTerminalSymbol_ = paramProduction.nonTerminalSymbol_;
   chain_ = paramProduction.chain_;
 }
 
+/**
+ * @brief Sobrecarga operador de comparador de igualdad
+ * 
+ * @param paramProduction Produccion con la que se va a comparar la produccion
+ * objeto
+ */
 bool ProductionRule::operator==(
     const ProductionRule paramProductionRule) const {
   if (!(nonTerminalSymbol_ == paramProductionRule.getNonFinalSymbol()))
@@ -109,7 +146,7 @@ bool ProductionRule::operator==(
 }
 
 /**
- * @brief
+ * @brief Sobrecarga operador de escritura
  *
  * @param os
  * @param paramProductionRule
@@ -125,7 +162,7 @@ std::ostream &operator<<(std::ostream &os,
 }
 
 /**
- * @brief
+ * @brief Sobrecarga operador de escritura
  *
  * @param os
  * @param paramProductionRule

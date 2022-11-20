@@ -6,11 +6,11 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 7: Gramaticas Regulares
+ * Practica 8: Gramáticas en Forma Normal de Chomsk
  * @brief Fichero de implementación de la clase Grammar.
  * Se define la clase Grammar con sus métodos y atributos
  * @version 1.0
- * @date 2022-11-15
+ * @date 2022-11-22
  *
  * @copyright Copyright (c) 2022
  */
@@ -197,7 +197,7 @@ void Grammar::convertToCNF() {
   toEraseSet.clear(); // Limpiar set
 }
 
-Grammar Grammar::getCNF() {
+Grammar Grammar::getCNFGrammar() {
   Grammar auxGrammar(*this);
   auxGrammar.convertToCNF();
   return auxGrammar;
@@ -230,16 +230,6 @@ void Grammar::writeFile(std::string outputFile) {
   for (auto pr : productionRules_)
     file << pr << "\n";
   file.close();
-}
-
-int Grammar::getNProductions(Symbol paramSymbol) {
-  assert(nonTerminalSymbol_.count(paramSymbol) != 0);
-  int count = 0;
-  for (auto production : productionRules_) {
-    if (paramSymbol == production.getNonFinalSymbol())
-      count++;
-  }
-  return count;
 }
 
 void Grammar::writeTypes() {
@@ -302,6 +292,16 @@ std::ostream &operator<<(std::ostream &os, Grammar &paramGrammar) {
     }
   }
   return os;
+}
+
+int Grammar::getNProductions(Symbol paramSymbol) {
+  assert(nonTerminalSymbol_.count(paramSymbol) != 0);
+  int count = 0;
+  for (auto production : productionRules_) {
+    if (paramSymbol == production.getNonFinalSymbol())
+      count++;
+  }
+  return count;
 }
 
 /**
