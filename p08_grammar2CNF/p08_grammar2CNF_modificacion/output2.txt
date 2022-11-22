@@ -1,0 +1,67 @@
+3
+a
+b
+c
+25
+C
+D
+E
+F
+S
+X
+Y
+Ca
+Cb
+D1
+D2
+E1
+E2
+F1
+F2
+G1
+G2
+H1
+I1
+J1
+K1
+L1
+M1
+N1
+O1
+S
+35
+S -> CD1
+S -> CE1
+S -> CF1
+S -> CG1
+X -> a
+X -> b
+X -> CH1
+X -> CI1
+Y -> a
+Y -> b
+Y -> c
+Y -> CJ1
+Y -> CK1
+Ca -> a
+Cb -> b
+D1 -> XL1
+D1 -> CaD2
+D2 -> CCb
+E1 -> CM1
+E1 -> CaE2
+E2 -> D1
+F1 -> XN1
+F1 -> CaF2
+F2 -> CO1
+F2 -> E1
+G1 -> CaG2
+G2 -> F1
+H1 -> CaY
+I1 -> CbY
+J1 -> CaY
+K1 -> CbY
+L1 -> CCb
+M1 -> CbX
+N1 -> F2
+O1 -> CbX
