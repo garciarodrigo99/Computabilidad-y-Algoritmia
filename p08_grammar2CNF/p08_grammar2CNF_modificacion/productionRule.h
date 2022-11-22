@@ -43,7 +43,7 @@ public:
   bool operator==(const ProductionRule) const;
   friend std::ostream &operator<<(std::ostream &, ProductionRule &);
   friend std::ostream &operator<<(std::ostream &, const ProductionRule &);
-
+  
 private:
   Symbol nonTerminalSymbol_;
   Chain chain_;

@@ -9,7 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/p08_Grammar2CNF",
-            "args": ["allTypesGrammar.gra"," output.txt"],
+            "args": ["output.txt"," output2.txt"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

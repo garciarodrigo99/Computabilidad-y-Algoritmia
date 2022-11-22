@@ -63,6 +63,7 @@ int main(int argc, char *argv[]) {
   // std::cout << grammarToCheck << std::endl;
   // grammarToCheck.writeFile(dfaToGrammarFileName);
   Grammar auxGrammar;
+
   if (auxGrammar.checkGrammar()) {
     auxGrammar = grammarToCheck.getCNFGrammar();
     std::cout << auxGrammar << std::endl;

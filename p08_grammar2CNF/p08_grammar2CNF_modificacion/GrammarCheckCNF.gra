@@ -8,16 +8,16 @@ X
 Y
 S
 13
-S -> aXbX
-S -> abX
-S -> aXb
-S -> ab
-X -> aY
-X -> bY
+S -> a X b X
+S -> a b X
+S -> a X b
+S -> a b
+X -> a Y
+X -> b Y
 X -> a
 X -> b
-Y -> aY
-Y -> bY
+Y -> a Y
+Y -> b Y
 Y -> a
 Y -> b
 Y -> c

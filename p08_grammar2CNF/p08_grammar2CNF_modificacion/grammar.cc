@@ -45,7 +45,7 @@ Grammar::Grammar(std::string fileName) {
   // Coger solo hasta el primer espacio
   for (int i = 0; i < nNonTerminalSymbol; i++) {
     getline(archivo, linea);
-    Symbol auxSymbol(linea.front());
+    Symbol auxSymbol(linea);
     nonTerminalSymbol_.insert(auxSymbol);
   }
 
@@ -65,9 +65,9 @@ Grammar::Grammar(std::string fileName) {
     Chain auxChain;
     if (!((splittedLine.at(2).size() == 1) &&
           (splittedLine.at(2).at(0) == kEmptyChain))) {
-      for (auto symbol : splittedLine.at(2)) {
+      for (int i = 2; i < splittedLine.size(); i++) {
         std::string auxString;
-        auxString.push_back(symbol);
+        auxString.append(splittedLine.at(i));
         Symbol auxSymbol(auxString);
         auxChain.AddSymbol(auxSymbol);
       }
@@ -184,6 +184,7 @@ void Grammar::convertToCNF() {
     }
   }
   // Borrar las producciones obsoletas tras la primera pasada
+
   for (auto erase : toEraseSet)
     productionRules_.erase(erase);
   toEraseSet.clear(); // Limpiar set
@@ -258,8 +259,13 @@ void Grammar::writeFile(std::string outputFile) {
     file << symbol << "\n";
   file << startSymbolId_ << "\n";
   file << productionRules_.size() << "\n";
-  for (auto pr : productionRules_)
-    file << pr << "\n";
+  for (auto pr : productionRules_) {
+    file << pr.getNonFinalSymbol() << " -> ";
+    for (auto symbol : pr.getChain()) {
+      file << symbol << " ";
+    }
+    file << "\n";
+  }
   //file << *this;
   file.close();
 }
@@ -356,5 +362,11 @@ std::vector<std::string> SplitChainGrammar(std::string str, char pattern) {
     posInit = posFound + 1;
     results.push_back(splitted);
   }
+
+  while (results.front().size() == 0)
+    results.erase(results.begin());
+  
+  while (results.back().size() == 0)
+    results.pop_back();
   return results;
 }
