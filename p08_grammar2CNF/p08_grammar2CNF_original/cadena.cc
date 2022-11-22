@@ -330,13 +330,11 @@ bool Chain::operator<(const Chain paramChain) const {
  * @return std::ostream&
  */
 std::ostream &operator<<(std::ostream &os, const Chain &paramChain) {
-  if (paramChain.Size() == 0) {
+  if (paramChain.Size() == 0)
     return os << kEmptyChain;
-  } else {
-    for (auto symbol : paramChain.chain_)
-      os << symbol;
-    return os;
-  }
+  for (auto symbol : paramChain.chain_)
+    os << symbol;
+  return os;
 }
 
 void Chain::operator=(const Chain paramChain) {

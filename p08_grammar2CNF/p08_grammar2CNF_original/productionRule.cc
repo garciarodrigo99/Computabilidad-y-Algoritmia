@@ -110,13 +110,7 @@ int ProductionRule::getType(std::set<Symbol> paramNonTerminal) {
 bool ProductionRule::operator<(const ProductionRule paramProductionRule) const {
   if (!(nonTerminalSymbol_ == paramProductionRule.getNonFinalSymbol()))
     return (nonTerminalSymbol_ < paramProductionRule.getNonFinalSymbol());
-  if (chain_.Size() != paramProductionRule.chain_.Size())
-    return (chain_.Size() < paramProductionRule.chain_.Size());
-  for (int i = 0; i < chain_.Size() - 1; i++) {
-    if (!(chain_.Position(i) == paramProductionRule.chain_.Position(i)))
-      return (chain_.Position(i) < paramProductionRule.chain_.Position(i));
-  }
-  return (chain_.back() < paramProductionRule.chain_.back());
+  return (chain_ < paramProductionRule.chain_);
 }
 
 /**
@@ -155,9 +149,7 @@ bool ProductionRule::operator==(
 std::ostream &operator<<(std::ostream &os,
                          ProductionRule &paramProductionRule) {
   os << paramProductionRule.nonTerminalSymbol_ << " -> ";
-  for (auto symbol : paramProductionRule.chain_) {
-    os << symbol;
-  }
+  os << paramProductionRule.chain_;
   return os;
 }
 

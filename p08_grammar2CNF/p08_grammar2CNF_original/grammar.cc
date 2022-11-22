@@ -116,8 +116,20 @@ void Grammar::convertToCNF() {
    * Comprobar que la gramatica no tiene producciones vacias menos el de
    * arranque
    */
-  // Sustituir simbolos terminales
+  // Producciones vacias
   std::set<ProductionRule> toEraseSet;
+
+  for (auto pr : productionRules_) {
+    if ((pr.getChain().Size() == 0) && (!(pr.getNonFinalSymbol() == startSymbolId_)))
+      toEraseSet.insert(pr);
+  }
+  for (auto prToErase : toEraseSet)
+    productionRules_.erase(prToErase);
+
+  toEraseSet.clear();
+
+  // Sustituir simbolos terminales
+  //std::set<ProductionRule> toEraseSet;
   for (auto pr : productionRules_) {
     // Longitud de produccion > 1
     if (pr.getChain().Size() > 1) {
@@ -128,8 +140,8 @@ void Grammar::convertToCNF() {
           // Nombre nueva produccion
           std::string auxString;
           auxString.push_back('C');
-          for (int j = 0; j < pr.getChain().Position(i).Size(); j++)
-            auxString.push_back(pr.getChain().Position(i).position(j));
+          for (auto symbol : pr.getChain().Position(i))
+            auxString.push_back(symbol);
 
           Symbol Cs(auxString);
           // Se inserta el simbolo designado al conjunto de simbolos no
@@ -281,8 +293,7 @@ std::ostream &operator<<(std::ostream &os, Grammar &paramGrammar) {
       int iterator = 0;
       for (auto production : paramGrammar.productionRules_) {
         if (production.getNonFinalSymbol() == symbol) {
-          for (auto vectorSymbol : production.getChain())
-            os << vectorSymbol;
+          os << production.getChain();
           if ((productionsNumber - 1) > iterator)
             os << " | ";
           iterator++;
