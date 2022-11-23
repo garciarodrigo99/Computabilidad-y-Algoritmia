@@ -65,7 +65,7 @@ Grammar::Grammar(std::string fileName) {
     Chain auxChain;
     if (!((splittedLine.at(2).size() == 1) &&
           (splittedLine.at(2).at(0) == kEmptyChain))) {
-      for (int i = 2; i < splittedLine.size(); i++) {
+      for (size_t i = 2; i < splittedLine.size(); i++) {
         std::string auxString;
         auxString.append(splittedLine.at(i));
         Symbol auxSymbol(auxString);
@@ -113,6 +113,8 @@ void Grammar::addTerminalSymbol(Symbol paramSymbol) {
 
 bool Grammar::checkGrammar() {
   for (auto pr : productionRules_) {
+    if (pr.getChain().Size() == 0)
+      return false;
     if (pr.getChain().Size() == 1) {
       bool finded = false;
       for (auto symbol : nonTerminalSymbol_) {
@@ -124,8 +126,6 @@ bool Grammar::checkGrammar() {
       if (finded)
         return false;
     }
-    if (pr.getChain().Size() == 0)
-      return false;
   }
   return true;
 }
@@ -137,15 +137,6 @@ void Grammar::convertToCNF() {
    */
   // Producciones vacias
   std::set<ProductionRule> toEraseSet;
-
-  for (auto pr : productionRules_) {
-    if ((pr.getChain().Size() == 0) && (!(pr.getNonFinalSymbol() == startSymbolId_)))
-      toEraseSet.insert(pr);
-  }
-  for (auto prToErase : toEraseSet)
-    productionRules_.erase(prToErase);
-
-  toEraseSet.clear();
 
   // Sustituir simbolos terminales
   //std::set<ProductionRule> toEraseSet;

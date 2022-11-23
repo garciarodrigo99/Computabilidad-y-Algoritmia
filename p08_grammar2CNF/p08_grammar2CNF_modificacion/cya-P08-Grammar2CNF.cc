@@ -59,17 +59,14 @@ int main(int argc, char *argv[]) {
 
   Grammar grammarToCheck(grammarFileName);
   std::cout << grammarToCheck << std::endl;
-  // grammarToCheck.convertToCNF();
-  // std::cout << grammarToCheck << std::endl;
-  // grammarToCheck.writeFile(dfaToGrammarFileName);
-  Grammar auxGrammar;
 
-  if (auxGrammar.checkGrammar()) {
+  if (grammarToCheck.checkGrammar()) {
+    Grammar auxGrammar;
     auxGrammar = grammarToCheck.getCNFGrammar();
     std::cout << auxGrammar << std::endl;
     auxGrammar.writeFile(outputFileName);
   } else {
-    std::cout << "La gramatica contiene producciones unitarias o vacias\n";
+    std::cout << "La gramatica contiene producciones unitarias o vacias.\n";
   }
   return 0;
 }
