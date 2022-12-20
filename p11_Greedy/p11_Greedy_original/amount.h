@@ -33,6 +33,8 @@ public:
   Amount();
   ~Amount();
 
+  int getSize();
+
   // Operaciones
   void insert(Cash *);
 

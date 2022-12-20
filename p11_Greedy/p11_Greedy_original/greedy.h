@@ -35,7 +35,6 @@ struct GreedyMoneyChange {
   ~GreedyMoneyChange();
 
   // Operaciones
-  std::list<int> returnChange(int) const;
-  Amount returnChangeAmount(int) const;
+  Amount returnChangeAmount(int, char = 'c') const;
   int biggestElementLessThanSum(std::set<int>, int) const;
 };

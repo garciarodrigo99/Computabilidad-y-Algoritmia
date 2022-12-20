@@ -27,50 +27,30 @@ GreedyMoneyChange::GreedyMoneyChange() {}
 
 GreedyMoneyChange::~GreedyMoneyChange() {}
 
-/**
- * @brief
- *
- * @return int - Numero de elementos del alfabeto
- */
-std::list<int> GreedyMoneyChange::returnChange(int amount) const {
-  std::list<int> solution;
-  int sum = 0;
-
-  while (sum != amount) {
-    int v = biggestElementLessThanSum(Note::noteSet, (amount - sum));
-    if (v == -1) {
-      int v = biggestElementLessThanSum(Coin::coinSet, (amount - sum));
-      if (v == -1)
-        EXIT_FAILURE;
-      solution.push_back(v);
-      sum = sum + v;
-    } else {
-      solution.push_back(v);
-      sum = sum + v;
-    }
-  }
-  return solution;
-}
-
-Amount GreedyMoneyChange::returnChangeAmount(int amount) const {
+Amount GreedyMoneyChange::returnChangeAmount(int amount, char option) const {
   std::list<int> solution;
   Amount amountSolution;
   int sum = 0;
 
-  while (sum != amount) {
-    int v = biggestElementLessThanSum(Note::noteSet, (amount - sum));
-    if (v == -1) {
-      int v = biggestElementLessThanSum(Coin::coinSet, (amount - sum));
+  // Opcion billete
+  if (option == 'b') {
+    while ((amount - sum) > *Note::noteSet.begin()) {
+      int v = biggestElementLessThanSum(Note::noteSet, (amount - sum));
       if (v == -1)
         EXIT_FAILURE;
-      solution.push_back(v);
-      amountSolution.insert(new Coin(v));
-      sum = sum + v;
-    } else {
-      solution.push_back(v);
+      //solution.push_back(v);
       amountSolution.insert(new Note(v));
       sum = sum + v;
     }
+  }
+
+  while (sum != amount) {
+    int v = biggestElementLessThanSum(Coin::coinSet, (amount - sum));
+    if (v == -1)
+      EXIT_FAILURE;
+    //solution.push_back(v);
+    amountSolution.insert(new Coin(v));
+    sum = sum + v;
   }
   return amountSolution;
 }

@@ -30,6 +30,8 @@ Amount::~Amount() {}
 
 void Amount::insert(Cash *cash) { amount_.push_back(cash); }
 
+int Amount::getSize() { return amount_.size(); }
+
 /**
  * @brief Sobrecarga operador '<<' para escritura del objeto
  *
@@ -59,6 +61,6 @@ std::ostream &operator<<(std::ostream &os, Amount amount) {
   if (sum > 1)
     os << sum << "x";
   element->print(os);
-  os << "\nTotal monedas o billetes: " << amount.amount_.size() << std::endl;
+  //os << "\nTotal monedas o billetes: " << amount.amount_.size() << std::endl;
   return os;
 }
