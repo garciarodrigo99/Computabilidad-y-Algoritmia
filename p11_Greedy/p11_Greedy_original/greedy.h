@@ -1,5 +1,5 @@
 /**
- * @file alfabeto.h
+ * @file greedy.h
  * @author Rodrigo Garcia Jimenez (alu0101154473@ull.edu.es)
  * Universidad de La Laguna
  * Escuela Superior de Ingeniería y Tecnología
@@ -19,11 +19,11 @@
 //#include "cadena.h"
 
 #include <iostream>
-#include <set>
 #include <list>
+#include <set>
 
 #include "amount.h"
-#include "simbolo.h"
+#include "cash.h"
 #include "coin.h"
 #include "note.h"
 
@@ -37,6 +37,5 @@ struct GreedyMoneyChange {
   // Operaciones
   std::list<int> returnChange(int) const;
   Amount returnChangeAmount(int) const;
-  int biggestElementLessThanSum(std::set<int>,int) const;
-
+  int biggestElementLessThanSum(std::set<int>, int) const;
 };

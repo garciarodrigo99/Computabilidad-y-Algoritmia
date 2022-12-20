@@ -17,7 +17,7 @@
  * @link https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
  */
 
-#include "alfabeto.h"
+#include "greedy.h"
 
 #include <assert.h>
 #include <iostream>
@@ -32,14 +32,14 @@ GreedyMoneyChange::~GreedyMoneyChange() {}
  *
  * @return int - Numero de elementos del alfabeto
  */
-std::list<int> GreedyMoneyChange::returnChange(int amount) const { 
+std::list<int> GreedyMoneyChange::returnChange(int amount) const {
   std::list<int> solution;
   int sum = 0;
-  
+
   while (sum != amount) {
-    int v = biggestElementLessThanSum(Note::noteSet,(amount-sum));
+    int v = biggestElementLessThanSum(Note::noteSet, (amount - sum));
     if (v == -1) {
-      int v = biggestElementLessThanSum(Coin::coinSet,(amount-sum));
+      int v = biggestElementLessThanSum(Coin::coinSet, (amount - sum));
       if (v == -1)
         EXIT_FAILURE;
       solution.push_back(v);
@@ -49,18 +49,18 @@ std::list<int> GreedyMoneyChange::returnChange(int amount) const {
       sum = sum + v;
     }
   }
-  return solution; 
+  return solution;
 }
 
-Amount GreedyMoneyChange::returnChangeAmount(int amount) const { 
+Amount GreedyMoneyChange::returnChangeAmount(int amount) const {
   std::list<int> solution;
   Amount amountSolution;
   int sum = 0;
-  
+
   while (sum != amount) {
-    int v = biggestElementLessThanSum(Note::noteSet,(amount-sum));
+    int v = biggestElementLessThanSum(Note::noteSet, (amount - sum));
     if (v == -1) {
-      int v = biggestElementLessThanSum(Coin::coinSet,(amount-sum));
+      int v = biggestElementLessThanSum(Coin::coinSet, (amount - sum));
       if (v == -1)
         EXIT_FAILURE;
       solution.push_back(v);
@@ -72,7 +72,7 @@ Amount GreedyMoneyChange::returnChangeAmount(int amount) const {
       sum = sum + v;
     }
   }
-  return amountSolution; 
+  return amountSolution;
 }
 
 /**
@@ -80,21 +80,22 @@ Amount GreedyMoneyChange::returnChangeAmount(int amount) const {
  *
  * @return int - Numero de elementos del alfabeto
  */
-int GreedyMoneyChange::biggestElementLessThanSum(std::set<int> _set, int amount) const { 
+int GreedyMoneyChange::biggestElementLessThanSum(std::set<int> _set,
+                                                 int amount) const {
   int solution = -1;
   for (std::set<int>::iterator it = _set.begin(); it != _set.end(); it++) {
-    if (*it > amount) 
+    if (*it > amount)
       return solution;
     solution = *it;
   }
-  return solution; 
+  return solution;
 }
 
-
 // /**
-//  * @brief "Sobrecarga" de la función begin para que se pueda recorrer el vector
+//  * @brief "Sobrecarga" de la función begin para que se pueda recorrer el
+//  vector
 //  * de simbolos en los for de tipo 'auto'
-//  * 
+//  *
 //  * @return std::vector<Symbol>::const_iterator Iterador a la primera posicion
 //  * de la cadena
 //  */
@@ -103,13 +104,15 @@ int GreedyMoneyChange::biggestElementLessThanSum(std::set<int> _set, int amount)
 // }
 
 // /**
-//  * @brief "Sobrecarga" de la función begin para que se pueda recorrer el vector
+//  * @brief "Sobrecarga" de la función begin para que se pueda recorrer el
+//  vector
 //  * de simbolos en los for de tipo 'auto'
-//  * 
+//  *
 //  * @return std::vector<Symbol>::const_iterator Iterador a la ultima posicion
 //  * de la cadena
 //  */
-// std::set<Symbol>::const_iterator GreedyMoneyChange::end() const { return GreedyMoneyChange_.end(); }
+// std::set<Symbol>::const_iterator GreedyMoneyChange::end() const { return
+// GreedyMoneyChange_.end(); }
 
 // /**
 //  * @brief Sobrecarga operador '<' para poder trabajar clase std::set
@@ -119,7 +122,8 @@ int GreedyMoneyChange::biggestElementLessThanSum(std::set<int> _set, int amount)
 //  * @return false - El alfabeto se encuentra en el conjunto
 //  * @see std::set
 //  */
-// bool GreedyMoneyChange::operator<(const GreedyMoneyChange paramGreedyMoneyChange) const {
+// bool GreedyMoneyChange::operator<(const GreedyMoneyChange
+// paramGreedyMoneyChange) const {
 //   return ((int)GreedyMoneyChange_.size() < paramGreedyMoneyChange.Size());
 // }
 
@@ -130,10 +134,12 @@ int GreedyMoneyChange::biggestElementLessThanSum(std::set<int> _set, int amount)
 //  * @param paramGreedyMoneyChange
 //  * @return std::ostream&
 //  */
-// std::ostream &operator<<(std::ostream &os, GreedyMoneyChange &paramGreedyMoneyChange) {
+// std::ostream &operator<<(std::ostream &os, GreedyMoneyChange
+// &paramGreedyMoneyChange) {
 //   os << "{ ";
 
-//   for (std::set<Symbol>::iterator it = paramGreedyMoneyChange.GreedyMoneyChange_.begin();
+//   for (std::set<Symbol>::iterator it =
+//   paramGreedyMoneyChange.GreedyMoneyChange_.begin();
 //        it != paramGreedyMoneyChange.GreedyMoneyChange_.end(); ++it)
 //     std::cout << *it << " ";
 

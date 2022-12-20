@@ -1,7 +1,7 @@
 # https://stackoverflow.com/questions/2214575/passing-arguments-to-make-run
 
 MAIN_FILE = $(cliente)cya-P11-Greedy.cc
-SRC_FILES = $(alfabeto)alfabeto.cc $(amount)amount.cc
+SRC_FILES = $(greedy)greedy.cc $(amount)amount.cc
 EXECUTABLE_FILE = $(exe)p11_Greedy
 ERROR_FILE = $(error)error.txt
 

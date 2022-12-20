@@ -18,27 +18,27 @@
 
 //#include "cadena.h"
 
-#include <iostream>
-#include <set>
-#include <list>
-#include "simbolo.h"
+#include "cash.h"
 #include "coin.h"
 #include "note.h"
+#include <iostream>
+#include <list>
+#include <set>
 
 #pragma once
 
 class Amount {
-	public:
-		// Constructores y destructores
-		Amount();
-		~Amount();
+public:
+  // Constructores y destructores
+  Amount();
+  ~Amount();
 
-		// Operaciones
-		void insert(Cash*);
+  // Operaciones
+  void insert(Cash *);
 
-		// Sobrecarga de operadores
-		friend std::ostream &operator<<(std::ostream &, Amount);
+  // Sobrecarga de operadores
+  friend std::ostream &operator<<(std::ostream &, Amount);
 
-  private:
-		std::list<Cash*> amount_;
+private:
+  std::list<Cash *> amount_;
 };

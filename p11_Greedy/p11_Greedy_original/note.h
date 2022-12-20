@@ -1,5 +1,5 @@
 /**
- * @file simbolo.h
+ * @file note.h
  * @author Rodrigo Garcia Jimenez (alu0101154473@ull.edu.es)
  * Universidad de La Laguna
  * Escuela Superior de Ingeniería y Tecnología
@@ -20,39 +20,41 @@
  */
 
 #pragma once
-#include "simbolo.h"
+#include "cash.h"
 
-#include <iostream>
-#include <string>
-#include <set>
 #include "assert.h"
+#include <iostream>
+#include <set>
+#include <string>
 
-//static std::set<int> const noteSet({50000,20000,10000,5000,2000,1000,500});
+// static std::set<int> const noteSet({50000,20000,10000,5000,2000,1000,500});
 
 class Note : public Cash {
-  public:
-    // Constructores y destructores
-    Note(int amount) {
-        assert(noteSet.count(amount) != 0);
-        amount_ = amount;
-    }
+public:
+  // Constructores y destructores
+  Note(int amount) {
+    assert(noteSet.count(amount) != 0);
+    amount_ = amount;
+  }
 
-    ~Note() {}
+  ~Note() {}
 
-    void print(std::ostream&) const {
-        int printAmount = amount_ / 100;
-        std::cout << printAmount << "€";
-    }
-    friend std::ostream &operator<<(std::ostream &, const Note &);
-    operator int (void) const { return amount_;}
-    static std::set<int> const noteSet;
-  private:
-    int amount_;
+  void print(std::ostream &) const {
+    int printAmount = amount_ / 100;
+    std::cout << printAmount << "€";
+  }
+  friend std::ostream &operator<<(std::ostream &, const Note &);
+  operator int(void) const { return amount_; }
+  static std::set<int> const noteSet;
+
+private:
+  int amount_;
 };
 
-inline std::ostream& operator<< (std::ostream& os, const Note& myCash){
+inline std::ostream &operator<<(std::ostream &os, const Note &myCash) {
   myCash.print(os); // delegate the work to a polymorphic member function.
   return os;
 }
 
-inline std::set<int> const Note::noteSet({50000,20000,10000,5000,2000,1000,500});
+inline std::set<int> const Note::noteSet({50000, 20000, 10000, 5000, 2000, 1000,
+                                          500});
