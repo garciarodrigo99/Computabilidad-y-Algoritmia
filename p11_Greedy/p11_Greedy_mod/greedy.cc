@@ -33,8 +33,9 @@ Amount GreedyMoneyChange::returnChangeAmount(int amount, char option) const {
 
   // Opcion billete
   if (option == 'b') {
+    std::set<int>::reverse_iterator it = Coin::coinSet.rbegin();
     while ((amount - sum) > *Note::noteSet.begin()) {
-      int v = biggestElementLessThanSum(Note::noteSet, (amount - sum));
+      int v = biggestElementLessThanSum(Note::noteSet, (amount - sum),it);
       if (v == -1)
         EXIT_FAILURE;
       // solution.push_back(v);
@@ -43,8 +44,9 @@ Amount GreedyMoneyChange::returnChangeAmount(int amount, char option) const {
     }
   }
 
+  std::set<int>::reverse_iterator it = Coin::coinSet.rbegin();
   while (sum != amount) {
-    int v = biggestElementLessThanSum(Coin::coinSet, (amount - sum));
+    int v = biggestElementLessThanSum(Coin::coinSet, (amount - sum), it);
     if (v == -1)
       EXIT_FAILURE;
     // solution.push_back(v);
@@ -60,68 +62,13 @@ Amount GreedyMoneyChange::returnChangeAmount(int amount, char option) const {
  * @return int - Numero de elementos del alfabeto
  */
 int GreedyMoneyChange::biggestElementLessThanSum(std::set<int> _set,
-                                                 int amount) const {
-  int solution = -1;
-  for (std::set<int>::iterator it = _set.begin(); it != _set.end(); it++) {
-    if (*it > amount)
+                                                 int amount, std::set<int>::reverse_iterator& itParam) const {
+  int solution = *itParam;
+  for (std::set<int>::reverse_iterator iterator = itParam; iterator != _set.rend(); iterator++) {
+    itParam = iterator;
+    solution = *iterator;
+    if (*itParam <= amount)
       return solution;
-    solution = *it;
   }
-  return solution;
+  return -1;
 }
-
-// /**
-//  * @brief "Sobrecarga" de la función begin para que se pueda recorrer el
-//  vector
-//  * de simbolos en los for de tipo 'auto'
-//  *
-//  * @return std::vector<Symbol>::const_iterator Iterador a la primera posicion
-//  * de la cadena
-//  */
-// std::set<Symbol>::const_iterator GreedyMoneyChange::begin() const {
-//   return GreedyMoneyChange_.begin();
-// }
-
-// /**
-//  * @brief "Sobrecarga" de la función begin para que se pueda recorrer el
-//  vector
-//  * de simbolos en los for de tipo 'auto'
-//  *
-//  * @return std::vector<Symbol>::const_iterator Iterador a la ultima posicion
-//  * de la cadena
-//  */
-// std::set<Symbol>::const_iterator GreedyMoneyChange::end() const { return
-// GreedyMoneyChange_.end(); }
-
-// /**
-//  * @brief Sobrecarga operador '<' para poder trabajar clase std::set
-//  *
-//  * @param paramGreedyMoneyChange Alfabeto candidato a entrar en std::set
-//  * @return True - El alfabeto no se encuentra en el conjunto
-//  * @return false - El alfabeto se encuentra en el conjunto
-//  * @see std::set
-//  */
-// bool GreedyMoneyChange::operator<(const GreedyMoneyChange
-// paramGreedyMoneyChange) const {
-//   return ((int)GreedyMoneyChange_.size() < paramGreedyMoneyChange.Size());
-// }
-
-// /**
-//  * @brief Sobrecarga operador '<<' para escritura del objeto
-//  *
-//  * @param os
-//  * @param paramGreedyMoneyChange
-//  * @return std::ostream&
-//  */
-// std::ostream &operator<<(std::ostream &os, GreedyMoneyChange
-// &paramGreedyMoneyChange) {
-//   os << "{ ";
-
-//   for (std::set<Symbol>::iterator it =
-//   paramGreedyMoneyChange.GreedyMoneyChange_.begin();
-//        it != paramGreedyMoneyChange.GreedyMoneyChange_.end(); ++it)
-//     std::cout << *it << " ";
-
-//   os << "}";
-//   return os;
-// }
