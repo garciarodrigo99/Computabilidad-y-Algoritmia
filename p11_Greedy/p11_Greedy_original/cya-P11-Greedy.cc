@@ -13,13 +13,8 @@
  *
  * @copyright Copyright (c) 2022
  */
-
-// #include <algorithm>
-// #include <chrono>
-// #include <fstream>
 #include <iostream>
-// #include <stdlib.h>
-// #include <thread>
+#include <string>
 
 #include "cash.h"
 #include "greedy.h"
@@ -43,14 +38,16 @@ int main(int argc, char *argv[]) {
   // if ((argv[1] == "-h") || (argv[1] == "--help")) information(argv[0]);
 
   //  Comprobar numero de argumentos de ejecucion son correctos
-  if (argc != kArgumentos) {
-    std::cout << "¡Error de formato!\n\n";
-    information(argv[0]);
-    return 1;
-  }
+  // if (argc != kArgumentos) {
+  //   std::cout << "¡Error de formato!\n\n";
+  //   information(argv[0]);
+  //   return 1;
+  // }
   GreedyMoneyChange aux;
 
-  std::cout << aux.returnChangeAmount(42534);
+  float f = std::stof(argv[argc-1]);
+  int i = (int)(f*100);
+  std::cout << aux.returnChangeAmount(i);
 
   return 0;
 }

@@ -2,7 +2,7 @@
 
 MAIN_FILE = $(cliente)cya-P11-Greedy.cc
 SRC_FILES = $(greedy)greedy.cc $(amount)amount.cc
-EXECUTABLE_FILE = $(exe)p11_Greedy
+EXECUTABLE_FILE = $(exe)moneda
 ERROR_FILE = $(error)error.txt
 
 # If the first argument is "run"...
