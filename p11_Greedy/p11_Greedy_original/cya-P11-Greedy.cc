@@ -6,10 +6,10 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 8: Gramáticas en Forma Normal de Chomsk
+ * Practica 11: Algoritmos Voraces (Greedy). Cambio de Monedas
  * @brief Programa principal
  * @version 1.0
- * @date 2022-11-22
+ * @date 2022-12-20
  *
  * @copyright Copyright (c) 2022
  */
@@ -46,15 +46,19 @@ int main(int argc, char *argv[]) {
   }
   GreedyMoneyChange aux;
 
-  float f = std::stof(argv[argc-1]);
-  int i = (int)(f*100);
+  float f = std::stof(argv[argc - 1]);
+  int i = (int)(f * 100);
   std::string option = argv[1];
   if (option.compare("-b") == 0) {
-    std::cout << aux.returnChangeAmount(i,'b');
-    std::cout << "\nTotal monedas o billetes: " << aux.returnChangeAmount(i,'b').getSize() << std::endl;
+    std::cout << aux.returnChangeAmount(i, 'b');
+    std::cout << "\nTotal monedas o billetes: "
+              << aux.returnChangeAmount(i, 'b').getSize() << std::endl;
   } else {
     std::cout << aux.returnChangeAmount(i);
-    std::cout << "\nTotal monedas: " << aux.returnChangeAmount(i).getSize() << std::endl;
+    std::cout << "\nTotal monedas: " << aux.returnChangeAmount(i).getSize()
+              << std::endl;
+    std::cout << "\nMonedas unicas: "
+              << aux.returnChangeAmount(i).uniqueCash().size() << std::endl;
   }
   return 0;
 }

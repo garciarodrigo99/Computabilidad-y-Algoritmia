@@ -6,17 +6,15 @@
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 8: Gramáticas en Forma Normal de Chomsk
+ * Practica 11: Algoritmos Voraces (Greedy). Cambio de Monedas
  * @brief Cabecera de la clase GreedyMoneyChange.
  * Se define la clase GreedyMoneyChange con sus métodos y atributos
  * @version 2.0
- * @date 2022-11-22
+ * @date 2022-12-20
  *
  * @copyright Copyright (c) 2022
  * @link https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
  */
-
-//#include "cadena.h"
 
 #include <iostream>
 #include <list>

@@ -1,17 +1,16 @@
 /**
- * @file alfabeto.cc
+ * @file greedy.cc
  * @author Rodrigo Garcia Jimenez (alu0101154473@ull.edu.es)
- * Se define la clase Symbol con sus métodos y atributos
  * Universidad de La Laguna
  * Escuela Superior de Ingeniería y Tecnología
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 8: Gramáticas en Forma Normal de Chomsk
+ * Practica 11: Algoritmos Voraces (Greedy). Cambio de Monedas
  * @brief Fichero de implementación de la clase GreedyMoneyChange.
  * Se define la clase GreedyMoneyChange con sus métodos y atributos
  * @version 2.0
- * @date 2022-11-22
+ * @date 2022-12-20
  *
  * @copyright Copyright (c) 2022
  * @link https://stackoverflow.com/questions/2209224/vector-vs-list-in-stl
@@ -38,7 +37,7 @@ Amount GreedyMoneyChange::returnChangeAmount(int amount, char option) const {
       int v = biggestElementLessThanSum(Note::noteSet, (amount - sum));
       if (v == -1)
         EXIT_FAILURE;
-      //solution.push_back(v);
+      // solution.push_back(v);
       amountSolution.insert(new Note(v));
       sum = sum + v;
     }
@@ -48,7 +47,7 @@ Amount GreedyMoneyChange::returnChangeAmount(int amount, char option) const {
     int v = biggestElementLessThanSum(Coin::coinSet, (amount - sum));
     if (v == -1)
       EXIT_FAILURE;
-    //solution.push_back(v);
+    // solution.push_back(v);
     amountSolution.insert(new Coin(v));
     sum = sum + v;
   }

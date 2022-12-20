@@ -1,22 +1,20 @@
 /**
- * @file simbolo.h
+ * @file cash.h
  * @author Rodrigo Garcia Jimenez (alu0101154473@ull.edu.es)
  * Universidad de La Laguna
  * Escuela Superior de Ingeniería y Tecnología
  * Grado en Ingeniería Informática
  * Asignatura: Computabilidad y Algoritmia
  * Curso: 2º
- * Practica 8: Gramáticas en Forma Normal de Chomsk
- * @brief Cabecera de la clase Cash.
+ * Practica 11: Algoritmos Voraces (Greedy). Cambio de Monedas
+ * @brief Cabecera y fichero de implementación de la clase padre Cash.
  * Se define la clase Cash con sus métodos y atributos
+ * Se hace de esta manera ya que al trabajar con herencia y no utilizar espacio
+ * de nombres se ha de desarrollar todo en un mismo fichero .h
  * @version 2.0
- * @date 2022-11-22
+ * @date 2022-12-20
  *
  * @copyright Copyright (c) 2022
- * @link
- * https://stackoverflow.com/questions/3025997/defining-static-const-integer-members-in-class-definition
- * @link
- * https://stackoverflow.com/questions/12042549/define-constant-variables-in-c-header
  */
 
 #pragma once
