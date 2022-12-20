@@ -61,7 +61,6 @@ std::ostream &operator<<(std::ostream &os, Amount amount) {
 	if (sum > 1)
 		os << sum << "x";
 	element->print(os);
-	os << "\n";
 	os << "\nTotal monedas o billetes: " << amount.amount_.size() << std::endl;
   return os;
 }

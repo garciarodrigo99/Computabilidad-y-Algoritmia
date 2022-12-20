@@ -63,7 +63,7 @@ int main(int argc, char *argv[]) {
   // std::endl(std::cout);
   // std::cout << "Total monedas: " << aux.returnChange(42534).size() << std::endl;
 
-  std::cout << aux.returnChangeAmount(42534) << std::endl;
+  std::cout << aux.returnChangeAmount(42534);
 
   return 0;
 }
