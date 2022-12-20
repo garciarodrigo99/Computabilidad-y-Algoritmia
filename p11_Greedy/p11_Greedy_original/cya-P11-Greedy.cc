@@ -23,6 +23,7 @@
 
 #include "alfabeto.h"
 #include "simbolo.h"
+#include "amount.h"
 
 #define kArgumentos 1
 
@@ -52,13 +53,17 @@ int main(int argc, char *argv[]) {
   //std::cout << aux.biggestElementLessThanSum(coinSet, 150) << std::endl;
   // Cash* a = new Coin(10);
   // Coin c(10);
+  // if (c < 11) std::cout << "hola\n"; return 0;
   //std::cout << a << std::endl;
   // a->print(std::cout);
   // std::cout << c << std::endl;
-  std::cout << "Solución: ";
-  for (auto i: aux.returnChange(743))
-    std::cout << i << " ";
-  std::endl(std::cout);
-  std::cout << "Total monedas: " << aux.returnChange(743).size() << std::endl;
+  // std::cout << "Solución: ";
+  // for (auto i: aux.returnChange(42534))
+  //   std::cout << i << " ";
+  // std::endl(std::cout);
+  // std::cout << "Total monedas: " << aux.returnChange(42534).size() << std::endl;
+
+  std::cout << aux.returnChangeAmount(42534) << std::endl;
+
   return 0;
 }

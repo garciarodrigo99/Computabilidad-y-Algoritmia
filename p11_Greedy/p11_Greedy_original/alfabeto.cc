@@ -25,6 +25,8 @@
 
 GreedyMoneyChange::GreedyMoneyChange() {}
 
+GreedyMoneyChange::~GreedyMoneyChange() {}
+
 /**
  * @brief
  *
@@ -32,24 +34,45 @@ GreedyMoneyChange::GreedyMoneyChange() {}
  */
 std::list<int> GreedyMoneyChange::returnChange(int amount) const { 
   std::list<int> solution;
-  std::list<Cash*> solution_Class;
   int sum = 0;
   
   while (sum != amount) {
-    int v = biggestElementLessThanSum(Coin::coinSet,(amount-sum));
-    if (v == 0)
-      EXIT_FAILURE; 
-    solution.push_back(v);
-    solution_Class.push_back(new Coin(v));
-    sum = sum + v;
+    int v = biggestElementLessThanSum(Note::noteSet,(amount-sum));
+    if (v == -1) {
+      int v = biggestElementLessThanSum(Coin::coinSet,(amount-sum));
+      if (v == -1)
+        EXIT_FAILURE;
+      solution.push_back(v);
+      sum = sum + v;
+    } else {
+      solution.push_back(v);
+      sum = sum + v;
+    }
   }
-  // std::cout << "\n--\n";
-  // for (auto i : solution_Class) {
-  //   i->print(std::cout);
-  //   std::cout << " ";
-  // }
-  // std::cout << "\n--\n";
   return solution; 
+}
+
+Amount GreedyMoneyChange::returnChangeAmount(int amount) const { 
+  std::list<int> solution;
+  Amount amountSolution;
+  int sum = 0;
+  
+  while (sum != amount) {
+    int v = biggestElementLessThanSum(Note::noteSet,(amount-sum));
+    if (v == -1) {
+      int v = biggestElementLessThanSum(Coin::coinSet,(amount-sum));
+      if (v == -1)
+        EXIT_FAILURE;
+      solution.push_back(v);
+      amountSolution.insert(new Coin(v));
+      sum = sum + v;
+    } else {
+      solution.push_back(v);
+      amountSolution.insert(new Note(v));
+      sum = sum + v;
+    }
+  }
+  return amountSolution; 
 }
 
 /**
@@ -58,7 +81,7 @@ std::list<int> GreedyMoneyChange::returnChange(int amount) const {
  * @return int - Numero de elementos del alfabeto
  */
 int GreedyMoneyChange::biggestElementLessThanSum(std::set<int> _set, int amount) const { 
-  int solution = 0;
+  int solution = -1;
   for (std::set<int>::iterator it = _set.begin(); it != _set.end(); it++) {
     if (*it > amount) 
       return solution;

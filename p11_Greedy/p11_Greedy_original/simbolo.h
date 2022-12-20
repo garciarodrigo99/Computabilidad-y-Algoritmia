@@ -33,7 +33,7 @@ class Cash {
     //Cash();
     //virtual ~Cash() = 0;
     virtual void print(std::ostream&) const = 0;
-    //virtual int getAmount 
+    virtual operator int (void) const = 0;
     friend std::ostream &operator<<(std::ostream &, const Cash &);
 };
 

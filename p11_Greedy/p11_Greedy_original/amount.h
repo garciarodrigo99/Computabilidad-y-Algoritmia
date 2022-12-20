@@ -21,22 +21,24 @@
 #include <iostream>
 #include <set>
 #include <list>
-
-#include "amount.h"
 #include "simbolo.h"
 #include "coin.h"
 #include "note.h"
 
 #pragma once
 
-struct GreedyMoneyChange {
-  // Constructores y destructores
-  GreedyMoneyChange();
-  ~GreedyMoneyChange();
+class Amount {
+	public:
+		// Constructores y destructores
+		Amount();
+		~Amount();
 
-  // Operaciones
-  std::list<int> returnChange(int) const;
-  Amount returnChangeAmount(int) const;
-  int biggestElementLessThanSum(std::set<int>,int) const;
+		// Operaciones
+		void insert(Cash*);
 
+		// Sobrecarga de operadores
+		friend std::ostream &operator<<(std::ostream &, Amount);
+
+  private:
+		std::list<Cash*> amount_;
 };

@@ -44,7 +44,7 @@ class Note : public Cash {
         std::cout << printAmount << "€";
     }
     friend std::ostream &operator<<(std::ostream &, const Note &);
-    operator int (void) const { return amount_; }
+    operator int (void) const { return amount_;}
     static std::set<int> const noteSet;
   private:
     int amount_;
