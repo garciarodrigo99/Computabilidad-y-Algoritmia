@@ -30,6 +30,16 @@ void Amount::insert(Cash *cash) { amount_.push_back(cash); }
 
 int Amount::getSize() { return amount_.size(); }
 
+/**
+ * @brief Metodo que cuenta los elementos unicos de una cantidad a devolver
+ * No es del todo eficiente porque primero creo una lista de enteros y luego
+ * una lista de Cash*, pero es que no puedo acceder a la comparación 
+ * directamente entre Cash*.
+ * Entonces se guarda el atributo entero de la función Cash*
+ * y luego se añade billetes o monedas con la cantidad de lista de enteros.
+ * 
+ * @return std::list<Cash *> 
+ */
 std::list<Cash *> Amount::uniqueCash() {
   std::list<int> solution;
   std::list<int>::iterator it;
@@ -55,6 +65,11 @@ int Amount::countCash(Cash *elemento) {
       sum++;
   }
   return sum;
+}
+
+void Amount::operator=(const Amount paramChain) {
+  for (auto i : paramChain.amount_)
+    amount_.push_back(i);
 }
 
 /**

@@ -50,15 +50,20 @@ int main(int argc, char *argv[]) {
   int i = (int)(f * 100);
   std::string option = argv[1];
   if (option.compare("-b") == 0) {
-    std::cout << aux.returnChangeAmount(i, 'b');
-    std::cout << "\nTotal monedas o billetes: "
-              << aux.returnChangeAmount(i, 'b').getSize() << std::endl;
-  } else {
-    std::cout << aux.returnChangeAmount(i);
-    std::cout << "\nTotal monedas: " << aux.returnChangeAmount(i).getSize()
+    Amount myAmount;
+    myAmount = aux.returnChangeAmount(i, 'b');
+    std::cout << myAmount;
+    std::cout << "\nTotal monedas o billetes: " << myAmount.getSize()
               << std::endl;
-    std::cout << "\nMonedas unicas: "
-              << aux.returnChangeAmount(i).uniqueCash().size() << std::endl;
+    // std::cout << "\nMonedas unicas: " << myAmount.uniqueCash().size() <<
+    // std::endl;
+  } else {
+    Amount myAmount;
+    myAmount = aux.returnChangeAmount(i);
+    std::cout << myAmount;
+    std::cout << "\nTotal monedas: " << myAmount.getSize() << std::endl;
+    // std::cout << "\nMonedas unicas: " << myAmount.uniqueCash().size() <<
+    // std::endl;
   }
   return 0;
 }

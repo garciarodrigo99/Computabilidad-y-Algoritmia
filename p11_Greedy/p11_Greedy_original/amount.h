@@ -39,6 +39,7 @@ public:
 
   // Sobrecarga de operadores
   friend std::ostream &operator<<(std::ostream &, Amount);
+  void operator=(const Amount);
 
   // private:
   std::list<Cash *> uniqueCash();
