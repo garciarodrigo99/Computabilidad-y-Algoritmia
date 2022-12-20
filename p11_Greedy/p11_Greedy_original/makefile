@@ -16,7 +16,7 @@ endif
 #./$(EXECUTABLE_FILE) $(FILE_IN) $(RUN_ARGS) &> $(ERROR_FILE)
 
 default: 
-	g++ -std=c++14 -g -Wall -o $(EXECUTABLE_FILE) $(MAIN_FILE) $(SRC_FILES)
+	g++ -std=c++17 -g -Wall -o $(EXECUTABLE_FILE) $(MAIN_FILE) $(SRC_FILES)
 
 run:
 	./$(EXECUTABLE_FILE) $(FILE_IN) $(RUN_ARGS)
