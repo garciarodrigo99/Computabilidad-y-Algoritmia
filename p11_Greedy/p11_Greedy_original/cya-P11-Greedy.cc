@@ -62,8 +62,10 @@ int main(int argc, char *argv[]) {
     myAmount = aux.returnChangeAmount(i);
     std::cout << myAmount;
     std::cout << "\nTotal monedas: " << myAmount.getSize() << std::endl;
-    // std::cout << "\nMonedas unicas: " << myAmount.uniqueCash().size() <<
-    // std::endl;
+    std::cout << "\nMonedas unicas: " << myAmount.uniqueCash().size() <<
+    std::endl;
+    std::cout << "\nMonedas tipo: " << myAmount.countCash(new Coin(200)) <<
+    std::endl;
   }
   return 0;
 }

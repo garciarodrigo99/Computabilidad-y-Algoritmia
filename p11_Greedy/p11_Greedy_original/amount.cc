@@ -32,34 +32,34 @@ int Amount::getSize() { return amount_.size(); }
 
 /**
  * @brief Metodo que cuenta los elementos unicos de una cantidad a devolver
- * No es del todo eficiente porque primero creo una lista de enteros y luego
- * una lista de Cash*, pero es que no puedo acceder a la comparación 
- * directamente entre Cash*.
- * Entonces se guarda el atributo entero de la función Cash*
- * y luego se añade billetes o monedas con la cantidad de lista de enteros.
  * 
  * @return std::list<Cash *> 
  */
 std::list<Cash *> Amount::uniqueCash() {
-  std::list<int> solution;
-  std::list<int>::iterator it;
-  for (auto i : amount_) {
-    it = std::find(solution.begin(), solution.end(), *i);
-    if (it == solution.end())
-      solution.push_back(*i);
-  }
   std::list<Cash *> cashList;
-  for (auto i : solution) {
-    if (i < *Note::noteSet.begin())
-      cashList.push_back(new Coin(i));
-    else
-      cashList.push_back(new Note(i));
+  for (auto i : amount_) {
+    if (!findElement(i,cashList))
+      cashList.push_back(i);
   }
   return cashList;
 }
 
+bool Amount::findElement(Cash * elemento, std::list<Cash *> lista) {
+  bool comparison = false;
+  for (auto j : lista) {
+    if (*j == *elemento) {
+      comparison = true;
+      break;
+    }
+  }
+  return comparison;
+}
+
 int Amount::countCash(Cash *elemento) {
   int sum = 0;
+  if (!findElement(elemento,amount_))
+    return 0;
+    
   for (auto i : amount_) {
     if (*i == *elemento)
       sum++;

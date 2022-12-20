@@ -45,6 +45,9 @@ public:
   std::list<Cash *> uniqueCash();
   int countCash(Cash *);
 
+  private:
+    bool findElement(Cash *, std::list<Cash *>);
+
 private:
   std::list<Cash *> amount_;
 };
